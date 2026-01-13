@@ -19,8 +19,40 @@
 }
 
 .checkbox-lbl-input {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  margin: 0 20px;
+  padding: 0 20px;
+  padding-bottom: 10px;
+  padding-top: 15px;
+  background-color: #eeeeee;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 7px #c1c1c1;
+}
+
+.checkbox-lbl-input:hover {
+  box-shadow: 0 0 0 #c1c1c1;
+}
+
+.checkbox-lbl {
+  cursor: pointer;
+}
+
+.checkbox-input {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.checkbox-lbl:hover {
+  color: royalblue;
+}
+
+.create-btn {
+  font-size: 1.0rem;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 10px 20px;
 }

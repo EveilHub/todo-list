@@ -10,10 +10,11 @@ const App: FC = () => {
 
   const [date, setDate] = useState<string>('');
   const [project, setProject] = useState<string>('');
+  const [liste, setListe] = useState<string>('');
   const [delay, setDelay] = useState<string>('');
   const [redraw, setRedraw] = useState<string>('');
   const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
 
   const [dayChoice, setDayChoice] = useState<daysOfWeek>({
@@ -74,6 +75,8 @@ const App: FC = () => {
         setDate={setDate}
         project={project}
         setProject={setProject}
+        liste={liste}
+        setListe={setListe}
         delay={delay}
         setDelay={setDelay}
         redraw={redraw}
