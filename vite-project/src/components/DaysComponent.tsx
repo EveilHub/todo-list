@@ -18,7 +18,6 @@ const DaysComponents = ({
     console.log("DaysComponent");
 
     return (
-      
         <div key={dayNum}>
           <h2>{day}</h2>
 
