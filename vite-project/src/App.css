@@ -7,6 +7,30 @@
   border: 10px solid yellow;
 }
 
+.creation-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.creation-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-creation {
+  font-size: 1.2rem;
+  margin-right: 10px;
+  padding: 10px 7px;
+}
+
 .main-btn {
+  font-size: 1.0rem;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-left: 20px;
   padding: 10px 20px;
 }

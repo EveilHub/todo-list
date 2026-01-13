@@ -28,8 +28,6 @@ h1 {
 }
 
 button {
-  width: 40px;
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,6 +40,7 @@ button {
 }
 button:hover {
   border-color: #646cff;
+  background-color: blue;
 }
 button:focus,
 button:focus-visible {

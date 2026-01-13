@@ -9,10 +9,9 @@ import "./DaysComponent.css";
 const DaysComponents = ({
   dayNum, day, 
   date, setDate, 
-  heure, setHeure, 
-  tache, setTache,
-  delais, setDelais, 
-  reconduite, setReconduite,
+  project, setProject,
+  delay, setDelay, 
+  redraw, setRedraw,
   name, setName, 
   phone, setPhone
 }: HollyType): JSX.Element => {
@@ -37,31 +36,19 @@ const DaysComponents = ({
             <InputComponent params={date} setParams={setDate} />
             <div>
               <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
               <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
 
         <div>
-          <h3>Heure</h3>
+          <h3>Projet</h3>
           <div className="input-button-container">
-            <InputComponent params={heure} setParams={setHeure} />
+            <InputComponent params={project} setParams={setProject} />
             <div>
               <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
-              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h3>Tâches</h3>
-          <div className="input-button-container">
-            <InputComponent params={tache} setParams={setTache} />
-            <div>
-              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
               <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
@@ -70,10 +57,10 @@ const DaysComponents = ({
         <div>
           <h3>Délais</h3>
           <div className="input-button-container">
-            <InputComponent params={delais} setParams={setDelais} />
+            <InputComponent params={delay} setParams={setDelay} />
             <div>
               <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
               <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
@@ -82,34 +69,46 @@ const DaysComponents = ({
         <div>
           <h3>Reconduite</h3>
           <div className="input-button-container">
-            <InputComponent params={reconduite} setParams={setReconduite} />
+            <InputComponent params={redraw} setParams={setRedraw} />
             <div>
               <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
               <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
 
         <div>
-          <h3>Nom du client</h3>
+          <h3>Client</h3>
           <div className="input-button-container">
             <InputComponent params={name} setParams={setName} />
             <div>
               <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
               <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
 
         <div>
-          <h3>Tél du client</h3>
+          <h3>E-mail</h3>
           <div className="input-button-container">
             <InputComponent params={phone} setParams={setPhone} />
             <div>
               <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Tél</h3>
+          <div className="input-button-container">
+            <InputComponent params={phone} setParams={setPhone} />
+            <div>
+              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
               <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
