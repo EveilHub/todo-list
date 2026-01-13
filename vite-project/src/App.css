@@ -5,7 +5,16 @@
   text-align: center;
 }
 
-.Input-container {
+.input-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid red;
+}
+
+.div-dayscomponents {
   display: flex;
   flex-direction: column;
   justify-content: start;

@@ -5,7 +5,7 @@ import type { Day } from './lib/definitions.ts';
 import './App.css'
 
 const App: FC = (): JSX.Element => {
-  
+
   const [newOne, setNewOne] = useState<string[]>([]);
 
   const [date, setDate] = useState<string>('');
@@ -59,47 +59,42 @@ const App: FC = (): JSX.Element => {
   };
 
   return (
-    <>
-      <div>
+    <div>
+      
+      <h1>{time}</h1>
 
-        <h1>Tâches</h1>
+      <div className='div-dayscomponents'>
 
-        <h2>{time}</h2>
-        <h4>{date}</h4>
-
-        <div className='Input-container'>
-
-          {days.map((item: {number: number, day: string}) => (
-            <DaysComponents
-              key={item.number}
-              dayNum={item.number}
-              day={item.day}
-              date={date}
-              setDate={setDate}
-              heure={heure}
-              setHeure={setHeure}
-              tache={tache}
-              setTache={setTache}
-              delais={delais}
-              setDelais={setDelais}
-              reconduite={reconduite}
-              setReconduite={setReconduite}
-              name={name}
-              setName={setName}
-              phone={phone}
-              setPhone={setPhone}
-            />
-          ))}
-
-        </div>
-
-        <h3>{newOne}</h3>
-
-        <button onClick={handleClick}>Add</button>
-        <button onClick={handleErase}>Erase</button>
+        {days.map((item: {number: number, day: string}) => (
+          <DaysComponents
+            key={item.number}
+            dayNum={item.number}
+            day={item.day}
+            date={date}
+            setDate={setDate}
+            heure={heure}
+            setHeure={setHeure}
+            tache={tache}
+            setTache={setTache}
+            delais={delais}
+            setDelais={setDelais}
+            reconduite={reconduite}
+            setReconduite={setReconduite}
+            name={name}
+            setName={setName}
+            phone={phone}
+            setPhone={setPhone}
+          />
+        ))}
 
       </div>
-    </>
+
+      <h3>{newOne}</h3>
+
+      <button id="btn-1" type="button" onClick={handleClick}>Add</button>
+      <button id="btn-2" type="button" onClick={handleErase}>Erase</button>
+
+    </div>
   )
 }
 
