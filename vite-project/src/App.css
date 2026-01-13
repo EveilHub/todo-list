@@ -1,0 +1,21 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.Input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+  border: 1px solid #000;
+}
+
+
+.Input-box {
+  display: flex;
+
+  border: 1px solid #000;
+}
