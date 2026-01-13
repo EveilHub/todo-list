@@ -17,7 +17,6 @@ const App: FC = (): JSX.Element => {
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
 
-
   // Pour réutiliser !!!
   const dateNow = new Date();
   const year = dateNow.getFullYear();
