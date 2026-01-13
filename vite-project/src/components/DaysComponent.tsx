@@ -5,8 +5,6 @@ import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
 
-
-
 const DaysComponents = ({
   dayNum,
   day,
@@ -22,97 +20,101 @@ const DaysComponents = ({
     //const [params, setParams] = useState<string>("");
     console.log("DaysComponent");
 
-    return (
-        <div id={String(dayNum)}>
+  const handleClick = (): void => {
+    console.log("clicked !");
+  };
 
-          <h2>{day}</h2>
+  return (
+    <div id={String(dayNum)}>
 
-          <div className='Input-box'>
+      <h2>{day}</h2>
+
+      <div className='Input-box'>
+        <div>
+          <h3>Date</h3>
+          <div className="input-button-container">
+            <InputComponent params={date} setParams={setDate} />
             <div>
-              <h3>Date</h3>
-              <div>
-                <InputComponent params={date} setParams={setDate} />
-                <div>
-                  <button><MdOutlineSaveAlt /></button>
-                  <button><MdDelete /></button>
-                  <button><BsPencilSquare /></button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3>Heure</h3>
-              <div>
-                <InputComponent params={heure} setParams={setHeure} />
-                <div>
-                  <button><MdOutlineSaveAlt /></button>
-                  <button><MdDelete /></button>
-                  <button><BsPencilSquare /></button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3>Tâches</h3>
-              <div>
-                <InputComponent params={tache} setParams={setTache} />
-                <div>
-                  <button><MdOutlineSaveAlt /></button>
-                  <button><MdDelete /></button>
-                  <button><BsPencilSquare /></button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3>Délais</h3>
-              <div>
-                <InputComponent params={delais} setParams={setDelais} />
-                <div>
-                  <button><MdOutlineSaveAlt /></button>
-                  <button><MdDelete /></button>
-                  <button><BsPencilSquare /></button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3>Reconduite</h3>
-              <div>
-                <InputComponent params={reconduite} setParams={setReconduite} />
-                <div>
-                  <button><MdOutlineSaveAlt /></button>
-                  <button><MdDelete /></button>
-                  <button><BsPencilSquare /></button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3>Nom du client</h3>
-              <div>
-                <InputComponent params={name} setParams={setName} />
-                <div>
-                  <button><MdOutlineSaveAlt /></button>
-                  <button><MdDelete /></button>
-                  <button><BsPencilSquare /></button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3>Tél du client</h3>
-              <div>
-                <InputComponent params={phone} setParams={setPhone} />
-                <div>
-                  <button><MdOutlineSaveAlt /></button>
-                  <button><MdDelete /></button>
-                  <button><BsPencilSquare /></button>
-                </div>
-              </div>
+              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
+              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
-    )
+
+        <div>
+          <h3>Heure</h3>
+          <div className="input-button-container">
+            <InputComponent params={heure} setParams={setHeure} />
+            <div>
+              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
+              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Tâches</h3>
+          <div className="input-button-container">
+            <InputComponent params={tache} setParams={setTache} />
+            <div>
+              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
+              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Délais</h3>
+          <div className="input-button-container">
+            <InputComponent params={delais} setParams={setDelais} />
+            <div>
+              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
+              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Reconduite</h3>
+          <div className="input-button-container">
+            <InputComponent params={reconduite} setParams={setReconduite} />
+            <div>
+              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
+              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Nom du client</h3>
+          <div className="input-button-container">
+            <InputComponent params={name} setParams={setName} />
+            <div>
+              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
+              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Tél du client</h3>
+          <div className="input-button-container">
+            <InputComponent params={phone} setParams={setPhone} />
+            <div>
+              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
+              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 };
 export default DaysComponents;
