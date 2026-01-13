@@ -1,5 +1,5 @@
 import { useEffect, useState, type FC } from 'react'
-import type { Day } from './lib/definitions.ts';
+import type { Day, daysOfWeek } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
 import DaysComponents from "./components/DaysComponent.tsx";
 import './App.css'
@@ -15,6 +15,14 @@ const App: FC = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>('');
+
+  const [dayChoice, setDayChoice] = useState<daysOfWeek>({
+    lundi: false,
+    mardi: false,
+    mercredi: false,
+    jeudi: false,
+    vendredi: false
+  });
 
   const [time, setTime] = useState<string>('');
 
@@ -58,6 +66,8 @@ const App: FC = () => {
       <h1>{time}</h1>
 
       <CreatorInputComp
+        dayChoice={dayChoice}
+        setDayChoice={setDayChoice}
         newOne={newOne}
         setNewOne={setNewOne}
         date={date}

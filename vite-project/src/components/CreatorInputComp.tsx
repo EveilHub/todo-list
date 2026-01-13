@@ -1,5 +1,6 @@
 import type { ChangeEvent, JSX } from "react";
-import type { CreatorType } from "../lib/definitions";
+import type { CreatorType, daysOfWeek } from "../lib/definitions";
+import "./CreatorInputComp.css";
 
 const CreatorInputComp = ({
     date, setDate,
@@ -9,7 +10,8 @@ const CreatorInputComp = ({
     name, setName,
     email, setEmail,
     phone, setPhone,
-    newOne, setNewOne
+    newOne, setNewOne,
+    dayChoice, setDayChoice
 }: CreatorType): JSX.Element => {
     
     const derivatedState: string = date;
@@ -47,6 +49,13 @@ const CreatorInputComp = ({
             setNewOne([...newOne, derivatedState]);
             setDate('');
         }
+    };
+
+    const handleCheckBox = (day: keyof daysOfWeek): void => {
+        setDayChoice(prevState => ({
+            ...prevState, 
+            [day]: !prevState[day] 
+        }));
     };
 
     return (
@@ -109,6 +118,35 @@ const CreatorInputComp = ({
                     className="input-creation" 
                     placeholder="Tél" 
                 />
+
+                <div className="checkbox-lbl-input">
+
+                    <label htmlFor="lundi">
+                        <input type="checkbox" id="lundi" checked={dayChoice.lundi} onChange={() => handleCheckBox("lundi")} />
+                        Lundi
+                    </label>
+
+                    <label htmlFor="mardi">
+                        <input type="checkbox" id="mardi" checked={dayChoice.mardi} onChange={() => handleCheckBox("mardi")} />
+                        Mardi
+                    </label>
+
+                    <label htmlFor="mercredi">
+                        <input type="checkbox" id="mercredi" checked={dayChoice.mercredi} onChange={() => handleCheckBox("mercredi")} />
+                        Mercredi
+                    </label>
+
+                    <label htmlFor="jeudi">
+                        <input type="checkbox" id="jeudi" checked={dayChoice.jeudi} onChange={() => handleCheckBox("jeudi")} />
+                        Jeudi
+                    </label>
+
+                    <label htmlFor="vendredi">
+                        <input type="checkbox" id="vendredi" checked={dayChoice.vendredi} onChange={() => handleCheckBox("vendredi")} />
+                        Vendredi
+                    </label>
+
+                </div>
 
             </div>
 

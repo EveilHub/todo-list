@@ -1,11 +1,21 @@
 import React, { type Dispatch } from "react";
 
+export type daysOfWeek = {
+    lundi: boolean;
+    mardi: boolean;
+    mercredi: boolean;
+    jeudi: boolean;
+    vendredi: boolean;
+};
+
 export type Day = {
     number: number;
     day: string;
 };
 
 export type CreatorType = {
+    dayChoice: daysOfWeek;
+    setDayChoice: Dispatch<React.SetStateAction<daysOfWeek>>;
     date: string;
     setDate: Dispatch<React.SetStateAction<string>>;
     project: string;
