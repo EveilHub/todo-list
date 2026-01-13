@@ -8,7 +8,6 @@ const App: FC = (): JSX.Element => {
   const [newOne, setNewOne] = useState<string[]>([]);
 
   const [date, setDate] = useState<string>('');
-  const [heure, setHeure] = useState<string>('');
   const [project, setProject] = useState<string>('');
   const [delay, setDelay] = useState<string>('');
   const [redraw, setRedraw] = useState<string>('');
@@ -21,12 +20,13 @@ const App: FC = (): JSX.Element => {
   useEffect(() => {
     const updateTime = (): void => {
       const pad = (n: number) => String(n).padStart(2, "0");
+
       const dateNow: Date = new Date();
-      const year = pad(dateNow.getFullYear());
-      const month = pad(dateNow.getMonth() + 1);
-      const dateDay = pad(dateNow.getDate());
-      const hour = pad(dateNow.getHours());
-      const min = pad(dateNow.getMinutes());
+      const year: string = pad(dateNow.getFullYear());
+      const month: string = pad(dateNow.getMonth() + 1);
+      const dateDay: string = pad(dateNow.getDate());
+      const hour: string = pad(dateNow.getHours());
+      const min: string = pad(dateNow.getMinutes());
 
       const todayDate = `${dateDay}/${month}/${year} ${hour}:${min}`;
       setTime(todayDate);
@@ -47,7 +47,6 @@ const App: FC = (): JSX.Element => {
   const derivatedState: string = date;
 
   const handleChangeDate = (e: ChangeEvent<HTMLInputElement>): void => {
-    //let value: string = e.target.value;
     setDate(e.target.value);
   };
 

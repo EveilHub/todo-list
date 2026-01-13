@@ -16,9 +16,6 @@ const DaysComponents = ({
   phone, setPhone
 }: HollyType): JSX.Element => {
 
-    //const [params, setParams] = useState<string>("");
-    console.log("DaysComponent");
-
   const handleClick = (): void => {
     console.log("clicked !");
   };
