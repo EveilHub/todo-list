@@ -1,10 +1,10 @@
-import { useEffect, useState, type FC } from 'react'
+import { useEffect, useState, type FC, type JSX } from 'react'
 import type { Day, daysOfWeek } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
 import DaysComponents from "./components/DaysComponent.tsx";
 import './App.css'
 
-const App: FC = () => {
+const App: FC = (): JSX.Element => {
 
   const [newOne, setNewOne] = useState<string[]>([]);
 
