@@ -12,7 +12,6 @@ const App: FC = () => {
   const [project, setProject] = useState<string>('');
   const [liste, setListe] = useState<string>('');
   const [delay, setDelay] = useState<string>('');
-  const [redraw, setRedraw] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
@@ -79,8 +78,6 @@ const App: FC = () => {
         setListe={setListe}
         delay={delay}
         setDelay={setDelay}
-        redraw={redraw}
-        setRedraw={setRedraw}
         name={name}
         setName={setName}
         email={email}
@@ -98,10 +95,10 @@ const App: FC = () => {
           setDate={setDate}
           project={project}
           setProject={setProject}
+          liste={liste}
+          setListe={setListe}
           delay={delay}
           setDelay={setDelay}
-          redraw={redraw}
-          setRedraw={setRedraw}
           name={name}
           setName={setName}
           email={email}

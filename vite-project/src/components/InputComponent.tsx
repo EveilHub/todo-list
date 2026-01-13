@@ -14,7 +14,7 @@ const InputComponent = ({params, setParams}: ParamsType): JSX.Element => {
             name="one" 
             value={params} 
             onChange={(e) => handleChange(e)}
-            placeholder="Entrer un truc"
+            placeholder="data display here"
         />
     )
 }

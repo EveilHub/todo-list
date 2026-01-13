@@ -24,8 +24,6 @@ export type CreatorType = {
     setListe: Dispatch<React.SetStateAction<string>>;
     delay: string;
     setDelay: Dispatch<React.SetStateAction<string>>;
-    redraw: string;
-    setRedraw: Dispatch<React.SetStateAction<string>>;
     name: string;
     setName: Dispatch<React.SetStateAction<string>>;
     email: string;
@@ -43,10 +41,10 @@ export type HollyType = {
     setDate: Dispatch<React.SetStateAction<string>>;
     project: string;
     setProject: Dispatch<React.SetStateAction<string>>;
+    liste: string;
+    setListe: Dispatch<React.SetStateAction<string>>;
     delay: string;
     setDelay: Dispatch<React.SetStateAction<string>>;
-    redraw: string;
-    setRedraw: Dispatch<React.SetStateAction<string>>;
     name: string;
     setName: Dispatch<React.SetStateAction<string>>;
     email: string;

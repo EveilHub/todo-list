@@ -23,6 +23,8 @@ body {
 
 h1 {
   font-size: 2.2em;
+  color: rgba(65, 105, 225, 0.5);
+  margin: auto;
 }
 
 label {

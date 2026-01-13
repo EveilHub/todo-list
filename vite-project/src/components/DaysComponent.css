@@ -1,33 +1,78 @@
-h3 {
-  margin: auto;
-
-  border: 1px solid #000;
+.main-div-daycomp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.input-box {
-  width: 100%;
+.div-day-daycomp {
+  width: 10%;
+}
+
+h3 {
+  margin: auto;
+  border-bottom: 1px solid rgba(65, 105, 225, 0.2);
+}
+
+h5 {
+  margin: auto;
+}
+
+.input-box-daycomp {
+  width: 80%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
   margin: auto;
+  margin-bottom: 20px;
+}
 
-  border: 1px solid #000;
+.daycomp-box {
+  width: 15%;
+  background-color: rgba(65, 105, 225, 0.1);
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
+}
+
+.daycomp-box-client {
+  width: 20%;
+  background-color: rgba(65, 105, 225, 0.1);
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
 }
 
 .input-button-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+}
 
-  border: 1px solid red;
+.input-button-client {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.btn-params {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .save-btn {
   width: 40px;
   height: 40px;
+  background-color: green;
+}
+
+.save-btn-client {
+  width: 30px;
+  height: 30px;
   background-color: green;
 }
 
@@ -44,9 +89,22 @@ h3 {
   height: 40px;
 }
 
+.modify-btn-client {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+}
+
 .delete-btn {
   width: 40px;
   height: 40px;
+  background-color: red;
+}
+
+.delete-btn-client {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
   background-color: red;
 }
 
@@ -56,4 +114,11 @@ h3 {
 
 .delete-btn:active {
   background-color: rgb(255, 70, 70);
+}
+
+.div-btndelete-project {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

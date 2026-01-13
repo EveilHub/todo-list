@@ -6,8 +6,7 @@ const CreatorInputComp = ({
     date, setDate,
     project, setProject,
     liste, setListe,
-    delay, setDelay, 
-    redraw, setRedraw,
+    delay, setDelay,
     name, setName,
     email, setEmail,
     phone, setPhone,
@@ -31,10 +30,6 @@ const CreatorInputComp = ({
 
     const handleChangeDelay = (e: ChangeEvent<HTMLInputElement>): void => {
         setDelay(e.target.value);
-    };
-
-    const handleChangeDeadLine = (e: ChangeEvent<HTMLInputElement>): void => {
-        setRedraw(e.target.value);
     };
 
     const handleChangeClient = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -98,14 +93,6 @@ const CreatorInputComp = ({
                     onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeDelay(e)} 
                     className="input-creation" 
                     placeholder="Délais" 
-                />
-
-                <input 
-                    type="text"
-                    value={redraw} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeDeadLine(e)} 
-                    className="input-creation" 
-                    placeholder="Reconduite" 
                 />
 
                 <input 
