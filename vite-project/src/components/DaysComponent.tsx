@@ -12,7 +12,8 @@ const DaysComponents = ({
   project, setProject,
   delay, setDelay, 
   redraw, setRedraw,
-  name, setName, 
+  name, setName,
+  email, setEmail,
   phone, setPhone
 }: HollyType): JSX.Element => {
 
@@ -90,7 +91,7 @@ const DaysComponents = ({
         <div>
           <h3>E-mail</h3>
           <div className="input-button-container">
-            <InputComponent params={phone} setParams={setPhone} />
+            <InputComponent params={email} setParams={setEmail} />
             <div>
               <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
               <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
