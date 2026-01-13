@@ -1,7 +1,6 @@
 import { useEffect, useState, type FC, type JSX } from 'react'
-import DaysComponents from "./components/DaysComponent.tsx";
-//import InputComponent from "./components/InputComponent.tsx";
 import type { Day } from './lib/definitions.ts';
+import DaysComponents from "./components/DaysComponent.tsx";
 import './App.css'
 
 const App: FC = (): JSX.Element => {
@@ -19,7 +18,7 @@ const App: FC = (): JSX.Element => {
   const [time, setTime] = useState<string>('');
 
   useEffect(() => {
-    const updateTime = () => {
+    const updateTime = (): void => {
       const pad = (n: number) => String(n).padStart(2, "0");
       const dateNow: Date = new Date();
       const year = pad(dateNow.getFullYear());
@@ -32,7 +31,7 @@ const App: FC = (): JSX.Element => {
       setTime(todayDate);
     };
     updateTime();
-    const intervalId = setInterval(updateTime, 60000);
+    const intervalId: number = setInterval(updateTime, 60000);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -44,7 +43,7 @@ const App: FC = (): JSX.Element => {
     { number: 5, day: "Vendredi" }
   ];
 
-  const derivatedState = date;
+  const derivatedState: string = date;
 
   const handleClick = (): void => {
     if (date) {
@@ -63,36 +62,32 @@ const App: FC = (): JSX.Element => {
       
       <h1>{time}</h1>
 
-      <div className='div-dayscomponents'>
-
-        {days.map((item: {number: number, day: string}) => (
-          <DaysComponents
-            key={item.number}
-            dayNum={item.number}
-            day={item.day}
-            date={date}
-            setDate={setDate}
-            heure={heure}
-            setHeure={setHeure}
-            tache={tache}
-            setTache={setTache}
-            delais={delais}
-            setDelais={setDelais}
-            reconduite={reconduite}
-            setReconduite={setReconduite}
-            name={name}
-            setName={setName}
-            phone={phone}
-            setPhone={setPhone}
-          />
-        ))}
-
-      </div>
+      {days.map((item: {number: number, day: string}) => (
+        <DaysComponents
+          key={item.number}
+          dayNum={item.number}
+          day={item.day}
+          date={date}
+          setDate={setDate}
+          heure={heure}
+          setHeure={setHeure}
+          tache={tache}
+          setTache={setTache}
+          delais={delais}
+          setDelais={setDelais}
+          reconduite={reconduite}
+          setReconduite={setReconduite}
+          name={name}
+          setName={setName}
+          phone={phone}
+          setPhone={setPhone}
+        />
+      ))}
 
       <h3>{newOne}</h3>
 
-      <button id="btn-1" type="button" onClick={handleClick}>Add</button>
-      <button id="btn-2" type="button" onClick={handleErase}>Erase</button>
+      <button id="btn-1" type="button" className="main-btn" onClick={handleClick}>Add</button>
+      <button id="btn-2" type="button" className="main-btn" onClick={handleErase}>Delete</button>
 
     </div>
   )

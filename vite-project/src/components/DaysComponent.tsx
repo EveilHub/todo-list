@@ -4,16 +4,16 @@ import InputComponent from "./InputComponent.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
+import "./DaysComponent.css";
 
 const DaysComponents = ({
-  dayNum,
-  day,
-  date, setDate,
-  heure, setHeure,
+  dayNum, day, 
+  date, setDate, 
+  heure, setHeure, 
   tache, setTache,
-  delais, setDelais,
+  delais, setDelais, 
   reconduite, setReconduite,
-  name, setName,
+  name, setName, 
   phone, setPhone
 }: HollyType): JSX.Element => {
 
@@ -29,15 +29,16 @@ const DaysComponents = ({
 
       <h2>{day}</h2>
 
-      <div className='Input-box'>
+      <div className='input-box'>
+        
         <div>
           <h3>Date</h3>
           <div className="input-button-container">
             <InputComponent params={date} setParams={setDate} />
             <div>
-              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
-              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
@@ -47,9 +48,9 @@ const DaysComponents = ({
           <div className="input-button-container">
             <InputComponent params={heure} setParams={setHeure} />
             <div>
-              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
-              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
@@ -59,9 +60,9 @@ const DaysComponents = ({
           <div className="input-button-container">
             <InputComponent params={tache} setParams={setTache} />
             <div>
-              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
-              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
@@ -71,9 +72,9 @@ const DaysComponents = ({
           <div className="input-button-container">
             <InputComponent params={delais} setParams={setDelais} />
             <div>
-              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
-              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
@@ -83,9 +84,9 @@ const DaysComponents = ({
           <div className="input-button-container">
             <InputComponent params={reconduite} setParams={setReconduite} />
             <div>
-              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
-              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
@@ -95,9 +96,9 @@ const DaysComponents = ({
           <div className="input-button-container">
             <InputComponent params={name} setParams={setName} />
             <div>
-              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
-              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
@@ -107,12 +108,13 @@ const DaysComponents = ({
           <div className="input-button-container">
             <InputComponent params={phone} setParams={setPhone} />
             <div>
-              <button type="button" onClick={handleClick}><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick}><BsPencilSquare size={22} /></button>
-              <button type="button" onClick={handleClick}><MdDelete size={20} /></button>
+              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={handleClick}><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   )
