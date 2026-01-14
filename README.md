@@ -22,4 +22,6 @@ pnpm run build
 
 - Optionnal Priorities 1=green 2=lightgreen 3=bluegrey
 
+- Textarea for liste
+
 - Functionnality
