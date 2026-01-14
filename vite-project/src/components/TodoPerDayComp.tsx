@@ -123,17 +123,22 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             {/* <InputComponent params={todo.date.toLocaleString()} /> */}
 
             {editBoolDate ? (
-                <input 
-                    ref={secondRef}
-                    value={editDate}
-                    onChange={(e) => setEditDate(e.target.value)}
-                    style={{fontSize: "1.1rem"}}
+              <input 
+                ref={secondRef}
+                value={editDate}
+                onChange={(e) => setEditDate(e.target.value)}
+                style={{fontSize: "1.1rem"}}
+              />
+              ) : todo.isDone === true ? (
+                <s>{todo.date.toLocaleString()}</s>
+              ) : (
+                <input
+                  value={todo.date.toLocaleString()}
+                  onChange={(e) => setEditDate(e.target.value)}
+                  style={{fontSize: "1.1rem"}}
                 />
-                ) : todo.isDone === true ? (
-                    <s>{todo.date.toLocaleString()}</s>
-                ) : (
-                    <span>{todo.date.toLocaleString()}</span>
-                )
+
+              )
             }
             <span onClick={() => {
                   if (!editBoolDate && !todo.isDone) {
@@ -158,17 +163,21 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             {/* <InputComponent params={todo.project} /> */}
 
             {editBoolProject ? (
+              <input 
+                ref={secondRef}
+                value={editProject}
+                onChange={(e) => setEditProject(e.target.value)}
+                style={{fontSize: "1.1rem"}}
+              />
+              ) : todo.isDone === true ? (
+                <s>{todo.project}</s>
+              ) : (
                 <input 
-                    ref={secondRef}
-                    value={editProject}
-                    onChange={(e) => setEditProject(e.target.value)}
-                    style={{fontSize: "1.1rem"}}
+                  value={todo.project}
+                  onChange={(e) => setEditProject(e.target.value)}
+                  style={{fontSize: "1.1rem"}}
                 />
-                ) : todo.isDone === true ? (
-                    <s>{todo.project}</s>
-                ) : (
-                    <span>{todo.project}</span>
-                )
+              )
             }
             <span onClick={() => {
                   if (!editBoolProject && !todo.isDone) {
@@ -176,6 +185,8 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                   }
                 }} className="edit--span"><BsPencilSquare size={18} />
             </span>
+
+
 
             <div>
               <button type="button" onClick={() => handleSaveProject(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
