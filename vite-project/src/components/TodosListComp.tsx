@@ -1,6 +1,6 @@
 import type { Dispatch, JSX } from "react";
 import type { Todo } from "../lib/definitions";
-import DaysComponents from "./DaysComponent";
+import TodoPerDayComp from "./TodoPerDayComp";
 
 type PropsType = {
     todos: Todo[];
@@ -11,7 +11,7 @@ const TodosListComp = ({todos, setTodos}: PropsType): JSX.Element => {
     return (
         <div className="todolist-div">
             {todos?.map((todo: Todo) => (
-                <DaysComponents
+                <TodoPerDayComp
                     key={String(todo.id)}
                     todo={todo}
                     todos={todos}

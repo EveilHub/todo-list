@@ -2,7 +2,6 @@ import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
 import type { daysOfWeek, Todo } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
 import TodosListComp from './components/TodosListComp.tsx';
-//import DaysComponents from "./components/DaysComponent.tsx";
 import './App.css'
 
   const iterator =  1;
@@ -127,23 +126,6 @@ const App: FC = (): JSX.Element => {
           />
 
           <TodosListComp todos={todos} setTodos={setTodos} />
-
-          {/* <DaysComponents
-            date={date}
-            setDate={setDate}
-            project={project}
-            setProject={setProject}
-            liste={liste}
-            setListe={setListe}
-            delay={delay}
-            setDelay={setDelay}
-            name={name}
-            setName={setName}
-            email={email}
-            setEmail={setEmail}
-            phone={phone}
-            setPhone={setPhone}
-          /> */}
 
         </div>
       ) : (

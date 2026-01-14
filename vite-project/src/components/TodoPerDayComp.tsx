@@ -7,7 +7,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import "./styles/DaysComponent.css";
 
 
-const DaysComponents = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
+const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   const [editBoolDate, setEditBoolDate] = useState<boolean>(false);
   const [editDate, setEditDate] = useState<string>(todo.date);
@@ -166,9 +166,9 @@ const DaysComponents = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
       </div>
       <div className="div-btndelete-project">
-        <button type="button" onClick={() => handleDelete(todo.id)} className="delete-btn"><MdDelete size={20} />Delete</button>
+        <button type="button" onClick={() => handleDelete(todo.id)} className="delete-btn"><MdDelete size={20} /></button>
       </div>
     </form>
   )
 };
-export default DaysComponents;
+export default TodoPerDayComp;
