@@ -1,5 +1,5 @@
-import type { ChangeEvent, JSX } from "react";
-import type { CreatorType, daysOfWeek } from "../lib/definitions";
+import type { ChangeEvent, FormEvent, JSX } from "react";
+import type { CreatorType } from "../lib/definitions";
 import "./CreatorInputComp.css";
 
 const CreatorInputComp = ({
@@ -11,38 +11,12 @@ const CreatorInputComp = ({
     email, setEmail,
     phone, setPhone,
     newOne, setNewOne,
-    dayChoice, setDayChoice
+    dayChoice,
+    handleCheckBox,
+    handleSubmit
 }: CreatorType): JSX.Element => {
     
     const derivatedState: string = date;
-
-    const handleChangeDate = (e: ChangeEvent<HTMLInputElement>): void => {
-        setDate(e.target.value);
-    };
-
-    const handleChangeProject = (e: ChangeEvent<HTMLInputElement>): void => {
-        setProject(e.target.value);
-    };
-
-    const handleChangeListe = (e: ChangeEvent<HTMLInputElement>): void => {
-        setListe(e.target.value);
-    };
-
-    const handleChangeDelay = (e: ChangeEvent<HTMLInputElement>): void => {
-        setDelay(e.target.value);
-    };
-
-    const handleChangeClient = (e: ChangeEvent<HTMLInputElement>): void => {
-        setName(e.target.value);
-    };
-
-    const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
-        setEmail(e.target.value);
-    };
-
-    const handleChangePhone = (e: ChangeEvent<HTMLInputElement>): void => {
-        setPhone(e.target.value);
-    };
 
     const handleCreate = (): void => {
         if (date) {
@@ -51,22 +25,15 @@ const CreatorInputComp = ({
         }
     };
 
-    const handleCheckBox = (day: keyof daysOfWeek): void => {
-        setDayChoice(prevState => ({
-            ...prevState, 
-            [day]: !prevState[day] 
-        }));
-    };
-
     return (
-        <div className='creation-container'>
+        <form onSubmit={(e: FormEvent) => handleSubmit(e)} className='creation-container'>
 
             <div className='creation-input-container'>
 
                 <input 
                     type="text"
                     value={date} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeDate(e)} 
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
                     className="input-creation" 
                     placeholder="Date" 
                 />
@@ -74,7 +41,7 @@ const CreatorInputComp = ({
                 <input 
                     type="text"
                     value={project} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeProject(e)} 
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setProject(e.target.value)} 
                     className="input-creation" 
                     placeholder="Projet" 
                 />
@@ -82,7 +49,7 @@ const CreatorInputComp = ({
                 <input 
                     type="text"
                     value={liste} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeListe(e)} 
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setListe(e.target.value)} 
                     className="input-creation" 
                     placeholder="Liste" 
                 />
@@ -90,7 +57,7 @@ const CreatorInputComp = ({
                 <input 
                     type="text"
                     value={delay} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeDelay(e)} 
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setDelay(e.target.value)} 
                     className="input-creation" 
                     placeholder="Délais" 
                 />
@@ -98,7 +65,7 @@ const CreatorInputComp = ({
                 <input 
                     type="text"
                     value={name} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeClient(e)} 
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)} 
                     className="input-creation" 
                     placeholder="Client" 
                 />
@@ -106,15 +73,15 @@ const CreatorInputComp = ({
                 <input 
                     type="email"
                     value={email} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangeEmail(e)} 
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} 
                     className="input-creation" 
                     placeholder="E-mail" 
                 />
 
                 <input 
-                    type="text"
+                    type="number"
                     value={phone} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => handleChangePhone(e)} 
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)} 
                     className="input-creation" 
                     placeholder="Tél" 
                 />
@@ -122,27 +89,57 @@ const CreatorInputComp = ({
                 <div className="checkbox-lbl-input">
 
                     <label htmlFor="lundi" className="checkbox-lbl">
-                        <input type="checkbox" id="lundi" checked={dayChoice.lundi} onChange={() => handleCheckBox("lundi")} className="checkbox-input" />
+                        <input 
+                            type="checkbox" 
+                            id="lundi" 
+                            checked={dayChoice.lundi} 
+                            onChange={() => handleCheckBox("lundi")} 
+                            className="checkbox-input" 
+                        />
                         Lundi
                     </label>
 
                     <label htmlFor="mardi" className="checkbox-lbl">
-                        <input type="checkbox" id="mardi" checked={dayChoice.mardi} onChange={() => handleCheckBox("mardi")} className="checkbox-input" />
+                        <input 
+                            type="checkbox" 
+                            id="mardi" 
+                            checked={dayChoice.mardi} 
+                            onChange={() => handleCheckBox("mardi")} 
+                            className="checkbox-input" 
+                        />
                         Mardi
                     </label>
 
                     <label htmlFor="mercredi" className="checkbox-lbl">
-                        <input type="checkbox" id="mercredi" checked={dayChoice.mercredi} onChange={() => handleCheckBox("mercredi")} className="checkbox-input" />
+                        <input 
+                            type="checkbox" 
+                            id="mercredi" 
+                            checked={dayChoice.mercredi} 
+                            onChange={() => handleCheckBox("mercredi")} 
+                            className="checkbox-input" 
+                        />
                         Mercredi
                     </label>
 
                     <label htmlFor="jeudi" className="checkbox-lbl">
-                        <input type="checkbox" id="jeudi" checked={dayChoice.jeudi} onChange={() => handleCheckBox("jeudi")} className="checkbox-input" />
+                        <input 
+                            type="checkbox" 
+                            id="jeudi" 
+                            checked={dayChoice.jeudi} 
+                            onChange={() => handleCheckBox("jeudi")} 
+                            className="checkbox-input" 
+                        />
                         Jeudi
                     </label>
 
                     <label htmlFor="vendredi" className="checkbox-lbl">
-                        <input type="checkbox" id="vendredi" checked={dayChoice.vendredi} onChange={() => handleCheckBox("vendredi")} className="checkbox-input" />
+                        <input 
+                            type="checkbox" 
+                            id="vendredi" 
+                            checked={dayChoice.vendredi} 
+                            onChange={() => handleCheckBox("vendredi")} 
+                            className="checkbox-input" 
+                        />
                         Vendredi
                     </label>
 
@@ -151,10 +148,10 @@ const CreatorInputComp = ({
             </div>
 
             <div className='creation-btn-div'>
-                <button id="btn-1" type="button" className="create-btn" onClick={handleCreate}>Create</button>
+                <button id="btn-1" type="submit" className="create-btn" onClick={handleCreate}>Create</button>
             </div>
 
-        </div>
+        </form>
     )
 }
 export default CreatorInputComp;

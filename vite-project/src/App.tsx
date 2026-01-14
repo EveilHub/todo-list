@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC, type JSX } from 'react'
+import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
 import type { Day, daysOfWeek } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
 import DaysComponents from "./components/DaysComponent.tsx";
@@ -60,6 +60,18 @@ const App: FC = (): JSX.Element => {
     setNewOne([]);
   };
 
+  const handleCheckBox = (day: keyof daysOfWeek): void => {
+    setDayChoice(prevState => ({
+      ...prevState, 
+      [day]: !prevState[day] 
+    }));
+  };
+
+  const handleSubmit = (e: FormEvent): void => {
+    e.preventDefault();
+
+  };
+
   return (
     <div>
       
@@ -84,6 +96,8 @@ const App: FC = (): JSX.Element => {
         setEmail={setEmail}
         phone={phone}
         setPhone={setPhone}
+        handleCheckBox={handleCheckBox}
+        handleSubmit={handleSubmit}
       />
 
       {days.map((item: {number: number, day: string}) => (

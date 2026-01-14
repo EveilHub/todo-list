@@ -32,6 +32,8 @@ export type CreatorType = {
     setPhone: Dispatch<React.SetStateAction<string>>;
     newOne: string[];
     setNewOne: Dispatch<React.SetStateAction<string[]>>;
+    handleCheckBox: (day: keyof daysOfWeek) => void;
+    handleSubmit : (e: React.FormEvent) => void;
 };
 
 export type HollyType = {
