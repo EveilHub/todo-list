@@ -1,7 +1,13 @@
 .main-div-daycomp {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  background-color: #4169e11a;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
 }
 
 .div-day-daycomp {
@@ -26,23 +32,33 @@ h5 {
   align-items: center;
   justify-content: space-between;
   margin: auto;
-  margin-bottom: 20px;
+
+  border: 10px solid cyan;
 }
 
 .daycomp-box {
-  width: 15%;
+  /* width: 15%; */
   background-color: rgba(65, 105, 225, 0.1);
   border: none;
   border-radius: 7px;
   box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
+
+  border: 10px solid orange;
+
+}
+
+.daycomp-textarea {
+  border: 10px solid orangered;
 }
 
 .daycomp-box-client {
-  width: 20%;
   background-color: rgba(65, 105, 225, 0.1);
   border: none;
   border-radius: 7px;
   box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
+  margin: auto;
+
+  border: 10px solid salmon;
 }
 
 .input-button-container {

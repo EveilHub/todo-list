@@ -104,9 +104,6 @@ const App: FC = (): JSX.Element => {
 
       {switcher === false ? (
         <div>
-
-          <h2>{dayChoice.lundi === true ? "lundi === true" : "lundi === false"}</h2>
-
           <CreatorInputComp
             date={date}
             setDate={setDate}
@@ -132,7 +129,7 @@ const App: FC = (): JSX.Element => {
 
         </div>
       ) : (
-        <h2>Autre page cachée !!!</h2>
+        <h2>Data from backup.json</h2>
       )}
     </div>
   )

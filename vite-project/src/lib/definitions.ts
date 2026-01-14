@@ -44,6 +44,8 @@ export type CreatorType = {
 
 export type PriorityType = {
     priority: string;
+    hidePriority: boolean;
+    setHidePriority: Dispatch<React.SetStateAction<boolean>>;
     handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 

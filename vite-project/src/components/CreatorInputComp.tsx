@@ -64,7 +64,7 @@ const CreatorInputComp = ({
                     value={email} 
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} 
                     className="input-creation" 
-                    placeholder="E-mail" 
+                    placeholder="example@mail.com" 
                 />
 
                 <input 
