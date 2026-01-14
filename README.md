@@ -16,12 +16,10 @@ pnpm run build
 
 ## Goals
 
-- Improve design per day
-
-- Create every tody by day
+- sort() per day
 
 - Optionnal Priorities 1=green 2=lightgreen 3=bluegrey
 
-- Textarea for liste
+- Improve design per day
 
-- Functionnality
+- Delete => Save in file.json + file.csv
