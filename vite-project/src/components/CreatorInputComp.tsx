@@ -1,6 +1,6 @@
 import type { ChangeEvent, FormEvent, JSX } from "react";
 import type { CreatorType } from "../lib/definitions";
-import "./CreatorInputComp.css";
+import "./styles/CreatorInputComp.css";
 
 const CreatorInputComp = ({
     date, setDate,

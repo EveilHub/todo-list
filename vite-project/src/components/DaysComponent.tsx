@@ -4,7 +4,7 @@ import InputComponent from "./InputComponent.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
-import "./DaysComponent.css";
+import "./styles/DaysComponent.css";
 
 
 const DaysComponents = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
