@@ -10,23 +10,12 @@ const CreatorInputComp = ({
     name, setName,
     email, setEmail,
     phone, setPhone,
-    newOne, setNewOne,
     dayChoice,
     handleCheckBox,
     handleSubmit
 }: CreatorType): JSX.Element => {
-    
-    const derivatedState: string = date;
-
-    const handleCreate = (): void => {
-        if (date) {
-            setNewOne([...newOne, derivatedState]);
-            setDate('');
-        }
-    };
-
     return (
-        <form onSubmit={(e: FormEvent) => handleSubmit(e)} className='creation-container'>
+        <form onSubmit={(e: FormEvent<HTMLFormElement>) => handleSubmit(e)} className='creation-container'>
 
             <div className='creation-input-container'>
 
@@ -83,7 +72,7 @@ const CreatorInputComp = ({
                     value={phone} 
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)} 
                     className="input-creation" 
-                    placeholder="Tél" 
+                    placeholder="Phone" 
                 />
 
                 <div className="checkbox-lbl-input">
@@ -148,7 +137,7 @@ const CreatorInputComp = ({
             </div>
 
             <div className='creation-btn-div'>
-                <button id="btn-1" type="submit" className="create-btn" onClick={handleCreate}>Create</button>
+                <button id="btn-1" type="submit" className="create-btn">Create</button>
             </div>
 
         </form>

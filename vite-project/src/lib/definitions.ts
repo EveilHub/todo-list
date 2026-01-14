@@ -2,7 +2,6 @@ import React, { type Dispatch } from "react";
 
 export type Todo = {
     id: number;
-	todo: string;
     date: string;
     project: string;
     liste: string;
@@ -10,7 +9,7 @@ export type Todo = {
     name: string;
     email: string;
     phone: string;
-    derivatedState: daysOfWeek;
+    dayChoice: daysOfWeek;
 	isDone: boolean;
 };
 
@@ -22,10 +21,10 @@ export type daysOfWeek = {
     vendredi: boolean;
 };
 
-export type Day = {
-    number: number;
-    day: string;
-};
+// export type Day = {
+//     number: number;
+//     day: string;
+// };
 
 export type CreatorType = {
     dayChoice: daysOfWeek;
@@ -44,32 +43,16 @@ export type CreatorType = {
     setEmail: Dispatch<React.SetStateAction<string>>;
     phone: string;
     setPhone: Dispatch<React.SetStateAction<string>>;
-    newOne: string[];
-    setNewOne: Dispatch<React.SetStateAction<string[]>>;
     handleCheckBox: (day: keyof daysOfWeek) => void;
-    handleSubmit : (e: React.FormEvent) => void;
+    handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-export type HollyType = {
-    dayNum: number;
-    day: string;
-    date: string;
-    setDate: Dispatch<React.SetStateAction<string>>;
-    project: string;
-    setProject: Dispatch<React.SetStateAction<string>>;
-    liste: string;
-    setListe: Dispatch<React.SetStateAction<string>>;
-    delay: string;
-    setDelay: Dispatch<React.SetStateAction<string>>;
-    name: string;
-    setName: Dispatch<React.SetStateAction<string>>;
-    email: string;
-    setEmail: Dispatch<React.SetStateAction<string>>;
-    phone: string;
-    setPhone: Dispatch<React.SetStateAction<string>>;
+export type PropsTodoType = {
+    todo: Todo;
+    todos: Todo[];
+    setTodos: Dispatch<React.SetStateAction<Todo[]>>;
 };
 
 export type ParamsType = {
     params: string;
-    setParams: Dispatch<React.SetStateAction<string>>;
 };

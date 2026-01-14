@@ -1,16 +1,13 @@
 import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
-import type { Day, daysOfWeek, Todo } from './lib/definitions.ts';
+import type { daysOfWeek, Todo } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
 import TodosListComp from './components/TodosListComp.tsx';
-import DaysComponents from "./components/DaysComponent.tsx";
+//import DaysComponents from "./components/DaysComponent.tsx";
 import './App.css'
 
+  const iterator =  1;
+
 const App: FC = (): JSX.Element => {
-
-  const [newOne, setNewOne] = useState<string[]>([]);
-
-  const [todo, setTodo] = useState<string>("");
-  const [todos, setTodos] = useState<Todo[]>([]);
 
   const [date, setDate] = useState<string>('');
   const [project, setProject] = useState<string>('');
@@ -19,9 +16,6 @@ const App: FC = (): JSX.Element => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
-
-  const [time, setTime] = useState<string>('');
-
   const [dayChoice, setDayChoice] = useState<daysOfWeek>({
     lundi: false,
     mardi: false,
@@ -30,7 +24,12 @@ const App: FC = (): JSX.Element => {
     vendredi: false
   });
 
-  const derivatedState: daysOfWeek = dayChoice;
+  // All in One
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const [time, setTime] = useState<string>('');
+
+  const [switcher, setSwitcher] = useState<boolean>(false);
 
   useEffect(() => {
     const updateTime = (): void => {
@@ -51,19 +50,13 @@ const App: FC = (): JSX.Element => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const days: Day[] = [
-    { number: 1, day: "Lundi" },
-    { number: 2, day: "Mardi" },
-    { number: 3, day: "Mercredi" },
-    { number: 4, day: "Jeudi" },
-    { number: 5, day: "Vendredi" }
-  ];
-
-
-  const handleErase = (): void => {
-    setDate("");
-    setNewOne([]);
-  };
+  // const days: Day[] = [
+  //   { number: 1, day: "Lundi" },
+  //   { number: 2, day: "Mardi" },
+  //   { number: 3, day: "Mercredi" },
+  //   { number: 4, day: "Jeudi" },
+  //   { number: 5, day: "Vendredi" }
+  // ];
 
   const handleCheckBox = (day: keyof daysOfWeek): void => {
     setDayChoice(prevState => ({
@@ -72,82 +65,90 @@ const App: FC = (): JSX.Element => {
     }));
   };
 
-  const iterator =  1;
+  const handleSwitch = () => {
+    setSwitcher(!switcher);
+  };
 
-  console.log("Day choose", derivatedState);
-
-  const handleSubmit = (e: FormEvent): void => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    if (todo) {
-      setTodos([...todos, {
-          id: iterator + 1, date: date, project: project, liste: liste, 
-          delay: delay, name: name, email: email, phone: phone, todo: todo, 
-          derivatedState: derivatedState, isDone: false
-        }]);
-      setTodo("");
+    if (date) {
+      setTodos((prev: Todo[]) => [...prev, {
+        id: iterator + 1, 
+        date, project, liste, 
+        delay, name, email, 
+        phone, dayChoice,
+        isDone: false
+      }]);
+      setDate("");
+      setProject("");
+      setListe("");
+      setDelay("");
+      setName("");
+      setEmail("");
+      setPhone("");
     }
   };
 
-  console.log("todos => ", todos.map((x) => x.id + " " + todo));
+  console.log("todos => ", todos.map((x) => x));
 
   return (
     <div>
       
       <h1>{time}</h1>
 
-      <h2>{derivatedState.lundi === true ? "ok" : "nothing"}</h2>
+      <div>
+        <button type="button" onClick={handleSwitch} className=''>Switch</button>
+      </div>
 
-      <CreatorInputComp
-        dayChoice={dayChoice}
-        setDayChoice={setDayChoice}
-        newOne={newOne}
-        setNewOne={setNewOne}
-        date={date}
-        setDate={setDate}
-        project={project}
-        setProject={setProject}
-        liste={liste}
-        setListe={setListe}
-        delay={delay}
-        setDelay={setDelay}
-        name={name}
-        setName={setName}
-        email={email}
-        setEmail={setEmail}
-        phone={phone}
-        setPhone={setPhone}
-        handleCheckBox={handleCheckBox}
-        handleSubmit={handleSubmit}
-      />
+      {switcher === false ? (
+        <div>
 
-      <TodosListComp todos={todos} setTodos={setTodos} />
+          <h2>{dayChoice.lundi === true ? "lundi === true" : "lundi === false"}</h2>
 
-      {days.map((item: {number: number, day: string}) => (
-        <DaysComponents
-          key={item.number}
-          dayNum={item.number}
-          day={item.day}
-          date={date}
-          setDate={setDate}
-          project={project}
-          setProject={setProject}
-          liste={liste}
-          setListe={setListe}
-          delay={delay}
-          setDelay={setDelay}
-          name={name}
-          setName={setName}
-          email={email}
-          setEmail={setEmail}
-          phone={phone}
-          setPhone={setPhone}
-        />
-      ))}
+          <CreatorInputComp
+            dayChoice={dayChoice}
+            setDayChoice={setDayChoice}
+            date={date}
+            setDate={setDate}
+            project={project}
+            setProject={setProject}
+            liste={liste}
+            setListe={setListe}
+            delay={delay}
+            setDelay={setDelay}
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            phone={phone}
+            setPhone={setPhone}
+            handleCheckBox={handleCheckBox}
+            handleSubmit={handleSubmit}
+          />
 
-      <h3>{newOne}</h3>
+          <TodosListComp todos={todos} setTodos={setTodos} />
 
-      <button id="btn-2" type="button" className="main-btn" onClick={handleErase}>Delete</button>
+          {/* <DaysComponents
+            date={date}
+            setDate={setDate}
+            project={project}
+            setProject={setProject}
+            liste={liste}
+            setListe={setListe}
+            delay={delay}
+            setDelay={setDelay}
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            phone={phone}
+            setPhone={setPhone}
+          /> */}
 
+        </div>
+      ) : (
+        <h2>Autre page cachée !!!</h2>
+      )}
     </div>
   )
 }

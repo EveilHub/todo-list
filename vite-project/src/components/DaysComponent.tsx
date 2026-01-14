@@ -1,44 +1,92 @@
-import { type JSX } from "react";
-import type { HollyType } from "../lib/definitions.ts";
+import { useEffect, useRef, useState, type JSX } from "react";
+import type { daysOfWeek, PropsTodoType } from "../lib/definitions.ts";
 import InputComponent from "./InputComponent.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
 import "./DaysComponent.css";
 
-const DaysComponents = ({
-  dayNum, day, 
-  date, setDate, 
-  project, setProject,
-  liste, setListe,
-  delay, setDelay,
-  name, setName,
-  email, setEmail,
-  phone, setPhone
-}: HollyType): JSX.Element => {
 
-  const handleClick = (): void => {
-    console.log("clicked !");
+const DaysComponents = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
+
+  const [editBoolDate, setEditBoolDate] = useState<boolean>(false);
+  const [editDate, setEditDate] = useState<string>(todo.date);
+
+  const secondRef = useRef<HTMLInputElement>(null);
+
+  const getDayLabel = (dayChoice: daysOfWeek): string => {
+    switch (true) {
+      case dayChoice.lundi:
+        return "Lundi";
+      case dayChoice.mardi:
+        return "Mardi";
+      case dayChoice.mercredi:
+        return "Mercredi";
+      case dayChoice.jeudi:
+        return "Jeudi";
+      case dayChoice.vendredi:
+        return "Vendredi";
+      default:
+        return "NO DAY";
+    }
+  };
+
+  useEffect((): void => {
+      secondRef.current?.focus();
+  }, [editBoolDate]);
+
+  const handleSave = (id: number): void => {
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDone: !todo.isDone } : todo))
+    setEditBoolDate(false);
+  };
+
+  const handleModify = (e: React.FormEvent, id: number): void => {
+    e.preventDefault();
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, todo: editDate } : todo))
+    setEditBoolDate(false);
+  };
+
+  const handleDelete = (id: number): void => {
+    setTodos(todos.filter((todo) => (todo.id !== id)));
+  };
+
+  const handleEdit = (e: React.FormEvent, id: number): void => {
+    e.preventDefault();
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, todo: editDate } : todo))
+    setEditBoolDate(false);
   };
 
   return (
-    <div id={String(dayNum)} className="main-div-daycomp">
+
+    <form id={String(todo.id)} onSubmit={(e) => handleEdit(e, todo.id)} className="main-div-daycomp">
 
       <div className="div-day-daycomp">
-        <h2>{day}</h2>
+        <h2>{getDayLabel(todo.dayChoice)}</h2>
       </div>
 
+      {editBoolDate ? (
+          <input 
+              ref={secondRef}
+              value={editDate}
+              onChange={(e) => setEditDate(e.target.value)}
+              style={{fontSize: "1.1rem"}}
+          />
+          ) : todo.isDone ? (
+              <s>{todo.date}</s>
+          ) : (
+              <span>{todo.date}</span>
+          )
+      }
+
       <div className='input-box-daycomp'>
-        
         
         <div className="daycomp-box">
           <h3>Date</h3>
           <div className="input-button-container">
-            <InputComponent params={date} setParams={setDate} />
+            <InputComponent params={todo.date} />
             <div>
-              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
-              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
+              <button type="button" onClick={() => handleSave(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
             </div>
           </div>
         </div>
@@ -46,11 +94,10 @@ const DaysComponents = ({
         <div className="daycomp-box">
           <h3>Projet</h3>
           <div className="input-button-container">
-            <InputComponent params={project} setParams={setProject} />
+            <InputComponent params={todo.project} />
             <div>
-              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
-              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
+              <button type="button" onClick={() => handleSave(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
             </div>
           </div>
         </div>
@@ -59,11 +106,10 @@ const DaysComponents = ({
         <div className="daycomp-box">
           <h3>Liste</h3>
           <div className="input-button-container">
-            <InputComponent params={liste} setParams={setListe} />
+            <InputComponent params={todo.liste} />
             <div>
-              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
-              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
+              <button type="button" onClick={() => handleSave(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
             </div>
           </div>
         </div>
@@ -71,11 +117,10 @@ const DaysComponents = ({
         <div className="daycomp-box">
           <h3>Délais</h3>
           <div className="input-button-container">
-            <InputComponent params={delay} setParams={setDelay} />
+            <InputComponent params={todo.delay} />
             <div>
-              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
-              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
+              <button type="button" onClick={() => handleSave(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
+              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
             </div>
           </div>
         </div>
@@ -85,11 +130,10 @@ const DaysComponents = ({
         <div className="daycomp-box-client">
           <h3>Client</h3>
           <div className="input-button-client">
-            <InputComponent params={name} setParams={setName} />
+            <InputComponent params={todo.name} />
             <div className="btn-params">
-              <button type="button" onClick={handleClick} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
-              <button type="button" onClick={handleClick} className="modify-btn-client"><BsPencilSquare size={14} /></button>
-              <button type="button" onClick={handleClick} className="delete-btn-client"><MdDelete size={16} /></button>
+              <button type="button" onClick={() => handleSave(todo.id)} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
+              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
             </div>
           </div>
 
@@ -97,11 +141,11 @@ const DaysComponents = ({
 
             <h5>E-mail</h5>
             <div className="input-button-client">
-              <InputComponent params={email} setParams={setEmail} />
+              <InputComponent params={todo.email} />
               <div className="btn-params">
-                <button type="button" onClick={handleClick} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
-                <button type="button" onClick={handleClick} className="modify-btn-client"><BsPencilSquare size={14} /></button>
-                <button type="button" onClick={handleClick} className="delete-btn-client"><MdDelete size={16} /></button>
+                <button type="button" onClick={() => handleSave(todo.id)} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
+                <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
+
               </div>
             </div>
           </div>
@@ -109,11 +153,11 @@ const DaysComponents = ({
           <div>
             <h5>Tél</h5>
             <div className="input-button-client">
-              <InputComponent params={phone} setParams={setPhone} />
+              <InputComponent params={todo.phone} />
               <div className="btn-params">
-                <button type="button" onClick={handleClick} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
-                <button type="button" onClick={handleClick} className="modify-btn-client"><BsPencilSquare size={14} /></button>
-                <button type="button" onClick={handleClick} className="delete-btn-client"><MdDelete size={16} /></button>
+                <button type="button" onClick={() => handleSave(todo.id)} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
+                <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
+
               </div>
             </div>
           </div>
@@ -122,9 +166,9 @@ const DaysComponents = ({
 
       </div>
       <div className="div-btndelete-project">
-        <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
+        <button type="button" onClick={() => handleDelete(todo.id)} className="delete-btn"><MdDelete size={20} />Delete</button>
       </div>
-    </div>
+    </form>
   )
 };
 export default DaysComponents;
