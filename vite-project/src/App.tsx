@@ -74,7 +74,7 @@ const App: FC = (): JSX.Element => {
     e.preventDefault();
     if (date) {
       setTodos((prev: Todo[]) => [...prev, {
-        id: iterator++, 
+        id: iterator++,
         date, project, liste, 
         delay, name, email, 
         phone, dayChoice,
@@ -108,8 +108,6 @@ const App: FC = (): JSX.Element => {
           <h2>{dayChoice.lundi === true ? "lundi === true" : "lundi === false"}</h2>
 
           <CreatorInputComp
-            dayChoice={dayChoice}
-            setDayChoice={setDayChoice}
             date={date}
             setDate={setDate}
             project={project}
@@ -124,6 +122,8 @@ const App: FC = (): JSX.Element => {
             setEmail={setEmail}
             phone={phone}
             setPhone={setPhone}
+            dayChoice={dayChoice}
+            setDayChoice={setDayChoice}
             handleCheckBox={handleCheckBox}
             handleSubmit={handleSubmit}
           />

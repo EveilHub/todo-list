@@ -1,4 +1,4 @@
-import React, { type Dispatch } from "react";
+import React, { type ChangeEvent, type Dispatch } from "react";
 
 export type Todo = {
     id: number;
@@ -22,8 +22,6 @@ export type daysOfWeek = {
 };
 
 export type CreatorType = {
-    dayChoice: daysOfWeek;
-    setDayChoice: Dispatch<React.SetStateAction<daysOfWeek>>;
     date: Date;
     setDate: Dispatch<React.SetStateAction<Date>>;
     project: string;
@@ -38,8 +36,15 @@ export type CreatorType = {
     setEmail: Dispatch<React.SetStateAction<string>>;
     phone: string;
     setPhone: Dispatch<React.SetStateAction<string>>;
+    dayChoice: daysOfWeek;
+    setDayChoice: Dispatch<React.SetStateAction<daysOfWeek>>;
     handleCheckBox: (day: keyof daysOfWeek) => void;
     handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
+};
+
+export type PriorityType = {
+    priority: string;
+    handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export type PropsTodoType = {

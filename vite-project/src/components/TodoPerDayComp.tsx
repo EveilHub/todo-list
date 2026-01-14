@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState, type JSX } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type JSX } from "react";
 import type { daysOfWeek, PropsTodoType } from "../lib/definitions.ts";
+import PriorityComp from "./PriorityComp.tsx";
 import InputComponent from "./InputComponent.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
@@ -10,6 +11,8 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
   const [editBoolDate, setEditBoolDate] = useState<boolean>(false);
   const [editDate, setEditDate] = useState<string>(todo.date.toLocaleString());
+
+  const [priority, setPriority] = useState<string>("");
 
   const secondRef = useRef<HTMLInputElement>(null);
 
@@ -49,13 +52,21 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     setTodos(todos.filter((todo) => (todo.id !== id)));
   };
 
+  const handleChangePriority = (e: ChangeEvent<HTMLSelectElement>) => {
+    setPriority(e.target.value);
+  };
+
   return (
 
     <form id={String(todo.id)} onSubmit={(e) => handleEdit(e, todo.id)} className="main-div-daycomp">
+      
+      <h3>{priority}</h3>
 
       <div className="div-day-daycomp">
         <h2>{getDayLabel(todo.dayChoice)}</h2>
       </div>
+
+      <PriorityComp priority={priority} handleChangePriority={handleChangePriority} />
 
       {editBoolDate ? (
           <input 
