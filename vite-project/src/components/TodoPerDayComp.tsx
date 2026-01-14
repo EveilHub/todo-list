@@ -4,13 +4,12 @@ import InputComponent from "./InputComponent.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
-import "./styles/DaysComponent.css";
-
+import "./styles/TodoPerDayComp.css";
 
 const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   const [editBoolDate, setEditBoolDate] = useState<boolean>(false);
-  const [editDate, setEditDate] = useState<string>(todo.date);
+  const [editDate, setEditDate] = useState<string>(todo.date.toLocaleString());
 
   const secondRef = useRef<HTMLInputElement>(null);
 
@@ -40,20 +39,14 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     setEditBoolDate(false);
   };
 
-  const handleModify = (e: React.FormEvent, id: number): void => {
+  const handleEdit = (e: React.FormEvent, id: number): void => {
     e.preventDefault();
     setTodos(todos.map(todo => todo.id === id ? { ...todo, todo: editDate } : todo))
-    setEditBoolDate(false);
+    setEditBoolDate(true);
   };
 
   const handleDelete = (id: number): void => {
     setTodos(todos.filter((todo) => (todo.id !== id)));
-  };
-
-  const handleEdit = (e: React.FormEvent, id: number): void => {
-    e.preventDefault();
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, todo: editDate } : todo))
-    setEditBoolDate(false);
   };
 
   return (
@@ -72,21 +65,27 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
               style={{fontSize: "1.1rem"}}
           />
           ) : todo.isDone ? (
-              <s>{todo.date}</s>
+              <s>{todo.date.toLocaleString()}</s>
           ) : (
-              <span>{todo.date}</span>
+              <span>{todo.date.toLocaleString()}</span>
           )
       }
+      <span onClick={() => {
+            if (!editBoolDate && !todo.isDone) {
+              setEditBoolDate(!editBoolDate)
+            }
+          }} className="edit--span">Edit
+      </span>
 
       <div className='input-box-daycomp'>
         
         <div className="daycomp-box">
           <h3>Date</h3>
           <div className="input-button-container">
-            <InputComponent params={todo.date} />
+            <InputComponent params={todo.date.toLocaleString()} />
             <div>
               <button type="button" onClick={() => handleSave(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={(e) => handleEdit(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
             </div>
           </div>
         </div>
@@ -97,7 +96,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             <InputComponent params={todo.project} />
             <div>
               <button type="button" onClick={() => handleSave(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={(e) => handleEdit(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
             </div>
           </div>
         </div>
@@ -106,10 +105,14 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
         <div className="daycomp-box">
           <h3>Liste</h3>
           <div className="input-button-container">
-            <InputComponent params={todo.liste} />
+            {/* <InputComponent params={todo.liste} /> */}
+            
+            <textarea name="liste" id="liste" rows={4} cols={50} value={todo.liste} readOnly>
+            </textarea>
+
             <div>
               <button type="button" onClick={() => handleSave(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={(e) => handleEdit(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
             </div>
           </div>
         </div>
@@ -120,7 +123,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             <InputComponent params={todo.delay} />
             <div>
               <button type="button" onClick={() => handleSave(todo.id)} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
+              <button type="button" onClick={(e) => handleEdit(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button>
             </div>
           </div>
         </div>
@@ -133,7 +136,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             <InputComponent params={todo.name} />
             <div className="btn-params">
               <button type="button" onClick={() => handleSave(todo.id)} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
-              <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
+              <button type="button" onClick={(e) => handleEdit(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
             </div>
           </div>
 
@@ -144,7 +147,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
               <InputComponent params={todo.email} />
               <div className="btn-params">
                 <button type="button" onClick={() => handleSave(todo.id)} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
-                <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
+                <button type="button" onClick={(e) => handleEdit(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
 
               </div>
             </div>
@@ -156,7 +159,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
               <InputComponent params={todo.phone} />
               <div className="btn-params">
                 <button type="button" onClick={() => handleSave(todo.id)} className="save-btn-client"><MdOutlineSaveAlt size={18} /></button>
-                <button type="button" onClick={(e) => handleModify(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
+                <button type="button" onClick={(e) => handleEdit(e, todo.id)} className="modify-btn-client"><BsPencilSquare size={14} /></button>
 
               </div>
             </div>

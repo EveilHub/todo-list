@@ -2,7 +2,7 @@ import React, { type Dispatch } from "react";
 
 export type Todo = {
     id: number;
-    date: string;
+    date: Date;
     project: string;
     liste: string;
     delay: string;
@@ -21,16 +21,11 @@ export type daysOfWeek = {
     vendredi: boolean;
 };
 
-// export type Day = {
-//     number: number;
-//     day: string;
-// };
-
 export type CreatorType = {
     dayChoice: daysOfWeek;
     setDayChoice: Dispatch<React.SetStateAction<daysOfWeek>>;
-    date: string;
-    setDate: Dispatch<React.SetStateAction<string>>;
+    date: Date;
+    setDate: Dispatch<React.SetStateAction<Date>>;
     project: string;
     setProject: Dispatch<React.SetStateAction<string>>;
     liste: string;

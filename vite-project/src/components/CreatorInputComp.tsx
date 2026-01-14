@@ -3,7 +3,7 @@ import type { CreatorType } from "../lib/definitions";
 import "./styles/CreatorInputComp.css";
 
 const CreatorInputComp = ({
-    date, setDate,
+    date,
     project, setProject,
     liste, setListe,
     delay, setDelay,
@@ -21,8 +21,8 @@ const CreatorInputComp = ({
 
                 <input 
                     type="text"
-                    value={date} 
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
+                    value={date.toLocaleString()} 
+                    readOnly
                     className="input-creation" 
                     placeholder="Date" 
                 />
@@ -137,7 +137,7 @@ const CreatorInputComp = ({
             </div>
 
             <div className='creation-btn-div'>
-                <button id="btn-1" type="submit" className="create-btn">Create</button>
+                <button id="btn-1" type="submit" className="custom-btn">Create</button>
             </div>
 
         </form>

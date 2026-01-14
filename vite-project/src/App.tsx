@@ -4,11 +4,11 @@ import CreatorInputComp from './components/CreatorInputComp.tsx';
 import TodosListComp from './components/TodosListComp.tsx';
 import './App.css'
 
-  const iterator =  1;
+let iterator: number = 0;
 
 const App: FC = (): JSX.Element => {
 
-  const [date, setDate] = useState<string>('');
+  const [date, setDate] = useState<Date>(new Date());
   const [project, setProject] = useState<string>('');
   const [liste, setListe] = useState<string>('');
   const [delay, setDelay] = useState<string>('');
@@ -49,13 +49,15 @@ const App: FC = (): JSX.Element => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // const days: Day[] = [
-  //   { number: 1, day: "Lundi" },
-  //   { number: 2, day: "Mardi" },
-  //   { number: 3, day: "Mercredi" },
-  //   { number: 4, day: "Jeudi" },
-  //   { number: 5, day: "Vendredi" }
-  // ];
+  const resetDayChoices = (): void => {
+    setDayChoice({
+      lundi: false,
+      mardi: false,
+      mercredi: false,
+      jeudi: false,
+      vendredi: false
+    });
+  };
 
   const handleCheckBox = (day: keyof daysOfWeek): void => {
     setDayChoice(prevState => ({
@@ -72,19 +74,20 @@ const App: FC = (): JSX.Element => {
     e.preventDefault();
     if (date) {
       setTodos((prev: Todo[]) => [...prev, {
-        id: iterator + 1, 
+        id: iterator++, 
         date, project, liste, 
         delay, name, email, 
         phone, dayChoice,
         isDone: false
       }]);
-      setDate("");
+      setDate(new Date);
       setProject("");
       setListe("");
       setDelay("");
       setName("");
       setEmail("");
       setPhone("");
+      resetDayChoices();
     }
   };
 
@@ -96,7 +99,7 @@ const App: FC = (): JSX.Element => {
       <h1>{time}</h1>
 
       <div>
-        <button type="button" onClick={handleSwitch} className=''>Switch</button>
+        <button type="button" onClick={handleSwitch} className='custom-btn'>Switch</button>
       </div>
 
       {switcher === false ? (

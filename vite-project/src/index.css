@@ -53,6 +53,13 @@ button:active {
   background-color: skyblue;
 }
 
+.custom-btn {
+  font-size: 1.0rem;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

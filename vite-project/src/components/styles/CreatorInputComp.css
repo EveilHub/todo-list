@@ -49,10 +49,3 @@
 .checkbox-lbl:hover {
   color: royalblue;
 }
-
-.create-btn {
-  font-size: 1.0rem;
-  font-weight: bold;
-  border-radius: 8px;
-  padding: 10px 20px;
-}
