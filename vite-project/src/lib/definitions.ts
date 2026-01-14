@@ -1,5 +1,19 @@
 import React, { type Dispatch } from "react";
 
+export type Todo = {
+    id: number;
+	todo: string;
+    date: string;
+    project: string;
+    liste: string;
+    delay: string;
+    name: string;
+    email: string;
+    phone: string;
+    derivatedState: daysOfWeek;
+	isDone: boolean;
+};
+
 export type daysOfWeek = {
     lundi: boolean;
     mardi: boolean;

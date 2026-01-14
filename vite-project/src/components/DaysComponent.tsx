@@ -120,30 +120,6 @@ const DaysComponents = ({
 
         </div>
 
-        {/* <div>
-          <h3>E-mail</h3>
-          <div className="input-button-container">
-            <InputComponent params={email} setParams={setEmail} />
-            <div>
-              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
-              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h3>Tél</h3>
-          <div className="input-button-container">
-            <InputComponent params={phone} setParams={setPhone} />
-            <div>
-              <button type="button" onClick={handleClick} className="save-btn"><MdOutlineSaveAlt size={22} /></button>
-              <button type="button" onClick={handleClick} className="modify-btn"><BsPencilSquare size={18} /></button>
-              <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>
-            </div>
-          </div>
-        </div> */}
-
       </div>
       <div className="div-btndelete-project">
         <button type="button" onClick={handleClick} className="delete-btn"><MdDelete size={20} /></button>

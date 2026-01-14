@@ -1,12 +1,16 @@
 import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
-import type { Day, daysOfWeek } from './lib/definitions.ts';
+import type { Day, daysOfWeek, Todo } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
+import TodosListComp from './components/TodosListComp.tsx';
 import DaysComponents from "./components/DaysComponent.tsx";
 import './App.css'
 
 const App: FC = (): JSX.Element => {
 
   const [newOne, setNewOne] = useState<string[]>([]);
+
+  const [todo, setTodo] = useState<string>("");
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   const [date, setDate] = useState<string>('');
   const [project, setProject] = useState<string>('');
@@ -16,6 +20,8 @@ const App: FC = (): JSX.Element => {
   const [email, setEmail] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
 
+  const [time, setTime] = useState<string>('');
+
   const [dayChoice, setDayChoice] = useState<daysOfWeek>({
     lundi: false,
     mardi: false,
@@ -24,8 +30,7 @@ const App: FC = (): JSX.Element => {
     vendredi: false
   });
 
-  const [time, setTime] = useState<string>('');
-
+  const derivatedState: daysOfWeek = dayChoice;
 
   useEffect(() => {
     const updateTime = (): void => {
@@ -67,15 +72,30 @@ const App: FC = (): JSX.Element => {
     }));
   };
 
+  const iterator =  1;
+
+  console.log("Day choose", derivatedState);
+
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-
+    if (todo) {
+      setTodos([...todos, {
+          id: iterator + 1, date: date, project: project, liste: liste, 
+          delay: delay, name: name, email: email, phone: phone, todo: todo, 
+          derivatedState: derivatedState, isDone: false
+        }]);
+      setTodo("");
+    }
   };
+
+  console.log("todos => ", todos.map((x) => x.id + " " + todo));
 
   return (
     <div>
       
       <h1>{time}</h1>
+
+      <h2>{derivatedState.lundi === true ? "ok" : "nothing"}</h2>
 
       <CreatorInputComp
         dayChoice={dayChoice}
@@ -99,6 +119,8 @@ const App: FC = (): JSX.Element => {
         handleCheckBox={handleCheckBox}
         handleSubmit={handleSubmit}
       />
+
+      <TodosListComp todos={todos} setTodos={setTodos} />
 
       {days.map((item: {number: number, day: string}) => (
         <DaysComponents
