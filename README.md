@@ -16,10 +16,8 @@ pnpm run build
 
 ## Goals
 
-- sort() per day
-
-- Optionnal Priorities 1=green 2=lightgreen 3=bluegrey
-
-- Improve design per day
+- sort() per day & per priority
 
 - Delete => Save in file.json + file.csv
+
+- refactorisation
