@@ -18,13 +18,18 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
   const [editBoolProject, setEditBoolProject] = useState<boolean>(false);
   const [editProject, setEditProject] = useState<string>("");
 
-  //const [bgColor, setBgColor] = useState('#4169e11a'); // Couleur par défaut
+  const [bgColor, setBgColor] = useState('#4169e11a');
 
+  const firstRef = useRef<HTMLInputElement>(null);
   const secondRef = useRef<HTMLInputElement>(null);
   
   useEffect((): void => {
-      secondRef.current?.focus();
+    if (editBoolDate) firstRef.current?.focus();
   }, [editBoolDate]);
+
+  useEffect((): void => {
+    if (editBoolProject) secondRef.current?.focus();
+  }, [editBoolProject]);
 
   const getDayLabel = (dayChoice: daysOfWeek): string => {
     switch (true) {
@@ -43,28 +48,30 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     }
   };
 
-  // const changeColor = (priority: string) => {
-  //   switch (priority) {
-  //     case 'option1':
-  //       setBgColor('#00bf56'); // green
-  //         break;
-  //     case 'option2':
-  //       setBgColor('#6bfc6b'); // Vert
-  //         break;
-  //     case 'option3':
-  //       setBgColor('#4169e11a'); // Bleu
-  //         break;
-  //     default:
-  //       setBgColor('#4169e11a'); // Bleu
-  //   }
-  // };
-
-  const handleChangePriority = (e: ChangeEvent<HTMLSelectElement>) => {
-    setPriority(e.target.value);
-    //changeColor(priority);
-    setHidePriority(!hidePriority);
+  const changeColor = (priority: string): void => {
+    switch (priority) {
+      case 'option1':
+        setBgColor('#00bf56'); // green
+          break;
+      case 'option2':
+        setBgColor('#6bfc6b'); // Vert
+          break;
+      case 'option3':
+        setBgColor('#4169e11a'); // Bleu
+          break;
+      default:
+        setBgColor('#4169e11a'); // Bleu
+    }
   };
 
+  useEffect(() => {
+    changeColor(priority);
+  }, [priority]);
+
+  const handleChangePriority = (e: ChangeEvent<HTMLSelectElement>): void => {
+    setPriority(e.target.value);
+    setHidePriority(!hidePriority);
+  };
 
   const handleSave = (id: number): void => {
     setTodos(todos.map(todo => todo.id === id ? { ...todo, isDone: !todo.isDone } : todo))
@@ -77,10 +84,9 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     setEditBoolDate(true);
   };
 
-
   // project
   const handleSaveProject = (id: number): void => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDone: !todo.isDone } : todo))
+    setTodos(todos.map(todo => todo.id === id ? { ...todo, todo: todo.project, isDone: !todo.isDone } : todo))
     setEditBoolProject(false);
   };
 
@@ -89,7 +95,6 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     setTodos(todos.map(todo => todo.id === id ? { ...todo, todo: todo.project } : todo))
     setEditBoolProject(true);
   };
-
 
   const handleDelete = (id: number): void => {
     setTodos(todos.filter((todo) => (todo.id !== id)));
@@ -101,7 +106,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
       id={String(todo.id)} 
       onSubmit={(e) => handleEdit(e, todo.id)} 
       className="main-div-daycomp" 
-      style={{ backgroundColor: "#4169e11a" }}
+      style={{ backgroundColor: bgColor }}
     >
 
       <div className="div-day-daycomp">
@@ -124,7 +129,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
             {editBoolDate ? (
               <input 
-                ref={secondRef}
+                ref={firstRef}
                 value={editDate}
                 onChange={(e) => setEditDate(e.target.value)}
                 style={{fontSize: "1.1rem"}}
@@ -132,11 +137,9 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
               ) : todo.isDone === true ? (
                 <s>{todo.date.toLocaleString()}</s>
               ) : (
-                <input
-                  value={todo.date.toLocaleString()}
-                  onChange={(e) => setEditDate(e.target.value)}
-                  style={{fontSize: "1.1rem"}}
-                />
+                <span>
+                  {todo.date.toLocaleString()}
+                </span>
 
               )
             }
@@ -172,11 +175,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
               ) : todo.isDone === true ? (
                 <s>{todo.project}</s>
               ) : (
-                <input 
-                  value={todo.project}
-                  onChange={(e) => setEditProject(e.target.value)}
-                  style={{fontSize: "1.1rem"}}
-                />
+                <span>{todo.project}</span>
               )
             }
             <span onClick={() => {

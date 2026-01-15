@@ -3,8 +3,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
-  background-color: #4169e11a;
   border: none;
   border-radius: 7px;
   box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
