@@ -79,7 +79,12 @@ const App: FC = (): JSX.Element => {
         delay, name, email, 
         phone, dayChoice,
         isDoneDate: false, 
-        isDoneProject: false
+        isDoneProject: false,
+        isDoneListe: false,
+        isDoneDelay: false,
+        isDoneClient: false,
+        isDoneMail: false,
+        isDonePhone: false
       }]);
       setDate(new Date);
       setProject("");

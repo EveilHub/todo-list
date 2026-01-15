@@ -12,6 +12,11 @@ export type Todo = {
     dayChoice: daysOfWeek;
 	isDoneDate: boolean;
 	isDoneProject: boolean;
+    isDoneListe: boolean;
+    isDoneDelay: boolean;
+    isDoneClient: boolean;
+    isDoneMail: boolean;
+    isDonePhone: boolean;
 };
 
 export type daysOfWeek = {
