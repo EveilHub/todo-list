@@ -16,7 +16,7 @@ const PriorityComp = ({priority, hidePriority, setHidePriority, handleChangePrio
             ) : (
                 <button 
                     type="button" 
-                    onClick={() => setHidePriority(!hidePriority)} 
+                    onClick={(): void => setHidePriority(!hidePriority)} 
                     className="custom-btn"
                 >
                     Priorité

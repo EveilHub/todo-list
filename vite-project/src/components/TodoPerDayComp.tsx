@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type ChangeEvent, type JSX } from "react";
 import type { daysOfWeek, PropsTodoType, Todo } from "../lib/definitions.ts";
 import PriorityComp from "./PriorityComp.tsx";
-// import InputComponent from "./InputComponent.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
@@ -9,7 +8,6 @@ import { GiCrossedSabres } from "react-icons/gi";
 import "./styles/TodoPerDayComp.css";
 
 const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
-
 
   // boolean + string change
   const [editBoolDate, setEditBoolDate] = useState<boolean>(false);
@@ -33,18 +31,15 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
   const [editBoolPhone, setEditBoolPhone] = useState<boolean>(false);
   const [editPhone, setEditPhone] = useState<string>(todo.phone);
 
-
   // To change color by priority
   const [hidePriority, setHidePriority] = useState<boolean>(true);
   const [priority, setPriority] = useState<string>("option3");
   const [bgColor, setBgColor] = useState('#4169e11a');
 
-
   // Ref with id
   const firstRef = useRef<HTMLInputElement>(null);
   const secondRef = useRef<HTMLInputElement>(null);
   const refListe = useRef<HTMLTextAreaElement>(null);
-
   const refDelay = useRef<HTMLInputElement>(null);
   const refClient = useRef<HTMLInputElement>(null);
   const refMail = useRef<HTMLInputElement>(null);
@@ -99,16 +94,16 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
   const changeColor = (priority: string): void => {
     switch (priority) {
       case 'option1':
-        setBgColor('#00bf56'); // green
+        setBgColor('#79c900');
           break;
       case 'option2':
-        setBgColor('#6bfc6b'); // Vert
+        setBgColor('#9afd00');
           break;
       case 'option3':
-        setBgColor('#4169e11a'); // Bleu
+        setBgColor('#4169e11a');
           break;
       default:
-        setBgColor('#4169e11a'); // Bleu
+        setBgColor('#4169e11a');
     }
   };
 
@@ -233,18 +228,15 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             onSubmit={(e) => handleEditDate(e, todo.id)} 
             className="form"
           >
-              
             <div className="daycomp-box">
               <h3>Date</h3>
               <div className="input-btn-container">
-
-                {/* <InputComponent params={todo.date.toLocaleString()} /> */}
 
                 {editBoolDate ? (
                   <input 
                     ref={firstRef}
                     value={editDate}
-                    onChange={(e) => setEditDate(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditDate(e.target.value)}
                   />
                   ) : todo.isDoneDate === true ? (
                     <s>{editDate}</s>
@@ -252,22 +244,20 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                     <span>
                       {editDate}
                     </span>
-
                   )
                 }
-
                 <div>
                   {/* <button type="button" onClick={(e) => handleEdit(e, todo.id)} className="modify-btn"><BsPencilSquare size={18} /></button> */}
 
                   <button 
                     type="button" 
-                    onClick={() => handleSaveDate(todo.id)} 
+                    onClick={(): void => handleSaveDate(todo.id)} 
                     className="save-btn"
                   >
                     <GiCrossedSabres size={22} />
                   </button>
 
-                  <button type="button" onClick={() => setEditBoolDate(!editBoolDate)}
+                  <button type="button" onClick={(): void => setEditBoolDate(!editBoolDate)}
                     className="modify-btn"
                   >
                     {editBoolDate === true ? (
@@ -277,28 +267,23 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                     )}
                   </button>
                 </div>
-
               </div>
             </div>
-
           </form>
 
           <form 
             onSubmit={(e) => handleEditProject(e, todo.id)} 
             className="form"
           >
-          
             <div className="daycomp-box">
               <h3>Projet</h3>
               <div className="input-btn-container">
-                
-                {/* <InputComponent params={todo.project} /> */}
 
                 {editBoolProject === true ? (
                   <input 
                     ref={secondRef}
                     value={editProject}
-                    onChange={(e) => setEditProject(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditProject(e.target.value)}
                   />
                   ) : todo.isDoneProject === true ? (
                     <s>{editProject}</s>
@@ -307,16 +292,15 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                   )
                 }
                 <div>
-
                   <button 
                     type="button" 
-                    onClick={() => handleSaveProject(todo.id)} 
+                    onClick={(): void => handleSaveProject(todo.id)} 
                     className="save-btn"
                   >
                     <GiCrossedSabres size={22} />
                   </button>
 
-                  <button type="button" onClick={() => setEditBoolProject(!editBoolProject)}
+                  <button type="button" onClick={(): void => setEditBoolProject(!editBoolProject)}
                     className="modify-btn"
                   >
                     {editBoolProject === true ? (
@@ -325,11 +309,9 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                       <BsPencilSquare size={18} />
                     )}
                   </button>
-
                 </div>
               </div>
             </div>
-
           </form>
 
           <form
@@ -339,9 +321,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             <div className="daycomp-textarea">
               <h3>Liste</h3>
               <div className="input-btn-container">
-                {/* <InputComponent params={todo.liste} /> */}
                 
-
                 {editBoolListe === true ? (
                   <textarea 
                     ref={refListe} 
@@ -350,7 +330,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                     rows={4}
                     cols={30}
                     value={editListe}
-                    onChange={(e) => setEditListe(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLTextAreaElement>): void => setEditListe(e.target.value)}
                   >
                   </textarea>
                   ) : todo.isDoneListe === true ? (
@@ -361,16 +341,15 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                   )
                 }
                 <div>
-
                   <button 
                     type="button" 
-                    onClick={() => handleSaveListe(todo.id)} 
+                    onClick={(): void => handleSaveListe(todo.id)} 
                     className="save-btn"
                   >
                     <GiCrossedSabres size={22} />
                   </button>
 
-                  <button type="button" onClick={() => setEditBoolListe(!editBoolListe)}
+                  <button type="button" onClick={(): void => setEditBoolListe(!editBoolListe)}
                     className="modify-btn"
                   >
                     {editBoolListe === true ? (
@@ -379,31 +358,24 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                       <BsPencilSquare size={18} />
                     )}
                   </button>
-
                 </div>
-
               </div>
             </div>
-
-
           </form>
 
           <form
             onSubmit={(e) => handleEditDelay(e, todo.id)} 
             className="form"
           >
-
             <div className="daycomp-box">
               <h3>Délais</h3>
               <div className="input-btn-container">
-                
-                {/* <InputComponent params={todo.delay} /> */}
-                
+
                 {editBoolDelay === true ? (
                   <input 
                     ref={refDelay}
                     value={editDelay}
-                    onChange={(e) => setEditDelay(e.target.value)}
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditDelay(e.target.value)}
                   />
                   ) : todo.isDoneDelay === true ? (
                     <s>{editDelay}</s>
@@ -412,16 +384,15 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                   )
                 }
                 <div>
-
                   <button 
                     type="button" 
-                    onClick={() => handleSaveDelay(todo.id)} 
+                    onClick={(): void => handleSaveDelay(todo.id)} 
                     className="save-btn"
                   >
                     <GiCrossedSabres size={22} />
                   </button>
 
-                  <button type="button" onClick={() => setEditBoolDelay(!editBoolDelay)}
+                  <button type="button" onClick={(): void => setEditBoolDelay(!editBoolDelay)}
                     className="modify-btn"
                   >
                     {editBoolDelay === true ? (
@@ -430,15 +401,10 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                       <BsPencilSquare size={18} />
                     )}
                   </button>
-
                 </div>
-
               </div>
             </div>
-
           </form>
-
-
         </div>
 
         <div className="client-mail-phone">
@@ -447,66 +413,57 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             onSubmit={(e) => handleEditClient(e, todo.id)} 
             className="form"
           >
+            <h3>Client</h3>
+            <div className="input-button-client">
 
-              <h3>Client</h3>
-              <div className="input-button-client">
-                
-                {/* <InputComponent params={todo.name} /> */}
+              {editBoolClient === true ? (
+                <input 
+                  ref={refClient}
+                  value={editClient}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditClient(e.target.value)}
 
-                {editBoolClient === true ? (
-                  <input 
-                    ref={refClient}
-                    value={editClient}
-                    onChange={(e) => setEditClient(e.target.value)}
+                />
+                ) : todo.isDoneClient === true ? (
+                  <s>{editClient}</s>
+                ) : (
+                  <span>{editClient}</span> 
+                )
+              }
+              <div>
 
-                  />
-                  ) : todo.isDoneClient === true ? (
-                    <s>{editClient}</s>
+                <button 
+                  type="button" 
+                  onClick={(): void => handleSaveClient(todo.id)} 
+                  className="save-btn"
+                >
+                  <GiCrossedSabres size={22} />
+                </button>
+
+                <button type="button" onClick={(): void => setEditBoolClient(!editBoolClient)}
+                  className="modify-btn"
+                >
+                  {editBoolClient === true ? (
+                    <MdOutlineSaveAlt size={22} />
                   ) : (
-                    <span>{editClient}</span> 
-                  )
-                }
-                <div>
-
-                  <button 
-                    type="button" 
-                    onClick={() => handleSaveClient(todo.id)} 
-                    className="save-btn"
-                  >
-                    <GiCrossedSabres size={22} />
-                  </button>
-
-                  <button type="button" onClick={() => setEditBoolClient(!editBoolClient)}
-                    className="modify-btn"
-                  >
-                    {editBoolClient === true ? (
-                      <MdOutlineSaveAlt size={22} />
-                    ) : (
-                      <BsPencilSquare size={18} />
-                    )}
-                  </button>
-
-                </div>
-              
+                    <BsPencilSquare size={18} />
+                  )}
+                </button>
               </div>
+            </div>
           </form>
         
           <form
             onSubmit={(e) => handleEditMail(e, todo.id)} 
             className="form"
           >
-
-
-              <h5>E-mail</h5>
-              <div className="input-button-client">
-
-                {/* <InputComponent params={todo.email} /> */}
+            <h5>E-mail</h5>
+            <div className="input-button-client">
 
               {editBoolMail === true ? (
                 <input 
                   ref={refMail}
                   value={editMail}
-                  onChange={(e) => setEditMail(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditMail(e.target.value)}
                 />
                 ) : todo.isDoneMail === true ? (
                   <s>{editMail}</s>
@@ -518,13 +475,13 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
                 <button 
                   type="button" 
-                  onClick={() => handleSaveMail(todo.id)} 
+                  onClick={(): void => handleSaveMail(todo.id)} 
                   className="save-btn"
                 >
                   <GiCrossedSabres size={22} />
                 </button>
 
-                <button type="button" onClick={() => setEditBoolMail(!editBoolMail)}
+                <button type="button" onClick={(): void => setEditBoolMail(!editBoolMail)}
                   className="modify-btn"
                 >
                   {editBoolMail === true ? (
@@ -535,9 +492,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                 </button>
 
               </div>
-
-              </div>
-
+            </div>
           </form>
 
           <form
@@ -549,13 +504,11 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
               <h5>Tél</h5>
               <div className="input-button-client">
                 
-                {/* <InputComponent params={todo.phone} /> */}
-                
               {editBoolPhone === true ? (
                 <input 
                   ref={refPhone}
                   value={editPhone}
-                  onChange={(e) => setEditPhone(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditPhone(e.target.value)}
                 />
                 ) : todo.isDonePhone === true ? (
                   <s>{editPhone}</s>
@@ -567,13 +520,13 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
                 <button 
                   type="button" 
-                  onClick={() => handleSavePhone(todo.id)} 
+                  onClick={(): void => handleSavePhone(todo.id)} 
                   className="save-btn"
                 >
                   <GiCrossedSabres size={22} />
                 </button>
 
-                <button type="button" onClick={() => setEditBoolPhone(!editBoolPhone)}
+                <button type="button" onClick={(): void => setEditBoolPhone(!editBoolPhone)}
                   className="modify-btn"
                 >
                   {editBoolPhone === true ? (
@@ -588,12 +541,10 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
               </div>
             </div>
           </form>
-
-          
         </div>
 
         <div className="div--btndelete--project">
-          <button type="button" onClick={() => handleDelete(todo.id)} className="delete--btn"><MdDelete size={20} /></button>
+          <button type="button" onClick={(): void => handleDelete(todo.id)} className="delete--btn"><MdDelete size={20} /></button>
         </div>
 
       </div>
