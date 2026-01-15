@@ -1,3 +1,20 @@
+.main--div {
+  border: 1px solid red;
+}
+
+.div--day {
+  width: 100%;
+  text-align: center;
+  border: 1px solid red;
+}
+
+.main--div--todo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .main-div-daycomp {
   display: flex;
   flex-direction: row;
@@ -6,10 +23,6 @@
   border: none;
   border-radius: 7px;
   box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
-}
-
-.div-day-daycomp {
-  width: 10%;
 }
 
 h3 {

@@ -10,7 +10,8 @@ export type Todo = {
     email: string;
     phone: string;
     dayChoice: daysOfWeek;
-	isDone: boolean;
+	isDoneDate: boolean;
+	isDoneProject: boolean;
 };
 
 export type daysOfWeek = {
