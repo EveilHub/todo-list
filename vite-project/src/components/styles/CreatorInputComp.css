@@ -12,12 +12,6 @@
   justify-content: center;
 }
 
-.input-creation {
-  font-size: 1.0rem;
-  margin-right: 10px;
-  padding: 10px 7px;
-}
-
 .checkbox-lbl-input {
   display: flex;
   flex-direction: column;
@@ -35,17 +29,4 @@
 
 .checkbox-lbl-input:hover {
   box-shadow: 0 0 0 #c1c1c1;
-}
-
-.checkbox-lbl {
-  cursor: pointer;
-}
-
-.checkbox-input {
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.checkbox-lbl:hover {
-  color: royalblue;
 }

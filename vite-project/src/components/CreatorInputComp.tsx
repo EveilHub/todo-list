@@ -1,5 +1,7 @@
 import type { ChangeEvent, FormEvent, JSX } from "react";
 import type { CreatorType } from "../lib/definitions";
+import InputComp from "./InputComp";
+import CheckboxComp from "./CheckboxComp";
 import "./styles/CreatorInputComp.css";
 
 const CreatorInputComp = ({
@@ -27,110 +29,90 @@ const CreatorInputComp = ({
                     placeholder="Date" 
                 />
 
-                <input 
-                    type="text"
-                    value={project} 
+                <InputComp 
+                    type="text" 
+                    value={project}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setProject(e.target.value)} 
-                    className="input-creation" 
-                    placeholder="Projet" 
+                    placeholder="Projet"
                 />
 
-                <input 
-                    type="text"
-                    value={liste} 
+                <InputComp 
+                    type="text" 
+                    value={liste}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setListe(e.target.value)} 
-                    className="input-creation" 
-                    placeholder="Liste" 
+                    placeholder="Liste"
                 />
 
-                <input 
-                    type="text"
-                    value={delay} 
+                <InputComp 
+                    type="text" 
+                    value={delay}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setDelay(e.target.value)} 
-                    className="input-creation" 
-                    placeholder="Délais" 
+                    placeholder="Délais"
                 />
 
-                <input 
-                    type="text"
-                    value={name} 
+                <InputComp 
+                    type="text" 
+                    value={name}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setName(e.target.value)} 
-                    className="input-creation" 
-                    placeholder="Client" 
+                    placeholder="Client"
                 />
 
-                <input 
-                    type="email"
-                    value={email} 
+                <InputComp 
+                    type="email" 
+                    value={email}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setEmail(e.target.value)} 
-                    className="input-creation" 
                     placeholder="example@mail.com" 
                 />
 
-                <input 
-                    type="number"
-                    value={phone} 
+
+                <InputComp 
+                    type="number" 
+                    value={phone}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setPhone(e.target.value)} 
-                    className="input-creation" 
                     placeholder="Phone" 
                 />
 
                 <div className="checkbox-lbl-input">
-
-                    <label htmlFor="lundi" className="checkbox-lbl">
-                        <input 
-                            type="checkbox" 
-                            id="lundi" 
-                            checked={dayChoice.lundi} 
-                            onChange={(): void => handleCheckBox("lundi")} 
-                            className="checkbox-input" 
-                        />
+                  
+                    <CheckboxComp
+                        params="lundi"
+                        checked={dayChoice.lundi}
+                        handleCheckBox={(): void => handleCheckBox("lundi")}
+                    >
                         Lundi
-                    </label>
+                    </CheckboxComp>
 
-                    <label htmlFor="mardi" className="checkbox-lbl">
-                        <input 
-                            type="checkbox" 
-                            id="mardi" 
-                            checked={dayChoice.mardi} 
-                            onChange={(): void => handleCheckBox("mardi")} 
-                            className="checkbox-input" 
-                        />
+                    <CheckboxComp
+                        params="mardi"
+                        checked={dayChoice.mardi}
+                        handleCheckBox={(): void => handleCheckBox("mardi")}
+                    >
                         Mardi
-                    </label>
+                    </CheckboxComp>
 
-                    <label htmlFor="mercredi" className="checkbox-lbl">
-                        <input 
-                            type="checkbox" 
-                            id="mercredi" 
-                            checked={dayChoice.mercredi} 
-                            onChange={(): void => handleCheckBox("mercredi")} 
-                            className="checkbox-input" 
-                        />
+                    <CheckboxComp
+                        params="mercredi"
+                        checked={dayChoice.mercredi}
+                        handleCheckBox={(): void => handleCheckBox("mercredi")}
+                    >
                         Mercredi
-                    </label>
+                    </CheckboxComp>
 
-                    <label htmlFor="jeudi" className="checkbox-lbl">
-                        <input 
-                            type="checkbox" 
-                            id="jeudi" 
-                            checked={dayChoice.jeudi} 
-                            onChange={(): void => handleCheckBox("jeudi")} 
-                            className="checkbox-input" 
-                        />
+                    <CheckboxComp
+                        params="jeudi"
+                        checked={dayChoice.jeudi}
+                        handleCheckBox={(): void => handleCheckBox("jeudi")}
+                    >
                         Jeudi
-                    </label>
+                    </CheckboxComp>
 
-                    <label htmlFor="vendredi" className="checkbox-lbl">
-                        <input 
-                            type="checkbox" 
-                            id="vendredi" 
-                            checked={dayChoice.vendredi} 
-                            onChange={(): void => handleCheckBox("vendredi")} 
-                            className="checkbox-input" 
-                        />
+                    <CheckboxComp
+                        params="vendredi"
+                        checked={dayChoice.vendredi}
+                        handleCheckBox={(): void => handleCheckBox("vendredi")}
+                    >
                         Vendredi
-                    </label>
+                    </CheckboxComp>
 
                 </div>
 
