@@ -3,15 +3,17 @@ import "./styles/InputComp.css";
 
 type InputType = {
     type: string;
+    name: string;
     value: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
 };
 
-const InputComp = ({type, value, onChange, placeholder}: InputType): JSX.Element => {
+const InputComp = ({type, name, value, onChange, placeholder}: InputType): JSX.Element => {
     return (
         <input 
             type={type}
+            name={name}
             value={value} 
             onChange={onChange} 
             className="input-creation" 

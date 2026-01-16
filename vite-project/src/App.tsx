@@ -1,5 +1,5 @@
 import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
-import type { daysOfWeek, Todo } from './lib/definitions.ts';
+import type { daysOfWeek, ParamsTodoType, Todo } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
 import TodosListComp from './components/TodosListComp.tsx';
 import './App.css'
@@ -8,13 +8,24 @@ let iterator: number = 0;
 
 const App: FC = (): JSX.Element => {
 
-  const [date, setDate] = useState<Date>(new Date());
-  const [project, setProject] = useState<string>('');
-  const [liste, setListe] = useState<string>('');
-  const [delay, setDelay] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
+  // const [date, setDate] = useState<Date>(new Date());
+  // const [project, setProject] = useState<string>('');
+  // const [liste, setListe] = useState<string>('');
+  // const [delay, setDelay] = useState<string>('');
+  // const [name, setName] = useState<string>('');
+  // const [email, setEmail] = useState<string>('');
+  // const [phone, setPhone] = useState<string>('');
+
+  const [paramsTodo, setParamsTodo] = useState<ParamsTodoType>({
+    date: new Date(),
+    project: "",
+    liste: "",
+    delay: "",
+    name: "",
+    email: "",
+    phone: ""
+  });
+
   const [dayChoice, setDayChoice] = useState<daysOfWeek>({
     lundi: false,
     mardi: false,
@@ -72,35 +83,40 @@ const App: FC = (): JSX.Element => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    if (date) {
-      setTodos((prev: Todo[]) => [...prev, {
+    if (!paramsTodo.date) return;
+    setTodos(prev => [
+      ...prev,
+      {
         id: iterator++,
-        date, project, liste, 
-        delay, name, email, 
-        phone, dayChoice,
-        isDoneDate: false, 
+        ...paramsTodo,
+        dayChoice,
+        isDoneDate: false,
         isDoneProject: false,
         isDoneListe: false,
         isDoneDelay: false,
         isDoneClient: false,
         isDoneMail: false,
         isDonePhone: false
-      }]);
-      setDate(new Date);
-      setProject("");
-      setListe("");
-      setDelay("");
-      setName("");
-      setEmail("");
-      setPhone("");
-      resetDayChoices();
-    }
+      }
+    ]);
+    setParamsTodo({
+      date: new Date(),
+      project: "",
+      liste: "",
+      delay: "",
+      name: "",
+      email: "",
+      phone: ""
+    });
+
+    resetDayChoices();
   };
+
 
   console.log("todos => ", todos.map((x) => x));
 
   return (
-    <div>
+    <div className="main--div--app">
       
       <h1>{time}</h1>
 
@@ -111,20 +127,14 @@ const App: FC = (): JSX.Element => {
       {switcher === false ? (
         <div>
           <CreatorInputComp
-            date={date}
-            setDate={setDate}
-            project={project}
-            setProject={setProject}
-            liste={liste}
-            setListe={setListe}
-            delay={delay}
-            setDelay={setDelay}
-            name={name}
-            setName={setName}
-            email={email}
-            setEmail={setEmail}
-            phone={phone}
-            setPhone={setPhone}
+            date={paramsTodo.date}
+            project={paramsTodo.project}
+            liste={paramsTodo.liste}
+            delay={paramsTodo.delay}
+            name={paramsTodo.name}
+            email={paramsTodo.email}
+            phone={paramsTodo.phone}
+            setParamsTodo={setParamsTodo}
             dayChoice={dayChoice}
             setDayChoice={setDayChoice}
             handleCheckBox={handleCheckBox}

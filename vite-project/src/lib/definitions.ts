@@ -1,5 +1,17 @@
 import React, { type ChangeEvent, type Dispatch } from "react";
 
+
+export type ParamsTodoType = {
+  date: Date;
+  project: string;
+  liste: string;
+  delay: string;
+  name: string;
+  email: string;
+  phone: string;
+};
+
+
 export type Todo = {
     id: number;
     date: Date;
@@ -29,19 +41,13 @@ export type daysOfWeek = {
 
 export type CreatorType = {
     date: Date;
-    setDate: Dispatch<React.SetStateAction<Date>>;
     project: string;
-    setProject: Dispatch<React.SetStateAction<string>>;
     liste: string;
-    setListe: Dispatch<React.SetStateAction<string>>;
     delay: string;
-    setDelay: Dispatch<React.SetStateAction<string>>;
     name: string;
-    setName: Dispatch<React.SetStateAction<string>>;
     email: string;
-    setEmail: Dispatch<React.SetStateAction<string>>;
     phone: string;
-    setPhone: Dispatch<React.SetStateAction<string>>;
+    setParamsTodo: Dispatch<React.SetStateAction<ParamsTodoType>>;
     dayChoice: daysOfWeek;
     setDayChoice: Dispatch<React.SetStateAction<daysOfWeek>>;
     handleCheckBox: (day: keyof daysOfWeek) => void;
@@ -51,7 +57,7 @@ export type CreatorType = {
 export type PriorityType = {
     priority: string;
     hidePriority: boolean;
-    setHidePriority: Dispatch<React.SetStateAction<boolean>>;
+    setHidePriority: Dispatch<React.SetStateAction<string>>;
     handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
