@@ -54,10 +54,30 @@ export type CreatorType = {
     handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
+export type BooleanEditType = {
+  editBoolDate: boolean;
+  editBoolProject: boolean;
+  editBoolListe: boolean;
+  editBoolDelay: boolean;
+  editBoolClient: boolean;
+  editBoolMail: boolean;
+  editBoolPhone: boolean;
+};
+
+export type WriteEditType = {
+  editDate: string;
+  editProject: string;
+  editListe: string;
+  editDelay: string;
+  editClient: string;
+  editMail: string;
+  editPhone: string;
+};
+
 export type PriorityType = {
     priority: string;
     hidePriority: boolean;
-    setHidePriority: Dispatch<React.SetStateAction<string>>;
+    setHidePriority: Dispatch<React.SetStateAction<boolean>>;
     handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
