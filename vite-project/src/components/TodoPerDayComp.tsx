@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ChangeEvent, type JSX } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type JSX } from "react";
 import type { BooleanEditType, daysOfWeek, PropsTodoType, Todo, WriteEditType } from "../lib/definitions.ts";
 import PriorityComp from "./subcomponents/PriorityComp.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
@@ -98,6 +98,44 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     setHidePriority(!hidePriority);
   };
 
+// const updateTodoById = (id: number, updater: (todo: Todo) => Todo) => {
+//   setTodos(prevTodos =>
+//     prevTodos.map(todo =>
+//       todo.id === id ? updater(todo) : todo
+//     )
+//   );
+// };
+
+// const handleSave = (doneKey: keyof Todo, editBoolKey: keyof BooleanEditType) =>
+//   (id: number): void => {
+//     updateTodoById(id, todo => ({
+//       ...todo,
+//       [doneKey]: !todo[doneKey],
+//     }));
+
+//     setEditBoolParams(prev => ({
+//       ...prev,
+//       [editBoolKey]: prev[editBoolKey],
+//     }));
+//   };
+
+// const handleEdit = (editValueKey: keyof typeof editWriteParams, 
+//   editBoolKey: keyof BooleanEditType) =>
+//   (e: FormEvent, id: number): void => {
+//     e.preventDefault();
+//     updateTodoById(id, todo => ({
+//       ...todo,
+//       todo: editWriteParams[editValueKey],
+//     }));
+
+//     setEditBoolParams(prev => ({
+//       ...prev,
+//       [editBoolKey]: !prev[editBoolKey],
+//     }));
+//   };
+
+
+  // Date
   const handleSaveDate = (id: number): void => {
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, isDoneDate: !todo.isDoneDate } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolDate: prev.editBoolDate}));
@@ -144,7 +182,6 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, todo: editWriteParams.editDelay } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolDelay: !prev.editBoolDelay}));
   };
-
 
   // Client
   const handleSaveClient = (id: number): void => {
