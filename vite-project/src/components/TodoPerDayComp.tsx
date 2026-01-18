@@ -9,7 +9,6 @@ import "./styles/TodoPerDayComp.css";
 
 const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
-  // boolean + string change
   const [editBoolParams, setEditBoolParams] = useState<BooleanEditType>({
     editBoolDate: false,
     editBoolProject: false,
@@ -36,42 +35,26 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
   const [bgColor, setBgColor] = useState('#4169e11a');
 
   // Ref with id
-  const firstRef = useRef<HTMLInputElement>(null);
-  const secondRef = useRef<HTMLInputElement>(null);
-  const refListe = useRef<HTMLTextAreaElement>(null);
-  const refDelay = useRef<HTMLInputElement>(null);
-  const refClient = useRef<HTMLInputElement>(null);
-  const refMail = useRef<HTMLInputElement>(null);
-  const refPhone = useRef<HTMLInputElement>(null);
-  
-  useEffect((): void => {
-    if (editBoolParams.editBoolDate) firstRef.current?.focus();
-  }, [editBoolParams.editBoolDate]);
+  const refs = {
+    editBoolDate: useRef<HTMLInputElement>(null),
+    editBoolProject: useRef<HTMLInputElement>(null),
+    editBoolListe: useRef<HTMLTextAreaElement>(null),
+    editBoolDelay: useRef<HTMLInputElement>(null),
+    editBoolClient: useRef<HTMLInputElement>(null),
+    editBoolMail: useRef<HTMLInputElement>(null),
+    editBoolPhone: useRef<HTMLInputElement>(null),
+  };
 
-  useEffect((): void => {
-    if (editBoolParams.editBoolProject) secondRef.current?.focus();
-  }, [editBoolParams.editBoolProject]);
-
-  useEffect((): void => {
-    if (editBoolParams.editBoolListe) refListe.current?.focus();
-  }, [editBoolParams.editBoolListe]);
-
-  useEffect((): void => {
-    if (editBoolParams.editBoolDelay) refDelay.current?.focus();
-  }, [editBoolParams.editBoolDelay]);
-
-  useEffect((): void => {
-    if (editBoolParams.editBoolClient) refClient.current?.focus();
-  }, [editBoolParams.editBoolClient]);
-
-  useEffect((): void => {
-    if (editBoolParams.editBoolMail) refMail.current?.focus();
-  }, [editBoolParams.editBoolMail]);
-
-  useEffect((): void => {
-    if (editBoolParams.editBoolPhone) refPhone.current?.focus();
-  }, [editBoolParams.editBoolPhone]);
-
+  useEffect(() => {
+    (Object.entries(editBoolParams) as [
+      keyof typeof refs,
+      boolean
+    ][]).forEach(([key, value]) => {
+      if (value) {
+        refs[key]?.current?.focus();
+      }
+    });
+  }, [editBoolParams]);
 
   const getDayLabel = (dayChoice: daysOfWeek): string => {
     switch (true) {
@@ -233,12 +216,12 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
                 {editBoolParams.editBoolDate ? (
                   <input 
-                    ref={firstRef}
+                    ref={refs.editBoolDate}
                     name={editWriteParams.editDate}
                     value={editWriteParams.editDate}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
                       ...prev,
-                      [e.target.name]: e.target.value
+                      editDate: e.target.value
                       })
                     )}
                   />
@@ -289,12 +272,12 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
                 {editBoolParams.editBoolProject === true ? (
                   <input 
-                    ref={secondRef}
+                    ref={refs.editBoolProject}
                     name={editWriteParams.editProject}
                     value={editWriteParams.editProject}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
                       ...prev,
-                      [e.target.name]: e.target.value
+                      editProject: e.target.value
                       })
                     )}
                   />
@@ -343,7 +326,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                 
                 {editBoolParams.editBoolListe === true ? (
                   <textarea 
-                    ref={refListe} 
+                    ref={refs.editBoolListe} 
                     name={editWriteParams.editListe}
                     id="liste"
                     rows={4}
@@ -351,7 +334,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                     value={editWriteParams.editListe}
                     onChange={(e: ChangeEvent<HTMLTextAreaElement>): void => setEditWriteParams((prev: WriteEditType) => ({
                       ...prev,
-                      [e.target.name]: e.target.value
+                      editListe: e.target.value
                       })
                     )}
                   >
@@ -401,12 +384,12 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
                 {editBoolParams.editBoolDelay === true ? (
                   <input 
-                    ref={refDelay}
+                    ref={refs.editBoolDelay}
                     name={editWriteParams.editDelay}
                     value={editWriteParams.editDelay}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
                       ...prev,
-                      [e.target.name]: e.target.value
+                      editDelay: e.target.value
                       })
                     )}
                   />
@@ -456,12 +439,12 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
               {editBoolParams.editBoolClient === true ? (
                 <input 
-                  ref={refClient}
+                  ref={refs.editBoolClient}
                   name={editWriteParams.editClient}
                   value={editWriteParams.editClient}
                   onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
                     ...prev,
-                    [e.target.name]: e.target.value
+                    editClient: e.target.value
                     })
                   )}
                 />
@@ -508,12 +491,12 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
               {editBoolParams.editBoolMail === true ? (
                 <input 
-                  ref={refMail}
+                  ref={refs.editBoolMail}
                   name={editWriteParams.editMail}
                   value={editWriteParams.editMail}
                   onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
                     ...prev,
-                    [e.target.name]: e.target.value
+                    editMail: e.target.value
                     })
                   )}
                 />
@@ -563,12 +546,12 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                 
               {editBoolParams.editBoolPhone === true ? (
                 <input 
-                  ref={refPhone}
+                  ref={refs.editBoolPhone}
                   name={editWriteParams.editPhone}
                   value={editWriteParams.editPhone}
                   onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
                     ...prev,
-                    [e.target.name]: e.target.value
+                    editPhone: e.target.value
                     })
                   )}
                 />
