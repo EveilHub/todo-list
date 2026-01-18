@@ -1,7 +1,7 @@
 import type { ChangeEvent, FormEvent, JSX } from "react";
 import type { CreatorType, ParamsTodoType } from "../lib/definitions";
-import InputComp from "./InputComp";
-import CheckboxComp from "./CheckboxComp";
+import InputComp from "./subcomponents/InputComp";
+import CheckboxComp from "./subcomponents/CheckboxComp";
 import "./styles/CreatorInputComp.css";
 
 const CreatorInputComp = ({
@@ -18,24 +18,29 @@ const CreatorInputComp = ({
     handleSubmit
 }: CreatorType): JSX.Element => {
     return (
-        <form onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} className='creation-container'>
+        <form 
+            onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} 
+            className='creation-container'
+        >
 
             <div className='creation-input-container'>
 
-                <input 
+                <InputComp
                     type="text"
+                    name="date"
                     value={date.toLocaleString()} 
                     readOnly
-                    className="input-creation" 
-                    placeholder="Date" 
+                    placeholder="Date"
                 />
 
                 <InputComp 
                     type="text"
                     name="project"
                     value={project}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((prev: ParamsTodoType) => ({
-                        ...prev, [e.target.name]: e.target.value})
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                        prev: ParamsTodoType) => ({
+                            ...prev, [e.target.name]: e.target.value
+                        })
                     )} 
                     placeholder="Projet"
                 />
@@ -44,8 +49,10 @@ const CreatorInputComp = ({
                     type="text"
                     name="liste"
                     value={liste}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((prev: ParamsTodoType) => ({
-                        ...prev, [e.target.name]: e.target.value})
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                        prev: ParamsTodoType) => ({
+                            ...prev, [e.target.name]: e.target.value
+                        })
                     )}
                     placeholder="Liste"
                 />
@@ -54,8 +61,10 @@ const CreatorInputComp = ({
                     type="text"
                     name="delay"
                     value={delay}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((prev: ParamsTodoType) => ({
-                        ...prev, [e.target.name]: e.target.value})
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                        prev: ParamsTodoType) => ({
+                            ...prev, [e.target.name]: e.target.value
+                        })
                     )}
                     placeholder="Délais"
                 />
@@ -64,8 +73,10 @@ const CreatorInputComp = ({
                     type="text"
                     name="name"
                     value={name}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((prev: ParamsTodoType) => ({
-                        ...prev, [e.target.name]: e.target.value})
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                        prev: ParamsTodoType) => ({
+                            ...prev, [e.target.name]: e.target.value
+                        })
                     )} 
                     placeholder="Client"
                 />
@@ -74,19 +85,22 @@ const CreatorInputComp = ({
                     type="email"
                     name="email"
                     value={email}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((prev: ParamsTodoType) => ({
-                        ...prev, [e.target.name]: e.target.value})
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                        prev: ParamsTodoType) => ({
+                            ...prev, [e.target.name]: e.target.value
+                        })
                     )}
                     placeholder="example@mail.com" 
                 />
-
 
                 <InputComp 
                     type="number"
                     name="phone"
                     value={phone}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((prev: ParamsTodoType) => ({
-                        ...prev, [e.target.name]: e.target.value})
+                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                        prev: ParamsTodoType) => ({
+                            ...prev, [e.target.name]: e.target.value
+                        })
                     )}
                     placeholder="Phone" 
                 />
@@ -138,7 +152,9 @@ const CreatorInputComp = ({
             </div>
 
             <div className='creation-btn-div'>
-                <button id="btn-1" type="submit" className="custom-btn">Create</button>
+                <button id="btn-1" type="submit" className="custom-btn">
+                    Create
+                </button>
             </div>
 
         </form>
