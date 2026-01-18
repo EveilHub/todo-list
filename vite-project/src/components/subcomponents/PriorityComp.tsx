@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import type { PriorityType } from "../lib/definitions";
+import type { PriorityType } from "../../lib/definitions";
 
 const PriorityComp = ({priority, hidePriority, setHidePriority, handleChangePriority}: PriorityType): JSX.Element => {
     

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ChangeEvent, type JSX } from "react";
 import type { BooleanEditType, daysOfWeek, PropsTodoType, Todo, WriteEditType } from "../lib/definitions.ts";
-import PriorityComp from "./PriorityComp.tsx";
+import PriorityComp from "./subcomponents/PriorityComp.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";

@@ -1,7 +1,7 @@
 import type { ChangeEvent, FormEvent, JSX } from "react";
 import type { CreatorType, ParamsTodoType } from "../lib/definitions";
-import InputComp from "./InputComp";
-import CheckboxComp from "./CheckboxComp";
+import InputComp from "./subcomponents/InputComp";
+import CheckboxComp from "./subcomponents/CheckboxComp";
 import "./styles/CreatorInputComp.css";
 
 const CreatorInputComp = ({
