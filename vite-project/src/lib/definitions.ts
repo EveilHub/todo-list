@@ -40,7 +40,7 @@ export type daysOfWeek = {
 };
 
 export type CreatorType = {
-    date: Date;
+    date: string;
     project: string;
     liste: string;
     delay: string;

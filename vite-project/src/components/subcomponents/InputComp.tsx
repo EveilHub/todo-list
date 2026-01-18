@@ -5,7 +5,8 @@ type InputType = {
     type: string;
     name: string;
     value: string;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    readOnly?: boolean;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
 };
 
