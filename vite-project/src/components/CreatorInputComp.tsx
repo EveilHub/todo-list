@@ -18,13 +18,16 @@ const CreatorInputComp = ({
     handleSubmit
 }: CreatorType): JSX.Element => {
     return (
-        <form onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} className='creation-container'>
+        <form 
+            onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} 
+            className='creation-container'
+        >
 
             <div className='creation-input-container'>
 
                 <InputComp
                     type="text"
-                    name={date.toLocaleString()}
+                    name="date"
                     value={date.toLocaleString()} 
                     readOnly
                     placeholder="Date"
@@ -32,7 +35,7 @@ const CreatorInputComp = ({
 
                 <InputComp 
                     type="text"
-                    name={project}
+                    name="project"
                     value={project}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
                         prev: ParamsTodoType) => ({
@@ -44,7 +47,7 @@ const CreatorInputComp = ({
 
                 <InputComp 
                     type="text"
-                    name={liste}
+                    name="liste"
                     value={liste}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
                         prev: ParamsTodoType) => ({
@@ -56,7 +59,7 @@ const CreatorInputComp = ({
 
                 <InputComp 
                     type="text"
-                    name={delay}
+                    name="delay"
                     value={delay}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
                         prev: ParamsTodoType) => ({
@@ -68,7 +71,7 @@ const CreatorInputComp = ({
 
                 <InputComp 
                     type="text"
-                    name={name}
+                    name="name"
                     value={name}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
                         prev: ParamsTodoType) => ({
@@ -80,7 +83,7 @@ const CreatorInputComp = ({
 
                 <InputComp 
                     type="email"
-                    name={email}
+                    name="email"
                     value={email}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
                         prev: ParamsTodoType) => ({
@@ -92,7 +95,7 @@ const CreatorInputComp = ({
 
                 <InputComp 
                     type="number"
-                    name={phone}
+                    name="phone"
                     value={phone}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
                         prev: ParamsTodoType) => ({
