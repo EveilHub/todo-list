@@ -10,12 +10,13 @@ type InputType = {
     placeholder: string;
 };
 
-const InputComp = ({type, name, value, onChange, placeholder}: InputType): JSX.Element => {
+const InputComp = ({type, name, value, readOnly, onChange, placeholder}: InputType): JSX.Element => {
     return (
         <input 
             type={type}
             name={name}
-            value={value} 
+            value={value}
+            readOnly={readOnly}
             onChange={onChange} 
             className="input-creation" 
             placeholder={placeholder}

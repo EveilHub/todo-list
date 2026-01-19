@@ -19,7 +19,7 @@ export type Todo = {
     name: string;
     email: string;
     phone: string;
-    dayChoice: daysOfWeek;
+    selectedDay: string | null;
 	isDoneDate: boolean;
 	isDoneProject: boolean;
     isDoneListe: boolean;
@@ -27,14 +27,6 @@ export type Todo = {
     isDoneClient: boolean;
     isDoneMail: boolean;
     isDonePhone: boolean;
-};
-
-export type daysOfWeek = {
-    lundi: boolean;
-    mardi: boolean;
-    mercredi: boolean;
-    jeudi: boolean;
-    vendredi: boolean;
 };
 
 export type CreatorType = {
@@ -46,9 +38,8 @@ export type CreatorType = {
     email: string;
     phone: string;
     setParamsTodo: Dispatch<React.SetStateAction<ParamsTodoType>>;
-    dayChoice: daysOfWeek;
-    setDayChoice: Dispatch<React.SetStateAction<daysOfWeek>>;
-    handleCheckBox: (day: keyof daysOfWeek) => void;
+    selectedDay: string | null;
+    handleCheckBox: (day: string) => void;
     handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
