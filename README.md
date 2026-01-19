@@ -1,10 +1,10 @@
 # todo-list
 
-todo graphisme design
+todo list especialy for graph & design
 
 ## Install
 
-git clone <https>
+git clone `<https>`
 
 cd vite-project
 
@@ -16,12 +16,8 @@ pnpm run build
 
 ## Goals
 
-1) Checkbox gestion d'erreur
+1) TextArea à revoir (liste)
 
-2) Liste textarea à revoir
+2) sort() par date par semaine
 
-3) sort() par date par semaine
-
-- Delete => Save in file.json + file.csv
-
-- refactorisation
+3) Delete => Save in file.json + file.csv
