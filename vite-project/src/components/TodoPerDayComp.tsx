@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type JSX } from "react";
-import type { BooleanEditType, daysOfWeek, PropsTodoType, Todo, WriteEditType } from "../lib/definitions.ts";
+import type { BooleanEditType, PropsTodoType, Todo, WriteEditType } from "../lib/definitions.ts";
 import PriorityComp from "./subcomponents/PriorityComp.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
@@ -57,22 +57,22 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     });
   }, [editBoolParams]);
 
-  const getDayLabel = (dayChoice: daysOfWeek): string => {
-    switch (true) {
-      case dayChoice.lundi:
-        return "Lundi";
-      case dayChoice.mardi:
-        return "Mardi";
-      case dayChoice.mercredi:
-        return "Mercredi";
-      case dayChoice.jeudi:
-        return "Jeudi";
-      case dayChoice.vendredi:
-        return "Vendredi";
-      default:
-        return "NO DAY";
-    }
-  };
+  // const getDayLabel = (dayChoice: daysOfWeek): string => {
+  //   switch (true) {
+  //     case dayChoice.lundi:
+  //       return "Lundi";
+  //     case dayChoice.mardi:
+  //       return "Mardi";
+  //     case dayChoice.mercredi:
+  //       return "Mercredi";
+  //     case dayChoice.jeudi:
+  //       return "Jeudi";
+  //     case dayChoice.vendredi:
+  //       return "Vendredi";
+  //     default:
+  //       return "NO DAY";
+  //   }
+  // };
 
   const changeColor = (priority: string): void => {
     switch (priority) {
@@ -172,7 +172,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     <div id={String(todo.id)} className="main--div">
 
       <div className="div--day">
-        <h2>{getDayLabel(todo.dayChoice)}</h2>
+        <h2>{todo.selectedDay?.toUpperCase()}</h2>
       </div>
 
       <div className="container--todo" style={{ backgroundColor: bgColor }}>
