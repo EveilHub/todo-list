@@ -77,5 +77,5 @@ const EditableFields = (
             </div>
         </form>
     )
-}
+};
 export default EditableFields;
