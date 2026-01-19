@@ -16,8 +16,6 @@ pnpm run build
 
 ## Goals
 
-1) TextArea à revoir (liste)
+1) sort() par date par semaine
 
-2) sort() par date par semaine
-
-3) Delete => Save in file.json + file.csv
+2) Delete => Save in file.json + file.csv

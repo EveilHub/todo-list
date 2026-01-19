@@ -11,6 +11,7 @@ import type {
   PropsTodoType,
   Todo,
   WriteEditType } from "../lib/definitions.ts";
+import { useLocalStorage } from "../hooks/useLocalStorage.ts";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
@@ -30,14 +31,35 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   });
 
   const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
-    editDate: todo.date.toLocaleString(),
-    editProject: todo.project,
-    editListe: todo.liste,
-    editDelay: todo.delay,
-    editClient: todo.name,
-    editMail: todo.email,
-    editPhone: todo.phone
+      editId: todo.id,
+      editDate: todo.date.toLocaleString(),
+      editProject: todo.project,
+      editListe: todo.liste,
+      editDelay: todo.delay,
+      editClient: todo.name,
+      editMail: todo.email,
+      editPhone: todo.phone
   });
+
+  const [editWriteParamsList, setEditWriteParamsList] =
+    useLocalStorage<WriteEditType[]>("editWriteParamsList", []);
+
+
+  const saveEditToLocalStorage = () => {
+    setEditWriteParamsList(prev => {
+      const existing = prev.find(item => item.editId === editWriteParams.editId);
+
+      if (existing) {
+        // UPDATE
+        return prev.map(item =>
+          item.editId === editWriteParams.editId ? editWriteParams : item
+        );
+      }
+
+      // CREATE
+      return [...prev, editWriteParams];
+    });
+  };
 
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
@@ -109,8 +131,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, 
-      todo: editWriteParams.editDate 
+      todo: editWriteParams.editDate
     } : todo))
+    saveEditToLocalStorage();
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolDate: !prev.editBoolDate
@@ -123,6 +146,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       ...todo, 
       todo: editWriteParams.editProject 
     } : todo))
+    saveEditToLocalStorage();
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolProject: !prev.editBoolProject
@@ -134,6 +158,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, todo: editWriteParams.editListe 
     } : todo))
+    saveEditToLocalStorage();
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolListe: !prev.editBoolListe
@@ -145,6 +170,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, todo: editWriteParams.editDelay 
     } : todo))
+    saveEditToLocalStorage();
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolDelay: !prev.editBoolDelay
@@ -156,6 +182,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, todo: editWriteParams.editClient 
     } : todo))
+    saveEditToLocalStorage();
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolClient: !prev.editBoolClient
@@ -167,6 +194,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, todo: editWriteParams.editMail 
     } : todo))
+    saveEditToLocalStorage();
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolMail: !prev.editBoolMail
@@ -178,11 +206,23 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, todo: editWriteParams.editPhone 
     } : todo))
+    saveEditToLocalStorage();
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolPhone: !prev.editBoolPhone
     }));
   };
+
+  useEffect(() => {
+    const stored = editWriteParamsList.find(
+      item => item.editId === todo.id
+    );
+
+    if (stored) {
+      setEditWriteParams(stored);
+    }
+  }, [todo.id]);
+
 
   // Cross out todo by id
   const handleCrossOutTodo = (id: number): void => {
@@ -209,6 +249,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // Delete todo by id
   const handleDelete = (id: number): void => {
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
+    setEditWriteParamsList(prev =>
+      prev.filter(item => item.editId !== id)
+    );
   };
 
   return (

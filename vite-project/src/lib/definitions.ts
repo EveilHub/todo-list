@@ -54,6 +54,7 @@ export type BooleanEditType = {
 };
 
 export type WriteEditType = {
+    editId: number;
     editDate: string;
     editProject: string;
     editListe: string;
