@@ -63,7 +63,7 @@ const App: FC = (): JSX.Element => {
   };
 
   const handleCheckBox = (day: keyof daysOfWeek): void => {
-    setDayChoice(prevState => ({
+    setDayChoice((prevState: daysOfWeek): daysOfWeek => ({
       ...prevState, 
       [day]: !prevState[day] 
     }));
