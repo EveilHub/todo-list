@@ -1,6 +1,5 @@
 import React, { type ChangeEvent, type Dispatch } from "react";
 
-
 export type ParamsTodoType = {
   date: Date;
   project: string;
@@ -10,7 +9,6 @@ export type ParamsTodoType = {
   email: string;
   phone: string;
 };
-
 
 export type Todo = {
     id: number;
