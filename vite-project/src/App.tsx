@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
 import type { ParamsTodoType, Todo } from './lib/definitions.ts';
-import CreatorInputComp from './components/CreatorInputComp.tsx';
-import TodosListComp from './components/TodosListComp.tsx';
+import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
+import TodosList from './components/TodosList.tsx';
 import FetchFromJson from './components/FetchFromJson.tsx';
 import './App.css'
 
@@ -19,9 +19,9 @@ const App: FC = (): JSX.Element => {
     phone: ""
   });
 
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
-
   const [todos, setTodos] = useState<Todo[]>([]);
+
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
   const [time, setTime] = useState<string>('');
 
@@ -57,7 +57,7 @@ const App: FC = (): JSX.Element => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (!paramsTodo.date) return;
-    setTodos((prev) => [
+    setTodos((prev: Todo[]) => [
       ...prev,
       {
         id: iterator++,
@@ -84,8 +84,6 @@ const App: FC = (): JSX.Element => {
     setSelectedDay(null);
   };
 
-  //console.log("todos => ", todos.map((x) => x));
-
   return (
     <div className="main--div--app">
       
@@ -97,7 +95,7 @@ const App: FC = (): JSX.Element => {
 
       {switcher === false ? (
         <div>
-          <CreatorInputComp
+          <CreateInputCheckbox
             date={paramsTodo.date.toLocaleString()}
             project={paramsTodo.project}
             liste={paramsTodo.liste}
@@ -111,7 +109,7 @@ const App: FC = (): JSX.Element => {
             handleSubmit={handleSubmit}
           />
 
-          <TodosListComp todos={todos} setTodos={setTodos} />
+          <TodosList todos={todos} setTodos={setTodos} />
 
         </div>
       ) : (

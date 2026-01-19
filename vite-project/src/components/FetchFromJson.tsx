@@ -10,8 +10,13 @@ const FetchFromJson = ({todos}: PropsTodo): JSX.Element => {
         <div>
             <h2>Data from backend.json</h2>
             {todos.map((todo: Todo) => (
-                <div>
-                    <span id={String(todo.id)}>{todo.date.toLocaleString()} - {todo.project} - {todo.liste} - {todo.delay} - {todo.name} - {todo.phone}</span>
+                <div key={String(todo.id)}>
+                    <span>
+                        {todo.date.toLocaleString()} - 
+                        {todo.project} - {todo.liste} - 
+                        {todo.delay} - 
+                        {todo.name} - {todo.phone}
+                    </span>
                     <br />
                 </div>
             ))}
