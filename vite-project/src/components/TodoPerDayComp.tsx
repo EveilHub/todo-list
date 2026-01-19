@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type JSX } from "react";
 import type { BooleanEditType, PropsTodoType, Todo, WriteEditType } from "../lib/definitions.ts";
-import PriorityComp from "./subcomponents/PriorityComp.tsx";
+import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
@@ -56,23 +56,6 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
       }
     });
   }, [editBoolParams]);
-
-  // const getDayLabel = (dayChoice: daysOfWeek): string => {
-  //   switch (true) {
-  //     case dayChoice.lundi:
-  //       return "Lundi";
-  //     case dayChoice.mardi:
-  //       return "Mardi";
-  //     case dayChoice.mercredi:
-  //       return "Mercredi";
-  //     case dayChoice.jeudi:
-  //       return "Jeudi";
-  //     case dayChoice.vendredi:
-  //       return "Vendredi";
-  //     default:
-  //       return "NO DAY";
-  //   }
-  // };
 
   const changeColor = (priority: string): void => {
     switch (priority) {
@@ -178,7 +161,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
       <div className="container--todo" style={{ backgroundColor: bgColor }}>
 
         <div className="priority--div">
-          <PriorityComp 
+          <PriorityTodo 
             priority={priority} 
             setHidePriority={setHidePriority} 
             hidePriority={hidePriority} 

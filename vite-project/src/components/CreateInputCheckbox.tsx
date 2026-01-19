@@ -2,9 +2,9 @@ import type { ChangeEvent, FormEvent, JSX } from "react";
 import type { CreatorType, ParamsTodoType } from "../lib/definitions";
 import InputComp from "./subcomponents/InputComp";
 import CheckboxComp from "./subcomponents/CheckboxComp";
-import "./styles/CreatorInputComp.css";
+import "./styles/CreateInputCheckbox.css";
 
-const CreatorInputComp = ({
+const CreateInputCheckbox = ({
     date,
     project,
     liste,
@@ -160,4 +160,4 @@ const CreatorInputComp = ({
         </form>
     )
 }
-export default CreatorInputComp;
+export default CreateInputCheckbox;

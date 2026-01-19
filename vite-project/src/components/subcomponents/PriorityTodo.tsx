@@ -1,8 +1,12 @@
 import type { JSX } from "react";
 import type { PriorityType } from "../../lib/definitions";
 
-const PriorityComp = ({priority, hidePriority, setHidePriority, handleChangePriority}: PriorityType): JSX.Element => {
-    
+const PriorityTodo = ({
+    priority, 
+    hidePriority, 
+    setHidePriority, 
+    handleChangePriority
+}: PriorityType): JSX.Element => {
     return (
         <div>
             {hidePriority === false ? (
@@ -25,4 +29,4 @@ const PriorityComp = ({priority, hidePriority, setHidePriority, handleChangePrio
         </div>
     )
 };
-export default PriorityComp;
+export default PriorityTodo;

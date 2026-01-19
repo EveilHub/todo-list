@@ -1,13 +1,13 @@
 import React, { type ChangeEvent, type Dispatch } from "react";
 
 export type ParamsTodoType = {
-  date: Date;
-  project: string;
-  liste: string;
-  delay: string;
-  name: string;
-  email: string;
-  phone: string;
+    date: Date;
+    project: string;
+    liste: string;
+    delay: string;
+    name: string;
+    email: string;
+    phone: string;
 };
 
 export type Todo = {
@@ -44,23 +44,23 @@ export type CreatorType = {
 };
 
 export type BooleanEditType = {
-  editBoolDate: boolean;
-  editBoolProject: boolean;
-  editBoolListe: boolean;
-  editBoolDelay: boolean;
-  editBoolClient: boolean;
-  editBoolMail: boolean;
-  editBoolPhone: boolean;
+    editBoolDate: boolean;
+    editBoolProject: boolean;
+    editBoolListe: boolean;
+    editBoolDelay: boolean;
+    editBoolClient: boolean;
+    editBoolMail: boolean;
+    editBoolPhone: boolean;
 };
 
 export type WriteEditType = {
-  editDate: string;
-  editProject: string;
-  editListe: string;
-  editDelay: string;
-  editClient: string;
-  editMail: string;
-  editPhone: string;
+    editDate: string;
+    editProject: string;
+    editListe: string;
+    editDelay: string;
+    editClient: string;
+    editMail: string;
+    editPhone: string;
 };
 
 export type PriorityType = {
