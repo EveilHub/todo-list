@@ -20,6 +20,7 @@ h5 {
 
 .container--todo {
   width: 100%;
+  height: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -30,6 +31,14 @@ h5 {
 
   /* border: 10px solid orange; */
 }
+
+/* .input-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+} */
 
 .priority--div {
   width: 10%;
@@ -50,26 +59,6 @@ h5 {
   /* border: 10px solid green; */
 }
 
-.form {
-  width: 100%;
-  /* border: 10px solid black; */
-}
-
-.daycomp-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-
-  background-color: rgba(65, 105, 225, 0.1);
-  border: none;
-  border-radius: 7px;
-  box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
-
-  /* border: 10px solid cyan; */
-
-}
-
 /* .main-div-daycomp {
   display: flex;
   flex-direction: row;
@@ -79,13 +68,6 @@ h5 {
   border-radius: 7px;
   box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
 } */
-
-.input-btn-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-}
 
 
 .input-box-daycomp {
@@ -116,14 +98,14 @@ h5 {
   margin: auto;
 }
 
-.input-button-client {
+/* .input-button-client {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 
   border: 10px solid dimgrey;
-}
+} */
 
 .btn-params {
   display: flex;
@@ -132,51 +114,34 @@ h5 {
   justify-content: center;
 }
 
-.save-btn {
+.div--crossout--delete {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cross--out--btn {
   width: 40px;
   height: 40px;
   background-color: green;
 }
 
-.save-btn-client {
-  width: 30px;
-  height: 30px;
-  background-color: green;
-}
-
-.save-btn:hover {
+.cross--out--btn:hover {
   background-color: rgb(0, 74, 0);
 }
 
-.save-btn:active {
+.cross--out--btn:active {
   background-color: rgb(104, 255, 104);
-}
-
-.modify-btn {
-  width: 40px;
-  height: 40px;
-}
-
-.modify-btn-client {
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
-}
-
-
-.div--btndelete--project {
-  width: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid violet;
 }
 
 .delete--btn {
   width: 40px;
   height: 40px;
   background-color: red;
+  margin-top: 50%;
 }
 
 .delete--btn-client {

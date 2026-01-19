@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent, type JSX } from "react";
 import type { BooleanEditType, daysOfWeek, PropsTodoType, Todo, WriteEditType } from "../lib/definitions.ts";
 import PriorityComp from "./subcomponents/PriorityComp.tsx";
+import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { BsPencilSquare } from "react-icons/bs";
@@ -98,125 +99,67 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     setHidePriority(!hidePriority);
   };
 
-// const updateTodoById = (id: number, updater: (todo: Todo) => Todo) => {
-//   setTodos(prevTodos =>
-//     prevTodos.map(todo =>
-//       todo.id === id ? updater(todo) : todo
-//     )
-//   );
-// };
-
-// const handleSave = (doneKey: keyof Todo, editBoolKey: keyof BooleanEditType) =>
-//   (id: number): void => {
-//     updateTodoById(id, todo => ({
-//       ...todo,
-//       [doneKey]: !todo[doneKey],
-//     }));
-
-//     setEditBoolParams(prev => ({
-//       ...prev,
-//       [editBoolKey]: prev[editBoolKey],
-//     }));
-//   };
-
-// const handleEdit = (editValueKey: keyof typeof editWriteParams, 
-//   editBoolKey: keyof BooleanEditType) =>
-//   (e: FormEvent, id: number): void => {
-//     e.preventDefault();
-//     updateTodoById(id, todo => ({
-//       ...todo,
-//       todo: editWriteParams[editValueKey],
-//     }));
-
-//     setEditBoolParams(prev => ({
-//       ...prev,
-//       [editBoolKey]: !prev[editBoolKey],
-//     }));
-//   };
-
-
-  // Date
-  const handleSaveDate = (id: number): void => {
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, isDoneDate: !todo.isDoneDate } : todo))
-    setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolDate: prev.editBoolDate}));
-  };
-
-  const handleEditDate = (e: React.FormEvent, id: number): void => {
+  const handleEditDate = (e: FormEvent<HTMLFormElement>, id: number): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, todo: editWriteParams.editDate } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolDate: !prev.editBoolDate}));
   };
 
-  // Project
-  const handleSaveProject = (id: number): void => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDoneProject: !todo.isDoneProject } : todo))
-    setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolProject: prev.editBoolProject}));
-  };
-
-  const handleEditProject = (e: React.FormEvent, id: number): void => {
+  const handleEditProject = (e: FormEvent<HTMLFormElement>, id: number): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, todo: editWriteParams.editProject } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolProject: !prev.editBoolProject}));
   };
 
-  // Liste
-  const handleSaveListe = (id: number): void => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDoneListe: !todo.isDoneListe } : todo))
-    setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolListe: prev.editBoolListe}));
-  };
-
-  const handleEditListe = (e: React.FormEvent, id: number): void => {
+  const handleEditListe = (e: FormEvent<HTMLFormElement>, id: number): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, todo: editWriteParams.editListe } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolListe: !prev.editBoolListe}));
   };
 
-  // Délais
-  const handleSaveDelay = (id: number): void => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDoneDelay: !todo.isDoneDelay } : todo))
-    setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolDelay: prev.editBoolDelay}));
-  };
-
-  const handleEditDelay = (e: React.FormEvent, id: number): void => {
+  const handleEditDelay = (e: FormEvent<HTMLFormElement>, id: number): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, todo: editWriteParams.editDelay } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolDelay: !prev.editBoolDelay}));
   };
 
-  // Client
-  const handleSaveClient = (id: number): void => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDoneClient: !todo.isDoneClient } : todo))
-    setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolClient: prev.editBoolClient}));
-  };
-
-  const handleEditClient = (e: React.FormEvent, id: number): void => {
+  const handleEditClient = (e: FormEvent<HTMLFormElement>, id: number): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, todo: editWriteParams.editClient } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolClient: !prev.editBoolClient}));
   };
 
-  // Email
-  const handleSaveMail = (id: number): void => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDoneMail: !todo.isDoneMail } : todo))
-    setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolMail: prev.editBoolMail}));
-  };
-
-  const handleEditMail = (e: React.FormEvent, id: number): void => {
+  const handleEditMail = (e: FormEvent<HTMLFormElement>, id: number): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, todo: editWriteParams.editMail } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolMail: !prev.editBoolMail}));
   };
 
-  // Phone
-  const handleSavePhone = (id: number): void => {
-    setTodos(todos.map(todo => todo.id === id ? { ...todo, isDonePhone: !todo.isDonePhone } : todo))
-    setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolPhone: prev.editBoolPhone}));
-  };
-
-  const handleEditPhone = (e: React.FormEvent, id: number): void => {
+  const handleEditPhone = (e: FormEvent<HTMLFormElement>, id: number): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { ...todo, todo: editWriteParams.editPhone } : todo))
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolPhone: !prev.editBoolPhone}));
+  };
+
+  const handleCrossOutTodo = (id: number): void => {
+    setTodos(todos.map((todo: Todo): Todo => todo.id === id ? { ...todo,
+      isDoneProject: !todo.isDoneProject,
+      isDoneDate: !todo.isDoneDate,
+      isDoneListe: !todo.isDoneListe,
+      isDoneDelay: !todo.isDoneDelay,
+      isDoneClient: !todo.isDoneClient,      
+      isDoneMail: !todo.isDoneMail, 
+      isDonePhone: !todo.isDonePhone 
+    } : todo));
+    setEditBoolParams((prev: BooleanEditType): BooleanEditType => ({...prev,
+      editBoolDate: prev.editBoolDate,
+      editBoolProject: prev.editBoolProject,
+      editBoolListe: prev.editBoolListe,
+      editBoolDelay: prev.editBoolDelay,
+      editBoolClient: prev.editBoolClient,
+      editBoolMail: prev.editBoolMail,
+      editBoolPhone: prev.editBoolPhone
+    }));
   };
 
   // Delete todo by id
@@ -243,115 +186,71 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
         </div>
 
         <div className="date-project-liste-delay">
-          <form 
+
+          <EditableFields
             onSubmit={(e) => handleEditDate(e, todo.id)} 
-            className="form"
-          >
-            <div className="daycomp-box">
-              <h3>Date</h3>
-              <div className="input-btn-container">
+            day="Date"
+            className="input-button-container"
+            ref={refs.editBoolDate}
+            name={editWriteParams.editDate}
+            value={editWriteParams.editDate}
+            onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
+              ...prev,
+              editDate: e.target.value
+              })
+            )}
+            onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
+              ...prev, 
+              editBoolDate: !prev.editBoolDate
+              })
+            )}
+            editBoolParams={editBoolParams.editBoolDate}
+            editWriteParams={editWriteParams.editDate}
+            isDoneParams={todo.isDoneDate}
+          />
 
-                {editBoolParams.editBoolDate ? (
-                  <input 
-                    ref={refs.editBoolDate}
-                    name={editWriteParams.editDate}
-                    value={editWriteParams.editDate}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-                      ...prev,
-                      editDate: e.target.value
-                      })
-                    )}
-                  />
-                  ) : todo.isDoneDate === true ? (
-                    <s>{editWriteParams.editDate}</s>
-                  ) : (
-                    <span>
-                      {editWriteParams.editDate}
-                    </span>
-                  )
-                }
-                <div>
-                  <button 
-                    type="button" 
-                    onClick={(): void => handleSaveDate(todo.id)} 
-                    className="save-btn"
-                  >
-                    <GiCrossedSabres size={22} />
-                  </button>
-
-                  <button 
-                    type="button" 
-                    onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-                      ...prev, 
-                      editBoolDate: !prev.editBoolDate
-                      })
-                    )}
-                    className="modify-btn"
-                  >
-                    {editBoolParams.editBoolDate === true ? (
-                      <MdOutlineSaveAlt size={22} />
-                    ) : (
-                      <BsPencilSquare size={18} />
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-
-          <form 
+          <EditableFields
             onSubmit={(e) => handleEditProject(e, todo.id)} 
-            className="form"
-          >
-            <div className="daycomp-box">
-              <h3>Projet</h3>
-              <div className="input-btn-container">
+            day="Project"
+            className="input-button-container"
+            ref={refs.editBoolProject}
+            name={editWriteParams.editProject}
+            value={editWriteParams.editProject}
+            onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
+              ...prev,
+              editProject: e.target.value
+              })
+            )}
+            onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
+              ...prev, 
+              editBoolProject: !prev.editBoolProject
+              })
+            )}
+            editBoolParams={editBoolParams.editBoolProject}
+            editWriteParams={editWriteParams.editProject}
+            isDoneParams={todo.isDoneProject}
+          />
 
-                {editBoolParams.editBoolProject === true ? (
-                  <input 
-                    ref={refs.editBoolProject}
-                    name={editWriteParams.editProject}
-                    value={editWriteParams.editProject}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-                      ...prev,
-                      editProject: e.target.value
-                      })
-                    )}
-                  />
-                  ) : todo.isDoneProject === true ? (
-                    <s>{editWriteParams.editProject}</s>
-                  ) : (
-                    <span>{editWriteParams.editProject}</span> 
-                  )
-                }
-                <div>
-                  <button 
-                    type="button" 
-                    onClick={(): void => handleSaveProject(todo.id)} 
-                    className="save-btn"
-                  >
-                    <GiCrossedSabres size={22} />
-                  </button>
-
-                  <button 
-                    type="button" 
-                    onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-                      ...prev, 
-                      editBoolProject: !prev.editBoolProject
-                      })
-                    )}
-                    className="modify-btn"
-                  >
-                    {editBoolParams.editBoolProject === true ? (
-                      <MdOutlineSaveAlt size={22} />
-                    ) : (
-                      <BsPencilSquare size={18} />
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
+          {/* <EditableFields
+            onSubmit={(e) => handleEditListe(e, todo.id)} 
+            day={"Liste"}
+            ref={refs.editBoolListe}
+            name={editWriteParams.editListe}
+            value={editWriteParams.editListe}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>): void => setEditWriteParams((prev: WriteEditType) => ({
+              ...prev,
+              editListe: e.target.value
+              })
+            )}
+            onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
+              ...prev, 
+              editBoolListe: !prev.editBoolListe
+              })
+            )}
+            editBoolParams={editBoolParams.editBoolListe}
+            editWriteParams={editWriteParams.editListe}
+            isDoneParams={todo.isDoneProject}
+          /> */}
 
           <form
             onSubmit={(e) => handleEditListe(e, todo.id)} 
@@ -359,7 +258,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
           >
             <div className="daycomp-textarea">
               <h3>Liste</h3>
-              <div className="input-btn-container">
+              <div className="input-button-container">
                 
                 {editBoolParams.editBoolListe === true ? (
                   <textarea 
@@ -386,14 +285,6 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
                 <div>
                   <button 
                     type="button" 
-                    onClick={(): void => handleSaveListe(todo.id)} 
-                    className="save-btn"
-                  >
-                    <GiCrossedSabres size={22} />
-                  </button>
-
-                  <button 
-                    type="button" 
                     onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
                       ...prev, editBoolListe: !prev.editBoolListe
                       })
@@ -411,226 +302,110 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
             </div>
           </form>
 
-          <form
+          <EditableFields
             onSubmit={(e) => handleEditDelay(e, todo.id)} 
-            className="form"
-          >
-            <div className="daycomp-box">
-              <h3>Délais</h3>
-              <div className="input-btn-container">
+            day="Délais"
+            className="input-button-container"
+            ref={refs.editBoolDelay}
+            name={editWriteParams.editDelay}
+            value={editWriteParams.editDelay}
+            onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
+              ...prev,
+              editDelay: e.target.value
+              })
+            )}
+            onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
+              ...prev, 
+              editBoolDelay: !prev.editBoolDelay
+              })
+            )}
+            editBoolParams={editBoolParams.editBoolDelay}
+            editWriteParams={editWriteParams.editDelay}
+            isDoneParams={todo.isDoneDelay}
+          />
 
-                {editBoolParams.editBoolDelay === true ? (
-                  <input 
-                    ref={refs.editBoolDelay}
-                    name={editWriteParams.editDelay}
-                    value={editWriteParams.editDelay}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-                      ...prev,
-                      editDelay: e.target.value
-                      })
-                    )}
-                  />
-                  ) : todo.isDoneDelay === true ? (
-                    <s>{editWriteParams.editDelay}</s>
-                  ) : (
-                    <span>{editWriteParams.editDelay}</span> 
-                  )
-                }
-                <div>
-                  <button 
-                    type="button" 
-                    onClick={(): void => handleSaveDelay(todo.id)} 
-                    className="save-btn"
-                  >
-                    <GiCrossedSabres size={22} />
-                  </button>
-
-                  <button 
-                    type="button" 
-                    onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-                      ...prev, editBoolDelay: !prev.editBoolDelay
-                      })
-                    )}
-                    className="modify-btn"
-                  >
-                    {editBoolParams.editBoolDelay === true ? (
-                      <MdOutlineSaveAlt size={22} />
-                    ) : (
-                      <BsPencilSquare size={18} />
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
         </div>
 
         <div className="client-mail-phone">
 
-          <form
+          <EditableFields
             onSubmit={(e) => handleEditClient(e, todo.id)} 
-            className="form"
-          >
-            <h3>Client</h3>
-            <div className="input-button-client">
-
-              {editBoolParams.editBoolClient === true ? (
-                <input 
-                  ref={refs.editBoolClient}
-                  name={editWriteParams.editClient}
-                  value={editWriteParams.editClient}
-                  onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-                    ...prev,
-                    editClient: e.target.value
-                    })
-                  )}
-                />
-                ) : todo.isDoneClient === true ? (
-                  <s>{editWriteParams.editClient}</s>
-                ) : (
-                  <span>{editWriteParams.editClient}</span> 
-                )
-              }
-              <div>
-
-                <button 
-                  type="button" 
-                  onClick={(): void => handleSaveClient(todo.id)} 
-                  className="save-btn"
-                >
-                  <GiCrossedSabres size={22} />
-                </button>
-
-                <button 
-                  type="button" 
-                  onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-                    ...prev, editBoolClient: !prev.editBoolClient
-                    })
-                  )}
-                  className="modify-btn"
-                >
-                  {editBoolParams.editBoolClient === true ? (
-                    <MdOutlineSaveAlt size={22} />
-                  ) : (
-                    <BsPencilSquare size={18} />
-                  )}
-                </button>
-              </div>
-            </div>
-          </form>
+            day="Client"
+            className="input-button-client"
+            ref={refs.editBoolClient}
+            name={editWriteParams.editClient}
+            value={editWriteParams.editClient}
+            onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
+              ...prev,
+              editClient: e.target.value
+              })
+            )}
+            onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
+              ...prev, 
+              editBoolClient: !prev.editBoolClient
+              })
+            )}
+            editBoolParams={editBoolParams.editBoolClient}
+            editWriteParams={editWriteParams.editClient}
+            isDoneParams={todo.isDoneClient}
+          />
         
-          <form
+          <EditableFields
             onSubmit={(e) => handleEditMail(e, todo.id)} 
-            className="form"
-          >
-            <h5>E-mail</h5>
-            <div className="input-button-client">
+            day="Email"
+            className="input-button-client"
+            ref={refs.editBoolMail}
+            name={editWriteParams.editMail}
+            value={editWriteParams.editMail}
+            onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
+              ...prev,
+              editMail: e.target.value
+              })
+            )}
+            onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
+              ...prev, 
+              editBoolMail: !prev.editBoolMail
+              })
+            )}
+            editBoolParams={editBoolParams.editBoolMail}
+            editWriteParams={editWriteParams.editMail}
+            isDoneParams={todo.isDoneMail}
+          />
 
-              {editBoolParams.editBoolMail === true ? (
-                <input 
-                  ref={refs.editBoolMail}
-                  name={editWriteParams.editMail}
-                  value={editWriteParams.editMail}
-                  onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-                    ...prev,
-                    editMail: e.target.value
-                    })
-                  )}
-                />
-                ) : todo.isDoneMail === true ? (
-                  <s>{editWriteParams.editMail}</s>
-                ) : (
-                  <span>{editWriteParams.editMail}</span> 
-                )
-              }
-              <div>
+          <EditableFields
+            onSubmit={(e) => handleEditPhone(e, todo.id)}
+            day="Phone"
+            className="input-button-client"
+            ref={refs.editBoolPhone}
+            name={editWriteParams.editPhone}
+            value={editWriteParams.editPhone}
+            onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
+              ...prev,
+              editPhone: e.target.value
+              })
+            )}
+            onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
+              ...prev, 
+              editBoolPhone: !prev.editBoolPhone
+              })
+            )}
+            editBoolParams={editBoolParams.editBoolPhone}
+            editWriteParams={editWriteParams.editPhone}
+            isDoneParams={todo.isDonePhone}
+          />
 
-                <button 
-                  type="button" 
-                  onClick={(): void => handleSaveMail(todo.id)} 
-                  className="save-btn"
-                >
-                  <GiCrossedSabres size={22} />
-                </button>
-
-                <button 
-                  type="button" 
-                  onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-                    ...prev, editBoolMail: !prev.editBoolMail
-                    })
-                  )}
-                  className="modify-btn"
-                >
-                  {editBoolParams.editBoolMail === true ? (
-                    <MdOutlineSaveAlt size={22} />
-                  ) : (
-                    <BsPencilSquare size={18} />
-                  )}
-                </button>
-
-              </div>
-            </div>
-          </form>
-
-          <form
-            onSubmit={(e) => handleEditPhone(e, todo.id)} 
-            className="form"
-          >
-            <div>
-
-              <h5>Tél</h5>
-              <div className="input-button-client">
-                
-              {editBoolParams.editBoolPhone === true ? (
-                <input 
-                  ref={refs.editBoolPhone}
-                  name={editWriteParams.editPhone}
-                  value={editWriteParams.editPhone}
-                  onChange={(e: ChangeEvent<HTMLInputElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-                    ...prev,
-                    editPhone: e.target.value
-                    })
-                  )}
-                />
-                ) : todo.isDonePhone === true ? (
-                  <s>{editWriteParams.editPhone}</s>
-                ) : (
-                  <span>{editWriteParams.editPhone}</span> 
-                )
-              }
-              <div>
-
-                <button 
-                  type="button" 
-                  onClick={(): void => handleSavePhone(todo.id)} 
-                  className="save-btn"
-                >
-                  <GiCrossedSabres size={22} />
-                </button>
-
-                <button 
-                  type="button" 
-                  onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-                    ...prev, editBoolPhone: !prev.editBoolPhone
-                    })
-                  )}
-                  className="modify-btn"
-                >
-                  {editBoolParams.editBoolPhone === true ? (
-                    <MdOutlineSaveAlt size={22} />
-                  ) : (
-                    <BsPencilSquare size={18} />
-                  )}
-                </button>
-
-              </div>
-
-              </div>
-            </div>
-          </form>
         </div>
 
-        <div className="div--btndelete--project">
+        <div className="div--crossout--delete">
+
+          <button 
+            type="button" 
+            onClick={(): void => handleCrossOutTodo(todo.id)} 
+            className="cross--out--btn"
+          >
+            <GiCrossedSabres size={22} />
+          </button>
+
           <button 
             type="button" 
             onClick={(): void => handleDelete(todo.id)} 
@@ -638,6 +413,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
           >
             <MdDelete size={20} />
           </button>
+
         </div>
 
       </div>
