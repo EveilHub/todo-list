@@ -37,8 +37,8 @@ export type CreatorType = {
     name: string;
     email: string;
     phone: string;
-    setParamsTodo: Dispatch<React.SetStateAction<ParamsTodoType>>;
     selectedDay: string | null;
+    setParamsTodo: Dispatch<React.SetStateAction<ParamsTodoType>>;
     handleCheckBox: (day: string) => void;
     handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
 };
@@ -63,10 +63,15 @@ export type WriteEditType = {
     editPhone: string;
 };
 
-export type PriorityType = {
-    priority: string;
+export type ParamsPriorityTypes = {
     hidePriority: boolean;
-    setHidePriority: Dispatch<React.SetStateAction<boolean>>;
+    priority: string;
+    bgColor: string;
+};
+
+export type PriorityType = {
+    paramsPriority: ParamsPriorityTypes;
+    onClick: () => void;
     handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 

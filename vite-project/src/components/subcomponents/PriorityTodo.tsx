@@ -2,16 +2,19 @@ import type { JSX } from "react";
 import type { PriorityType } from "../../lib/definitions";
 
 const PriorityTodo = ({
-    priority, 
-    hidePriority, 
-    setHidePriority, 
+    paramsPriority,
+    onClick, 
     handleChangePriority
 }: PriorityType): JSX.Element => {
     return (
         <div>
-            {hidePriority === false ? (
+            {paramsPriority.hidePriority === false ? (
                 <div>
-                    <select id="options" value={priority} onChange={handleChangePriority}>
+                    <select 
+                        id="options" 
+                        value={paramsPriority.priority} 
+                        onChange={handleChangePriority}
+                    >
                         <option value="option3">Priorité 3 (Standard)</option>
                         <option value="option2">Priorité 2 (Important)</option>
                         <option value="option1">Priorité 1 (Urgent)</option>
@@ -20,7 +23,7 @@ const PriorityTodo = ({
             ) : (
                 <button 
                     type="button" 
-                    onClick={(): void => setHidePriority(!hidePriority)} 
+                    onClick={onClick} 
                     className="custom-btn"
                 >
                     Priorité
