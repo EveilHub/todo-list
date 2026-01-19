@@ -1,4 +1,4 @@
-import React, { type ChangeEvent, type Dispatch } from "react";
+import React, { type ChangeEvent, type Dispatch, type FormEvent, type RefObject } from "react";
 
 export type ParamsTodoType = {
     date: Date;
@@ -61,6 +61,25 @@ export type WriteEditType = {
     editClient: string;
     editMail: string;
     editPhone: string;
+};
+
+export type EditableElement = HTMLInputElement | HTMLTextAreaElement;
+
+export type EditableProps = {
+    day: string;
+    className?: React.HTMLAttributes<HTMLDivElement>['className'];
+    ref: RefObject<EditableElement | null>;
+    name: string;
+    value: string;
+    as?: "input" | "textarea";
+    rows?: number;
+    cols?: number;
+    editBoolParams: boolean;
+    editWriteParams: string;
+    isDoneParams: boolean;
+    onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+    onChange: (e: ChangeEvent<EditableElement>) => void;
+    onClick: () => void;
 };
 
 export type ParamsPriorityTypes = {

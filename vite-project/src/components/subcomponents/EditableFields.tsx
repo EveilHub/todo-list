@@ -1,27 +1,17 @@
-import type { ChangeEvent, FormEvent, JSX, RefObject } from "react";
+import type { JSX } from "react";
+import type { EditableProps } from "../../lib/definitions";
 import { BsPencilSquare } from "react-icons/bs";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import "./styles/EditableFields.css";
-
-type EditableProps = {
-    day: string;
-    className?: React.HTMLAttributes<HTMLDivElement>['className'];
-    ref: RefObject<HTMLInputElement | null>;
-    name: string;
-    value: string;
-    editBoolParams: boolean;
-    editWriteParams: string;
-    isDoneParams: boolean;
-    onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    onClick: () => void;
-};
 
 const EditableFields = (
     {
         day,
         className,
         ref,
+        as = "input",
+        rows,
+        cols,
         name,
         value,
         editBoolParams,
@@ -31,6 +21,9 @@ const EditableFields = (
         onChange,
         onClick
     }: EditableProps): JSX.Element => {
+
+    const Field = as;
+
     return (
         <form 
             onSubmit={onSubmit} 
@@ -42,20 +35,30 @@ const EditableFields = (
                 <div className={className}>
 
                     {editBoolParams === true ? (
-                        <input 
-                            ref={ref}
+                        <Field 
+                            ref={ref as any}
                             name={name}
                             value={value}
                             onChange={onChange}
+                            rows={as === "textarea" ? rows : undefined}
+                            cols={as === "textarea" ? cols : undefined}
                         />
                         ) : isDoneParams === true ? (
+                            <s>{editWriteParams}</s>
+                        ) : as === "textarea" ? (
+                            <textarea value={editWriteParams} readOnly />
+                        ) : (
+                            <span>{editWriteParams}</span>
+                        )}
+
+                        {/* ) : isDoneParams === true ? (
                             <s>{editWriteParams}</s>
                         ) : (
                             <span>
                                 {editWriteParams}
                             </span>
                         )
-                    }
+                    } */}
 
                     <div>
                         <button 
