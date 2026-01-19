@@ -1,5 +1,6 @@
 .checkbox-lbl {
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .checkbox-lbl:hover {

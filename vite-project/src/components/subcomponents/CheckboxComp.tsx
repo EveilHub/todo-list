@@ -1,11 +1,11 @@
-import type { JSX } from "react";
+import type { JSX, ReactNode } from "react";
 import "./styles/CheckboxComp.css";
 
 type CheckBoxType = {
     params: string;
     checked: boolean;
     handleCheckBox: (day: string) => void;
-    children: React.ReactNode;
+    children: ReactNode;
 };
 
 const CheckboxComp = ({params, checked, handleCheckBox, children,}: CheckBoxType): JSX.Element => {

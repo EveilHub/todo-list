@@ -127,7 +127,7 @@ const App: FC = (): JSX.Element => {
       {switcher === false ? (
         <div>
           <CreatorInputComp
-            date={paramsTodo.date}
+            date={paramsTodo.date.toLocaleString()}
             project={paramsTodo.project}
             liste={paramsTodo.liste}
             delay={paramsTodo.delay}
@@ -145,7 +145,18 @@ const App: FC = (): JSX.Element => {
 
         </div>
       ) : (
-        <h2>Data from backup.json</h2>
+        <div>
+
+          <h2>Data from backup.json</h2>
+          {todos.map((todo) => (
+            <div>
+              <span id={String(todo.id)}>{todo.date.toLocaleString()} - {todo.project} - {todo.liste} - {todo.delay} - {todo.name} - {todo.phone}</span>
+              <br />
+            </div>
+          ))}
+
+
+        </div>
       )}
     </div>
   )

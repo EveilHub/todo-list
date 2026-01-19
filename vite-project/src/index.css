@@ -2,8 +2,8 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 600;
 
-  color: #333;
-  background-color: #f5f5f5;
+  color: #f5f5f5;
+  background-color: #333;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -27,10 +27,6 @@ h1 {
   margin: auto;
 }
 
-label {
-  margin-bottom: 10px;
-}
-
 button {
   display: flex;
   align-items: center;
@@ -38,7 +34,7 @@ button {
   border: 1px solid transparent;
   border-radius: 50%;
   background-color: royalblue;
-  box-shadow: 0 0 7px #a1a1a1;
+  box-shadow: 0 0 7px #535bf2;
   color: #f5f5f5;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -46,7 +42,7 @@ button {
 
 button:hover {
   background-color: blue;
-  box-shadow: 0 0 0 #a1a1a1;
+  box-shadow: 0 0 0 #001088;
 }
 
 button:active {
