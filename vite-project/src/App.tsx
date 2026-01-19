@@ -1,5 +1,5 @@
 import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
-import type { daysOfWeek, ParamsTodoType, Todo } from './lib/definitions.ts';
+import type { ParamsTodoType, Todo } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
 import TodosListComp from './components/TodosListComp.tsx';
 import FetchFromJson from './components/FetchFromJson.tsx';
@@ -19,13 +19,7 @@ const App: FC = (): JSX.Element => {
     phone: ""
   });
 
-  const [dayChoice, setDayChoice] = useState<daysOfWeek>({
-    lundi: false,
-    mardi: false,
-    mercredi: false,
-    jeudi: false,
-    vendredi: false
-  });
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -52,21 +46,8 @@ const App: FC = (): JSX.Element => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const resetDayChoices = (): void => {
-    setDayChoice({
-      lundi: false,
-      mardi: false,
-      mercredi: false,
-      jeudi: false,
-      vendredi: false
-    });
-  };
-
-  const handleCheckBox = (day: keyof daysOfWeek): void => {
-    setDayChoice((prevState: daysOfWeek): daysOfWeek => ({
-      ...prevState, 
-      [day]: !prevState[day] 
-    }));
+  const handleCheckBox = (day: string): void => {
+    setSelectedDay(day);
   };
 
   const handleSwitch = () => {
@@ -76,12 +57,12 @@ const App: FC = (): JSX.Element => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (!paramsTodo.date) return;
-    setTodos(prev => [
+    setTodos((prev) => [
       ...prev,
       {
         id: iterator++,
+        selectedDay,
         ...paramsTodo,
-        dayChoice,
         isDoneDate: false,
         isDoneProject: false,
         isDoneListe: false,
@@ -100,8 +81,7 @@ const App: FC = (): JSX.Element => {
       email: "",
       phone: ""
     });
-
-    resetDayChoices();
+    setSelectedDay(null);
   };
 
   //console.log("todos => ", todos.map((x) => x));
@@ -126,8 +106,7 @@ const App: FC = (): JSX.Element => {
             email={paramsTodo.email}
             phone={paramsTodo.phone}
             setParamsTodo={setParamsTodo}
-            dayChoice={dayChoice}
-            setDayChoice={setDayChoice}
+            selectedDay={selectedDay}
             handleCheckBox={handleCheckBox}
             handleSubmit={handleSubmit}
           />

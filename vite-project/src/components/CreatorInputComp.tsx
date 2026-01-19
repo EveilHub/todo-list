@@ -13,7 +13,7 @@ const CreatorInputComp = ({
     email,
     phone,
     setParamsTodo,
-    dayChoice,
+    selectedDay,
     handleCheckBox,
     handleSubmit
 }: CreatorType): JSX.Element => {
@@ -109,7 +109,7 @@ const CreatorInputComp = ({
                   
                     <CheckboxComp
                         params="lundi"
-                        checked={dayChoice.lundi}
+                        checked={selectedDay === "lundi"}
                         handleCheckBox={(): void => handleCheckBox("lundi")}
                     >
                         Lundi
@@ -117,7 +117,7 @@ const CreatorInputComp = ({
 
                     <CheckboxComp
                         params="mardi"
-                        checked={dayChoice.mardi}
+                        checked={selectedDay === "mardi"}
                         handleCheckBox={(): void => handleCheckBox("mardi")}
                     >
                         Mardi
@@ -125,7 +125,7 @@ const CreatorInputComp = ({
 
                     <CheckboxComp
                         params="mercredi"
-                        checked={dayChoice.mercredi}
+                        checked={selectedDay === "mercredi"}
                         handleCheckBox={(): void => handleCheckBox("mercredi")}
                     >
                         Mercredi
@@ -133,7 +133,7 @@ const CreatorInputComp = ({
 
                     <CheckboxComp
                         params="jeudi"
-                        checked={dayChoice.jeudi}
+                        checked={selectedDay === "jeudi"}
                         handleCheckBox={(): void => handleCheckBox("jeudi")}
                     >
                         Jeudi
@@ -141,7 +141,7 @@ const CreatorInputComp = ({
 
                     <CheckboxComp
                         params="vendredi"
-                        checked={dayChoice.vendredi}
+                        checked={selectedDay === "vendredi"}
                         handleCheckBox={(): void => handleCheckBox("vendredi")}
                     >
                         Vendredi
