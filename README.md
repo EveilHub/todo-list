@@ -16,7 +16,11 @@ pnpm run build
 
 ## Goals
 
-- sort() per day & per priority
+- sort() par date par semaine
+
+- Liste textarea à revoir 
+
+- Checkbox gestion d'erreur
 
 - Delete => Save in file.json + file.csv
 
