@@ -141,10 +141,11 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
     setEditBoolParams((prev: BooleanEditType) => ({...prev, editBoolPhone: !prev.editBoolPhone}));
   };
 
+  // Cross out todo by id
   const handleCrossOutTodo = (id: number): void => {
     setTodos(todos.map((todo: Todo): Todo => todo.id === id ? { ...todo,
-      isDoneProject: !todo.isDoneProject,
       isDoneDate: !todo.isDoneDate,
+      isDoneProject: !todo.isDoneProject,
       isDoneListe: !todo.isDoneListe,
       isDoneDelay: !todo.isDoneDelay,
       isDoneClient: !todo.isDoneClient,      
@@ -164,7 +165,7 @@ const TodoPerDayComp = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => 
 
   // Delete todo by id
   const handleDelete = (id: number): void => {
-    setTodos(todos.filter((todo) => (todo.id !== id)));
+    setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
   };
 
   return (

@@ -2,19 +2,12 @@ import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
 import type { daysOfWeek, ParamsTodoType, Todo } from './lib/definitions.ts';
 import CreatorInputComp from './components/CreatorInputComp.tsx';
 import TodosListComp from './components/TodosListComp.tsx';
+import FetchFromJson from './components/FetchFromJson.tsx';
 import './App.css'
 
 let iterator: number = 0;
 
 const App: FC = (): JSX.Element => {
-
-  // const [date, setDate] = useState<Date>(new Date());
-  // const [project, setProject] = useState<string>('');
-  // const [liste, setListe] = useState<string>('');
-  // const [delay, setDelay] = useState<string>('');
-  // const [name, setName] = useState<string>('');
-  // const [email, setEmail] = useState<string>('');
-  // const [phone, setPhone] = useState<string>('');
 
   const [paramsTodo, setParamsTodo] = useState<ParamsTodoType>({
     date: new Date(),
@@ -34,7 +27,6 @@ const App: FC = (): JSX.Element => {
     vendredi: false
   });
 
-  // All in One
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const [time, setTime] = useState<string>('');
@@ -112,8 +104,7 @@ const App: FC = (): JSX.Element => {
     resetDayChoices();
   };
 
-
-  console.log("todos => ", todos.map((x) => x));
+  //console.log("todos => ", todos.map((x) => x));
 
   return (
     <div className="main--div--app">
@@ -145,21 +136,10 @@ const App: FC = (): JSX.Element => {
 
         </div>
       ) : (
-        <div>
-
-          <h2>Data from backup.json</h2>
-          {todos.map((todo) => (
-            <div>
-              <span id={String(todo.id)}>{todo.date.toLocaleString()} - {todo.project} - {todo.liste} - {todo.delay} - {todo.name} - {todo.phone}</span>
-              <br />
-            </div>
-          ))}
-
-
-        </div>
+        <FetchFromJson todos={todos} />
       )}
     </div>
   )
-}
+};
 
 export default App;
