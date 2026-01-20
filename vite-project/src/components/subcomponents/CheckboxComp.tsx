@@ -3,7 +3,6 @@ import type { CheckBoxType } from "../../lib/definitions";
 import "./styles/CheckboxComp.css";
 
 const CheckboxComp = ({params, checked, handleCheckBox, children,}: CheckBoxType): JSX.Element => {
-
     return (
         <label htmlFor={params} className="checkbox-lbl">
             <input
