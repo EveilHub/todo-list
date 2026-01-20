@@ -33,8 +33,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   });
 
   const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
-    editId: todo.id,
-    editDate: todo.date.toLocaleString(),
+    editId: String(todo.id),
+    editDate: String(todo.date),
     editProject: todo.project,
     editListe: todo.liste,
     editDelay: todo.delay,
@@ -45,20 +45,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   const [editWriteParamsList, setEditWriteParamsList] =
     useLocalStorage<WriteEditType[]>("editWriteParamsList", []);
-
-  const saveEditToLocalStorage = () => {
-    setEditWriteParamsList(prev => {
-      const existing = prev.find(item => item.editId === editWriteParams.editId);
-      if (existing) {
-        // UPDATE
-        return prev.map(item =>
-          item.editId === editWriteParams.editId ? editWriteParams : item
-        );
-      }
-      // CREATE
-      return [...prev, editWriteParams];
-    });
-  };
 
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
@@ -122,110 +108,97 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   }, [paramsPriority.priority]);
 
   const handleChangePriority = (e: ChangeEvent<HTMLSelectElement>): void => {
-    setParamsPriority((prev: ParamsPriorityTypes) => ({...prev, priority: e.target.value}));
-    setParamsPriority((prev: ParamsPriorityTypes) => ({...prev, hidePriority: !prev.hidePriority}));
+    setParamsPriority((prev: ParamsPriorityTypes) => ({...prev, 
+      priority: e.target.value,
+      hidePriority: !prev.hidePriority
+    }));
   };
 
-  const handleEditDate = (e: FormEvent<HTMLFormElement>, id: number): void => {
+  const handleEditDate = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, 
-      todo: editWriteParams.editDate
+      ...todo, date: editWriteParams.editDate
     } : todo))
-    saveEditToLocalStorage();
+
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolDate: !prev.editBoolDate
     }));
   };
 
-  const handleEditProject = (e: FormEvent<HTMLFormElement>, id: number): void => {
+  const handleEditProject = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, 
-      todo: editWriteParams.editProject 
+      ...todo, project: editWriteParams.editProject
     } : todo))
-    saveEditToLocalStorage();
+
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolProject: !prev.editBoolProject
     }));
   };
 
-  const handleEditListe = (e: FormEvent<HTMLFormElement>, id: number): void => {
+  const handleEditListe = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, todo: editWriteParams.editListe 
+    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+      ...todo, liste: editWriteParams.editListe 
     } : todo))
-    saveEditToLocalStorage();
+
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolListe: !prev.editBoolListe
     }));
   };
 
-  const handleEditDelay = (e: FormEvent<HTMLFormElement>, id: number): void => {
+  const handleEditDelay = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, todo: editWriteParams.editDelay 
+    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+      ...todo, delay: editWriteParams.editDelay 
     } : todo))
-    saveEditToLocalStorage();
+
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolDelay: !prev.editBoolDelay
     }));
   };
 
-  const handleEditClient = (e: FormEvent<HTMLFormElement>, id: number): void => {
+  const handleEditClient = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, todo: editWriteParams.editClient 
+    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+      ...todo, name: editWriteParams.editClient 
     } : todo))
-    saveEditToLocalStorage();
+
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
       editBoolClient: !prev.editBoolClient
     }));
   };
 
-  const handleEditMail = (e: FormEvent<HTMLFormElement>, id: number): void => {
+  const handleEditMail = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, todo: editWriteParams.editMail 
+    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+      ...todo, email: editWriteParams.editMail 
     } : todo))
-    saveEditToLocalStorage();
+
     setEditBoolParams((prev: BooleanEditType) => ({
-      ...prev, 
-      editBoolMail: !prev.editBoolMail
+      ...prev, editBoolMail: !prev.editBoolMail
     }));
   };
 
-  const handleEditPhone = (e: FormEvent<HTMLFormElement>, id: number): void => {
+  const handleEditPhone = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, todo: editWriteParams.editPhone 
+    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+      ...todo, phone: editWriteParams.editPhone 
     } : todo))
-    saveEditToLocalStorage();
+
     setEditBoolParams((prev: BooleanEditType) => ({
-      ...prev, 
-      editBoolPhone: !prev.editBoolPhone
+      ...prev, editBoolPhone: !prev.editBoolPhone
     }));
   };
-
-  useEffect(() => {
-    const stored = editWriteParamsList.find(
-      item => item.editId === todo.id
-    );
-
-    if (stored) {
-      setEditWriteParams(stored);
-    }
-  }, [todo.id]);
-
 
   // Cross out todo by id
-  const handleCrossOutTodo = (id: number): void => {
-    setTodos(todos.map((todo: Todo): Todo => todo.id === id ? { ...todo,
+  const handleCrossOutTodo = (id: string): void => {
+    setTodos(todos.map((todo: Todo): Todo => todo.id === id? { ...todo,
       isDoneDate: !todo.isDoneDate,
       isDoneProject: !todo.isDoneProject,
       isDoneListe: !todo.isDoneListe,
@@ -245,11 +218,46 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     }));
   };
 
+  const hasMounted = useRef(false);
+
+  useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
+    
+    if (!editWriteParams.editId) return;
+    
+    setEditWriteParamsList(prev => {
+      const existing = prev.find(i => i.editId === editWriteParams.editId);
+
+      if (existing) {
+        return prev.map(i =>
+          i.editId === editWriteParams.editId ? editWriteParams : i
+        );
+      }
+
+      return [...prev, editWriteParams];
+    });
+  }, [editWriteParams]);
+
+
+
+  useEffect(() => {
+    const stored = editWriteParamsList.find(
+      item => item.editId === String(todo.id)
+    );
+
+    if (stored) {
+      setEditWriteParams(stored);
+    }
+  }, [todo.id]);
+
   // Delete todo by id
-  const handleDelete = (id: number): void => {
+  const handleDelete = (id: string): void => {
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
-    setEditWriteParamsList(prev =>
-      prev.filter(item => item.editId !== id)
+    setEditWriteParamsList((prev: WriteEditType[]) =>
+      prev.filter((item: WriteEditType) => item.editId !== id)
     );
   };
 
@@ -324,11 +332,11 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditListe(e, todo.id)} 
-            day={"Liste"}
+            day="Liste"
             as="textarea"
             className="input-button-textarea"
-            rows={4}
-            cols={30}
+            rows={5}
+            cols={20}
             ref={refs.editBoolListe}
             name={editWriteParams.editListe}
             value={editWriteParams.editListe}
@@ -371,7 +379,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
         </div>
 
-        <div className="client-mail-phone">
+        <div className="client--mail--phone">
 
           <EditableFields
             onSubmit={(e) => handleEditClient(e, todo.id)} 

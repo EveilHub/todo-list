@@ -1,16 +1,25 @@
-import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type JSX } from 'react';
 import type { ParamsTodoType, Todo } from './lib/definitions.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
 import FetchFromJson from './components/FetchFromJson.tsx';
 import './App.css';
 
-let iterator: number = 0;
+const App = (): JSX.Element => {
 
-const App: FC = (): JSX.Element => {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const dateNow: Date = new Date();
+  const year: string = pad(dateNow.getFullYear());
+  const month: string = pad(dateNow.getMonth() + 1);
+  const dateDay: string = pad(dateNow.getDate());
+  const hour: string = pad(dateNow.getHours());
+  const min: string = pad(dateNow.getMinutes());
+  const todayDate: string = `${dateDay}/${month}/${year} ${hour}:${min}`;
+
+  const idRef = useRef<number>(0);
 
   const [paramsTodo, setParamsTodo] = useState<ParamsTodoType>({
-    date: new Date(),
+    date: todayDate,
     project: "",
     liste: "",
     delay: "",
@@ -21,9 +30,11 @@ const App: FC = (): JSX.Element => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  console.log(todos.map(x => x));
 
   const [time, setTime] = useState<string>('');
+
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
   const [switcher, setSwitcher] = useState<boolean>(false);
 
@@ -51,7 +62,8 @@ const App: FC = (): JSX.Element => {
   };
 
   const handleSwitch = () => {
-    setSwitcher(!switcher);
+    setSwitcher((prev: boolean) => !prev);
+
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
@@ -60,7 +72,7 @@ const App: FC = (): JSX.Element => {
     setTodos((prev: Todo[]) => [
       ...prev,
       {
-        id: iterator++,
+        id: String(idRef.current++),
         selectedDay,
         ...paramsTodo,
         isDoneDate: false,
@@ -73,7 +85,7 @@ const App: FC = (): JSX.Element => {
       }
     ]);
     setParamsTodo({
-      date: new Date(),
+      date: todayDate,
       project: "",
       liste: "",
       delay: "",
@@ -83,6 +95,8 @@ const App: FC = (): JSX.Element => {
     });
     setSelectedDay(null);
   };
+
+  console.log(todos.map(x => x));
 
   return (
     <div className="main--div--app">
@@ -101,7 +115,7 @@ const App: FC = (): JSX.Element => {
         <div>
 
           <CreateInputCheckbox
-            date={paramsTodo.date.toLocaleString()}
+            date={paramsTodo.date}
             project={paramsTodo.project}
             liste={paramsTodo.liste}
             delay={paramsTodo.delay}
@@ -123,5 +137,4 @@ const App: FC = (): JSX.Element => {
     </div>
   )
 };
-
 export default App;

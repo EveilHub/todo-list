@@ -8,7 +8,7 @@ import React, {
 } from "react";
 
 export type ParamsTodoType = {
-    date: Date;
+    date: string;
     project: string;
     liste: string;
     delay: string;
@@ -18,8 +18,8 @@ export type ParamsTodoType = {
 };
 
 export type Todo = {
-    id: number;
-    date: Date;
+    id: string;
+    date: string;
     project: string;
     liste: string;
     delay: string;
@@ -82,7 +82,7 @@ export type BooleanEditType = {
 };
 
 export type WriteEditType = {
-    editId: number;
+    editId: string;
     editDate: string;
     editProject: string;
     editListe: string;

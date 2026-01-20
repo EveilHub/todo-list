@@ -1,0 +1,15 @@
+.priority--container {
+    width: auto;
+    border: none;
+}
+
+.priority--field {
+    width: auto;
+}
+
+#options {
+    font-size: 16px;
+    border: 1.5px solid #334155;
+    border-radius: 7px;
+    padding: 5px 7px;
+}

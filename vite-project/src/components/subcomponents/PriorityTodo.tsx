@@ -1,5 +1,6 @@
 import type { JSX } from "react";
 import type { PriorityType } from "../../lib/definitions";
+import "./styles/PriorityTodo.css";
 
 const PriorityTodo = ({
     paramsPriority,
@@ -7,9 +8,9 @@ const PriorityTodo = ({
     handleChangePriority
 }: PriorityType): JSX.Element => {
     return (
-        <div>
+        <div className="priority--container">
             {paramsPriority.hidePriority === false ? (
-                <div>
+                <div className="priority--field">
                     <select 
                         id="options" 
                         value={paramsPriority.priority} 

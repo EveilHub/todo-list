@@ -28,7 +28,7 @@ const CreateInputCheckbox = ({
                 <InputComp
                     type="text"
                     name="date"
-                    value={date.toLocaleString()} 
+                    value={date} 
                     readOnly
                     placeholder="Date"
                 />
