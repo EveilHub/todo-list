@@ -16,6 +16,10 @@ pnpm run build
 
 ## Goals
 
-1) sort() par date par semaine
+1) sort() par priority
 
-2) Delete => Save in file.json + file.csv
+2) useLocalStorage ne fonctionne pas 
+
+3) Delete => Save in file.json + file.csv
+
+4) Volet pour client
