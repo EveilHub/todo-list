@@ -17,6 +17,17 @@ const CreateInputCheckbox = ({
     handleCheckBox,
     handleSubmit
 }: CreatorType): JSX.Element => {
+
+    const formatPhoneNumber = (value: string): string => {
+        const digits = value.replace(/\D/g, "");
+
+        return digits
+            .slice(0, 10)
+            .replace(/(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})/, (_, a, b, c, d) =>
+                [a, b, c, d].filter(Boolean).join(" ")
+            );
+    };
+
     return (
         <form 
             onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} 
@@ -94,15 +105,16 @@ const CreateInputCheckbox = ({
                 />
 
                 <InputComp 
-                    type="number"
+                    type="text"
                     name="phone"
                     value={phone}
                     onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
                         prev: ParamsTodoType) => ({
-                            ...prev, [e.target.name]: e.target.value
+                            ...prev, [e.target.name]: formatPhoneNumber(e.target.value)
                         })
                     )}
-                    placeholder="Phone" 
+                    placeholder="076 673 67 34"
+                    maxLength={13}
                 />
 
                 <div className="checkbox-lbl-input">

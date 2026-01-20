@@ -8,7 +8,8 @@ const InputComp = (
         name, 
         value, 
         readOnly, 
-        onChange, 
+        onChange,
+        maxLength,
         placeholder
     }: InputType): JSX.Element => {
     return (
@@ -18,7 +19,8 @@ const InputComp = (
             value={value}
             readOnly={readOnly}
             onChange={onChange} 
-            className="input--creation" 
+            className="input--creation"
+            maxLength={maxLength} 
             placeholder={placeholder}
         />
     )
