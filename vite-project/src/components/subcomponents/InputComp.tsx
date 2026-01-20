@@ -2,7 +2,15 @@ import type { JSX } from "react";
 import type { InputType } from "../../lib/definitions";
 import "./styles/InputComp.css";
 
-const InputComp = ({type, name, value, readOnly, onChange, placeholder}: InputType): JSX.Element => {
+const InputComp = (
+    {
+        type, 
+        name, 
+        value, 
+        readOnly, 
+        onChange, 
+        placeholder
+    }: InputType): JSX.Element => {
     return (
         <input 
             type={type}
@@ -10,7 +18,7 @@ const InputComp = ({type, name, value, readOnly, onChange, placeholder}: InputTy
             value={value}
             readOnly={readOnly}
             onChange={onChange} 
-            className="input-creation" 
+            className="input--creation" 
             placeholder={placeholder}
         />
     )

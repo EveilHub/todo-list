@@ -1,6 +1,27 @@
-.input-creation {
+.input--creation {
     width: 10%;
-    font-size: 1.0rem;
     margin-right: 10px;
     padding: 10px 7px;
+    font-size: 16px;
+
+    color: #f9fafb;
+
+    background: #0f172a;
+
+    border: 1.5px solid #334155;
+    border-radius: 12px;
+    outline: none;
+    transition: 
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+.input--creation:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+}
+
+.input--creation:hover {
+    border-color: #475569;
 }

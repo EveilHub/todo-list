@@ -18,7 +18,7 @@ import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
 import { GiCrossedSabres } from "react-icons/gi";
-import "./styles/TodoPerDayComp.css";
+import "./styles/TodoPerDay.css";
 
 const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
@@ -326,6 +326,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             onSubmit={(e) => handleEditListe(e, todo.id)} 
             day={"Liste"}
             as="textarea"
+            className="input-button-textarea"
             rows={4}
             cols={30}
             ref={refs.editBoolListe}

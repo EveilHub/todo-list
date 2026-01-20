@@ -87,10 +87,14 @@ const App: FC = (): JSX.Element => {
   return (
     <div className="main--div--app">
       
-      <h1>{time}</h1>
+      <div className='main--title'>
+        <h1>{time}</h1>
+      </div>
 
-      <div>
-        <button type="button" onClick={handleSwitch} className='custom-btn'>Switch</button>
+      <div className='div--switcher--btn'>
+        <button type="button" onClick={handleSwitch} className='custom-btn'>
+          Switch
+        </button>
       </div>
 
       {switcher === false ? (
