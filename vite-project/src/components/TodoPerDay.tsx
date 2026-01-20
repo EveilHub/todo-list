@@ -75,6 +75,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     });
   }, [editBoolParams]);
 
+  // Priority colors
   const changeColor = (priority: string): void => {
     switch (priority) {
       case 'option1':
@@ -114,6 +115,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     }));
   };
 
+  // HandleEdit...
   const handleEditDate = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
@@ -133,50 +135,46 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     } : todo))
 
     setEditBoolParams((prev: BooleanEditType) => ({
-      ...prev, 
-      editBoolProject: !prev.editBoolProject
+      ...prev, editBoolProject: !prev.editBoolProject
     }));
   };
 
   const handleEditListe = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, liste: editWriteParams.editListe 
     } : todo))
 
     setEditBoolParams((prev: BooleanEditType) => ({
-      ...prev, 
-      editBoolListe: !prev.editBoolListe
+      ...prev, editBoolListe: !prev.editBoolListe
     }));
   };
 
   const handleEditDelay = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, delay: editWriteParams.editDelay 
     } : todo))
 
     setEditBoolParams((prev: BooleanEditType) => ({
-      ...prev, 
-      editBoolDelay: !prev.editBoolDelay
+      ...prev, editBoolDelay: !prev.editBoolDelay
     }));
   };
 
   const handleEditClient = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, name: editWriteParams.editClient 
     } : todo))
 
     setEditBoolParams((prev: BooleanEditType) => ({
-      ...prev, 
-      editBoolClient: !prev.editBoolClient
+      ...prev, editBoolClient: !prev.editBoolClient
     }));
   };
 
   const handleEditMail = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, email: editWriteParams.editMail 
     } : todo))
 
@@ -187,7 +185,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   const handleEditPhone = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id? { 
+    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
       ...todo, phone: editWriteParams.editPhone 
     } : todo))
 
@@ -198,7 +196,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   // Cross out todo by id
   const handleCrossOutTodo = (id: string): void => {
-    setTodos(todos.map((todo: Todo): Todo => todo.id === id? { ...todo,
+    setTodos(todos.map((todo: Todo): Todo => todo.id === id ? {...todo,
       isDoneDate: !todo.isDoneDate,
       isDoneProject: !todo.isDoneProject,
       isDoneListe: !todo.isDoneListe,
@@ -240,8 +238,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       return [...prev, editWriteParams];
     });
   }, [editWriteParams]);
-
-
 
   useEffect(() => {
     const stored = editWriteParamsList.find(
@@ -294,9 +290,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             ref={refs.editBoolDate}
             name={editWriteParams.editDate}
             value={editWriteParams.editDate}
-            onChange={(e: ChangeEvent<EditableElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-              ...prev,
-              editDate: e.target.value
+            onChange={(e: ChangeEvent<EditableElement>): void => 
+              setEditWriteParams((prev: WriteEditType) => ({
+                ...prev,
+                editDate: e.target.value
               })
             )}
             onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
@@ -316,9 +313,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             ref={refs.editBoolProject}
             name={editWriteParams.editProject}
             value={editWriteParams.editProject}
-            onChange={(e: ChangeEvent<EditableElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-              ...prev,
-              editProject: e.target.value
+            onChange={(e: ChangeEvent<EditableElement>): void => 
+              setEditWriteParams((prev: WriteEditType) => ({
+                ...prev,
+                editProject: e.target.value
               })
             )}
             onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
@@ -340,9 +338,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             ref={refs.editBoolListe}
             name={editWriteParams.editListe}
             value={editWriteParams.editListe}
-            onChange={(e: ChangeEvent<EditableElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-              ...prev,
-              editListe: e.target.value
+            onChange={(e: ChangeEvent<EditableElement>): void => 
+              setEditWriteParams((prev: WriteEditType) => ({
+                ...prev,
+                editListe: e.target.value
               })
             )}
             onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
@@ -363,9 +362,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             ref={refs.editBoolDelay}
             name={editWriteParams.editDelay}
             value={editWriteParams.editDelay}
-            onChange={(e: ChangeEvent<EditableElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-              ...prev,
-              editDelay: e.target.value
+            onChange={(e: ChangeEvent<EditableElement>): void => 
+              setEditWriteParams((prev: WriteEditType) => ({
+                ...prev,
+                editDelay: e.target.value
               })
             )}
             onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
@@ -389,9 +389,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             ref={refs.editBoolClient}
             name={editWriteParams.editClient}
             value={editWriteParams.editClient}
-            onChange={(e: ChangeEvent<EditableElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-              ...prev,
-              editClient: e.target.value
+            onChange={(e: ChangeEvent<EditableElement>): void => 
+              setEditWriteParams((prev: WriteEditType) => ({
+                ...prev,
+                editClient: e.target.value
               })
             )}
             onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
@@ -411,9 +412,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             ref={refs.editBoolMail}
             name={editWriteParams.editMail}
             value={editWriteParams.editMail}
-            onChange={(e: ChangeEvent<EditableElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-              ...prev,
-              editMail: e.target.value
+            onChange={(e: ChangeEvent<EditableElement>): void => 
+              setEditWriteParams((prev: WriteEditType) => ({
+                ...prev,
+                editMail: e.target.value
               })
             )}
             onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
@@ -433,9 +435,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             ref={refs.editBoolPhone}
             name={editWriteParams.editPhone}
             value={editWriteParams.editPhone}
-            onChange={(e: ChangeEvent<EditableElement>): void => setEditWriteParams((prev: WriteEditType) => ({
-              ...prev,
-              editPhone: e.target.value
+            onChange={(e: ChangeEvent<EditableElement>): void => 
+              setEditWriteParams((prev: WriteEditType) => ({
+                ...prev,
+                editPhone: e.target.value
               })
             )}
             onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
