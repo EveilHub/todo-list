@@ -20,7 +20,7 @@ const CreateInputCheckbox = ({
     return (
         <form 
             onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} 
-            className='creation-container'
+            className='creation--container'
         >
 
             <div className='creation-input-container'>
@@ -151,7 +151,7 @@ const CreateInputCheckbox = ({
 
             </div>
 
-            <div className='creation-btn-div'>
+            <div className='creation--btn--div'>
                 <button id="btn-1" type="submit" className="custom-btn">
                     Create
                 </button>

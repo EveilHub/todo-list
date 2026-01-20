@@ -4,14 +4,14 @@ h3 {
   border-bottom: 1px solid rgba(65, 105, 225, 0.2);
 }
 
-h5 {
+/* h5 {
   text-align: left;
   margin: auto;
   margin-left: 10px;
-}
+} */
 
 .main--div {
-  /* border: 10px solid red; */
+  border: 3px solid cyan;
 }
 
 .div--day {
@@ -32,14 +32,6 @@ h5 {
   /* border: 10px solid orange; */
 }
 
-/* .input-button-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-
-} */
-
 .priority--div {
   width: 10%;
   display: flex;
@@ -59,32 +51,6 @@ h5 {
   /* border: 10px solid green; */
 }
 
-/* .main-div-daycomp {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  border: none;
-  border-radius: 7px;
-  box-shadow: 0 0 7px rgba(65, 105, 225, 0.5);
-} */
-
-
-.input-box-daycomp {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: auto;
-
-  /* border: 10px solid cyan; */
-}
-
-.daycomp-textarea {
-  /* border: 10px solid orangered; */
-}
-
 .client-mail-phone {
   width: 20%;
 
@@ -96,22 +62,6 @@ h5 {
   border-radius: 7px;
 
   margin: auto;
-}
-
-/* .input-button-client {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  border: 10px solid dimgrey;
-} */
-
-.btn-params {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
 }
 
 .div--crossout--delete {
@@ -142,13 +92,6 @@ h5 {
   height: 40px;
   background-color: red;
   margin-top: 50%;
-}
-
-.delete--btn-client {
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
-  background-color: red;
 }
 
 .delete--btn:hover {

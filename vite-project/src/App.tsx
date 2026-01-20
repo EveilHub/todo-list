@@ -1,9 +1,9 @@
-import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react'
+import { useEffect, useState, type FC, type FormEvent, type JSX } from 'react';
 import type { ParamsTodoType, Todo } from './lib/definitions.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
 import FetchFromJson from './components/FetchFromJson.tsx';
-import './App.css'
+import './App.css';
 
 let iterator: number = 0;
 
@@ -87,14 +87,19 @@ const App: FC = (): JSX.Element => {
   return (
     <div className="main--div--app">
       
-      <h1>{time}</h1>
+      <div className='main--title'>
+        <h1>{time}</h1>
+      </div>
 
-      <div>
-        <button type="button" onClick={handleSwitch} className='custom-btn'>Switch</button>
+      <div className='div--switcher--btn'>
+        <button type="button" onClick={handleSwitch} className='custom-btn'>
+          Switch
+        </button>
       </div>
 
       {switcher === false ? (
         <div>
+
           <CreateInputCheckbox
             date={paramsTodo.date.toLocaleString()}
             project={paramsTodo.project}

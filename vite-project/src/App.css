@@ -1,11 +1,17 @@
 #root {
-  max-width: 1600px;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
 .main--div--app {
   width: 100%;
-  border: 10px solid salmon;
+}
+
+.main--title {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.div--switcher--btn {
+  padding: 20px;
 }

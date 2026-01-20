@@ -3,20 +3,22 @@ import { useEffect,
   useState,
   type ChangeEvent,
   type FormEvent,
-  type JSX } from "react";
+  type JSX 
+} from "react";
 import type { 
   BooleanEditType,
   EditableElement,
   ParamsPriorityTypes,
   PropsTodoType,
   Todo,
-  WriteEditType } from "../lib/definitions.ts";
+  WriteEditType 
+} from "../lib/definitions.ts";
 import { useLocalStorage } from "../hooks/useLocalStorage.ts";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
 import { GiCrossedSabres } from "react-icons/gi";
-import "./styles/TodoPerDayComp.css";
+import "./styles/TodoPerDay.css";
 
 const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
@@ -31,31 +33,28 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   });
 
   const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
-      editId: todo.id,
-      editDate: todo.date.toLocaleString(),
-      editProject: todo.project,
-      editListe: todo.liste,
-      editDelay: todo.delay,
-      editClient: todo.name,
-      editMail: todo.email,
-      editPhone: todo.phone
+    editId: todo.id,
+    editDate: todo.date.toLocaleString(),
+    editProject: todo.project,
+    editListe: todo.liste,
+    editDelay: todo.delay,
+    editClient: todo.name,
+    editMail: todo.email,
+    editPhone: todo.phone
   });
 
   const [editWriteParamsList, setEditWriteParamsList] =
     useLocalStorage<WriteEditType[]>("editWriteParamsList", []);
 
-
   const saveEditToLocalStorage = () => {
     setEditWriteParamsList(prev => {
       const existing = prev.find(item => item.editId === editWriteParams.editId);
-
       if (existing) {
         // UPDATE
         return prev.map(item =>
           item.editId === editWriteParams.editId ? editWriteParams : item
         );
       }
-
       // CREATE
       return [...prev, editWriteParams];
     });
@@ -327,6 +326,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             onSubmit={(e) => handleEditListe(e, todo.id)} 
             day={"Liste"}
             as="textarea"
+            className="input-button-textarea"
             rows={4}
             cols={30}
             ref={refs.editBoolListe}

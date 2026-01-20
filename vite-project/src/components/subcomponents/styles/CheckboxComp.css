@@ -1,13 +1,17 @@
-.checkbox-lbl {
+.checkbox--lbl {
   cursor: pointer;
   margin-bottom: 10px;
 }
 
-.checkbox-lbl:hover {
-  color: royalblue;
+.checkbox--lbl:hover {
+  color: #38bdf8;
 }
 
-.checkbox-input {
+.checkbox--lbl:active {
+  color: #334155;
+}
+
+.checkbox--input {
   margin-right: 10px;
   cursor: pointer;
 }
