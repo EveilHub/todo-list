@@ -1,13 +1,8 @@
-import type { Dispatch, JSX } from "react";
-import type { Todo } from "../lib/definitions";
+import type { JSX } from "react";
+import type { Todo, TodoListType } from "../lib/definitions";
 import TodoPerDay from "./TodoPerDay";
 
-type PropsType = {
-    todos: Todo[];
-    setTodos: Dispatch<React.SetStateAction<Todo[]>>;
-};
-
-const TodosList = ({todos, setTodos}: PropsType): JSX.Element => {
+const TodosList = ({todos, setTodos}: TodoListType): JSX.Element => {
     return (
         <div className="todolist-div">
             {todos?.map((todo: Todo) => (

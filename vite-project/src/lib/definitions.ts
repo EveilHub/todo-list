@@ -2,6 +2,7 @@ import React, {
     type ChangeEvent, 
     type Dispatch, 
     type FormEvent, 
+    type HTMLAttributes, 
     type ReactNode, 
     type RefObject 
 } from "react";
@@ -35,6 +36,11 @@ export type Todo = {
     isDonePhone: boolean;
 };
 
+export type TodoListType = {
+    todos: Todo[];
+    setTodos: Dispatch<React.SetStateAction<Todo[]>>;
+};
+
 export type CreatorType = {
     date: string;
     project: string;
@@ -46,7 +52,7 @@ export type CreatorType = {
     selectedDay: string | null;
     setParamsTodo: Dispatch<React.SetStateAction<ParamsTodoType>>;
     handleCheckBox: (day: string) => void;
-    handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
+    handleSubmit : (e: FormEvent<HTMLFormElement>) => void;
 };
 
 export type InputType = {
@@ -90,7 +96,7 @@ export type EditableElement = HTMLInputElement | HTMLTextAreaElement;
 
 export type EditableProps = {
     day: string;
-    className?: React.HTMLAttributes<HTMLDivElement>['className'];
+    className?: HTMLAttributes<HTMLDivElement>['className'];
     ref: RefObject<EditableElement | null>;
     name: string;
     value: string;
