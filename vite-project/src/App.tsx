@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type JSX } from 'react';
 import type { ParamsTodoType, Todo } from './lib/definitions.ts';
+import { fetchDate } from './utils/fonctions.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
 import FetchFromJson from './components/FetchFromJson.tsx';
@@ -7,16 +8,7 @@ import './App.css';
 
 const App = (): JSX.Element => {
 
-  const pad = (n: number) => String(n).padStart(2, "0");
-  const dateNow: Date = new Date();
-  const year: string = pad(dateNow.getFullYear());
-  const month: string = pad(dateNow.getMonth() + 1);
-  const dateDay: string = pad(dateNow.getDate());
-  const hour: string = pad(dateNow.getHours());
-  const min: string = pad(dateNow.getMinutes());
-  const todayDate: string = `${dateDay}/${month}/${year} ${hour}:${min}`;
-
-  const idRef = useRef<number>(0);
+  const todayDate: string = fetchDate();
 
   const [paramsTodo, setParamsTodo] = useState<ParamsTodoType>({
     date: todayDate,
@@ -30,26 +22,16 @@ const App = (): JSX.Element => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  console.log(todos.map(x => x));
-
   const [time, setTime] = useState<string>('');
 
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
   const [switcher, setSwitcher] = useState<boolean>(false);
 
+  const idRef = useRef<number>(0);
+
   useEffect(() => {
     const updateTime = (): void => {
-      const pad = (n: number) => String(n).padStart(2, "0");
-
-      const dateNow: Date = new Date();
-      const year: string = pad(dateNow.getFullYear());
-      const month: string = pad(dateNow.getMonth() + 1);
-      const dateDay: string = pad(dateNow.getDate());
-      const hour: string = pad(dateNow.getHours());
-      const min: string = pad(dateNow.getMinutes());
-
-      const todayDate: string = `${dateDay}/${month}/${year} ${hour}:${min}`;
       setTime(todayDate);
     };
     updateTime();
@@ -63,7 +45,6 @@ const App = (): JSX.Element => {
 
   const handleSwitch = () => {
     setSwitcher((prev: boolean) => !prev);
-
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
@@ -95,8 +76,6 @@ const App = (): JSX.Element => {
     });
     setSelectedDay(null);
   };
-
-  console.log(todos.map(x => x));
 
   return (
     <div className="main--div--app">
