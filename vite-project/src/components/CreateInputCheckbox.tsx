@@ -33,92 +33,95 @@ const CreateInputCheckbox = ({
             onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} 
             className='creation--container'
         >
+            <div className="creation--input--checkbox">
 
-            <div className='creation-input-container'>
+                <div className='creation-input-container'>
 
-                <InputComp
-                    type="text"
-                    name="date"
-                    value={date} 
-                    readOnly
-                    placeholder="Date"
-                />
+                    <InputComp
+                        type="text"
+                        name="date"
+                        value={date} 
+                        readOnly
+                        placeholder="Date"
+                    />
 
-                <InputComp 
-                    type="text"
-                    name="project"
-                    value={project}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                        prev: ParamsTodoType) => ({
-                            ...prev, [e.target.name]: e.target.value
-                        })
-                    )} 
-                    placeholder="Projet"
-                />
+                    <InputComp 
+                        type="text"
+                        name="project"
+                        value={project}
+                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                            prev: ParamsTodoType) => ({
+                                ...prev, [e.target.name]: e.target.value
+                            })
+                        )} 
+                        placeholder="Projet"
+                    />
 
-                <InputComp 
-                    type="text"
-                    name="liste"
-                    value={liste}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                        prev: ParamsTodoType) => ({
-                            ...prev, [e.target.name]: e.target.value
-                        })
-                    )}
-                    placeholder="Liste"
-                />
+                    <InputComp 
+                        type="text"
+                        name="liste"
+                        value={liste}
+                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                            prev: ParamsTodoType) => ({
+                                ...prev, [e.target.name]: e.target.value
+                            })
+                        )}
+                        placeholder="Liste"
+                    />
 
-                <InputComp 
-                    type="text"
-                    name="delay"
-                    value={delay}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                        prev: ParamsTodoType) => ({
-                            ...prev, [e.target.name]: e.target.value
-                        })
-                    )}
-                    placeholder="Délais"
-                />
+                    <InputComp 
+                        type="text"
+                        name="delay"
+                        value={delay}
+                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                            prev: ParamsTodoType) => ({
+                                ...prev, [e.target.name]: e.target.value
+                            })
+                        )}
+                        placeholder="Délais"
+                    />
 
-                <InputComp 
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                        prev: ParamsTodoType) => ({
-                            ...prev, [e.target.name]: e.target.value
-                        })
-                    )} 
-                    placeholder="Client"
-                />
+                    <InputComp 
+                        type="text"
+                        name="name"
+                        value={name}
+                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                            prev: ParamsTodoType) => ({
+                                ...prev, [e.target.name]: e.target.value
+                            })
+                        )} 
+                        placeholder="Client"
+                    />
 
-                <InputComp 
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                        prev: ParamsTodoType) => ({
-                            ...prev, [e.target.name]: e.target.value
-                        })
-                    )}
-                    placeholder="example@mail.com" 
-                />
+                    <InputComp 
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                            prev: ParamsTodoType) => ({
+                                ...prev, [e.target.name]: e.target.value
+                            })
+                        )}
+                        placeholder="example@mail.com" 
+                    />
 
-                <InputComp 
-                    type="text"
-                    name="phone"
-                    value={phone}
-                    onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                        prev: ParamsTodoType) => ({
-                            ...prev, [e.target.name]: formatPhoneNumber(e.target.value)
-                        })
-                    )}
-                    placeholder="076 673 67 34"
-                    maxLength={13}
-                />
+                    <InputComp 
+                        type="text"
+                        name="phone"
+                        value={phone}
+                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
+                            prev: ParamsTodoType) => ({
+                                ...prev, [e.target.name]: formatPhoneNumber(e.target.value)
+                            })
+                        )}
+                        placeholder="076 673 67 34"
+                        maxLength={13}
+                    />
+
+                </div>
 
                 <div className="checkbox-lbl-input">
-                  
+                    
                     <CheckboxComp
                         params="lundi"
                         checked={selectedDay === "lundi"}
