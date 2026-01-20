@@ -1,4 +1,10 @@
-import React, { type ChangeEvent, type Dispatch, type FormEvent, type RefObject } from "react";
+import React, { 
+    type ChangeEvent, 
+    type Dispatch, 
+    type FormEvent, 
+    type ReactNode, 
+    type RefObject 
+} from "react";
 
 export type ParamsTodoType = {
     date: Date;
@@ -41,6 +47,22 @@ export type CreatorType = {
     setParamsTodo: Dispatch<React.SetStateAction<ParamsTodoType>>;
     handleCheckBox: (day: string) => void;
     handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
+};
+
+export type InputType = {
+    type: string;
+    name: string;
+    value: string;
+    readOnly?: boolean;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    placeholder: string;
+};
+
+export type CheckBoxType = {
+    params: string;
+    checked: boolean;
+    handleCheckBox: (day: string) => void;
+    children: ReactNode;
 };
 
 export type BooleanEditType = {

@@ -1,14 +1,6 @@
-import type { ChangeEvent, JSX } from "react";
+import type { JSX } from "react";
+import type { InputType } from "../../lib/definitions";
 import "./styles/InputComp.css";
-
-type InputType = {
-    type: string;
-    name: string;
-    value: string;
-    readOnly?: boolean;
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-    placeholder: string;
-};
 
 const InputComp = ({type, name, value, readOnly, onChange, placeholder}: InputType): JSX.Element => {
     return (
