@@ -52,3 +52,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.disable-btn {
+  font-size: 1.0rem;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 10px 20px;
+  background: grey;
+}
+
+.disable-btn:hover {
+  background: grey;
+}
+
+.disable-btn:active {
+  background: grey;
+}
