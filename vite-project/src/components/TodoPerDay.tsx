@@ -38,7 +38,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     editProject: todo.project,
     editListe: todo.liste,
     editDelay: todo.delay,
-    editClient: todo.name,
+    editClient: todo.client,
     editMail: todo.email,
     editPhone: todo.phone
   });
@@ -166,7 +166,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   const handleEditClient = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
     setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, name: editWriteParams.editClient 
+      ...todo, client: editWriteParams.editClient 
     } : todo))
 
     setEditBoolParams((prev: BooleanEditType) => ({

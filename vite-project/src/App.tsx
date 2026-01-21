@@ -16,8 +16,8 @@ const App = (): JSX.Element => {
     date: todayDate,
     project: "",
     liste: "",
-    delay: "",
-    name: "",
+    delay: todayDate,
+    client: "",
     email: "",
     phone: "",
     priority: "option3",
@@ -61,8 +61,8 @@ const App = (): JSX.Element => {
       date: todayDate,
       project: "",
       liste: "",
-      delay: "",
-      name: "",
+      delay: todayDate,
+      client: "",
       email: "",
       phone: "",
       priority: "option3",
@@ -93,7 +93,7 @@ const App = (): JSX.Element => {
             project={paramsTodo.project}
             liste={paramsTodo.liste}
             delay={paramsTodo.delay}
-            name={paramsTodo.name}
+            client={paramsTodo.client}
             email={paramsTodo.email}
             phone={paramsTodo.phone}
             priority={paramsTodo.priority}

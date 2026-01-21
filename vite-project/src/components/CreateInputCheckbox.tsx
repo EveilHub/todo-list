@@ -9,7 +9,7 @@ const CreateInputCheckbox = ({
     project,
     liste,
     delay,
-    name,
+    client,
     email,
     phone,
     setParamsTodo,
@@ -78,13 +78,13 @@ const CreateInputCheckbox = ({
                         name="delay"
                         value={delay}
                         onChange={handleChangeCreateInput}
-                        placeholder="Délais"
+                        placeholder="delay"
                     />
 
                     <InputComp 
                         type="text"
-                        name="name"
-                        value={name}
+                        name="client"
+                        value={client}
                         onChange={handleChangeCreateInput}
                         placeholder="Client"
                     />
