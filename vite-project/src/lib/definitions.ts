@@ -1,11 +1,16 @@
-import React, { 
+import { 
     type ChangeEvent, 
     type Dispatch, 
     type FormEvent, 
     type HTMLAttributes, 
     type ReactNode, 
-    type RefObject 
+    type RefObject, 
+    type SetStateAction
 } from "react";
+
+export type TimeSetTimeProps = {
+    setTime: Dispatch<SetStateAction<string>>;
+};
 
 export type ParamsTodoType = {
     date: string;
@@ -38,7 +43,7 @@ export type Todo = {
 
 export type TodoListType = {
     todos: Todo[];
-    setTodos: Dispatch<React.SetStateAction<Todo[]>>;
+    setTodos: Dispatch<SetStateAction<Todo[]>>;
 };
 
 export type CreatorType = {
@@ -50,7 +55,7 @@ export type CreatorType = {
     email: string;
     phone: string;
     selectedDay: string | null;
-    setParamsTodo: Dispatch<React.SetStateAction<ParamsTodoType>>;
+    setParamsTodo: Dispatch<SetStateAction<ParamsTodoType>>;
     handleCheckBox: (day: string) => void;
     handleSubmit : (e: FormEvent<HTMLFormElement>) => void;
 };
@@ -127,7 +132,7 @@ export type PriorityType = {
 export type PropsTodoType = {
     todo: Todo;
     todos: Todo[];
-    setTodos: Dispatch<React.SetStateAction<Todo[]>>;
+    setTodos: Dispatch<SetStateAction<Todo[]>>;
 };
 
 export type ParamsType = {

@@ -73,6 +73,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         refs[key]?.current?.focus();
       }
     });
+    return () => console.log("Clean-up ref !");
   }, [editBoolParams]);
 
   // Priority colors

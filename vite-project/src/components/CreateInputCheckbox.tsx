@@ -18,6 +18,12 @@ const CreateInputCheckbox = ({
     handleSubmit
 }: CreatorType): JSX.Element => {
 
+    const handleChangeCreateInput = (e: ChangeEvent<HTMLInputElement>) => {
+        setParamsTodo((prev: ParamsTodoType) => ({
+            ...prev, [e.target.name]: e.target.value
+        }));
+    };
+
     const formatPhoneNumber = (value: string): string => {
         const digits = value.replace(/\D/g, "");
 
@@ -26,6 +32,12 @@ const CreateInputCheckbox = ({
             .replace(/(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})/, (_, a, b, c, d) =>
                 [a, b, c, d].filter(Boolean).join(" ")
             );
+    };
+
+    const handleChangeCreateInputPhone = (e: ChangeEvent<HTMLInputElement>) => {
+        setParamsTodo((prev: ParamsTodoType) => ({
+            ...prev, [e.target.name]: formatPhoneNumber(e.target.value)
+        }));
     };
 
     return (
@@ -49,11 +61,7 @@ const CreateInputCheckbox = ({
                         type="text"
                         name="project"
                         value={project}
-                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                            prev: ParamsTodoType) => ({
-                                ...prev, [e.target.name]: e.target.value
-                            })
-                        )} 
+                        onChange={handleChangeCreateInput}
                         placeholder="Projet"
                     />
 
@@ -61,11 +69,7 @@ const CreateInputCheckbox = ({
                         type="text"
                         name="liste"
                         value={liste}
-                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                            prev: ParamsTodoType) => ({
-                                ...prev, [e.target.name]: e.target.value
-                            })
-                        )}
+                        onChange={handleChangeCreateInput}
                         placeholder="Liste"
                     />
 
@@ -73,11 +77,7 @@ const CreateInputCheckbox = ({
                         type="text"
                         name="delay"
                         value={delay}
-                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                            prev: ParamsTodoType) => ({
-                                ...prev, [e.target.name]: e.target.value
-                            })
-                        )}
+                        onChange={handleChangeCreateInput}
                         placeholder="Délais"
                     />
 
@@ -85,11 +85,7 @@ const CreateInputCheckbox = ({
                         type="text"
                         name="name"
                         value={name}
-                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                            prev: ParamsTodoType) => ({
-                                ...prev, [e.target.name]: e.target.value
-                            })
-                        )} 
+                        onChange={handleChangeCreateInput}
                         placeholder="Client"
                     />
 
@@ -97,11 +93,7 @@ const CreateInputCheckbox = ({
                         type="email"
                         name="email"
                         value={email}
-                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                            prev: ParamsTodoType) => ({
-                                ...prev, [e.target.name]: e.target.value
-                            })
-                        )}
+                        onChange={handleChangeCreateInput}
                         placeholder="example@mail.com" 
                     />
 
@@ -109,11 +101,7 @@ const CreateInputCheckbox = ({
                         type="text"
                         name="phone"
                         value={phone}
-                        onChange={(e: ChangeEvent<HTMLInputElement>): void => setParamsTodo((
-                            prev: ParamsTodoType) => ({
-                                ...prev, [e.target.name]: formatPhoneNumber(e.target.value)
-                            })
-                        )}
+                        onChange={handleChangeCreateInputPhone}
                         placeholder="076 673 67 34"
                         maxLength={13}
                     />
