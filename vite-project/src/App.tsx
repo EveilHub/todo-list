@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type FormEvent, type JSX } from 'react';
+import { useRef, useState, type FormEvent, type JSX } from 'react';
 import type { ParamsTodoType, Todo } from './lib/definitions.ts';
-import { fetchDate } from './utils/fonctions.ts';
+import { useFetchDate } from './hooks/useFetchDate.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
 import FetchFromJson from './components/FetchFromJson.tsx';
@@ -8,7 +8,9 @@ import './App.css';
 
 const App = (): JSX.Element => {
 
-  const todayDate: string = fetchDate();
+  const [time, setTime] = useState<string>('');
+
+  const todayDate: string = useFetchDate({setTime});
 
   const [paramsTodo, setParamsTodo] = useState<ParamsTodoType>({
     date: todayDate,
@@ -22,22 +24,11 @@ const App = (): JSX.Element => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const [time, setTime] = useState<string>('');
-
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
   const [switcher, setSwitcher] = useState<boolean>(false);
 
   const idRef = useRef<number>(0);
-
-  useEffect(() => {
-    const updateTime = (): void => {
-      setTime(todayDate);
-    };
-    updateTime();
-    const intervalId: number = setInterval(updateTime, 60000);
-    return () => clearInterval(intervalId);
-  }, []);
 
   const handleCheckBox = (day: string): void => {
     setSelectedDay(day);
