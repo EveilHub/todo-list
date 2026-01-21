@@ -6,7 +6,7 @@ import "./styles/EditableFields.css";
 
 const EditableFields = (
     {
-        day,
+        params,
         className,
         ref,
         as = "input",
@@ -29,7 +29,7 @@ const EditableFields = (
         >
             <div className="daycomp-box">
 
-                <h3>{day}</h3>
+                <h3>{params}</h3>
                 <div className={className}>
 
                     {editBoolParams === true ? (

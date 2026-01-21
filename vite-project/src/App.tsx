@@ -19,7 +19,8 @@ const App = (): JSX.Element => {
     delay: "",
     name: "",
     email: "",
-    phone: ""
+    phone: "",
+    priority: "option3",
   });
 
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -63,10 +64,13 @@ const App = (): JSX.Element => {
       delay: "",
       name: "",
       email: "",
-      phone: ""
+      phone: "",
+      priority: "option3",
     });
     setSelectedDay(null);
   };
+
+  console.log("!!!todos!!!", todos?.map((x) => x));
 
   return (
     <div className="main--div--app">
@@ -92,6 +96,7 @@ const App = (): JSX.Element => {
             name={paramsTodo.name}
             email={paramsTodo.email}
             phone={paramsTodo.phone}
+            priority={paramsTodo.priority}
             setParamsTodo={setParamsTodo}
             selectedDay={selectedDay}
             handleCheckBox={handleCheckBox}

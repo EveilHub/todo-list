@@ -49,7 +49,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
     hidePriority: true,
-    priority: "option3",
     bgColor: "#4169e11a"
   });
 
@@ -77,8 +76,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   }, [editBoolParams]);
 
   // Priority colors
-  const changeColor = (priority: string): void => {
-    switch (priority) {
+  const changeColor = (priorityValue: string): void => {
+    switch (priorityValue) {
       case 'option1':
         setParamsPriority((prev: ParamsPriorityTypes) => ({
           ...prev, 
@@ -106,13 +105,15 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   useEffect(() => {
-    changeColor(paramsPriority.priority);
-  }, [paramsPriority.priority]);
+      changeColor(todo.priority);
+  }, [todo.priority]);
 
   const handleChangePriority = (e: ChangeEvent<HTMLSelectElement>): void => {
-    setParamsPriority((prev: ParamsPriorityTypes) => ({...prev, 
-      priority: e.target.value,
-      hidePriority: !prev.hidePriority
+    setTodos(todos.map((todo: Todo) => todo.id === editWriteParams.editId ? {
+      ...todo, priority: e.target.value
+    } : todo));
+    setParamsPriority((prev: ParamsPriorityTypes) => ({
+      ...prev, hidePriority: !prev.hidePriority
     }));
   };
 
@@ -271,7 +272,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       >
 
         <div className="priority--div">
-          <PriorityTodo 
+          <PriorityTodo
+            priorityTodo={todo.priority}
             paramsPriority={paramsPriority}
             handleChangePriority={handleChangePriority}
             onClick={() => setParamsPriority((prev: ParamsPriorityTypes) => ({
@@ -285,7 +287,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditDate(e, todo.id)} 
-            day="Date"
+            params="Date"
             as="input"
             className="input-button-container"
             ref={refs.editBoolDate}
@@ -308,7 +310,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditProject(e, todo.id)}
-            day="Project"
+            params="Project"
             as="input"
             className="input-button-container"
             ref={refs.editBoolProject}
@@ -331,7 +333,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditListe(e, todo.id)} 
-            day="Liste"
+            params="Liste"
             as="textarea"
             className="input-button-textarea"
             rows={5}
@@ -357,7 +359,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditDelay(e, todo.id)} 
-            day="Délais"
+            params="Délais"
             as="input"
             className="input-button-container"
             ref={refs.editBoolDelay}
@@ -384,7 +386,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditClient(e, todo.id)} 
-            day="Client"
+            params="Client"
             as="input"
             className="input-button-client"
             ref={refs.editBoolClient}
@@ -407,7 +409,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         
           <EditableFields
             onSubmit={(e) => handleEditMail(e, todo.id)} 
-            day="Email"
+            params="Email"
             as="input"
             className="input-button-client"
             ref={refs.editBoolMail}
@@ -430,7 +432,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditPhone(e, todo.id)}
-            day="Phone"
+            params="Phone"
             as="input"
             className="input-button-client"
             ref={refs.editBoolPhone}
