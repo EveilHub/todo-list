@@ -285,7 +285,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditDate(e, todo.id)} 
-            day="Date"
+            params="Date"
             as="input"
             className="input-button-container"
             ref={refs.editBoolDate}
@@ -308,7 +308,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditProject(e, todo.id)}
-            day="Project"
+            params="Project"
             as="input"
             className="input-button-container"
             ref={refs.editBoolProject}
@@ -331,7 +331,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditListe(e, todo.id)} 
-            day="Liste"
+            params="Liste"
             as="textarea"
             className="input-button-textarea"
             rows={5}
@@ -357,7 +357,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditDelay(e, todo.id)} 
-            day="Délais"
+            params="Délais"
             as="input"
             className="input-button-container"
             ref={refs.editBoolDelay}
@@ -384,7 +384,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditClient(e, todo.id)} 
-            day="Client"
+            params="Client"
             as="input"
             className="input-button-client"
             ref={refs.editBoolClient}
@@ -407,7 +407,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         
           <EditableFields
             onSubmit={(e) => handleEditMail(e, todo.id)} 
-            day="Email"
+            params="Email"
             as="input"
             className="input-button-client"
             ref={refs.editBoolMail}
@@ -430,7 +430,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditPhone(e, todo.id)}
-            day="Phone"
+            params="Phone"
             as="input"
             className="input-button-client"
             ref={refs.editBoolPhone}

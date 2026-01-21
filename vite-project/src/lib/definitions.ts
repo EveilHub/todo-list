@@ -101,7 +101,7 @@ export type WriteEditType = {
 export type EditableElement = HTMLInputElement | HTMLTextAreaElement;
 
 export type EditableProps = {
-    day: string;
+    params: string;
     className?: HTMLAttributes<HTMLDivElement>['className'];
     ref: RefObject<EditableElement | null>;
     name: string;
