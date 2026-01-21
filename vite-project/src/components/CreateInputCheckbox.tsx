@@ -9,7 +9,7 @@ const CreateInputCheckbox = ({
     project,
     liste,
     delay,
-    name,
+    client,
     email,
     phone,
     setParamsTodo,
@@ -78,13 +78,13 @@ const CreateInputCheckbox = ({
                         name="delay"
                         value={delay}
                         onChange={handleChangeCreateInput}
-                        placeholder="Délais"
+                        placeholder="21/01/2026 16:00"
                     />
 
                     <InputComp 
                         type="text"
-                        name="name"
-                        value={name}
+                        name="client"
+                        value={client}
                         onChange={handleChangeCreateInput}
                         placeholder="Client"
                     />
@@ -155,7 +155,18 @@ const CreateInputCheckbox = ({
             </div>
 
             <div className='creation--btn--div'>
-                <button id="btn-1" type="submit" className="custom-btn">
+                <button 
+                    id="btn-1" 
+                    type="submit" 
+                    className={selectedDay === null 
+                        ? "disable-btn" 
+                        : "custom-btn"
+                    }
+                    disabled={selectedDay === null 
+                        ? true 
+                        : false
+                    }
+                >
                     Create
                 </button>
             </div>

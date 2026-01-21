@@ -17,7 +17,7 @@ export type ParamsTodoType = {
     project: string;
     liste: string;
     delay: string;
-    name: string;
+    client: string;
     email: string;
     phone: string;
     priority: string;
@@ -29,7 +29,7 @@ export type Todo = {
     project: string;
     liste: string;
     delay: string;
-    name: string;
+    client: string;
     email: string;
     phone: string;
     priority: string;
@@ -53,7 +53,7 @@ export type CreatorType = {
     project: string;
     liste: string;
     delay: string;
-    name: string;
+    client: string;
     email: string;
     phone: string;
     selectedDay: string | null;
@@ -117,7 +117,7 @@ export type EditableProps = {
     isDoneParams: boolean;
     onSubmit: (e: FormEvent<HTMLFormElement>) => void;
     onChange: (e: ChangeEvent<EditableElement>) => void;
-    onClick: () => void;
+    //onClick: () => void;
 };
 
 export type ParamsPriorityTypes = {
