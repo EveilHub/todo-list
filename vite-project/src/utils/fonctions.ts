@@ -22,13 +22,15 @@ export const sortTodosByPriorityAndDelay = (todos: Todo[]) => {
             priorityOrder[a.priority] - priorityOrder[b.priority];
 
         if (priorityDiff !== 0) {
-            console.log(priorityDiff);
             return priorityDiff;
         }
 
         // sort by delay (jj/mm/année)
         const delayA = parseFrenchDateTime(a.delay);
         const delayB = parseFrenchDateTime(b.delay);
+
+        console.log(delayA);
+        console.log(delayB);
 
         return delayA - delayB;
     });

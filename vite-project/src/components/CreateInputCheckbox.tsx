@@ -78,7 +78,7 @@ const CreateInputCheckbox = ({
                         name="delay"
                         value={delay}
                         onChange={handleChangeCreateInput}
-                        placeholder="delay"
+                        placeholder="21/01/2026 16:00"
                     />
 
                     <InputComp 
