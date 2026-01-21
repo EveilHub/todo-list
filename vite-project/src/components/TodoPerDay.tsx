@@ -125,9 +125,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // HandleEdit...
   const handleEditDate = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, date: editWriteParams.editDate
-    } : todo))
+    } : todo));
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
@@ -135,64 +135,48 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     }));
   };
 
+  // Project
   const handleEditProject = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, project: editWriteParams.editProject
-    } : todo))
+    } : todo));
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolProject: !prev.editBoolProject
     }));
   };
 
+  // Liste
   const handleEditListe = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, liste: editWriteParams.editListe 
-    } : todo))
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
+      ...todo, liste: editWriteParams.editListe  
+    } : todo));
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolListe: !prev.editBoolListe
     }));
   };
 
-  // Delay problème !!!
+  // Delay
   const handleEditDelay = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(prev =>
-      prev.map(todo =>
-        todo.id === id
-          ? { ...todo, delay: editWriteParams.editDelay }
-          : todo
-      )
-    );
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
+      ...todo, delay: editWriteParams.editDelay 
+    } : todo));
+
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolDelay: !prev.editBoolDelay
     }));
   };
 
-  useEffect(() => {
-    setEditWriteParams(prev => ({
-      ...prev,
-      editDelay: todo.delay,
-    }));
-  }, [todo.delay]);
-
-
-  //--- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-  const mapping = todos.map((todo: Todo) => todo.delay);
-  console.log("mapping", mapping);
-
-  //--- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
   // Client
   const handleEditClient = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, client: editWriteParams.editClient 
-    } : todo))
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
+      ...todo, client: editWriteParams.editClient
+    } : todo));
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolClient: !prev.editBoolClient
@@ -202,9 +186,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // Mail
   const handleEditMail = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
-      ...todo, email: editWriteParams.editMail 
-    } : todo))
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
+      ...todo, email: editWriteParams.editMail
+    } : todo));
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolMail: !prev.editBoolMail
@@ -214,9 +198,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // Phone
   const handleEditPhone = (e: FormEvent<HTMLFormElement>, id: string): void => {
     e.preventDefault();
-    setTodos(todos.map((todo: Todo) => todo.id === id ? { 
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, phone: editWriteParams.editPhone 
-    } : todo))
+    } : todo));
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolPhone: !prev.editBoolPhone
@@ -234,6 +218,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       isDoneMail: !todo.isDoneMail, 
       isDonePhone: !todo.isDonePhone 
     } : todo));
+
     setEditBoolParams((prev: BooleanEditType): BooleanEditType => ({...prev,
       editBoolDate: prev.editBoolDate,
       editBoolProject: prev.editBoolProject,
@@ -326,10 +311,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
                 editDate: e.target.value
               })
             )}
-            // onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-            //   ...prev, 
-            //   editBoolDate: !prev.editBoolDate
-            // }))}
             editBoolParams={editBoolParams.editBoolDate}
             editWriteParams={editWriteParams.editDate}
             isDoneParams={todo.isDoneDate}
@@ -349,10 +330,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
                 editProject: e.target.value
               })
             )}
-            // onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-            //   ...prev, 
-            //   editBoolProject: !prev.editBoolProject
-            // }))}
             editBoolParams={editBoolParams.editBoolProject}
             editWriteParams={editWriteParams.editProject}
             isDoneParams={todo.isDoneProject}
@@ -374,11 +351,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
                 editListe: e.target.value
               })
             )}
-            // onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-            //   ...prev, 
-            //   editBoolListe: !prev.editBoolListe
-            //   })
-            // )}
             editBoolParams={editBoolParams.editBoolListe}
             editWriteParams={editWriteParams.editListe}
             isDoneParams={todo.isDoneProject}
@@ -398,10 +370,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
                 editDelay: e.target.value
               })
             )}
-            /* onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-              ...prev, 
-              editBoolDelay: !prev.editBoolDelay
-            }))} */
             editBoolParams={editBoolParams.editBoolDelay}
             editWriteParams={editWriteParams.editDelay}
             isDoneParams={todo.isDoneDelay}
@@ -425,10 +393,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
                 editClient: e.target.value
               })
             )}
-            // onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-            //   ...prev, 
-            //   editBoolClient: !prev.editBoolClient
-            // }))}
             editBoolParams={editBoolParams.editBoolClient}
             editWriteParams={editWriteParams.editClient}
             isDoneParams={todo.isDoneClient}
@@ -448,10 +412,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
                 editMail: e.target.value
               })
             )}
-            // onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-            //   ...prev, 
-            //   editBoolMail: !prev.editBoolMail
-            // }))}
             editBoolParams={editBoolParams.editBoolMail}
             editWriteParams={editWriteParams.editMail}
             isDoneParams={todo.isDoneMail}
@@ -471,10 +431,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
                 editPhone: e.target.value
               })
             )}
-            // onClick={(): void => setEditBoolParams((prev: BooleanEditType) => ({
-            //   ...prev, 
-            //   editBoolPhone: !prev.editBoolPhone
-            // }))}
             editBoolParams={editBoolParams.editBoolPhone}
             editWriteParams={editWriteParams.editPhone}
             isDoneParams={todo.isDonePhone}

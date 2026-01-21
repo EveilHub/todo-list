@@ -70,8 +70,6 @@ const App = (): JSX.Element => {
     setSelectedDay(null);
   };
 
-  console.log("!!!todos!!!", todos?.map((x) => x));
-
   return (
     <div className="main--div--app">
       
