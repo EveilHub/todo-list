@@ -20,6 +20,7 @@ export type ParamsTodoType = {
     name: string;
     email: string;
     phone: string;
+    priority: string;
 };
 
 export type Todo = {
@@ -31,6 +32,7 @@ export type Todo = {
     name: string;
     email: string;
     phone: string;
+    priority: string;
     selectedDay: string | null;
 	isDoneDate: boolean;
 	isDoneProject: boolean;
@@ -55,6 +57,7 @@ export type CreatorType = {
     email: string;
     phone: string;
     selectedDay: string | null;
+    priority: string;
     setParamsTodo: Dispatch<SetStateAction<ParamsTodoType>>;
     handleCheckBox: (day: string) => void;
     handleSubmit : (e: FormEvent<HTMLFormElement>) => void;
@@ -119,11 +122,11 @@ export type EditableProps = {
 
 export type ParamsPriorityTypes = {
     hidePriority: boolean;
-    priority: string;
     bgColor: string;
 };
 
 export type PriorityType = {
+    priorityTodo: string;
     paramsPriority: ParamsPriorityTypes;
     onClick: () => void;
     handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
@@ -133,8 +136,4 @@ export type PropsTodoType = {
     todo: Todo;
     todos: Todo[];
     setTodos: Dispatch<SetStateAction<Todo[]>>;
-};
-
-export type ParamsType = {
-    params: string;
 };

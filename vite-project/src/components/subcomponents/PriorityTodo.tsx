@@ -3,6 +3,7 @@ import type { PriorityType } from "../../lib/definitions";
 import "./styles/PriorityTodo.css";
 
 const PriorityTodo = ({
+    priorityTodo,
     paramsPriority,
     onClick, 
     handleChangePriority
@@ -12,8 +13,8 @@ const PriorityTodo = ({
             {paramsPriority.hidePriority === false ? (
                 <div className="priority--field">
                     <select 
-                        id="options" 
-                        value={paramsPriority.priority} 
+                        id="options"
+                        value={priorityTodo} 
                         onChange={handleChangePriority}
                     >
                         <option value="option3">Priorité 3 (Standard)</option>
