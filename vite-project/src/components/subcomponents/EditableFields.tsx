@@ -18,8 +18,7 @@ const EditableFields = (
         editWriteParams,
         isDoneParams,
         onSubmit,
-        onChange,
-        //onClick
+        onChange
     }: EditableProps): JSX.Element => {
 
     return (
@@ -65,8 +64,7 @@ const EditableFields = (
 
                     <div>
                         <button 
-                            type="submit" 
-                            // onClick={onClick}
+                            type="submit"
                             className="modify-btn"
                         >
                             {editBoolParams === true ? (

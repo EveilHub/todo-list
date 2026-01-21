@@ -117,7 +117,6 @@ export type EditableProps = {
     isDoneParams: boolean;
     onSubmit: (e: FormEvent<HTMLFormElement>) => void;
     onChange: (e: ChangeEvent<EditableElement>) => void;
-    //onClick: () => void;
 };
 
 export type ParamsPriorityTypes = {
