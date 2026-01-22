@@ -39,24 +39,41 @@ const App = (): JSX.Element => {
     setSwitcher((prev: boolean) => !prev);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!paramsTodo.date) return;
-    setTodos((prev: Todo[]) => [
-      ...prev,
-      {
-        id: String(idRef.current++),
-        selectedDay,
-        ...paramsTodo,
-        isDoneDate: false,
-        isDoneProject: false,
-        isDoneListe: false,
-        isDoneDelay: false,
-        isDoneClient: false,
-        isDoneMail: false,
-        isDonePhone: false
-      }
-    ]);
+    const newTodo: Todo = {
+    //setTodos((prev: Todo[]) => [
+      // ...prev,
+      // {
+      id: String(idRef.current++),
+      selectedDay,
+      ...paramsTodo,
+      isDoneDate: false,
+      isDoneProject: false,
+      isDoneListe: false,
+      isDoneDelay: false,
+      isDoneClient: false,
+      isDoneMail: false,
+      isDonePhone: false
+    }
+
+    setTodos((prev: Todo[]) => [...prev, newTodo]);
+
+    // http://localhost:3001
+    try {
+      await fetch("http://localhost:3001/api/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTodo),
+      });
+    } catch (error) {
+      console.error("Erreur ajout todo", error);
+    }
+    // ]);
+
     setParamsTodo({
       date: todayDate,
       project: "",

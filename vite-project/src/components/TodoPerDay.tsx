@@ -264,11 +264,19 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   }, [todo.id]);
 
   // Delete todo by id
-  const handleDelete = (id: string): void => {
+  const handleDelete = async (id: string): Promise<void> => {
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
     setEditWriteParamsList((prev: WriteEditType[]) =>
       prev.filter((item: WriteEditType) => item.editId !== id)
     );
+    // 2. Appel serveur http://localhost:3001
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Erreur suppression serveur", error);
+    }
   };
 
   return (
@@ -450,7 +458,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <button 
             type="button" 
-            onClick={(): void => handleDelete(todo.id)} 
+            onClick={() => handleDelete(todo.id)} 
             className="delete--btn"
           >
             <MdDelete size={20} />
