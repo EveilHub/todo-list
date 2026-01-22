@@ -25,6 +25,17 @@ const FetchFromJson = (): JSX.Element => {
     fetchTodos();
   }, []);
 
+  const deleteDataJson = async (id: string): Promise<void> => {
+    setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Erreur suppression serveur", error);
+    }
+  };
+
   if (loading) return <h3>Chargement...</h3>;
   if (error) return <h3>{error}</h3>;
 
@@ -38,9 +49,25 @@ const FetchFromJson = (): JSX.Element => {
       ) : (
         <ul>
           {todos.map((todo) => (
-            <li key={todo.id}>
-              {todo.project} – {todo.date}
-            </li>
+            <div key={todo.id}>
+              
+              <li>
+                <s>{todo.date} - {todo.project} - {todo.liste} - {todo.delay}
+                  - {todo.client} - {todo.email} - {todo.phone}
+                </s>
+              </li>
+
+              <div>
+                <button
+                  type="button" 
+                  onClick={() => deleteDataJson(todo.id)} 
+                  className="custom-btn"  
+                >
+                  Delete
+                </button>
+              </div>
+
+            </div>
           ))}
         </ul>
       )}

@@ -1,5 +1,5 @@
-import { useRef, useState, type FormEvent, type JSX } from 'react';
-import type { ParamsTodoType, Todo } from './lib/definitions.ts';
+import { useEffect, useRef, useState, type FormEvent, type JSX } from 'react';
+import type { ParamsTodoType, SwitchLoadErrType, Todo } from './lib/definitions.ts';
 import { useFetchDate } from './hooks/useFetchDate.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
@@ -23,29 +23,33 @@ const App = (): JSX.Element => {
     priority: "option3",
   });
 
-  const [todos, setTodos] = useState<Todo[]>([]);
-
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
-  const [switcher, setSwitcher] = useState<boolean>(false);
-
   const idRef = useRef<number>(0);
+
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const [switchLoadErr, setSwitchLoadErr] = useState<SwitchLoadErrType>({
+    switcher: false,
+    loading: false,
+    error: null
+  });
 
   const handleCheckBox = (day: string): void => {
     setSelectedDay(day);
   };
 
-  const handleSwitch = () => {
-    setSwitcher((prev: boolean) => !prev);
+  const handleSwitch = (): void => {
+    setSwitchLoadErr((prev: SwitchLoadErrType) => ({
+      ...prev, 
+      switcher: !prev.switcher
+    }))
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!paramsTodo.date) return;
     const newTodo: Todo = {
-    //setTodos((prev: Todo[]) => [
-      // ...prev,
-      // {
       id: String(idRef.current++),
       selectedDay,
       ...paramsTodo,
@@ -56,11 +60,8 @@ const App = (): JSX.Element => {
       isDoneClient: false,
       isDoneMail: false,
       isDonePhone: false
-    }
-
+    };
     setTodos((prev: Todo[]) => [...prev, newTodo]);
-
-    // http://localhost:3001
     try {
       await fetch("http://localhost:3001/api/todos", {
         method: "POST",
@@ -71,9 +72,7 @@ const App = (): JSX.Element => {
       });
     } catch (error) {
       console.error("Erreur ajout todo", error);
-    }
-    // ]);
-
+    };
     setParamsTodo({
       date: todayDate,
       project: "",
@@ -87,6 +86,34 @@ const App = (): JSX.Element => {
     setSelectedDay(null);
   };
 
+  useEffect(() => {
+    if (todos.length > 0) return;
+
+    const fetchTodos = async (): Promise<void> => {
+      try {
+        const res = await fetch("http://localhost:3001/api/todos");
+        if (!res.ok) throw new Error("Erreur serveur");
+
+        const data: Todo[] = await res.json();
+        setTodos(data);
+      } catch (err) {
+        setSwitchLoadErr((prev: SwitchLoadErrType) => ({
+          ...prev, 
+          error: "Impossible de charger les données"
+        }));
+      } finally {
+        setSwitchLoadErr((prev: SwitchLoadErrType) => ({
+          ...prev, 
+          loading: false
+        }));
+      }
+    };
+    fetchTodos();
+  }, [todos]);
+  
+  if (switchLoadErr.loading) return <h3>Chargement...</h3>;
+  if (switchLoadErr.error) return <h3>{switchLoadErr.error}</h3>;
+
   return (
     <div className="main--div--app">
       
@@ -95,12 +122,16 @@ const App = (): JSX.Element => {
       </div>
 
       <div className='div--switcher--btn'>
-        <button type="button" onClick={handleSwitch} className='custom-btn'>
+        <button 
+          type="button" 
+          onClick={handleSwitch} 
+          className='custom-btn'
+        >
           Switch
         </button>
       </div>
 
-      {switcher === false ? (
+      {switchLoadErr.switcher === false ? (
         <div>
 
           <CreateInputCheckbox

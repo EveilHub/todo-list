@@ -43,6 +43,12 @@ export type Todo = {
     isDonePhone: boolean;
 };
 
+export type SwitchLoadErrType = {
+    switcher: boolean;
+    loading: boolean;
+    error: string | null;
+};
+
 export type TodoListType = {
     todos: Todo[];
     setTodos: Dispatch<SetStateAction<Todo[]>>;

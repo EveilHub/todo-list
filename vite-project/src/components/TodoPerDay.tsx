@@ -13,7 +13,7 @@ import type {
   Todo,
   WriteEditType 
 } from "../lib/definitions.ts";
-import { useLocalStorage } from "../hooks/useLocalStorage.ts";
+//import { useLocalStorage } from "../hooks/useLocalStorage.ts";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
@@ -45,8 +45,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     editPhone: todo.phone
   });
 
-  const [editWriteParamsList, setEditWriteParamsList] =
-    useLocalStorage<WriteEditType[]>("editWriteParamsList", []);
+  /* const [editWriteParamsList, setEditWriteParamsList] =
+    useLocalStorage<WriteEditType[]>("editWriteParamsList", []); */
 
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
@@ -230,7 +230,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     }));
   };
 
-  const hasMounted = useRef(false);
+  /* const hasMounted = useRef(false);
 
   useEffect(() => {
     if (!hasMounted.current) {
@@ -251,9 +251,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
       return [...prev, editWriteParams];
     });
-  }, [editWriteParams]);
+  }, [editWriteParams]); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const stored = editWriteParamsList.find(
       item => item.editId === String(todo.id)
     );
@@ -261,22 +261,14 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     if (stored) {
       setEditWriteParams(stored);
     }
-  }, [todo.id]);
+  }, [todo.id]); */
 
   // Delete todo by id
-  const handleDelete = async (id: string): Promise<void> => {
+  const handleDelete = (id: string): void => {
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
-    setEditWriteParamsList((prev: WriteEditType[]) =>
+    /* setEditWriteParamsList((prev: WriteEditType[]) =>
       prev.filter((item: WriteEditType) => item.editId !== id)
-    );
-    // 2. Appel serveur http://localhost:3001
-    try {
-      await fetch(`http://localhost:3001/api/todos/${id}`, {
-        method: "DELETE",
-      });
-    } catch (error) {
-      console.error("Erreur suppression serveur", error);
-    }
+    ); */
   };
 
   return (
@@ -458,7 +450,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <button 
             type="button" 
-            onClick={() => handleDelete(todo.id)} 
+            onClick={(): void => handleDelete(todo.id)} 
             className="delete--btn"
           >
             <MdDelete size={20} />
