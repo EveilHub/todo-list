@@ -12,6 +12,12 @@ git diff origin/dev
 
 [x] commit
 
+## SERVER
+
+cd server
+
+pnpm dev
+
 ```
 const editableConfig = {
   date: {
