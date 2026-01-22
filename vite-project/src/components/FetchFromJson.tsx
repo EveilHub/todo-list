@@ -1,5 +1,6 @@
 import { useEffect, useState, type JSX } from "react";
 import type { Todo } from "../lib/definitions";
+import "./styles/FetchFromJson.css";
 
 const FetchFromJson = (): JSX.Element => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -24,20 +25,21 @@ const FetchFromJson = (): JSX.Element => {
     fetchTodos();
   }, []);
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <h3>Chargement...</h3>;
+  if (error) return <h3>{error}</h3>;
 
   return (
-    <div>
-      <h2>Todos depuis data.json</h2>
+    <div className="div--fetch">
+
+      <h2>Projets Terminés</h2>
 
       {todos.length === 0 ? (
-        <p>Aucune donnée</p>
+        <h3>Aucune donnée</h3>
       ) : (
         <ul>
           {todos.map((todo) => (
             <li key={todo.id}>
-              <strong>{todo.project}</strong> – {todo.date}
+              {todo.project} – {todo.date}
             </li>
           ))}
         </ul>
