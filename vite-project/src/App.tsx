@@ -122,7 +122,7 @@ const App = (): JSX.Element => {
 
         </div>
       ) : (
-        <FetchFromJson todos={todos} />
+        <FetchFromJson />
       )}
     </div>
   )

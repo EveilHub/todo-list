@@ -25,7 +25,7 @@ const writeTodos = (todos: any[]) => {
   fs.writeFileSync(DATA_PATH, JSON.stringify(todos, null, 2));
 };
 
-app.post("/api/todos", (req, res) => {
+app.post("/api/todos", (req: Request, res: Response) => {
   const newTodo = req.body;
 
   fs.readFile(DATA_PATH, "utf8", (err, data) => {
@@ -47,7 +47,7 @@ app.post("/api/todos", (req, res) => {
   });
 });
 
-app.delete("/api/todos/:id", (req, res) => {
+app.delete("/api/todos/:id", (req: Request, res: Response) => {
   const { id } = req.params;
 
   fs.readFile(DATA_PATH, "utf8", (err, data) => {
@@ -68,16 +68,9 @@ app.delete("/api/todos/:id", (req, res) => {
   });
 });
 
-// app.get("/data", (_req: Request, res: Response) => {
-//   const raw = fs.readFileSync(DATA_PATH, "utf-8");
-//   const data: Data = JSON.parse(raw);
-//   res.json(data);
-// });
-
-// app.post("/data", (req: Request<{}, {}, Data>, res: Response) => {
-//   fs.writeFileSync(DATA_PATH, JSON.stringify(req.body, null, 2));
-//   res.json({ success: true });
-// });
+app.get("/api/todos", (_req: Request, res: Response) => {
+  res.json(readTodos());
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:3001`);
