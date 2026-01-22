@@ -1,26 +1,51 @@
-import type { JSX } from "react";
+import { useEffect, useState, type JSX } from "react";
 import type { Todo } from "../lib/definitions";
+import "./styles/FetchFromJson.css";
 
-type PropsTodo = {
-    todos: Todo[];
+const FetchFromJson = (): JSX.Element => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/todos");
+        if (!res.ok) throw new Error("Erreur serveur");
+
+        const data: Todo[] = await res.json();
+        setTodos(data);
+      } catch (err) {
+        setError("Impossible de charger les données");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTodos();
+  }, []);
+
+  if (loading) return <h3>Chargement...</h3>;
+  if (error) return <h3>{error}</h3>;
+
+  return (
+    <div className="div--fetch">
+
+      <h2>Projets Terminés</h2>
+
+      {todos.length === 0 ? (
+        <h3>Aucune donnée</h3>
+      ) : (
+        <ul>
+          {todos.map((todo) => (
+            <li key={todo.id}>
+              {todo.project} – {todo.date}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 };
 
-const FetchFromJson = ({todos}: PropsTodo): JSX.Element => {
-    return (
-        <div>
-            <h2>Data from backend.json</h2>
-            {todos.map((todo: Todo) => (
-                <div key={String(todo.id)}>
-                    <span>
-                        {todo.date} - 
-                        {todo.project} - {todo.liste} - 
-                        {todo.delay} - 
-                        {todo.client} - {todo.phone}
-                    </span>
-                    <br />
-                </div>
-            ))}
-        </div>
-    )
-};
 export default FetchFromJson;
