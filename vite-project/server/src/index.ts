@@ -31,8 +31,9 @@ type Todo = {
 };
 
 const DATA_PATH: string = path.resolve(process.cwd(), "data.json");
+const DATA_CSV_PATH = path.resolve(process.cwd(), "projets.csv");
 
-// 🔹 Utils asynchrones
+// 🔹 JSON
 const readTodos = async (): Promise<Todo[]> => {
   try {
     const data = await fs.readFile(DATA_PATH, "utf8");
@@ -42,9 +43,40 @@ const readTodos = async (): Promise<Todo[]> => {
   }
 };
 
-const writeTodos = async (todos: Todo[]): Promise<void> => {
-  await fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2));
+// 🔹 CSV
+const todosToCSV = (todos: Todo[]): string => {
+  if (todos.length === 0) return "";
+
+  const headers: string = Object.keys(todos[0]).join(",");
+
+  const rows = todos.map(todo =>
+    Object.values(todo)
+      .map(value =>
+        typeof value === "string"
+          ? `"${value.replace(/"/g, '""')}"`
+          : value
+      )
+      .join(",")
+  );
+  return [headers, ...rows].join("\n");
 };
+
+const writeTodosCSV = async (todos: Todo[]): Promise<void> => {
+  const csvContent = todosToCSV(todos);
+  await fs.writeFile(DATA_CSV_PATH, csvContent, "utf8");
+};
+
+// 🔹 Write JSON + CSV
+const writeTodos = async (todos: Todo[]): Promise<void> => {
+  await Promise.all([
+    fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2), "utf8"),
+    writeTodosCSV(todos),
+  ]);
+};
+
+// const writeTodos = async (todos: Todo[]): Promise<void> => {
+//   await fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2));
+// };
 
 // 🔹 Routes
 app.get("/api/todos", async (_req: Request, res: Response) => {
