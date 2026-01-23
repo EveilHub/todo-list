@@ -35,3 +35,13 @@ export const sortTodosByPriorityAndDelay = (todos: Todo[]) => {
         return delayA - delayB;
     });
 };
+
+export const formatPhoneNumber = (value: string): string => {
+    const digits = value.replace(/\D/g, "");
+
+    return digits
+        .slice(0, 10)
+        .replace(/(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})/, (_, a, b, c, d) =>
+            [a, b, c, d].filter(Boolean).join(" ")
+        );
+};

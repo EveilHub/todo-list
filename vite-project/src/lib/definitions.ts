@@ -113,6 +113,7 @@ export type EditableProps = {
     params: string;
     className?: HTMLAttributes<HTMLDivElement>['className'];
     ref: RefObject<EditableElement | null>;
+    type?: "email" | "text";
     name: string;
     value: string;
     as?: "input" | "textarea";

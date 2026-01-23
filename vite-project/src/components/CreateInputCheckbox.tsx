@@ -1,5 +1,6 @@
 import type { ChangeEvent, FormEvent, JSX } from "react";
 import type { CreatorType, ParamsTodoType } from "../lib/definitions";
+import { formatPhoneNumber } from "../utils/fonctions";
 import InputComp from "./subcomponents/InputComp";
 import CheckboxComp from "./subcomponents/CheckboxComp";
 import "./styles/CreateInputCheckbox.css";
@@ -22,16 +23,6 @@ const CreateInputCheckbox = ({
         setParamsTodo((prev: ParamsTodoType) => ({
             ...prev, [e.target.name]: e.target.value
         }));
-    };
-
-    const formatPhoneNumber = (value: string): string => {
-        const digits = value.replace(/\D/g, "");
-
-        return digits
-            .slice(0, 10)
-            .replace(/(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})/, (_, a, b, c, d) =>
-                [a, b, c, d].filter(Boolean).join(" ")
-            );
     };
 
     const handleChangeCreateInputPhone = (e: ChangeEvent<HTMLInputElement>) => {
