@@ -14,7 +14,6 @@ import type {
   WriteEditType 
 } from "../lib/definitions.ts";
 import { formatPhoneNumber } from "../utils/fonctions";
-//import { useLocalStorage } from "../hooks/useLocalStorage.ts";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
@@ -45,9 +44,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     editMail: todo.email,
     editPhone: todo.phone
   });
-
-  /* const [editWriteParamsList, setEditWriteParamsList] =
-    useLocalStorage<WriteEditType[]>("editWriteParamsList", []); */
 
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
@@ -110,9 +106,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       changeColor(todo.priority);
   }, [todo.priority]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(todo.delay);
-  }, [todo.delay])
+  }, [todo.delay]); */
 
   const handleChangePriority = (e: ChangeEvent<HTMLSelectElement>): void => {
     setTodos(todos.map((todo: Todo) => todo.id === editWriteParams.editId ? {
@@ -124,11 +120,23 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // HandleEdit...
-  const handleEditDate = (e: FormEvent<HTMLFormElement>, id: string): void => {
+  const handleEditDate = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, date: editWriteParams.editDate
     } : todo));
+
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ date: editWriteParams.editDate }),
+      });
+    } catch (error) {
+      console.error("Erreur mise à jour date", error);
+    };
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, 
@@ -137,11 +145,23 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Project
-  const handleEditProject = (e: FormEvent<HTMLFormElement>, id: string): void => {
+  const handleEditProject = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, project: editWriteParams.editProject
     } : todo));
+
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ project: editWriteParams.editProject }),
+      });
+    } catch (error) {
+      console.error("Erreur mise à jour date", error);
+    }
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolProject: !prev.editBoolProject
@@ -149,11 +169,23 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Liste
-  const handleEditListe = (e: FormEvent<HTMLFormElement>, id: string): void => {
+  const handleEditListe = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, liste: editWriteParams.editListe  
     } : todo));
+
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ liste: editWriteParams.editListe }),
+      });
+    } catch (error) {
+      console.error("Erreur mise à jour date", error);
+    };
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolListe: !prev.editBoolListe
@@ -161,11 +193,23 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Delay
-  const handleEditDelay = (e: FormEvent<HTMLFormElement>, id: string): void => {
+  const handleEditDelay = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, delay: editWriteParams.editDelay 
     } : todo));
+
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ delay: editWriteParams.editDelay }),
+      });
+    } catch (error) {
+      console.error("Erreur mise à jour date", error);
+    };
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolDelay: !prev.editBoolDelay
@@ -173,11 +217,23 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Client
-  const handleEditClient = (e: FormEvent<HTMLFormElement>, id: string): void => {
+  const handleEditClient = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, client: editWriteParams.editClient
     } : todo));
+
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ client: editWriteParams.editClient }),
+      });
+    } catch (error) {
+      console.error("Erreur mise à jour date", error);
+    };
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolClient: !prev.editBoolClient
@@ -185,11 +241,23 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Mail
-  const handleEditMail = (e: FormEvent<HTMLFormElement>, id: string): void => {
+  const handleEditMail = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, email: editWriteParams.editMail
     } : todo));
+
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: editWriteParams.editMail }),
+      });
+    } catch (error) {
+      console.error("Erreur mise à jour date", error);
+    };
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolMail: !prev.editBoolMail
@@ -197,11 +265,23 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Phone
-  const handleEditPhone = (e: FormEvent<HTMLFormElement>, id: string): void => {
+  const handleEditPhone = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, phone: editWriteParams.editPhone 
     } : todo));
+
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone: editWriteParams.editPhone }),
+      });
+    } catch (error) {
+      console.error("Erreur mise à jour date", error);
+    };
 
     setEditBoolParams((prev: BooleanEditType) => ({
       ...prev, editBoolPhone: !prev.editBoolPhone
@@ -231,46 +311,18 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     }));
   };
 
-  /* const hasMounted = useRef(false);
-
-  useEffect(() => {
-    if (!hasMounted.current) {
-      hasMounted.current = true;
-      return;
-    }
-    
-    if (!editWriteParams.editId) return;
-    
-    setEditWriteParamsList(prev => {
-      const existing = prev.find(i => i.editId === editWriteParams.editId);
-
-      if (existing) {
-        return prev.map(i =>
-          i.editId === editWriteParams.editId ? editWriteParams : i
-        );
-      }
-
-      return [...prev, editWriteParams];
-    });
-  }, [editWriteParams]); */
-
-  /* useEffect(() => {
-    const stored = editWriteParamsList.find(
-      item => item.editId === String(todo.id)
-    );
-
-    if (stored) {
-      setEditWriteParams(stored);
-    }
-  }, [todo.id]); */
-
   // Delete todo by id
   const handleDelete = (id: string): void => {
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
-    /* setEditWriteParamsList((prev: WriteEditType[]) =>
-      prev.filter((item: WriteEditType) => item.editId !== id)
-    ); */
   };
+
+  /* const EditParamsOnChange = {(e: ChangeEvent<EditableElement>): void => 
+    setEditWriteParams((prev: WriteEditType) => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    })
+  )}; */
+
 
   return (
     <div id={String(todo.id)} className="main--div">
@@ -299,7 +351,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         <div className="date-project-liste-delay">
 
           <EditableFields
-            onSubmit={(e) => handleEditDate(e, todo.id)}
+            onSubmit={(e: FormEvent<HTMLFormElement>) => handleEditDate(e, todo.id)}
             type="text"
             params="Date"
             as="input"
@@ -319,7 +371,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           />
 
           <EditableFields
-            onSubmit={(e) => handleEditProject(e, todo.id)}
+            onSubmit={(e: FormEvent<HTMLFormElement>) => handleEditProject(e, todo.id)}
             type="text"
             params="Project"
             as="input"
@@ -339,7 +391,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           />
 
           <EditableFields
-            onSubmit={(e) => handleEditListe(e, todo.id)}
+            onSubmit={(e: FormEvent<HTMLFormElement>) => handleEditListe(e, todo.id)}
             params="Liste"
             as="textarea"
             className="input-button-textarea"
@@ -360,7 +412,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           />
 
           <EditableFields
-            onSubmit={(e) => handleEditDelay(e, todo.id)} 
+            onSubmit={(e: FormEvent<HTMLFormElement>) => handleEditDelay(e, todo.id)} 
             type="text"
             params="Délais"
             as="input"
@@ -384,7 +436,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         <div className="client--mail--phone">
 
           <EditableFields
-            onSubmit={(e) => handleEditClient(e, todo.id)} 
+            onSubmit={(e: FormEvent<HTMLFormElement>) => handleEditClient(e, todo.id)} 
             type="text"
             params="Client"
             as="input"
@@ -404,7 +456,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           />
         
           <EditableFields
-            onSubmit={(e) => handleEditMail(e, todo.id)} 
+            onSubmit={(e: FormEvent<HTMLFormElement>) => handleEditMail(e, todo.id)} 
             type="email"
             params="Email"
             as="input"
@@ -424,7 +476,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           />
 
           <EditableFields
-            onSubmit={(e) => handleEditPhone(e, todo.id)}
+            onSubmit={(e: FormEvent<HTMLFormElement>) => handleEditPhone(e, todo.id)}
             type="text"
             params="Phone"
             as="input"

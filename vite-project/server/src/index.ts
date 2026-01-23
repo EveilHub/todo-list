@@ -31,12 +31,12 @@ type Todo = {
 };
 
 const DATA_PATH: string = path.resolve(process.cwd(), "data.json");
-const DATA_CSV_PATH = path.resolve(process.cwd(), "projets.csv");
+const DATA_CSV_PATH: string = path.resolve(process.cwd(), "projets.csv");
 
 // 🔹 JSON
 const readTodos = async (): Promise<Todo[]> => {
   try {
-    const data = await fs.readFile(DATA_PATH, "utf8");
+    const data: string = await fs.readFile(DATA_PATH, "utf8");
     return data ? JSON.parse(data) : [];
   } catch {
     return [];
@@ -67,16 +67,16 @@ const writeTodosCSV = async (todos: Todo[]): Promise<void> => {
 };
 
 // 🔹 Write JSON + CSV
-const writeTodos = async (todos: Todo[]): Promise<void> => {
+/* const writeTodos = async (todos: Todo[]): Promise<void> => {
   await Promise.all([
     fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2), "utf8"),
     writeTodosCSV(todos),
   ]);
-};
+}; */
 
-// const writeTodos = async (todos: Todo[]): Promise<void> => {
-//   await fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2));
-// };
+const writeTodos = async (todos: Todo[]): Promise<void> => {
+  await fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2));
+};
 
 // 🔹 Routes
 app.get("/api/todos", async (_req: Request, res: Response) => {
@@ -91,10 +91,41 @@ app.post("/api/todos", async (req: Request, res: Response) => {
     const todos = await readTodos();
     todos.push(newTodo);
     await writeTodos(todos);
-
+    await writeTodosCSV(todos);
     res.status(201).json(newTodo);
   } catch (err: unknown) {
     res.status(500).json({ error: "Impossible d'ajouter le todo" });
+  }
+});
+
+app.patch("/api/todos/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { date, project, liste, delay, client, email, phone } = req.body;
+
+    const fileContent = await fs.readFile("data.json", "utf-8");
+    const todos: Todo[] = JSON.parse(fileContent);
+
+    const todo = todos.find((todo: Todo) => todo.id === id);
+
+    if (!todo) {
+      return res.status(404).json({ error: "Not found" });
+    }
+
+    // PATCH partiel
+    if (date !== undefined) todo.date = date;
+    if (project !== undefined) todo.project = project;
+    if (liste !== undefined) todo.liste = liste;
+    if (delay !== undefined) todo.delay = delay;
+    if (client !== undefined) todo.client = client;
+    if (email !== undefined) todo.email = email;
+    if (phone !== undefined) todo.phone = phone;
+
+    await writeTodos(todos);
+    res.json(todo);
+  } catch (error) {
+    console.error("Erreur PATCH /api/todos/:id", error);
+    res.status(500).json({ error: "Erreur serveur" });
   }
 });
 
@@ -102,6 +133,16 @@ app.delete("/api/todos/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const todos = await readTodos();
+
+    /* const todoToDelete: Todo | undefined = todos.find((todo: Todo) => todo.id === id);
+
+    if (!todoToDelete) {
+      return res.status(404).json({ error: "Todo non trouvé" });
+    }
+
+    // Écriture dans le CSV AVANT suppression
+    await writeTodosCSV(todoToDelete); */
+
     const filteredTodos: Todo[] = todos.filter((todo: Todo) => todo.id !== id);
 
     if (filteredTodos.length === todos.length) {
