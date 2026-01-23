@@ -13,6 +13,7 @@ import type {
   Todo,
   WriteEditType 
 } from "../lib/definitions.ts";
+import { formatPhoneNumber } from "../utils/fonctions";
 //import { useLocalStorage } from "../hooks/useLocalStorage.ts";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
@@ -298,7 +299,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         <div className="date-project-liste-delay">
 
           <EditableFields
-            onSubmit={(e) => handleEditDate(e, todo.id)} 
+            onSubmit={(e) => handleEditDate(e, todo.id)}
+            type="text"
             params="Date"
             as="input"
             className="input-button-container"
@@ -318,6 +320,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditProject(e, todo.id)}
+            type="text"
             params="Project"
             as="input"
             className="input-button-container"
@@ -336,7 +339,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           />
 
           <EditableFields
-            onSubmit={(e) => handleEditListe(e, todo.id)} 
+            onSubmit={(e) => handleEditListe(e, todo.id)}
             params="Liste"
             as="textarea"
             className="input-button-textarea"
@@ -358,6 +361,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditDelay(e, todo.id)} 
+            type="text"
             params="Délais"
             as="input"
             className="input-button-container"
@@ -381,6 +385,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditClient(e, todo.id)} 
+            type="text"
             params="Client"
             as="input"
             className="input-button-client"
@@ -400,6 +405,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         
           <EditableFields
             onSubmit={(e) => handleEditMail(e, todo.id)} 
+            type="email"
             params="Email"
             as="input"
             className="input-button-client"
@@ -419,6 +425,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e) => handleEditPhone(e, todo.id)}
+            type="text"
             params="Phone"
             as="input"
             className="input-button-client"
@@ -428,7 +435,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             onChange={(e: ChangeEvent<EditableElement>): void => 
               setEditWriteParams((prev: WriteEditType) => ({
                 ...prev,
-                editPhone: e.target.value
+                editPhone: formatPhoneNumber(e.target.value)
               })
             )}
             editBoolParams={editBoolParams.editBoolPhone}

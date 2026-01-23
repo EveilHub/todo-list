@@ -12,6 +12,7 @@ const EditableFields = (
         as = "input",
         rows,
         cols,
+        type,
         name,
         value,
         editBoolParams,
@@ -20,7 +21,6 @@ const EditableFields = (
         onSubmit,
         onChange
     }: EditableProps): JSX.Element => {
-
     return (
         <form 
             onSubmit={onSubmit} 
@@ -44,6 +44,7 @@ const EditableFields = (
                         ) : (
                         <input
                             ref={ref as ForwardedRef<HTMLInputElement>}
+                            type={type}
                             name={name}
                             value={value}
                             onChange={onChange}
@@ -53,7 +54,7 @@ const EditableFields = (
                             <s>{editWriteParams}</s>
                         ) : as === "textarea" ? (
                         <textarea 
-                            ref={ref as ForwardedRef<HTMLTextAreaElement>} 
+                            ref={ref as ForwardedRef<HTMLTextAreaElement>}
                             value={editWriteParams} 
                             readOnly 
                         />
