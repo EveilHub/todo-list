@@ -22,7 +22,6 @@ const FetchFromJson = (): JSX.Element => {
         setLoading(false);
       }
     };
-
     fetchCSV();
     return () => console.log("Clean-up CSV");
   }, []);
@@ -44,14 +43,14 @@ const FetchFromJson = (): JSX.Element => {
   return (
     <div className="div--fetch">
 
-      <h2>Projets Terminés</h2>
+      <h3>Projets Terminés</h3>
 
       {todos.length === 0 ? (
-        <h3>Aucune donnée</h3>
+        <p className="p--data">Aucune donnée sauvegardée</p>
       ) : (
-        <ul>
+        <div>
           {todos.map((todo) => (
-            <div key={todo.id}>
+            <ul key={todo.id}>
               
               <li>
                 <s>{todo.date} - {todo.project} - {todo.liste} - {todo.delay}
@@ -69,9 +68,9 @@ const FetchFromJson = (): JSX.Element => {
                 </button>
               </div>
 
-            </div>
+            </ul>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

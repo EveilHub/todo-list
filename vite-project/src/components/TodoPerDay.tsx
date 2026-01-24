@@ -77,13 +77,13 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       case 'option1':
         setParamsPriority((prev: ParamsPriorityTypes) => ({
           ...prev, 
-          bgColor: '#79c900'
+          bgColor: '#3c650b'
         }));
         break;
       case 'option2':
         setParamsPriority((prev: ParamsPriorityTypes) => ({
           ...prev,
-          bgColor: '#9afd00'
+          bgColor: '#0b3c65'
         }));
         break;
       case 'option3':

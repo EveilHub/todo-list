@@ -28,7 +28,7 @@ const EditableFields = (
         >
             <div className="daycomp-box">
 
-                <h3>{params}</h3>
+                <p className="title--box">{params}</p>
                 <div className={className}>
 
                     {editBoolParams === true ? (
@@ -40,6 +40,7 @@ const EditableFields = (
                             rows={rows}
                             cols={cols}
                             onChange={onChange}
+                            className="textarea--editable"
                         />
                         ) : (
                         <input
@@ -48,6 +49,7 @@ const EditableFields = (
                             name={name}
                             value={value}
                             onChange={onChange}
+                            className="input--editable"
                         />
                         )
                         ) : isDoneParams === true ? (
@@ -55,7 +57,8 @@ const EditableFields = (
                         ) : as === "textarea" ? (
                         <textarea 
                             ref={ref as ForwardedRef<HTMLTextAreaElement>}
-                            value={editWriteParams} 
+                            value={editWriteParams}
+                            className="textarea--editable"
                             readOnly 
                         />
                         ) : (
@@ -63,7 +66,7 @@ const EditableFields = (
                         )
                     }
 
-                    <div>
+                    <div className="div--submit">
                         <button 
                             type="submit"
                             className="modify-btn"
