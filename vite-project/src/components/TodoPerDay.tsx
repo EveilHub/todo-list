@@ -104,10 +104,24 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       changeColor(todo.priority);
   }, [todo.priority]);
 
-  const handleChangePriority = (e: ChangeEvent<HTMLSelectElement>): void => {
+  const handleChangePriority = 
+    async (e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => {
     setTodos(todos.map((todo: Todo) => todo.id === editWriteParams.editId ? {
       ...todo, priority: e.target.value
     } : todo));
+
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ priority: e.target.value }),
+      });
+    } catch (error) {
+      console.error("Erreur mise à jour date", error);
+    };
+
     setParamsPriority((prev: ParamsPriorityTypes) => ({
       ...prev, hidePriority: !prev.hidePriority
     }));
@@ -305,17 +319,33 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     }));
   };
 
-  // Delete todo by id
+  /*
+    Delete todo by id in json file & 
+    write todo deleted to csv file
+  */
   const handleDelete = async (id: string): Promise<void> => {
-    setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
+    if (!todo.date) return;
+    const newTodo: Todo | undefined = todos.find((todo: Todo) => todo.id === id);
+    if (!newTodo) return;
+    try {
+      await fetch(`http://localhost:3001/api/todos/csv`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTodo),
+      });
+    } catch (error) {
+      console.error("Erreur ajout todo", error);
+    };
     try {
       await fetch(`http://localhost:3001/api/todos/${id}`, {
         method: "DELETE",
       });
     } catch (error) {
       console.error("Erreur suppression serveur", error);
-    }
-
+    };
+    setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
   };
 
   /* const EditParamsOnChange = {(e: ChangeEvent<EditableElement>): void => 
@@ -341,7 +371,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           <PriorityTodo
             priorityTodo={todo.priority}
             paramsPriority={paramsPriority}
-            handleChangePriority={handleChangePriority}
+            handleChangePriority={(e: ChangeEvent<HTMLSelectElement>) => 
+              handleChangePriority(e, todo.id)
+            }
             onClick={() => setParamsPriority((prev: ParamsPriorityTypes) => ({
               ...prev, 
               hidePriority: !prev.hidePriority

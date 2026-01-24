@@ -89,7 +89,7 @@ const parseCSV = async (filePath: string): Promise<Todo[]> => {
 };
 
 const writeTodosCSV = async (todos: Todo[]): Promise<void> => {
-  const csvContent = todosToCSV(todos);
+  const csvContent: string = todosToCSV(todos);
   await fs.writeFile(DATA_CSV_PATH, csvContent, "utf8");
 };
 
@@ -117,24 +117,44 @@ app.get("/api/todos", async (_req: Request, res: Response) => {
   res.json(todos);
 });
 
+// new todo added to JSON file
 app.post("/api/todos", async (req: Request, res: Response) => {
   try {
     const newTodo: Todo = {...req.body};
-
     const todos = await readTodos();
+
     todos.push(newTodo);
     await writeTodos(todos);
-    await writeTodosCSV(todos);
     res.status(201).json(newTodo);
   } catch (err: unknown) {
     res.status(500).json({ error: "Impossible d'ajouter le todo" });
   }
 });
 
+// new todo added to CSV file
+app.post("/api/todos/csv", async (req: Request, res: Response) => {
+  try {
+    const newTodo: Todo = req.body;
+
+    if (!newTodo?.id) {
+      return res.status(400).json({ error: "Todo invalide" });
+    };
+
+    const todos = await parseCSV(DATA_CSV_PATH);
+    todos.push(newTodo);
+    await writeTodosCSV(todos);
+    res.status(201).json([newTodo]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Impossible d'ajouter le todo" });
+  }
+});
+
+
 app.patch("/api/todos/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { date, project, liste, delay, client, email, phone } = req.body;
+    const { date, project, liste, delay, client, email, phone, priority } = req.body;
 
     const fileContent = await fs.readFile("data.json", "utf-8");
     const todos: Todo[] = JSON.parse(fileContent);
@@ -153,6 +173,7 @@ app.patch("/api/todos/:id", async (req: Request, res: Response) => {
     if (client !== undefined) todo.client = client;
     if (email !== undefined) todo.email = email;
     if (phone !== undefined) todo.phone = phone;
+    if (priority !== undefined) todo.priority = priority;
 
     await writeTodos(todos);
     res.json(todo);
@@ -165,16 +186,7 @@ app.patch("/api/todos/:id", async (req: Request, res: Response) => {
 app.delete("/api/todos/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const todos = await readTodos();
-
-    /* const todoToDelete: Todo | undefined = todos.find((todo: Todo) => todo.id === id);
-
-    if (!todoToDelete) {
-      return res.status(404).json({ error: "Todo non trouvé" });
-    }
-
-    // Écriture dans le CSV AVANT suppression
-    await writeTodosCSV(todoToDelete); */
+    const todos: Todo[] = await readTodos();
 
     const filteredTodos: Todo[] = todos.filter((todo: Todo) => todo.id !== id);
 
@@ -183,6 +195,25 @@ app.delete("/api/todos/:id", async (req: Request, res: Response) => {
     }
 
     await writeTodos(filteredTodos);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: "Impossible de supprimer le todo" });
+  }
+});
+
+app.delete("/api/todos/csv/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const todos = await parseCSV(DATA_CSV_PATH);
+    
+    const filteredTodos: Todo[] = todos.filter((todo: Todo) => todo.id !== id);
+
+    if (filteredTodos.length === todos.length) {
+      return res.status(404).json({ error: "Todo non trouvé" });
+    };
+    
+    await writeTodosCSV(filteredTodos);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: "Impossible de supprimer le todo" });

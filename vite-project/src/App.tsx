@@ -3,7 +3,7 @@ import type { ParamsTodoType, SwitchLoadErrType, Todo } from './lib/definitions.
 import { useFetchDate } from './hooks/useFetchDate.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
-import FetchFromJson from './components/FetchFromJson.tsx';
+import FetchFromJson from './components/FetchFromCSV.tsx';
 import './App.css';
 
 const App = (): JSX.Element => {

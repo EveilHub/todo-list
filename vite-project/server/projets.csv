@@ -1,8 +1,0 @@
-id,selectedDay,date,project,liste,delay,client,email,phone,priority,isDoneDate,isDoneProject,isDoneListe,isDoneDelay,isDoneClient,isDoneMail,isDonePhone
-"0","vendredi","24/01/2026 12:16","","","24/01/2026 12:16","","","","option3",false,false,false,false,false,false,false
-"1","lundi","24/01/2026 12:16","","","24/01/2026 12:16","","","","option3",false,false,false,false,false,false,false
-"2","mercredi","24/01/2026 12:16","","","24/01/2026 12:16","","","","option3",false,false,false,false,false,false,false
-"3","jeudi","24/01/2026 12:16","","","24/01/2026 12:16","","","","option3",false,false,false,false,false,false,false
-"4","mardi","24/01/2026 12:16","1","","24/01/2026 12:16","","","","option3",false,false,false,false,false,false,false
-"5","mardi","24/01/2026 12:16","2","","24/01/2026 12:14","","","","option3",false,false,false,false,false,false,false
-"6","mercredi","24/01/2026 12:16","","","24/01/2026 12:16","","","","option3",false,false,false,false,false,false,false
