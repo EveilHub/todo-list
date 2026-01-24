@@ -6,8 +6,8 @@ import "./styles/TodoList.css";
 
 const TodosList = ({todos, setTodos}: TodoListType): JSX.Element => {
     
-    const sortedTodos: Todo[] = useMemo(
-        () => sortTodosByPriorityAndDelay(todos),
+    const sortedTodos: Todo[] = useMemo((): Todo[] =>
+        sortTodosByPriorityAndDelay(todos),
         [todos]
     );
     
