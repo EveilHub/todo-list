@@ -50,7 +50,7 @@
   width: 10%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
 }
 
 .disable-btn {
@@ -58,13 +58,16 @@
   font-weight: bold;
   border-radius: 8px;
   padding: 10px 20px;
-  background: grey;
+  background: #696969;
+  color: #8f8f8f;
 }
 
 .disable-btn:hover {
-  background: grey;
+  background: #696969;
+  color: #8f8f8f;
 }
 
 .disable-btn:active {
-  background: grey;
+  background: #696969;
+  color: #8f8f8f;
 }

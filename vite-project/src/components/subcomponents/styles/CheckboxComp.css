@@ -1,4 +1,8 @@
 .checkbox--lbl {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: small;
   cursor: pointer;
   margin-bottom: 10px;
 }

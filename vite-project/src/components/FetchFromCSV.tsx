@@ -1,6 +1,6 @@
 import { useEffect, useState, type JSX } from "react";
 import type { Todo } from "../lib/definitions";
-import "./styles/FetchFromJson.css";
+import "./styles/FetchFromCSV.css";
 
 const FetchFromJson = (): JSX.Element => {
 
@@ -22,38 +22,35 @@ const FetchFromJson = (): JSX.Element => {
         setLoading(false);
       }
     };
-
     fetchCSV();
     return () => console.log("Clean-up CSV");
   }, []);
 
-  // const deleteDataJson = async (id: string): Promise<void> => {
-  //   setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
-  //   try {
-  //     await fetch(`http://localhost:3001/api/todos/${id}`, {
-  //       method: "DELETE",
-  //     });
-  //   } catch (error) {
-  //     console.error("Erreur suppression serveur", error);
-  //   }
-  // };
+  const deleteDataCsv = async (id: string): Promise<void> => {
+    setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
+    try {
+      await fetch(`http://localhost:3001/api/todos/csv/${id}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Erreur suppression serveur", error);
+    }
+  };
 
   if (loading) return <h3>Chargement...</h3>;
   if (error) return <h3>{error}</h3>;
 
-  console.log(todos.map((x) => x));
-
   return (
     <div className="div--fetch">
 
-      <h2>Projets Terminés</h2>
+      <h3>Projets Terminés</h3>
 
       {todos.length === 0 ? (
-        <h3>Aucune donnée</h3>
+        <p className="p--data">Aucune donnée sauvegardée</p>
       ) : (
-        <ul>
+        <div>
           {todos.map((todo) => (
-            <div key={todo.id}>
+            <ul key={todo.id}>
               
               <li>
                 <s>{todo.date} - {todo.project} - {todo.liste} - {todo.delay}
@@ -64,16 +61,16 @@ const FetchFromJson = (): JSX.Element => {
               <div>
                 <button
                   type="button" 
-                  // onClick={() => deleteDataJson(todo.id)} 
+                  onClick={() => deleteDataCsv(todo.id)} 
                   className="custom-btn"  
                 >
                   Delete
                 </button>
               </div>
 
-            </div>
+            </ul>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

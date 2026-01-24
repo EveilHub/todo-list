@@ -1,0 +1,27 @@
+.div--fetch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.p--data {
+    font-size: 1.6rem;
+    color: orange;
+    padding: 20px;
+    background: 000;
+    border: 1px dashed orange;
+    border-radius: 7px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0;
+}
+
+li {
+    font-size: 1.1rem;
+}

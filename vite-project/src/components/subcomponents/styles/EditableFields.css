@@ -1,4 +1,4 @@
-h3 {
+.title--box {
   width: 100%;
   text-align: center;
   margin: auto;
@@ -23,6 +23,7 @@ h3 {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  /* border: 1px solid red; */
 }
 
 .input-button-textarea {
@@ -41,7 +42,61 @@ h3 {
   justify-content: space-between;
 }
 
+.textarea--editable {
+  width: 77%;
+
+  color: aqua;
+
+  background: #0f172a;
+
+  border: 1.5px solid #334155;
+  border-radius: 12px;
+  outline: none;
+  transition: 
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      background-color 0.25s ease;
+}
+
+.input--editable {
+  width: 75%;
+
+  padding: 7px 7px;
+  font-size: 16px;
+
+  color: aqua;
+
+  background: #0f172a;
+
+  border: 1.5px solid #334155;
+  border-radius: 12px;
+  outline: none;
+  transition: 
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      background-color 0.25s ease;
+}
+
+span {
+  width: 80%;
+  text-align: center;
+  /* border: 1px solid salmon; */
+}
+
+.div--submit {
+  position: relative;
+  width: 20%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 1px solid yellow; */
+}
+
 .modify-btn {
+  position: absolute;
   width: 40px;
   height: 40px;
+
+
 }
