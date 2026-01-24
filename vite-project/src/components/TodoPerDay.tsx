@@ -22,8 +22,6 @@ import "./styles/TodoPerDay.css";
 
 const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
-  console.log("+++todo.delay+++", todo.delay);
-
   const [editBoolParams, setEditBoolParams] = useState<BooleanEditType>({
     editBoolDate: false,
     editBoolProject: false,
@@ -105,10 +103,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   useEffect(() => {
       changeColor(todo.priority);
   }, [todo.priority]);
-
-  /* useEffect(() => {
-    console.log(todo.delay);
-  }, [todo.delay]); */
 
   const handleChangePriority = (e: ChangeEvent<HTMLSelectElement>): void => {
     setTodos(todos.map((todo: Todo) => todo.id === editWriteParams.editId ? {
@@ -312,8 +306,16 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Delete todo by id
-  const handleDelete = (id: string): void => {
+  const handleDelete = async (id: string): Promise<void> => {
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "DELETE",
+      });
+    } catch (error) {
+      console.error("Erreur suppression serveur", error);
+    }
+
   };
 
   /* const EditParamsOnChange = {(e: ChangeEvent<EditableElement>): void => 
@@ -322,7 +324,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       [e.target.name]: e.target.value
     })
   )}; */
-
 
   return (
     <div id={String(todo.id)} className="main--div">
@@ -509,7 +510,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <button 
             type="button" 
-            onClick={(): void => handleDelete(todo.id)} 
+            onClick={() => handleDelete(todo.id)} 
             className="delete--btn"
           >
             <MdDelete size={20} />

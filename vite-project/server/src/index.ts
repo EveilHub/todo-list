@@ -61,6 +61,33 @@ const todosToCSV = (todos: Todo[]): string => {
   return [headers, ...rows].join("\n");
 };
 
+// 🔹 CSV parsing simple
+const parseCSV = async (filePath: string): Promise<Todo[]> => {
+  try {
+    const csvData = await fs.readFile(filePath, "utf8");
+    const lines = csvData.trim().split("\n");
+    const headers = lines[0].split(",").map(h => h.trim());
+
+    return lines.slice(1).map(line => {
+      const values = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+      const todo: any = {};
+      if (values) {
+        headers.forEach((header, i) => {
+          let val = values[i];
+          if (val.startsWith('"') && val.endsWith('"')) {
+            val = val.slice(1, -1).replace(/""/g, '"');
+          }
+          todo[header] = val;
+        });
+      }
+      return todo as Todo;
+    });
+  } catch (err) {
+    console.error("Erreur lecture CSV:", err);
+    return [];
+  }
+};
+
 const writeTodosCSV = async (todos: Todo[]): Promise<void> => {
   const csvContent = todosToCSV(todos);
   await fs.writeFile(DATA_CSV_PATH, csvContent, "utf8");
@@ -78,7 +105,13 @@ const writeTodos = async (todos: Todo[]): Promise<void> => {
   await fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2));
 };
 
-// 🔹 Routes
+// 🔹 Route CSV
+app.get("/api/todos/csv", async (_req: Request, res: Response) => {
+  const todos = await parseCSV(DATA_CSV_PATH);
+  res.json(todos);
+});
+
+// 🔹 Route JSON
 app.get("/api/todos", async (_req: Request, res: Response) => {
   const todos = await readTodos();
   res.json(todos);

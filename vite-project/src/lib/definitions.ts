@@ -33,7 +33,7 @@ export type Todo = {
     email: string;
     phone: string;
     priority: string;
-    selectedDay: string | null;
+    selectedDay: string | undefined;
 	isDoneDate: boolean;
 	isDoneProject: boolean;
     isDoneListe: boolean;
@@ -49,11 +49,6 @@ export type SwitchLoadErrType = {
     error: string | null;
 };
 
-export type TodoListType = {
-    todos: Todo[];
-    setTodos: Dispatch<SetStateAction<Todo[]>>;
-};
-
 export type CreatorType = {
     date: string;
     project: string;
@@ -62,7 +57,7 @@ export type CreatorType = {
     client: string;
     email: string;
     phone: string;
-    selectedDay: string | null;
+    selectedDay: string | undefined;
     priority: string;
     setParamsTodo: Dispatch<SetStateAction<ParamsTodoType>>;
     handleCheckBox: (day: string) => void;
@@ -86,6 +81,11 @@ export type CheckBoxType = {
     children: ReactNode;
 };
 
+export type TodoListType = {
+    todos: Todo[];
+    setTodos: Dispatch<SetStateAction<Todo[]>>;
+};
+
 export type BooleanEditType = {
     editBoolDate: boolean;
     editBoolProject: boolean;
@@ -107,6 +107,18 @@ export type WriteEditType = {
     editPhone: string;
 };
 
+export type ParamsPriorityTypes = {
+    hidePriority: boolean;
+    bgColor: string;
+};
+
+export type PriorityType = {
+    priorityTodo: string;
+    paramsPriority: ParamsPriorityTypes;
+    onClick: () => void;
+    handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
+};
+
 export type EditableElement = HTMLInputElement | HTMLTextAreaElement;
 
 export type EditableProps = {
@@ -124,18 +136,6 @@ export type EditableProps = {
     isDoneParams: boolean;
     onSubmit: (e: FormEvent<HTMLFormElement>) => void;
     onChange: (e: ChangeEvent<EditableElement>) => void;
-};
-
-export type ParamsPriorityTypes = {
-    hidePriority: boolean;
-    bgColor: string;
-};
-
-export type PriorityType = {
-    priorityTodo: string;
-    paramsPriority: ParamsPriorityTypes;
-    onClick: () => void;
-    handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export type PropsTodoType = {
