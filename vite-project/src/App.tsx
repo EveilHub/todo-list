@@ -23,7 +23,7 @@ const App = (): JSX.Element => {
     priority: "option3",
   });
 
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [selectedDay, setSelectedDay] = useState<string | undefined>(undefined);
 
   const idRef = useRef<number>(0);
 
@@ -31,7 +31,7 @@ const App = (): JSX.Element => {
 
   const [switchLoadErr, setSwitchLoadErr] = useState<SwitchLoadErrType>({
     switcher: false,
-    loading: false,
+    loading: true,
     error: null
   });
 
@@ -83,12 +83,10 @@ const App = (): JSX.Element => {
       phone: "",
       priority: "option3",
     });
-    setSelectedDay(null);
+    setSelectedDay(undefined);
   };
 
   useEffect(() => {
-    if (todos.length > 0) return;
-
     const fetchTodos = async (): Promise<void> => {
       try {
         const res = await fetch("http://localhost:3001/api/todos");
@@ -109,7 +107,8 @@ const App = (): JSX.Element => {
       }
     };
     fetchTodos();
-  }, [todos]);
+    return () => console.log("Clean-up");
+  }, [switchLoadErr.switcher]);
   
   if (switchLoadErr.loading) return <h3>Chargement...</h3>;
   if (switchLoadErr.error) return <h3>{switchLoadErr.error}</h3>;
