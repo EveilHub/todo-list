@@ -7,8 +7,21 @@
     width: auto;
 }
 
-#options {
+select {
+    position: relative;
     font-size: 16px;
+    color: aqua;
+    background-color: #0f172a;;
+    border: none;
+    border-radius: 7px;
+    box-shadow: 0 0 7px #4169e180;;
+    padding: 10px 5px;
+}
+
+option {
+    font-size: 16px;
+    background-color: #0f172a;;
+    color: aqua;
     border: 1.5px solid #334155;
     border-radius: 7px;
     padding: 5px 7px;

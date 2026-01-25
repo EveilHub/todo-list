@@ -34,7 +34,29 @@
   justify-content: space-between;
 }
 
+/* 1 */
 .input-button-client {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 2 */
+.input-button-mail {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 3 */
+.input-button-phone {
+  position: absolute;
   width: 100%;
   display: flex;
   flex-direction: row;

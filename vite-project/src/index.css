@@ -41,6 +41,11 @@ h3 {
   text-align: center;
 }
 
+h6 {
+  margin: auto;
+  color: orange;
+}
+
 button {
   display: flex;
   align-items: center;

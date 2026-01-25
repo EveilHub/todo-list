@@ -91,13 +91,13 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       case 'option3':
         setParamsPriority((prev: ParamsPriorityTypes) => ({
           ...prev, 
-          bgColor: '#4169e11a'
+          bgColor: '#0f172a'
         }));
         break;
       default:
         setParamsPriority((prev: ParamsPriorityTypes) => ({
           ...prev, 
-          bgColor: '#4169e11a'
+          bgColor: '#0f172a'
         }));
     }
   };
@@ -376,16 +376,22 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   return (
     <div id={String(todo.id)} className="main--div">
 
-      <div className="div--day">
+      {/* <div className="div--day">
         <h2>{todo.selectedDay?.toUpperCase()}</h2>
-      </div>
+      </div> */}
 
       <div 
         className="container--todo" 
         style={{ backgroundColor: paramsPriority.bgColor }}
       >
+        
 
         <div className="priority--div">
+
+          <div className="div--day">
+            <h6>{todo.selectedDay?.toUpperCase()}</h6>
+          </div>
+
           <PriorityTodo
             priorityTodo={todo.priority}
             paramsPriority={paramsPriority}
@@ -397,6 +403,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
               hidePriority: !prev.hidePriority
             }))}
           />
+
         </div>
 
         <div className="date-project-liste-delay">
@@ -511,7 +518,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             type="email"
             params="Email"
             as="input"
-            className="input-button-client"
+            className="input-button-mail"
             ref={refs.editBoolMail}
             name={editWriteParams.editMail}
             value={editWriteParams.editMail}
@@ -531,7 +538,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             type="text"
             params="Phone"
             as="input"
-            className="input-button-client"
+            className="input-button-phone"
             ref={refs.editBoolPhone}
             name={editWriteParams.editPhone}
             value={editWriteParams.editPhone}
