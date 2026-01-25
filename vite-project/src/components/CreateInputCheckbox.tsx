@@ -19,13 +19,13 @@ const CreateInputCheckbox = ({
     handleSubmit
 }: CreatorType): JSX.Element => {
 
-    const handleChangeCreateInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChangeCreateInput = (e: ChangeEvent<HTMLInputElement>): void => {
         setParamsTodo((prev: ParamsTodoType) => ({
             ...prev, [e.target.name]: e.target.value
         }));
     };
 
-    const handleChangeCreateInputPhone = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChangeCreateInputPhone = (e: ChangeEvent<HTMLInputElement>): void => {
         setParamsTodo((prev: ParamsTodoType) => ({
             ...prev, [e.target.name]: formatPhoneNumber(e.target.value)
         }));

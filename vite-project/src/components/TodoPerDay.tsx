@@ -49,6 +49,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     bgColor: "#4169e11a"
   });
 
+  const [crossedItem, setCrossedItem] = useState<boolean>(false);
+
   // Ref with id
   const refs = {
     editBoolDate: useRef<HTMLInputElement>(null),
@@ -104,8 +106,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       changeColor(todo.priority);
   }, [todo.priority]);
 
-  const handleChangePriority = 
-    async (e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => {
+  const handleChangePriority = async (
+    e: ChangeEvent<HTMLSelectElement>, 
+    id: string): Promise<void> => {
     setTodos(todos.map((todo: Todo) => todo.id === editWriteParams.editId ? {
       ...todo, priority: e.target.value
     } : todo));
@@ -118,7 +121,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify({ priority: e.target.value }),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur mise à jour date", error);
     };
 
@@ -128,7 +131,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // HandleEdit...
-  const handleEditDate = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
+  const handleEditDate = async (
+    e: FormEvent<HTMLFormElement>, 
+    id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, date: editWriteParams.editDate
@@ -142,7 +147,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify({ date: editWriteParams.editDate }),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur mise à jour date", error);
     };
 
@@ -153,7 +158,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Project
-  const handleEditProject = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
+  const handleEditProject = async (
+    e: FormEvent<HTMLFormElement>,
+    id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, project: editWriteParams.editProject
@@ -167,7 +174,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify({ project: editWriteParams.editProject }),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur mise à jour date", error);
     }
 
@@ -177,7 +184,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Liste
-  const handleEditListe = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
+  const handleEditListe = async (
+    e: FormEvent<HTMLFormElement>,
+    id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, liste: editWriteParams.editListe  
@@ -191,7 +200,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify({ liste: editWriteParams.editListe }),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur mise à jour date", error);
     };
 
@@ -201,7 +210,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Delay
-  const handleEditDelay = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
+  const handleEditDelay = async (
+    e: FormEvent<HTMLFormElement>,
+    id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, delay: editWriteParams.editDelay 
@@ -215,7 +226,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify({ delay: editWriteParams.editDelay }),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur mise à jour date", error);
     };
 
@@ -225,7 +236,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Client
-  const handleEditClient = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
+  const handleEditClient = async (
+    e: FormEvent<HTMLFormElement>,
+    id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, client: editWriteParams.editClient
@@ -239,7 +252,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify({ client: editWriteParams.editClient }),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur mise à jour date", error);
     };
 
@@ -249,7 +262,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Mail
-  const handleEditMail = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
+  const handleEditMail = async (
+    e: FormEvent<HTMLFormElement>,
+    id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, email: editWriteParams.editMail
@@ -263,7 +278,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify({ email: editWriteParams.editMail }),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur mise à jour date", error);
     };
 
@@ -273,7 +288,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Phone
-  const handleEditPhone = async (e: FormEvent<HTMLFormElement>, id: string): Promise<void> => {
+  const handleEditPhone = async (
+    e: FormEvent<HTMLFormElement>,
+    id: string): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
       ...todo, phone: editWriteParams.editPhone 
@@ -287,7 +304,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify({ phone: editWriteParams.editPhone }),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur mise à jour date", error);
     };
 
@@ -317,6 +334,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       editBoolMail: prev.editBoolMail,
       editBoolPhone: prev.editBoolPhone
     }));
+    setCrossedItem((prev: boolean) => !prev);
   };
 
   /*
@@ -335,25 +353,25 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         },
         body: JSON.stringify(newTodo),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur ajout todo", error);
     };
     try {
       await fetch(`http://localhost:3001/api/todos/${id}`, {
         method: "DELETE",
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur suppression serveur", error);
     };
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
   };
 
-  /* const EditParamsOnChange = {(e: ChangeEvent<EditableElement>): void => 
-    setEditWriteParams((prev: WriteEditType) => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    })
-  )}; */
+  // const EditParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
+  //   setEditWriteParams((prev: WriteEditType) => ({
+  //     ...prev,
+  //     [e.target.name]: e.target.value
+  //   })
+  // )};
 
   return (
     <div id={String(todo.id)} className="main--div">
@@ -540,13 +558,17 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             <GiCrossedSabres size={22} />
           </button>
 
-          <button 
-            type="button" 
-            onClick={() => handleDelete(todo.id)} 
-            className="delete--btn"
-          >
-            <MdDelete size={20} />
-          </button>
+          {crossedItem === false ? (
+            <button 
+              type="button" 
+              onClick={() => handleDelete(todo.id)} 
+              className="delete--btn"
+            >
+              <MdDelete size={20} />
+            </button>
+          ):(
+            null
+          )}
 
         </div>
 

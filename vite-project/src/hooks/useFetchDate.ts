@@ -16,16 +16,16 @@ export const useFetchDate = ({setTime}: TimeSetTimeProps): string => {
         return `${dateDay}/${month}/${year} ${hour}:${min}`;
     };
 
-    const todayDate = getFormattedDate();
+    const todayDate: string = getFormattedDate();
 
     useEffect(() => {
-        const updateTime = () => {
+        const updateTime = (): void => {
             setTime(getFormattedDate());
         };
 
         updateTime();
-        const intervalId = setInterval(updateTime, 60000);
-        return () => clearInterval(intervalId);
+        const intervalId: number = setInterval(updateTime, 60000);
+        return (): void => clearInterval(intervalId);
     }, [setTime]);
 
     return todayDate;

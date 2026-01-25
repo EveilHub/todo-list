@@ -25,7 +25,7 @@ const App = (): JSX.Element => {
 
   const [selectedDay, setSelectedDay] = useState<string | undefined>(undefined);
 
-  const idRef = useRef<number>(0);
+  const idRef: React.RefObject<number> = useRef<number>(0);
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
@@ -70,7 +70,7 @@ const App = (): JSX.Element => {
         },
         body: JSON.stringify(newTodo),
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur ajout todo", error);
     };
     setParamsTodo({
@@ -89,15 +89,15 @@ const App = (): JSX.Element => {
   useEffect(() => {
     const fetchTodos = async (): Promise<void> => {
       try {
-        const res = await fetch("http://localhost:3001/api/todos");
+        const res: Response = await fetch("http://localhost:3001/api/todos");
         if (!res.ok) throw new Error("Erreur serveur");
 
         const data: Todo[] = await res.json();
         setTodos(data);
-      } catch (err) {
+      } catch (err: unknown) {
         setSwitchLoadErr((prev: SwitchLoadErrType) => ({
           ...prev, 
-          error: "Impossible de charger les données"
+          error: "☠️ Impossible de charger les données ☠️"
         }));
       } finally {
         setSwitchLoadErr((prev: SwitchLoadErrType) => ({
@@ -107,11 +107,11 @@ const App = (): JSX.Element => {
       }
     };
     fetchTodos();
-    return () => console.log("Clean-up");
+    return (): void => console.log("Clean-up");
   }, [switchLoadErr.switcher]);
   
   if (switchLoadErr.loading) return <h3>Chargement...</h3>;
-  if (switchLoadErr.error) return <h3>{switchLoadErr.error}</h3>;
+  if (switchLoadErr.error) return <h3 style={{color: "#ff3444"}}>{switchLoadErr.error}</h3>;
 
   return (
     <div className="main--div--app">
