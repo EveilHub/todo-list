@@ -11,19 +11,20 @@ const FetchFromJson = (): JSX.Element => {
   useEffect(() => {
     const fetchCSV = async (): Promise<void> => {
       try {
-        const res = await fetch("http://localhost:3001/api/todos/csv");
+        const res: Response = await fetch("http://localhost:3001/api/todos/csv");
         if (!res.ok) throw new Error("Erreur lors de la récupération des todos");
 
         const data: Todo[] = await res.json();
         setTodos(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        const error = err as {message: string}; 
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
     fetchCSV();
-    return () => console.log("Clean-up CSV");
+    return (): void => console.log("Clean-up CSV");
   }, []);
 
   const deleteDataCsv = async (id: string): Promise<void> => {

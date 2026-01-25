@@ -49,11 +49,8 @@ export const sortTodosByPriorityAndDelay = (todos: Todo[]): Todo[]  => {
         };
 
         // sort by delay (jj/mm/année)
-        const delayA = parseFrenchDateTime(a.delay);
-        const delayB = parseFrenchDateTime(b.delay);
-
-        console.log(delayA);
-        console.log(delayB);
+        const delayA: number = parseFrenchDateTime(a.delay);
+        const delayB: number = parseFrenchDateTime(b.delay);
 
         return delayA - delayB;
     });
@@ -61,7 +58,7 @@ export const sortTodosByPriorityAndDelay = (todos: Todo[]): Todo[]  => {
 
 // Format input phone number
 export const formatPhoneNumber = (value: string): string => {
-    const digits = value.replace(/\D/g, "");
+    const digits: string = value.replace(/\D/g, "");
 
     return digits
         .slice(0, 10)
