@@ -30,10 +30,12 @@ pnpm build
 
 - btn priority 
 
-1) Si un jour existe, cacher les autres ?
+1) Si un jour existe, cacher les autres ? []
 
-2) faire pour 1 mois ?
+2) FetchFromCSV.tsx => styles []
 
-3) Volet pour client email phone
+2) Conflit d'id [x]
 
-4) Conflit d'id
+3) Volet pour client email phone [x]
+
+4) faire pour 1 mois ? []
