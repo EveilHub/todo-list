@@ -26,7 +26,7 @@ const PriorityTodo = ({
                 <button 
                     type="button" 
                     onClick={onClick} 
-                    className="custom-btn"
+                    className="priority-btn"
                 >
                     Priorité
                 </button>
