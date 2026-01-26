@@ -16,6 +16,7 @@ import type {
 } from "../lib/definitions.ts";
 import { changeColor, formatPhoneNumber } from "../utils/fonctions";
 import { 
+  handleChangePriority,
   handleEditClient,
   handleEditDate,
   handleEditDelay,
@@ -110,29 +111,13 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     })
   )};
 
-  const handleChangePriority = async (e: ChangeEvent<HTMLSelectElement>, 
-    id: string): Promise<void> => {
-      setTodos(todos.map((todo: Todo) => todo.id === editWriteParams.editId ? {
-        ...todo, priority: e.target.value
-      } : todo
-    ));
-    try {
-      await fetch(`http://localhost:3001/api/todos/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ priority: e.target.value }),
-      });
-    } catch (error: unknown) {
-      console.error("Erreur mise à jour date", error);
-    };
-    setParamsPriority((prev: ParamsPriorityTypes) => ({
-      ...prev, hidePriority: !prev.hidePriority
-    }));
-  };
+  // HandleEdit... Priority
+  const callHandleChangePriority = async (
+   e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
+    await handleChangePriority(e, editWriteParams, todos, setTodos, setParamsPriority, id);
+  }
 
-  // HandleEdit... Date
+  // Date
   const callSubmitDate = async (
     e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
     await handleEditDate(e, editWriteParams, setTodos, setEditBoolParams, id);
@@ -249,7 +234,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             priorityTodo={todo.priority}
             paramsPriority={paramsPriority}
             handleChangePriority={(e: ChangeEvent<HTMLSelectElement>) => 
-              handleChangePriority(e, todo.id)
+              callHandleChangePriority(e, todo.id)
             }
             onClick={() => setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev, 

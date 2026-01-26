@@ -1,5 +1,32 @@
-import type { Dispatch, FormEvent, SetStateAction } from "react";
-import type { BooleanEditType, Todo, WriteEditType } from "../lib/definitions";
+import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
+import type { BooleanEditType, ParamsPriorityTypes, Todo, WriteEditType } from "../lib/definitions";
+
+// Priority
+export const handleChangePriority = async (e: ChangeEvent<HTMLSelectElement>, 
+    editWriteParams: WriteEditType,
+    todos: Todo[],
+    setTodos: Dispatch<SetStateAction<Todo[]>>, 
+    setParamsPriority: Dispatch<SetStateAction<ParamsPriorityTypes>>,
+    id: string): Promise<void> => {
+        setTodos(todos.map((todo: Todo) => todo.id === editWriteParams.editId ? {
+            ...todo, priority: e.target.value
+        } : todo
+    ));
+    try {
+        await fetch(`http://localhost:3001/api/todos/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ priority: e.target.value }),
+        });
+    } catch (error: unknown) {
+        console.error("Erreur mise à jour date", error);
+    };
+    setParamsPriority((prev: ParamsPriorityTypes) => ({
+        ...prev, hidePriority: !prev.hidePriority
+    }));
+};
 
 // Date
 export const handleEditDate = async (e: FormEvent<HTMLFormElement>, 
