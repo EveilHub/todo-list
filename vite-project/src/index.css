@@ -74,6 +74,23 @@ button:active {
   padding: 10px 20px;
 }
 
+.delete--btn {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: red;
+  /* margin-top: 50%; */
+  z-index: 1;
+}
+
+.delete--btn:hover {
+  background-color: rgb(204, 0, 0);
+}
+
+.delete--btn:active {
+  background-color: rgb(255, 70, 70);
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

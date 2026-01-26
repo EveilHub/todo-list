@@ -1,5 +1,6 @@
 import { useEffect, useState, type JSX } from "react";
 import type { Todo } from "../lib/definitions";
+import { MdDelete } from "react-icons/md";
 import "./styles/FetchFromCSV.css";
 
 const FetchFromCSV = (): JSX.Element => {
@@ -49,25 +50,30 @@ const FetchFromCSV = (): JSX.Element => {
       {todos.length === 0 ? (
         <p className="p--data">Aucune donnée sauvegardée</p>
       ) : (
-        <div>
+        <div className="div--todo">
           {todos.map((todo) => (
-            <ul key={todo.id}>
-              
-              <li>
-                <s>{todo.date} - {todo.project} - {todo.liste} - {todo.delay}
-                  - {todo.client} - {todo.email} - {todo.phone}
-                </s>
-              </li>
+            <ul key={todo.id} className="ul--fetch">
+              <div className="todo--container--fetch">
 
-              <div>
-                <button
-                  type="button" 
-                  onClick={() => deleteDataCsv(todo.id)} 
-                  className="custom-btn"  
-                >
-                  Delete
-                </button>
+                <li>
+                  <s>{todo.date} - {todo.project} - {todo.liste} - {todo.delay}
+                    - {todo.client} - {todo.email} - {todo.phone}
+                  </s>
+                </li>
+
+                <div className="div--btn">
+                  <button
+                    type="button" 
+                    onClick={() => deleteDataCsv(todo.id)} 
+                    className="delete--btn"  
+                  >
+                    <MdDelete size={18} />
+                  </button>
+                </div>
+
               </div>
+
+              <hr />
 
             </ul>
           ))}

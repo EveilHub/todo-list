@@ -14,14 +14,33 @@
     border-radius: 7px;
 }
 
-ul {
+.div--todo {
+    width: 90%;
+
+    background-color: #252525;
+    border: none;
+    border-radius: 20px;
+
+    padding: 20px;
+}
+
+.ul--fetch {
+    padding-left: 20px;
+}
+
+.todo--container--fetch {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding-left: 0;
+    justify-content: space-around;
 }
 
 li {
-    font-size: 1.1rem;
+    width: 100%;
+    font-size: smaller;
+    margin-left: 15px;
+}
+
+hr {
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
 }

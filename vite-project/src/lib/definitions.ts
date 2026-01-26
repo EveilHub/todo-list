@@ -43,8 +43,7 @@ export type Todo = {
     isDonePhone: boolean;
 };
 
-export type SwitchLoadErrType = {
-    switcher: boolean;
+export type LoadErrType = {
     loading: boolean;
     error: string | null;
 };
