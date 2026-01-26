@@ -28,8 +28,12 @@ pnpm build
 
 ## Goals
 
-1) Si un jour existe, cacher les autres
+- btn priority 
 
-2) Volet pour client
+1) Si un jour existe, cacher les autres ?
 
-3) Fonction async (reusable)
+2) faire pour 1 mois ?
+
+3) Volet pour client email phone
+
+4) Conflit d'id
