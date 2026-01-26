@@ -37,14 +37,18 @@
   padding-top: 15px;
 
   background-color: #0f172a;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 7px;
   box-shadow: 0 0 7px #38bdf8;
   box-sizing: border-box;
+  transition: 
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .checkbox-lbl-input:hover {
   box-shadow: 0 0 0 #38bdf8;
+  border: 1px solid #38bdf8;
 }
 
 .creation--btn--div {

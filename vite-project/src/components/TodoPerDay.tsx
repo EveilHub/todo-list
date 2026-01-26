@@ -183,10 +183,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     setCrossedItem((prev: boolean) => !prev);
   };
 
-  /*
-    Delete todo by id in json file & 
-    write todo deleted to csv file
-  */
+  // Delete todo by id in json file & write todo deleted to csv file
   const handleDelete = async (id: string): Promise<void> => {
     if (!todo.date) return;
     const newTodo: Todo | undefined = todos.find((todo: Todo) => todo.id === id);
