@@ -1,10 +1,21 @@
-import { useEffect, useRef, useState, type FormEvent, type JSX } from 'react';
-import type { ParamsTodoType, SwitchLoadErrType, Todo } from './lib/definitions.ts';
+import { 
+  useEffect, 
+  useRef, 
+  useState, 
+  type FormEvent, 
+  type JSX 
+} from 'react';
+import type { 
+  ParamsTodoType,
+  LoadErrType,
+  Todo 
+} from './lib/definitions.ts';
 import { useFetchDate } from './hooks/useFetchDate.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
 import FetchFromCSV from './components/FetchFromCSV.tsx';
 import './App.css';
+import Calendar from './components/Calendar.tsx';
 
 const App = (): JSX.Element => {
 
@@ -27,24 +38,18 @@ const App = (): JSX.Element => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const [switchLoadErr, setSwitchLoadErr] = useState<SwitchLoadErrType>({
-    switcher: false,
+  const [loadErr, setLoadErr] = useState<LoadErrType>({
     loading: true,
     error: null
   });
 
+  const [view, setView] = useState<string>("default");
+
+  const idRef = useRef<number>(0);
+
   const handleCheckBox = (day: string): void => {
     setSelectedDay(day);
   };
-
-  const handleSwitch = (): void => {
-    setSwitchLoadErr((prev: SwitchLoadErrType) => ({
-      ...prev, 
-      switcher: !prev.switcher
-    }))
-  };
-
-  const idRef = useRef<number>(0);
 
   useEffect(() => {
       const savedId = localStorage.getItem('currentId');
@@ -101,12 +106,12 @@ const App = (): JSX.Element => {
         const data: Todo[] = await res.json();
         setTodos(data);
       } catch (err: unknown) {
-        setSwitchLoadErr((prev: SwitchLoadErrType) => ({
+        setLoadErr((prev: LoadErrType) => ({
           ...prev, 
           error: "☠️ Impossible de charger les données ☠️"
         }));
       } finally {
-        setSwitchLoadErr((prev: SwitchLoadErrType) => ({
+        setLoadErr((prev: LoadErrType) => ({
           ...prev, 
           loading: false
         }));
@@ -114,10 +119,14 @@ const App = (): JSX.Element => {
     };
     fetchTodos();
     return (): void => console.log("Clean-up");
-  }, [switchLoadErr.switcher]);
+  }, [view]);
   
-  if (switchLoadErr.loading) return <h3>Chargement...</h3>;
-  if (switchLoadErr.error) return <h3 style={{color: "#ff3444"}}>{switchLoadErr.error}</h3>;
+  if (loadErr.loading) return <h3>Chargement...</h3>;
+  if (loadErr.error) return (
+    <h3 style={{color: "#ff3444"}}>
+      {loadErr.error}
+    </h3>
+  );
 
   return (
     <div className="main--div--app">
@@ -126,17 +135,31 @@ const App = (): JSX.Element => {
         <h1>{time}</h1>
       </div>
 
-      <div className='div--switcher--btn'>
+      <div className='switch--cal--btn'>
         <button 
           type="button" 
-          onClick={handleSwitch} 
+          onClick={() => setView(view === "completed" 
+            ? "default" 
+            : "completed"
+          )}
           className='custom-btn'
         >
-          Switch
+          Completed
+        </button>
+
+        <button 
+          type="button" 
+          onClick={() => setView(view === "calendar" 
+            ? "default" 
+            : "calendar"
+          )} 
+          className='custom-btn'
+        >
+          Calendar
         </button>
       </div>
 
-      {switchLoadErr.switcher === false ? (
+      {view === "default" ? (
         <div>
 
           <CreateInputCheckbox
@@ -157,9 +180,16 @@ const App = (): JSX.Element => {
           <TodosList todos={todos} setTodos={setTodos} />
 
         </div>
-      ) : (
+      ) : null}
+      
+      {view === "completed" ? (
         <FetchFromCSV />
-      )}
+      ) : null}
+      
+      {view === "calendar" ? (
+        <Calendar />
+      ) : null} 
+      
     </div>
   )
 };

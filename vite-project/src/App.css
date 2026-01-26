@@ -15,7 +15,11 @@
   text-align: center;
 }
 
-.div--switcher--btn {
+.switch--cal--btn {
   width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   padding-bottom: 20px;
 }
