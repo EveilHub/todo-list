@@ -14,75 +14,46 @@ git diff origin/dev
 
 
 ```
-const editableConfig = {
-  date: {
-    label: "Date",
-    editWrite: "editDate",
-    editBool: "editBoolDate",
-    isDone: "isDoneDate",
-    ref: "editBoolDate"
-  },
-  project: {
-    label: "Project",
-    editWrite: "editProject",
-    editBool: "editBoolProject",
-    isDone: "isDoneProject",
-    ref: "editBoolProject"
-  }
-} as const;
+? Reusable funciton ?
 
-//--- --- --- --- --- --- 
-
-type EditableKey = keyof typeof editableConfig;
-type EditWriteKey = typeof editableConfig[EditableKey]["editWrite"];
-type EditBoolKey = typeof editableConfig[EditableKey]["editBool"];
-
-//--- --- --- --- --- ---
-
-const handleSubmitEdit =
-  (key: EditableKey, id: string) =>
-  (e: FormEvent<HTMLFormElement>) => {
+const handleEditTodo = async (
+  e: FormEvent<HTMLFormElement>, id: string, 
+  field: 'project' | 'date', value: string): Promise<void> => {
     e.preventDefault();
-    const { editWrite, editBool } = editableConfig[key];
 
-    setTodos(todos.map((todo: Todo) =>
-      todo.id === id
-        ? { ...todo, [key]: editWriteParams[editWrite] }
-        : todo
-    ));
+    setTodos((prev: Todo[]) =>
+      prev.map((todo: Todo) => 
+        todo.id === id ? { ...todo, [field]: value } : todo
+      )
+    );
 
-    setEditBoolParams(prev => ({
-      ...prev,
-      [editBool]: !prev[editBool]
+    try {
+      await fetch(`http://localhost:3001/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ [field]: value }), // Utilisation de la notation de crochets pour définir dynamiquement la clé
+      });
+    } catch (error: unknown) {
+      console.error("Erreur mise à jour TODO", error);
+    }
+
+    setEditBoolParams((prev: BooleanEditType) => ({
+      ...prev, 
+      [`editBool${field.charAt(0).toUpperCase() + field.slice(1)}`]: !prev[`editBool${field.charAt(0).toUpperCase() + field.slice(1)}`]
     }));
-  };
+};
 
-//--- --- --- --- --- ---
 
-const handleChangeEdit =
-  (editWrite: EditWriteKey) =>
-  (e: ChangeEvent<EditableElement>) => {
-    setEditWriteParams(prev => ({
-      ...prev,
-      [editWrite]: e.target.value
-    }));
-  };
+// Pour modifier le projet
+await handleEditTodo(event, id, 'project', editWriteParams.editProject);
 
-//--- --- --- --- --- ---
-
-const handleToggleEdit =
-  (editBool: EditBoolKey) =>
-  () => {
-    setEditBoolParams(prev => ({
-      ...prev,
-      [editBool]: !prev[editBool]
-    }));
-  };
-
-//--- --- --- --- --- ---
+// Pour modifier la liste
+await handleEditTodo(event, id, 'liste', editWriteParams.editListe);
 
 <EditableFields
-  onSubmit={handleSubmitEdit("date", todo.id)}
+  onSubmit={handleSubmitEdit("date", todo.id, editWriteParams.editDate)}
   day={editableConfig.date.label}
   as="input"
   className="input-button-container"
@@ -97,7 +68,7 @@ const handleToggleEdit =
 />
 
 <EditableFields
-  onSubmit={handleSubmitEdit("project", todo.id)}
+  onSubmit={handleSubmitEdit("project", todo.id, editWriteParams.editProject)}
   day={editableConfig.project.label}
   as="input"
   className="input-button-container"

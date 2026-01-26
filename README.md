@@ -32,4 +32,4 @@ pnpm build
 
 2) Volet pour client
 
-3) Voir comment lire dans le projet.csv
+3) Fonction async (reusable)
