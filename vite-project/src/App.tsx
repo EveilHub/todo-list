@@ -25,8 +25,6 @@ const App = (): JSX.Element => {
 
   const [selectedDay, setSelectedDay] = useState<string | undefined>(undefined);
 
-  const idRef: React.RefObject<number> = useRef<number>(0);
-
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const [switchLoadErr, setSwitchLoadErr] = useState<SwitchLoadErrType>({
@@ -45,6 +43,13 @@ const App = (): JSX.Element => {
       switcher: !prev.switcher
     }))
   };
+
+  const idRef = useRef<number>(0);
+
+  useEffect(() => {
+      const savedId = localStorage.getItem('currentId');
+      idRef.current = savedId ? parseInt(savedId, 10) : 0;
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
@@ -70,6 +75,7 @@ const App = (): JSX.Element => {
         },
         body: JSON.stringify(newTodo),
       });
+      localStorage.setItem('currentId', String(idRef.current));
     } catch (error: unknown) {
       console.error("Erreur ajout todo", error);
     };
