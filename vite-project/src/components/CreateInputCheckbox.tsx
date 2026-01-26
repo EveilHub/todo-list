@@ -44,7 +44,7 @@ const CreateInputCheckbox = ({
                         type="text"
                         name="date"
                         value={date} 
-                        readOnly
+                        onChange={handleChangeCreateInput}
                         placeholder="Date"
                     />
 

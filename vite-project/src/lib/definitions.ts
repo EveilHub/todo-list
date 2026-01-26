@@ -68,7 +68,6 @@ export type InputType = {
     type: string;
     name: string;
     value: string;
-    readOnly?: boolean;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     maxLength?: number;
     placeholder: string;

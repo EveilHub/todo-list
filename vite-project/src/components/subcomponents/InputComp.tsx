@@ -6,8 +6,7 @@ const InputComp = (
     {
         type, 
         name, 
-        value, 
-        readOnly, 
+        value,
         onChange,
         maxLength,
         placeholder
@@ -17,7 +16,6 @@ const InputComp = (
             type={type}
             name={name}
             value={value}
-            readOnly={readOnly}
             onChange={onChange} 
             className="input--creation"
             maxLength={maxLength} 
