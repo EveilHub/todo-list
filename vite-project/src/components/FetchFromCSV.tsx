@@ -2,7 +2,7 @@ import { useEffect, useState, type JSX } from "react";
 import type { Todo } from "../lib/definitions";
 import "./styles/FetchFromCSV.css";
 
-const FetchFromJson = (): JSX.Element => {
+const FetchFromCSV = (): JSX.Element => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -77,4 +77,4 @@ const FetchFromJson = (): JSX.Element => {
   );
 };
 
-export default FetchFromJson;
+export default FetchFromCSV;
