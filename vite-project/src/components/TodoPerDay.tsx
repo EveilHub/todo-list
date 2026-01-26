@@ -13,7 +13,7 @@ import type {
   Todo,
   WriteEditType 
 } from "../lib/definitions.ts";
-import { formatPhoneNumber } from "../utils/fonctions";
+import { changeColor, formatPhoneNumber } from "../utils/fonctions";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
@@ -74,36 +74,12 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   }, [editBoolParams]);
 
   // Priority colors
-  const changeColor = (priorityValue: string): void => {
-    switch (priorityValue) {
-      case 'option1':
-        setParamsPriority((prev: ParamsPriorityTypes) => ({
-          ...prev, 
-          bgColor: '#3c650b'
-        }));
-        break;
-      case 'option2':
-        setParamsPriority((prev: ParamsPriorityTypes) => ({
-          ...prev,
-          bgColor: '#0b3c65'
-        }));
-        break;
-      case 'option3':
-        setParamsPriority((prev: ParamsPriorityTypes) => ({
-          ...prev, 
-          bgColor: '#0f172a'
-        }));
-        break;
-      default:
-        setParamsPriority((prev: ParamsPriorityTypes) => ({
-          ...prev, 
-          bgColor: '#0f172a'
-        }));
-    }
+  const callChangeColorPriority = (priorityValue: string) => {
+      changeColor(setParamsPriority, priorityValue);
   };
 
   useEffect(() => {
-      changeColor(todo.priority);
+      callChangeColorPriority(todo.priority);
   }, [todo.priority]);
 
   const handleChangePriority = async (

@@ -1,4 +1,5 @@
-import type { Todo } from "../lib/definitions";
+import type { Dispatch, SetStateAction } from "react";
+import type { ParamsPriorityTypes, Todo } from "../lib/definitions";
 
 // Compare priorities
 const priorityOrder: Record<string, number> = {
@@ -65,4 +66,33 @@ export const formatPhoneNumber = (value: string): string => {
         .replace(/(\d{3})(\d{0,3})(\d{0,2})(\d{0,2})/, (_, a, b, c, d) =>
             [a, b, c, d].filter(Boolean).join(" ")
         );
+};
+
+// Priority colors
+export const changeColor = (setParamsPriority: Dispatch<SetStateAction<ParamsPriorityTypes>>, priorityValue: string): void => {
+    switch (priorityValue) {
+        case 'option1':
+            setParamsPriority((prev: ParamsPriorityTypes) => ({
+                ...prev, 
+                bgColor: '#3c650b'
+            }));
+            break;
+        case 'option2':
+            setParamsPriority((prev: ParamsPriorityTypes) => ({
+                ...prev,
+                bgColor: '#0b3c65'
+            }));
+            break;
+        case 'option3':
+            setParamsPriority((prev: ParamsPriorityTypes) => ({
+                ...prev, 
+                bgColor: '#0f172a'
+            }));
+            break;
+        default:
+            setParamsPriority((prev: ParamsPriorityTypes) => ({
+                ...prev, 
+                bgColor: '#0f172a'
+            }));
+    }
 };
