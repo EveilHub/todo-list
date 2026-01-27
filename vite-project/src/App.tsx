@@ -15,8 +15,8 @@ import { useFetchDate } from './hooks/useFetchDate.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
 import FetchFromCSV from './components/FetchFromCSV.tsx';
+import ListCalendar from './components/ListCalendar.tsx';
 import './App.css';
-import Calendar from './components/Calendar.tsx';
 
 const App: FC = (): JSX.Element => {
 
@@ -187,7 +187,7 @@ const App: FC = (): JSX.Element => {
       ) : null}
       
       {view === "calendar" ? (
-        <Calendar />
+        <ListCalendar todos={todos} setTodos={setTodos} />
       ) : null} 
       
     </div>
