@@ -6,33 +6,47 @@ todo list especialy for graph & design
 
 ## Install
 
-git clone `<https>`
+`git clone <https...>`
 
-cd vite-project
+`cd vite-project`
 
-pnpm install
+`pnpm install`
+
+`cd server` (vite-project/server)
+
+`pnpm install`
 
 # Run frontend
 
-pnpm dev
+- dev
 
-pnpm build
+`pnpm dev`
+
+- prod
+
+`pnpm build`
+
+`pnpm preview`
 
 ## Run backend
 
-cd vite-project/server
+`cd server` (vite-project/server)
 
-pnpm dev
+- dev
 
-pnpm build
+`pnpm dev`
+
+- prod
+
+`pnpm build`
+
+`pnpm start`
 
 ## Goals
 
-- btn priority 
-
 1) Si un jour existe, cacher les autres ? []
 
-2) FetchFromCSV.tsx => styles []
+2) FetchFromCSV.tsx => styles [x]
 
 2) Conflit d'id [x]
 
