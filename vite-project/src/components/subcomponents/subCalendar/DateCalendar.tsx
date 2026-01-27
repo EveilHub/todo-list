@@ -2,13 +2,17 @@ import type { JSX } from "react";
 import "./styles/DateCalendar.css";
 
 type PropsDate = {
-    date: string;
+    date: Date;
 };
 
 const DateCalendar = ({date}: PropsDate): JSX.Element => {
     return (
-        <th id={date}>
-            {date}
+        <th>
+            {date.toLocaleDateString("fr-FR", {
+                weekday: "long",
+                day: "2-digit",
+                month: "2-digit",
+            })}
         </th>
     )
 };

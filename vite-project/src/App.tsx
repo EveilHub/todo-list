@@ -187,7 +187,7 @@ const App: FC = (): JSX.Element => {
       ) : null}
       
       {view === "calendar" ? (
-        <ListCalendar todos={todos} setTodos={setTodos} />
+        <ListCalendar todos={todos} />
       ) : null} 
       
     </div>
