@@ -2,6 +2,7 @@ import {
   useEffect, 
   useRef, 
   useState, 
+  type FC, 
   type FormEvent, 
   type JSX 
 } from 'react';
@@ -17,7 +18,7 @@ import FetchFromCSV from './components/FetchFromCSV.tsx';
 import './App.css';
 import Calendar from './components/Calendar.tsx';
 
-const App = (): JSX.Element => {
+const App: FC = (): JSX.Element => {
 
   const [time, setTime] = useState<string>('');
 
@@ -118,7 +119,6 @@ const App = (): JSX.Element => {
       }
     };
     fetchTodos();
-    return (): void => console.log("Clean-up");
   }, [view]);
   
   if (loadErr.loading) return <h3>Chargement...</h3>;
