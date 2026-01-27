@@ -6,7 +6,6 @@ import path from "path";
 import { Todo } from "./types/definitions";
 import { cleanTodoForCSV } from "./utils/csvCleaner";
 
-
 const app = express();
 const PORT: number = 3001;
 
@@ -32,7 +31,7 @@ const todosToCSV = (todos: Todo[]): string => {
 
   const headers: string = Object.keys(todos[0]).join(",");
 
-  const rows = todos.map(todo =>
+  const rows: string[] = todos.map(todo =>
     Object.values(todo)
       .map(value =>
         typeof value === "string"
