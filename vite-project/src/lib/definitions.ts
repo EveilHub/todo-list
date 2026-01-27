@@ -141,3 +141,10 @@ export type PropsTodoType = {
     todos: Todo[];
     setTodos: Dispatch<SetStateAction<Todo[]>>;
 };
+
+export type PropsCalendarType = {
+    todo: Todo;
+    todos: Todo[];
+    setTodos: Dispatch<SetStateAction<Todo[]>>;
+    listOfDay?: string[];
+}

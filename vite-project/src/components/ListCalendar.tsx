@@ -8,8 +8,6 @@ const ListCalendar = ({todos, setTodos}: TodoListType): JSX.Element => {
 
     const listOfDay: string[] = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
 
-    
-
     return (
         <div className="main--div--calendar">
     
@@ -39,6 +37,7 @@ const ListCalendar = ({todos, setTodos}: TodoListType): JSX.Element => {
                                 <ProjectCalendar
                                     key={String(todo.id)}
                                     todo={todo}
+                                    listOfDay={listOfDay}
                                     todos={todos}
                                     setTodos={setTodos}
                                 />
