@@ -1,0 +1,18 @@
+td {
+    font-size: 10px;
+    text-align: center;
+    border: none;
+    box-shadow: 0 0 7px #38bdf8;
+    padding: 20px;
+}
+
+.div--date--project {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+p {
+    margin: auto;
+}
