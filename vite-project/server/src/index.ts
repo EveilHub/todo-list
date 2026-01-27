@@ -3,32 +3,15 @@ import type { Request, Response } from "express";
 import cors from "cors";
 import fs from "fs/promises";
 import path from "path";
+import { Todo } from "./types/definitions";
+import { cleanTodoForCSV } from "./utils/csvCleaner";
+
 
 const app = express();
 const PORT: number = 3001;
 
 app.use(cors());
 app.use(express.json());
-
-type Todo = {
-  id: string;
-  date: string;
-  project: string;
-  liste: string;
-  delay: string;
-  client: string;
-  email: string;
-  phone: string;
-  priority: string;
-  selectedDay: string | null;
-  isDoneDate: boolean;
-  isDoneProject: boolean;
-  isDoneListe: boolean;
-  isDoneDelay: boolean;
-  isDoneClient: boolean;
-  isDoneMail: boolean;
-  isDonePhone: boolean;
-};
 
 const DATA_PATH: string = path.resolve(process.cwd(), "data.json");
 const DATA_CSV_PATH: string = path.resolve(process.cwd(), "projets.csv");
@@ -117,7 +100,7 @@ app.get("/api/todos", async (_req: Request, res: Response) => {
   res.json(todos);
 });
 
-// new todo added to JSON file
+// New todo added to JSON file
 app.post("/api/todos", async (req: Request, res: Response) => {
   try {
     const newTodo: Todo = {...req.body};
@@ -131,7 +114,7 @@ app.post("/api/todos", async (req: Request, res: Response) => {
   }
 });
 
-// new todo added to CSV file
+// New todo added to CSV file
 app.post("/api/todos/csv", async (req: Request, res: Response) => {
   try {
     const newTodo: Todo = req.body;
@@ -141,22 +124,24 @@ app.post("/api/todos/csv", async (req: Request, res: Response) => {
     };
 
     const todos = await parseCSV(DATA_CSV_PATH);
-    todos.push(newTodo);
+    const cleanedTodo: Todo = cleanTodoForCSV(newTodo);
+
+    todos.push(cleanedTodo);
     await writeTodosCSV(todos);
-    res.status(201).json([newTodo]);
-  } catch (err) {
+    res.status(201).json([cleanedTodo]);
+  } catch (err: unknown) {
     console.error(err);
     res.status(500).json({ error: "Impossible d'ajouter le todo" });
   }
 });
 
-
+// Update todo by id
 app.patch("/api/todos/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { date, project, liste, delay, client, email, phone, priority } = req.body;
 
-    const fileContent = await fs.readFile("data.json", "utf-8");
+    const fileContent: string = await fs.readFile("data.json", "utf-8");
     const todos: Todo[] = JSON.parse(fileContent);
 
     const todo = todos.find((todo: Todo) => todo.id === id);
@@ -168,7 +153,7 @@ app.patch("/api/todos/:id", async (req: Request, res: Response) => {
     // PATCH partiel
     if (date !== undefined) todo.date = date;
     if (project !== undefined) todo.project = project;
-    if (liste !== undefined) todo.liste = liste;
+    if (liste !== undefined) todo.liste = liste.replace(/\r?\n|\r/g, " | ");
     if (delay !== undefined) todo.delay = delay;
     if (client !== undefined) todo.client = client;
     if (email !== undefined) todo.email = email;
@@ -177,7 +162,7 @@ app.patch("/api/todos/:id", async (req: Request, res: Response) => {
 
     await writeTodos(todos);
     res.json(todo);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Erreur PATCH /api/todos/:id", error);
     res.status(500).json({ error: "Erreur serveur" });
   }
@@ -196,7 +181,7 @@ app.delete("/api/todos/:id", async (req: Request, res: Response) => {
 
     await writeTodos(filteredTodos);
     res.json({ success: true });
-  } catch (err) {
+  } catch (err: unknown) {
     res.status(500).json({ error: "Impossible de supprimer le todo" });
   }
 });
@@ -215,7 +200,7 @@ app.delete("/api/todos/csv/:id", async (req: Request, res: Response) => {
     
     await writeTodosCSV(filteredTodos);
     res.json({ success: true });
-  } catch (err) {
+  } catch (err: unknown) {
     res.status(500).json({ error: "Impossible de supprimer le todo" });
   }
 });

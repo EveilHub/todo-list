@@ -1,0 +1,2 @@
+id,selectedDay,date,project,liste,delay,client,email,phone,priority,isDoneDate,isDoneProject,isDoneListe,isDoneDelay,isDoneClient,isDoneMail,isDonePhone
+"10","jeudi","27/01/2026 09:20","One","li 1 | li 2 | li 3 | li 4 | li 5","27/01/2026 09:20","","","","option3",false,false,false,false,false,false,false
