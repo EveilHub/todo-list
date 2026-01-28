@@ -13,7 +13,9 @@ const DateCalendar = ({date}: PropsDate): JSX.Element => {
 
     return (
         <th>
-            {jour}
+            <div className="jour-th">
+                {jour}
+            </div>
         </th>
     )
 };

@@ -4,6 +4,19 @@
     /* border: 3px solid red; */
 }
 
+.calendar--title {
+    color: #87cefa;
+}
+
+.week-th {
+    background: linear-gradient(0deg, #3564ff, #87cefa);
+    background-clip: text; 
+    -webkit-background-clip: text;
+    /* -webkit-text-fill-color: transparent; */
+    color: transparent;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
 table, th, td {
     border: none;
     box-shadow: 0 0 7px #38bdf8;
@@ -14,7 +27,6 @@ table, th, td {
 th {
     font-size: 1.4rem;
     font-weight: bold;
-    color: #007cff;
     padding: 10px;
 }
 
@@ -41,7 +53,7 @@ tr:nth-child(even) {
     justify-content: flex-start;
     font-size: 12px;
     color: #000;
-    background-color: rgba(0, 255, 255, 0.7);
+    background-color: #87cefa;
     border: 1px solid #000;
     border-right: 1px solid rgba(0, 255, 255, 0.7);
     border-left: 1px solid rgba(0, 255, 255, 0.7);

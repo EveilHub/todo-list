@@ -25,13 +25,13 @@
 }
 
 .main--div--calendar {
-    width: 100%;
-    min-height: 80vh;
-    display: flex;
-    align-items: start;
-    justify-content: center;
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: start;
+  justify-content: center;
 }
 
 .div--calendar {
-    width: 100%;
+  width: 100%;
 }

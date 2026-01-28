@@ -35,11 +35,17 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
     const firstTodoDate = parseDate(todos[0].date);
     const headerWeekDays = getWeekDays(firstTodoDate);
 
+
+    const truncate = (text: string, max: number = 10): string => {
+        if (!text) return "";
+    return text.length > max ? text.slice(0, max) + "…" : text;
+    };
+
     return (
         <table className="table--calendar">
             <thead>
                 <tr>
-                    <th>Calendar</th>
+                    <th className="calendar--title">Calendar</th>
                     {headerWeekDays.map(day => (
                         <DateCalendar
                             key={day.toISOString()}
@@ -56,7 +62,7 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
 
                     return (
                         <tr key={week}>
-                            <th>Semaine {week}</th>
+                            <th className="week-th">Semaine {week}</th>
 
                             {weekDays.map(day => (
                                 <td key={day.toISOString()}>
@@ -70,9 +76,10 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
                                         .map(todo => (
                                             <div
                                                 key={todo.id}
+                                                title={todo.date + " " + todo.project}
                                                 className="calendar--todo"
                                             >
-                                                {todo.date}: {todo.project}
+                                                {truncate(todo.date, 10)}: {truncate(todo.project, 20)}
                                             </div>
                                         ))
                                     }

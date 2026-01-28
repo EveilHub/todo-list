@@ -106,7 +106,7 @@
 .textarea--editable {
   width: 77%;
 
-  color: aqua;
+  color: #87cefa;
 
   background: #0f172a;
 
@@ -123,7 +123,7 @@
   width: 75%;
   padding: 7px 7px;
   font-size: 16px;
-  color: aqua;
+  color: #87cefa;
   background: #0f172a;
   border: 1.5px solid #334155;
   border-radius: 12px;

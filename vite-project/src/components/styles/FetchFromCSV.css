@@ -31,11 +31,12 @@
 li {
     width: 100%;
     font-size: smaller;
+    font-weight: normal;
     margin-left: 15px;
 }
 
 hr {
     border: none;
-    border-bottom: 1px solid #38bdf8;
+    border-bottom: 1px solid #87cefa;
     border-radius: 50px;
 }
