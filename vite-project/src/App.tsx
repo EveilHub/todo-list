@@ -108,7 +108,8 @@ const App: FC = (): JSX.Element => {
 
         const data: Todo[] = await res.json();
         setTodos(data);
-      } catch (err: unknown) {
+      } catch (error: unknown) {
+        console.log(error);
         setLoadErr((prev: LoadErrType) => ({
           ...prev, 
           error: "☠️ Impossible de charger les données ☠️"

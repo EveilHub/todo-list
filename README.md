@@ -46,10 +46,109 @@ todo list especialy for graph & design
 
 1) Si un jour existe, cacher les autres ? []
 
-2) FetchFromCSV.tsx => styles [x]
+2) TableCalendar.tsx => styles []
 
-2) Conflit d'id [x]
+3) Volet pour client email phone [1/2]
 
-3) Volet pour client email phone [x]
+4) Use eslint => ref to resolve []
 
-4) faire pour 1 mois ? []
+5) Testing entire app []
+
+
+## Lib
+
+- Front
+
+---
+
+- Server
+
+`pnpm add -D vitest ts-node @types/node`
+
+`pnpm add express`
+
+`pnpm add -D @types/express`
+
+
+## Testing
+
+### Frontend
+
+`pnpm lint`
+
+`pnpm add -D vitest @testing-library/react @testing-library/jest-dom jsdom typescript ts-node`
+
+- vite.config.ts
+
+```
+/// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,          // permet d'utiliser describe, it, expect globalement
+    environment: 'jsdom',   // simule un navigateur
+    setupFiles: './src/setupTests.ts',
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+    },
+    include: ['src/**/*.{test,spec}.{ts,tsx}'], // inclure tous les tests TS/TSX
+  },
+});
+```
+
+- src/setupTests.ts
+
+`import '@testing-library/jest-dom';`
+
+- package.json
+
+```
+"scripts": {
+  "test": "vitest",
+  "test:ui": "vitest --ui"
+}
+```
+
+`pnpm run test` (console)
+
+`pnpm run test:ui` (graphic interface)
+
+### Backend
+
+`pnpm add -D vitest ts-node`
+
+`pnpm add -D supertest @types/supertest`
+
+
+- vite.config.ts
+
+```
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    globals: true,           // permet d'utiliser describe, it, expect globalement
+    environment: "node",     // très important pour le backend
+    include: ["server/**/*.test.ts"], // chemins vers les tests
+    coverage: {
+      reporter: ["text", "json", "html"],
+    },
+  },
+});
+```
+
+- package.json
+
+```
+"scripts": {
+  "test:server": "vitest"
+}
+```
+
+`pnpm run test:server`
+
+:koala:

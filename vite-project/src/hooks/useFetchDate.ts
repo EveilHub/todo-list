@@ -26,6 +26,7 @@ export const useFetchDate = ({setTime}: TimeSetTimeProps): string => {
         updateTime();
         const intervalId: number = setInterval(updateTime, 60000);
         return (): void => clearInterval(intervalId);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setTime]);
 
     return todayDate;

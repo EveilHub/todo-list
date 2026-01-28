@@ -21,17 +21,17 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .main--div--calendar {
-    width: 100%;
-    min-height: 80vh;
-    display: flex;
-    align-items: start;
-    justify-content: center;
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: start;
+  justify-content: center;
 }
 
 .div--calendar {
-    width: 100%;
+  width: 100%;
 }

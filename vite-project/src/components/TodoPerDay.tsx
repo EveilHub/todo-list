@@ -83,6 +83,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         refs[key]?.current?.focus();
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editBoolParams]);
 
   // Priority colors

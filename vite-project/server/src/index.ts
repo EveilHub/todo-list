@@ -52,7 +52,7 @@ const parseCSV = async (filePath: string): Promise<Todo[]> => {
 
     return lines.slice(1).map(line => {
       const values = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-      const todo: any = {};
+      const todo: Record<string, string | boolean | undefined> = {};
       if (values) {
         headers.forEach((header, i) => {
           let val = values[i];
@@ -74,14 +74,6 @@ const writeTodosCSV = async (todos: Todo[]): Promise<void> => {
   const csvContent: string = todosToCSV(todos);
   await fs.writeFile(DATA_CSV_PATH, csvContent, "utf8");
 };
-
-// 🔹 Write JSON + CSV
-/* const writeTodos = async (todos: Todo[]): Promise<void> => {
-  await Promise.all([
-    fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2), "utf8"),
-    writeTodosCSV(todos),
-  ]);
-}; */
 
 const writeTodos = async (todos: Todo[]): Promise<void> => {
   await fs.writeFile(DATA_PATH, JSON.stringify(todos, null, 2));
@@ -109,6 +101,7 @@ app.post("/api/todos", async (req: Request, res: Response) => {
     await writeTodos(todos);
     res.status(201).json(newTodo);
   } catch (err: unknown) {
+    console.error("POST error JSON", err);
     res.status(500).json({ error: "Impossible d'ajouter le todo" });
   }
 });
@@ -129,7 +122,7 @@ app.post("/api/todos/csv", async (req: Request, res: Response) => {
     await writeTodosCSV(todos);
     res.status(201).json([cleanedTodo]);
   } catch (err: unknown) {
-    console.error(err);
+    console.error("POST error CSV", err);
     res.status(500).json({ error: "Impossible d'ajouter le todo" });
   }
 });
@@ -161,8 +154,8 @@ app.patch("/api/todos/:id", async (req: Request, res: Response) => {
 
     await writeTodos(todos);
     res.json(todo);
-  } catch (error: unknown) {
-    console.error("Erreur PATCH /api/todos/:id", error);
+  } catch (err: unknown) {
+    console.error("Erreur PATCH /api/todos/:id", err);
     res.status(500).json({ error: "Erreur serveur" });
   }
 });
@@ -181,6 +174,7 @@ app.delete("/api/todos/:id", async (req: Request, res: Response) => {
     await writeTodos(filteredTodos);
     res.json({ success: true });
   } catch (err: unknown) {
+    console.error("DELETE error JSON", err);
     res.status(500).json({ error: "Impossible de supprimer le todo" });
   }
 });
@@ -200,6 +194,7 @@ app.delete("/api/todos/csv/:id", async (req: Request, res: Response) => {
     await writeTodosCSV(filteredTodos);
     res.json({ success: true });
   } catch (err: unknown) {
+    console.error("DELETE error CSV", err);
     res.status(500).json({ error: "Impossible de supprimer le todo" });
   }
 });
