@@ -39,6 +39,15 @@ const FetchFromCSV = (): JSX.Element => {
     }
   };
 
+  const preDeleteCSVData = (id: string): void => {
+    const response = prompt("Voulez-vous vraiement supprimer ce projet à tout jamais ? 'o'=oui");
+    if (response === "o") {
+      deleteDataCsv(id);
+    } else {
+      console.log(`Projet ${id} non supprimé`);
+    }
+  };
+
   if (loading) return <h3>Chargement...</h3>;
   if (error) return <h3>{error}</h3>;
 
@@ -48,7 +57,7 @@ const FetchFromCSV = (): JSX.Element => {
       <h3>Projets Terminés</h3>
 
       {todos.length === 0 ? (
-        <h4>🧞‍♂️ Aucun projet terminé 🧞‍♂️</h4>
+        <h4>Aucun projet terminé 🧞‍♂️</h4>
       ) : (
         <div className="div--todo">
           {todos.map((todo) => (
@@ -64,7 +73,7 @@ const FetchFromCSV = (): JSX.Element => {
                 <div className="div--btn">
                   <button
                     type="button" 
-                    onClick={() => deleteDataCsv(todo.id)} 
+                    onClick={() => preDeleteCSVData(todo.id)} 
                     className="delete--btn"  
                   >
                     <MdDelete size={18} />

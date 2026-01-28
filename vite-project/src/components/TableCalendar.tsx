@@ -15,7 +15,7 @@ type TodoProps = {
 
 const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
     if (todos.length === 0) {
-        return <h4 style={{textAlign: "center"}}>👻 Aucun projet agendé 👻</h4>
+        return <h4 style={{textAlign: "center"}}>Aucun projet agendé 👻</h4>
     };
 
     // 🔹 Grouper les todos par semaine ISO
