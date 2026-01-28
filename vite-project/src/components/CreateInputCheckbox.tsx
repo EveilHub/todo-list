@@ -3,6 +3,7 @@ import type { CreatorType, ParamsTodoType } from "../lib/definitions";
 import { formatPhoneNumber } from "../utils/fonctions";
 import InputComp from "./subcomponents/InputComp";
 import CheckboxComp from "./subcomponents/CheckboxComp";
+import { FaDownload } from "react-icons/fa";
 import "./styles/CreateInputCheckbox.css";
 
 const CreateInputCheckbox = ({
@@ -158,7 +159,7 @@ const CreateInputCheckbox = ({
                         : false
                     }
                 >
-                    Create
+                    <FaDownload size={16} />
                 </button>
             </div>
 

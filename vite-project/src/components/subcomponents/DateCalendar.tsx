@@ -6,13 +6,14 @@ type PropsDate = {
 };
 
 const DateCalendar = ({date}: PropsDate): JSX.Element => {
+
+    const jour: string = date.toLocaleDateString("fr-FR", {
+        weekday: "long"
+    });
+
     return (
         <th>
-            {date.toLocaleDateString("fr-FR", {
-                weekday: "long",
-                day: "2-digit",
-                month: "2-digit",
-            })}
+            {jour}
         </th>
     )
 };
