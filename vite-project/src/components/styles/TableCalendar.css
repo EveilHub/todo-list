@@ -1,0 +1,48 @@
+.table--calendar {
+    width: 100%;
+
+    /* border: 3px solid red; */
+}
+
+table, th, td {
+    border: none;
+    box-shadow: 0 0 7px #38bdf8;
+    
+    /* border: 10px solid violet; */
+}
+
+th {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #007cff;
+    padding: 10px;
+}
+
+tr, th {
+    width: 12.5%;
+}
+
+td {
+    width: auto;
+    /* text-align: center; */
+    border: none;
+
+    /* border: 1px solid violet; */
+}
+
+tr:nth-child(even) {
+    background-color: #0f172a;
+}
+
+.calendar--todo {
+    /* width: auto; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 12px;
+    color: #000;
+    background-color: rgba(0, 255, 255, 0.7);
+    border: 1px solid #000;
+    border-right: 1px solid rgba(0, 255, 255, 0.7);
+    border-left: 1px solid rgba(0, 255, 255, 0.7);
+}

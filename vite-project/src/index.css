@@ -25,7 +25,7 @@ body {
 
 h1 {
   font-size: 2.2em;
-  color: #007cff;
+  color: aqua;
   margin: auto;
 }
 
@@ -33,18 +33,22 @@ h2 {
   width: 100%;
   font-size: medium;
   margin: 10px auto;
-  color: orange;
+  color: #ffa500;
 }
 
 h3 {
   font-size: 2.0rem;
   text-align: center;
-  color: #007cff;
+  color: aqua;
+}
+
+h4 {
+  color: #ffa500;
 }
 
 h6 {
   margin: auto;
-  color: orange;
+  color: #ffa500;
 }
 
 button {

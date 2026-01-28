@@ -15,7 +15,9 @@ import { useFetchDate } from './hooks/useFetchDate.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
 import TodosList from './components/TodosList.tsx';
 import FetchFromCSV from './components/FetchFromCSV.tsx';
-import ListCalendar from './components/ListCalendar.tsx';
+import TableCalendar from './components/TableCalendar.tsx';
+import { IoLockClosedSharp } from "react-icons/io5";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import './App.css';
 
 const App: FC = (): JSX.Element => {
@@ -144,7 +146,7 @@ const App: FC = (): JSX.Element => {
           )}
           className='custom-btn'
         >
-          Completed
+          <IoLockClosedSharp size={16} />
         </button>
 
         <button 
@@ -155,7 +157,7 @@ const App: FC = (): JSX.Element => {
           )} 
           className='custom-btn'
         >
-          Calendar
+          <FaRegCalendarAlt size={16} />
         </button>
       </div>
 
@@ -187,7 +189,14 @@ const App: FC = (): JSX.Element => {
       ) : null}
       
       {view === "calendar" ? (
-        <ListCalendar todos={todos} />
+
+        <div className="main--div--calendar">
+    
+          <div className="div--calendar">
+            <TableCalendar todos={todos} />
+          </div>
+
+        </div>
       ) : null} 
       
     </div>
