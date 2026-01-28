@@ -95,25 +95,6 @@
     "isDonePhone": false
   },
   {
-    "id": "15",
-    "selectedDay": "lundi",
-    "date": "28/01/2026 14:15",
-    "project": "",
-    "liste": "",
-    "delay": "28/01/2026 14:15",
-    "client": "",
-    "email": "",
-    "phone": "",
-    "priority": "option3",
-    "isDoneDate": false,
-    "isDoneProject": false,
-    "isDoneListe": false,
-    "isDoneDelay": false,
-    "isDoneClient": false,
-    "isDoneMail": false,
-    "isDonePhone": false
-  },
-  {
     "id": "16",
     "selectedDay": "jeudi",
     "date": "28/01/2026 14:15",

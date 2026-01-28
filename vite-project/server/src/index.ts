@@ -52,7 +52,7 @@ const parseCSV = async (filePath: string): Promise<Todo[]> => {
 
     return lines.slice(1).map(line => {
       const values = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-      const todo: any = {};
+      const todo: Record<string, string | boolean | undefined> = {};
       if (values) {
         headers.forEach((header, i) => {
           let val = values[i];
