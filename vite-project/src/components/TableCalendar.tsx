@@ -76,7 +76,7 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
                                         .map(todo => (
                                             <div
                                                 key={todo.id}
-                                                title={todo.date + " " + todo.project}
+                                                title={todo.date + ": " + todo.project}
                                                 className="calendar--todo"
                                             >
                                                 {truncate(todo.date, 10)}: {truncate(todo.project, 20)}
