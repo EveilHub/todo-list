@@ -86,13 +86,13 @@ export const changeColor = (setParamsPriority: Dispatch<SetStateAction<ParamsPri
         case 'option3':
             setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev, 
-                bgColor: '#0f172a'
+                bgColor: '#00002f'
             }));
             break;
         default:
             setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev, 
-                bgColor: '#0f172a'
+                bgColor: '#00002f'
             }));
     }
 };

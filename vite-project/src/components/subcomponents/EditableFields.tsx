@@ -113,7 +113,7 @@ const EditableFields = (
                                 {editBoolParams === true ? (
                                         <MdOutlineSaveAlt size={22} />
                                     ) : (
-                                        <BsPencilSquare size={18} />
+                                        <BsPencilSquare size={16} />
                                     )
                                 }
                             </button>
