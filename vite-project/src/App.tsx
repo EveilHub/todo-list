@@ -18,6 +18,7 @@ import FetchFromCSV from './components/FetchFromCSV.tsx';
 import TableCalendar from './components/TableCalendar.tsx';
 import { IoLockClosedSharp } from "react-icons/io5";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { IoLogoBuffer } from "react-icons/io5";
 import './App.css';
 
 const App: FC = (): JSX.Element => {
@@ -147,7 +148,11 @@ const App: FC = (): JSX.Element => {
           )}
           className='custom-btn'
         >
-          <IoLockClosedSharp size={16} />
+          {view === "default" || view === "calendar" ? (
+            <IoLockClosedSharp size={16} />
+          ) : (
+            <IoLogoBuffer size={16} />
+          )}
         </button>
 
         <button 
@@ -158,7 +163,11 @@ const App: FC = (): JSX.Element => {
           )} 
           className='custom-btn'
         >
-          <FaRegCalendarAlt size={16} />
+          {view === "default" || view === "completed" ? (
+            <FaRegCalendarAlt size={16} />
+          ) : (
+            <IoLogoBuffer size={16} />
+          )}
         </button>
       </div>
 
