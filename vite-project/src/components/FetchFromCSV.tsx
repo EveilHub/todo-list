@@ -54,10 +54,10 @@ const FetchFromCSV = (): JSX.Element => {
   return (
     <div className="div--fetch">
 
-      <h3>Projets Terminés</h3>
+      <h2>Projets Terminés</h2>
 
       {todos.length === 0 ? (
-        <h4>Aucun projet terminé 🧞‍♂️</h4>
+        <h3>Aucun projet terminé 🧞‍♂️</h3>
       ) : (
         <div className="div--todo">
           {todos.map((todo) => (
