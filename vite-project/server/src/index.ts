@@ -145,7 +145,7 @@ app.patch("/api/todos/:id", async (req: Request, res: Response) => {
     // PATCH partiel
     if (date !== undefined) todo.date = date;
     if (project !== undefined) todo.project = project;
-    if (liste !== undefined) todo.liste = liste.replace(/\r?\n|\r/g, " | ");
+    if (liste !== undefined) todo.liste = liste;
     if (delay !== undefined) todo.delay = delay;
     if (client !== undefined) todo.client = client;
     if (email !== undefined) todo.email = email;
