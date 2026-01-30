@@ -15,6 +15,27 @@
     padding: 20px;
 }
 
+.div--download {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+a {
+  text-align: center;
+  text-decoration: none;
+  color: #f5f5f5;
+  background: #0059ff;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+a:hover {
+  color: #87cefa;
+}
+
 .ul--fetch {
     padding-left: 20px;
 }
