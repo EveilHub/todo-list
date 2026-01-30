@@ -91,6 +91,18 @@ app.get("/api/todos", async (_req: Request, res: Response) => {
   res.json(todos);
 });
 
+// CSV download
+app.get("/api/download-csv", async (req: Request, res: Response) => {
+  try {
+    await fs.access(DATA_CSV_PATH)
+
+    res.download(DATA_CSV_PATH, 'projets.csv')
+  } catch (error: unknown) {
+    console.error(error)
+    res.status(404).json({ message: 'CSV introuvable' })
+  }
+});
+
 // New todo added to JSON file
 app.post("/api/todos", async (req: Request, res: Response) => {
   try {

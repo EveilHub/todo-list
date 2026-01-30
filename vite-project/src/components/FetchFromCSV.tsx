@@ -1,6 +1,7 @@
 import { useEffect, useState, type JSX } from "react";
 import type { Todo } from "../lib/definitions";
 import { MdDelete } from "react-icons/md";
+import { FaDownload } from "react-icons/fa";
 import "./styles/FetchFromCSV.css";
 
 const FetchFromCSV = (): JSX.Element => {
@@ -60,6 +61,11 @@ const FetchFromCSV = (): JSX.Element => {
         <h3>Aucun projet terminé 🧞‍♂️</h3>
       ) : (
         <div className="div--todo">
+          <div className="div--download">
+            <a href="http://localhost:3001/api/download-csv">
+              <FaDownload size={16} />
+            </a>
+          </div>
           {todos.map((todo) => (
             <ul key={todo.id} className="ul--fetch">
               <div className="todo--container--fetch">
