@@ -44,15 +44,17 @@ todo list especialy for graph & design
 
 ## Goals
 
-1) Si un jour existe, cacher les autres ? []
+1) Volet pour client email phone [1/2]
 
-2) TableCalendar.tsx => styles []
+2) change day of week []
 
-3) Volet pour client email phone [1/2]
+3) check todo ? []
 
-4) Use eslint => ref to resolve []
+4) Display which day for todo []
 
-5) Testing entire app []
+5) Use eslint [x]
+
+6) Testing entire app []
 
 
 ## Lib
