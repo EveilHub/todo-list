@@ -13,6 +13,7 @@ const PriorityTodo = ({
             {paramsPriority.hidePriority === false ? (
                 <div className="priority--field">
                     <select 
+                        key={paramsPriority.hidePriority ? "open" : "closed"}
                         id="options"
                         value={priorityTodo} 
                         onChange={handleChangePriority}
