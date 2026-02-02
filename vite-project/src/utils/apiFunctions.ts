@@ -4,19 +4,20 @@ import type { BooleanEditType, Todo, WriteEditType } from "../lib/definitions";
 // Priority
 export const handleChangePriority = async (e: ChangeEvent<HTMLSelectElement>, 
     id: string,
-    setTodos: Dispatch<SetStateAction<Todo[]>>): Promise<void> => {
+    setTodos: Dispatch<SetStateAction<Todo[]>>
+): Promise<void> => {
+        const newPriority = e.target.value;
         setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? {
-            ...todo, priority: e.target.value
+            ...todo, priority: newPriority
         } : todo
     ));
-
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ priority: e.target.value }),
+            body: JSON.stringify({ priority: newPriority }),
         });
     } catch (error: unknown) {
         console.error("Erreur mise à jour date", error);
@@ -28,7 +29,8 @@ export const handleEditDate = async (e: FormEvent<HTMLFormElement>,
     editWriteParams: WriteEditType, 
     setTodos: Dispatch<SetStateAction<Todo[]>>, 
     setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string): Promise<void> => {
+    id: string
+): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
         ...todo, date: editWriteParams.editDate
@@ -55,7 +57,8 @@ export const handleEditProject = async (e: FormEvent<HTMLFormElement>,
     editWriteParams: WriteEditType, 
     setTodos: Dispatch<SetStateAction<Todo[]>>, 
     setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string): Promise<void> => {
+    id: string
+): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
         ...todo, project: editWriteParams.editProject
@@ -81,7 +84,8 @@ export const handleEditListe = async (e: FormEvent<HTMLFormElement>,
     editWriteParams: WriteEditType, 
     setTodos: Dispatch<SetStateAction<Todo[]>>, 
     setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string): Promise<void> => {
+    id: string
+): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
         ...todo, liste: editWriteParams.editListe  
@@ -107,7 +111,8 @@ export const handleEditDelay = async (e: FormEvent<HTMLFormElement>,
     editWriteParams: WriteEditType, 
     setTodos: Dispatch<SetStateAction<Todo[]>>, 
     setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string): Promise<void> => {
+    id: string
+): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
         ...todo, delay: editWriteParams.editDelay 
@@ -133,7 +138,8 @@ export const handleEditClient = async (e: FormEvent<HTMLFormElement>,
     editWriteParams: WriteEditType, 
     setTodos: Dispatch<SetStateAction<Todo[]>>, 
     setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string): Promise<void> => {
+    id: string
+): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
         ...todo, client: editWriteParams.editClient
@@ -159,7 +165,8 @@ export const handleEditMail = async (e: FormEvent<HTMLFormElement>,
     editWriteParams: WriteEditType, 
     setTodos: Dispatch<SetStateAction<Todo[]>>, 
     setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string): Promise<void> => {
+    id: string
+): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
         ...todo, email: editWriteParams.editMail
@@ -185,7 +192,8 @@ export const handleEditPhone = async (e: FormEvent<HTMLFormElement>,
     editWriteParams: WriteEditType, 
     setTodos: Dispatch<SetStateAction<Todo[]>>, 
     setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string): Promise<void> => {
+    id: string
+): Promise<void> => {
     e.preventDefault();
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
         ...todo, phone: editWriteParams.editPhone 

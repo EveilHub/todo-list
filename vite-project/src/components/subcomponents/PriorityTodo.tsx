@@ -4,20 +4,24 @@ import "./styles/PriorityTodo.css";
 
 const PriorityTodo = ({
     id,
-    priorityTodo,
     paramsPriorityHide,
-    onClick, 
-    handleChangePriority
+    priorityTodo,
+    handleChangePriority,
+    onClick
 }: PriorityType): JSX.Element => {
     return (
         <div id={id} className="priority--container">
             {paramsPriorityHide === false ? (
                 <select 
-                    id="options"
-                    value={priorityTodo} 
+                    id="optionsPriority"
+                    name="priority"
+                    value={priorityTodo}
                     onChange={handleChangePriority}
                     onMouseLeave={onClick}
                 >
+                    <option value="" disabled>
+                        — Choisir une priorité —
+                    </option>
                     <option value="option3">Priorité 3 (Standard)</option>
                     <option value="option2">Priorité 2 (Important)</option>
                     <option value="option1">Priorité 1 (Urgent)</option>

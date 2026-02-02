@@ -69,24 +69,30 @@ export const formatPhoneNumber = (value: string): string => {
 };
 
 // Priority colors
-export const changeColor = (setParamsPriority: Dispatch<SetStateAction<ParamsPriorityTypes>>, priorityValue: string): void => {
+export const changeColor = (
+    setParamsPriority: Dispatch<SetStateAction<ParamsPriorityTypes>>, 
+    priorityValue: string
+): void => {
     switch (priorityValue) {
         case 'option1':
             setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev, 
-                bgColor: '#115c9a'
+                bgColor: '#115c9a',
+                hidePriority: !prev.hidePriority
             }));
             break;
         case 'option2':
             setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev,
-                bgColor: '#0b3c65'
+                bgColor: '#0b3c65',
+                hidePriority: !prev.hidePriority
             }));
             break;
         case 'option3':
             setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev, 
-                bgColor: '#00002f'
+                bgColor: '#00002f',
+                hidePriority: !prev.hidePriority
             }));
             break;
         default:

@@ -120,8 +120,8 @@ export type ParamsPriorityTypes = {
 
 export type PriorityType = {
     id: string;
-    priorityTodo: string;
     paramsPriorityHide: boolean;
+    priorityTodo: string;
     onClick: () => void;
     handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
