@@ -21,13 +21,13 @@
   /* border: 3px solid orange; */
 }
 
-.priority--div {
+.day--priority {
   width: 5%;
   height: 100%;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly; */
 
   /* border: 1px solid yellow; */
 }

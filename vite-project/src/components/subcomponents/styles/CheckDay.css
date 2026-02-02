@@ -1,13 +1,19 @@
 .div--day {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
     height: 50%;
-    text-align: center;
 }
 
-.checkday-btn {
-    font-size: 0.8rem;
+.checkday--span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    font-size: 0.7rem;
     font-weight: bold;
-    border-radius: 4px;
-    box-shadow: 0 0 7px #000080;
-    padding: 5px 10px;
+    color: #ffa500;
+    border: none;
+    margin-top: 10px;
 }

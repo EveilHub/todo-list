@@ -105,14 +105,23 @@ export type WriteEditType = {
     editPhone: string;
 };
 
+export type SelectedDayProps = {
+    id: string;
+    dayBool: boolean;
+    selectedDay: string | undefined;
+    handleChangeDay: (e: ChangeEvent<HTMLSelectElement>) => void; 
+    onClick: () => void;
+};
+
 export type ParamsPriorityTypes = {
     hidePriority: boolean;
     bgColor: string;
 };
 
 export type PriorityType = {
+    id: string;
     priorityTodo: string;
-    paramsPriority: ParamsPriorityTypes;
+    paramsPriorityHide: boolean;
     onClick: () => void;
     handleChangePriority: (e: ChangeEvent<HTMLSelectElement>) => void;
 };

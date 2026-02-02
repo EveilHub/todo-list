@@ -1,11 +1,10 @@
 import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
-import type { BooleanEditType, ParamsPriorityTypes, Todo, WriteEditType } from "../lib/definitions";
+import type { BooleanEditType, Todo, WriteEditType } from "../lib/definitions";
 
 // Priority
 export const handleChangePriority = async (e: ChangeEvent<HTMLSelectElement>, 
     id: string,
-    setTodos: Dispatch<SetStateAction<Todo[]>>, 
-    setParamsPriority: Dispatch<SetStateAction<ParamsPriorityTypes>>): Promise<void> => {
+    setTodos: Dispatch<SetStateAction<Todo[]>>): Promise<void> => {
         setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? {
             ...todo, priority: e.target.value
         } : todo
@@ -22,9 +21,6 @@ export const handleChangePriority = async (e: ChangeEvent<HTMLSelectElement>,
     } catch (error: unknown) {
         console.error("Erreur mise à jour date", error);
     };
-    setParamsPriority((prev: ParamsPriorityTypes) => ({
-        ...prev, hidePriority: !prev.hidePriority
-    }));
 };
 
 // Date

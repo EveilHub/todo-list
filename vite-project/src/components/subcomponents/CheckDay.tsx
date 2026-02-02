@@ -1,38 +1,36 @@
-import { type ChangeEvent, type JSX } from "react";
+import { type JSX } from "react";
+import type { SelectedDayProps } from "../../lib/definitions";
 import "./styles/CheckDay.css";
 
-type SelectedDayProps = {
-    id: string;
-    dayBool: boolean;
-    selectedDay: string | undefined;
-    handleChangeDay: (e: ChangeEvent<HTMLSelectElement>) => void; 
-    onClick: () => void;
-};
-
-const CheckDay = ({id, dayBool, selectedDay, handleChangeDay, onClick}: SelectedDayProps): JSX.Element => {
+const CheckDay = ({
+    id,
+    dayBool,
+    selectedDay,
+    handleChangeDay,
+    onClick
+}: SelectedDayProps): JSX.Element => {
     return (
         <div id={id} className="div--day">
             {dayBool === false ? (
-                <button 
-                    type="button"
-                    onClick={onClick}
-                    className="checkday-btn"
-                >
-                    {selectedDay?.toUpperCase()}
-                </button>
-            ) : (
                 <select
                     id="optionsDays"
                     value={selectedDay} 
                     onChange={handleChangeDay}
                     onMouseLeave={onClick}
                 >
-                    <option value="lundi">lundi</option>
-                    <option value="mardi">mardi</option>
-                    <option value="mercredi">mercredi</option>
-                    <option value="jeudi">jeudi</option>
-                    <option value="vendredi">vendredi</option>
+                    <option value="lundi">Lundi</option>
+                    <option value="mardi">Mardi</option>
+                    <option value="mercredi">Mercredi</option>
+                    <option value="jeudi">Jeudi</option>
+                    <option value="vendredi">Vendredi</option>
                 </select>
+            ) : (
+                <span 
+                    onMouseEnter={onClick}
+                    className="checkday--span"
+                >
+                    {selectedDay?.toUpperCase()}
+                </span>
             )}
         </div>
     )

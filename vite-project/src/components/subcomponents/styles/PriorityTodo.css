@@ -1,11 +1,9 @@
 .priority--container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
-    border: none;
     height: 50%;
-}
-
-.priority--field {
-    width: auto;
 }
 
 select {
@@ -29,10 +27,14 @@ option {
     padding: 5px 7px;
 }
 
-.priority-btn {
-    font-size: 0.8rem;
+.priority--span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    font-size: 0.7rem;
     font-weight: bold;
-    border-radius: 4px;
-    box-shadow: 0 0 7px #000080;
-    padding: 5px 10px;
+    color: #ffa500;
+    border: none;
+    margin-bottom: 10px;
 }

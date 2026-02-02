@@ -99,6 +99,16 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       callChangeColorPriority(todo.priority);
   }, [todo.priority]);
 
+
+  // Day Selected changes order
+  const callChangeDay = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id 
+      ? {...todo, selectedDay: e.target.value } 
+      : todo
+    ));
+    setDayBool((prev: boolean) => !prev);
+  };
+
   // Edit params for EditableField Component (reusable function)
   const EditParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
     const { name, value }: {name: string, value: string} = e.target;
@@ -118,9 +128,12 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   // HandleEdit... Priority
   const callHandleChangePriority = async (
-   e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
-    await handleChangePriority(e, id, setTodos, setParamsPriority);
-  }
+    e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
+      await handleChangePriority(e, id, setTodos);
+      setParamsPriority((prev: ParamsPriorityTypes) => ({
+        ...prev, hidePriority: !prev.hidePriority
+      }));
+  };
 
   // Date
   const callSubmitDate = async (
@@ -214,18 +227,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
   };
 
-
-  
-  
-  const callChangeDay = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
-    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id 
-      ? {...todo, selectedDay: e.target.value } 
-      : todo
-    ));
-  }; 
-
-
-
   return (
     <div id={String(todo.id)} className="main--div">
 
@@ -238,7 +239,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         style={{ backgroundColor: paramsPriority.bgColor }}
       >
         
-        <div className="priority--div">
+        <div className="day--priority">
 
           <CheckDay 
             id={todo.id} 
@@ -250,8 +251,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           />
 
           <PriorityTodo
+            id={todo.id}
             priorityTodo={todo.priority}
-            paramsPriority={paramsPriority}
+            paramsPriorityHide={paramsPriority.hidePriority}
             handleChangePriority={(e: ChangeEvent<HTMLSelectElement>) => 
               callHandleChangePriority(e, todo.id)
             }
