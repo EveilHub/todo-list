@@ -1,0 +1,5 @@
+.div--day {
+    display: flex;
+    height: 50%;
+    text-align: center;
+}
