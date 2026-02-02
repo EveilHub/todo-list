@@ -17,6 +17,7 @@ const PriorityTodo = ({
                         id="options"
                         value={priorityTodo} 
                         onChange={handleChangePriority}
+                        onMouseLeave={onClick}
                     >
                         <option value="option3">Priorité 3 (Standard)</option>
                         <option value="option2">Priorité 2 (Important)</option>

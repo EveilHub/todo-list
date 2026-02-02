@@ -3,15 +3,14 @@ import type { BooleanEditType, ParamsPriorityTypes, Todo, WriteEditType } from "
 
 // Priority
 export const handleChangePriority = async (e: ChangeEvent<HTMLSelectElement>, 
-    editWriteParams: WriteEditType,
-    todos: Todo[],
+    id: string,
     setTodos: Dispatch<SetStateAction<Todo[]>>, 
-    setParamsPriority: Dispatch<SetStateAction<ParamsPriorityTypes>>,
-    id: string): Promise<void> => {
-        setTodos(todos.map((todo: Todo) => todo.id === editWriteParams.editId ? {
+    setParamsPriority: Dispatch<SetStateAction<ParamsPriorityTypes>>): Promise<void> => {
+        setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? {
             ...todo, priority: e.target.value
         } : todo
     ));
+
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",

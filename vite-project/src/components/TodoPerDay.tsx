@@ -115,7 +115,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // HandleEdit... Priority
   const callHandleChangePriority = async (
    e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
-    await handleChangePriority(e, editWriteParams, todos, setTodos, setParamsPriority, id);
+    await handleChangePriority(e, id, setTodos, setParamsPriority);
   }
 
   // Date
