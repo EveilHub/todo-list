@@ -8,6 +8,8 @@ const PriorityTodo = ({
     onClick, 
     handleChangePriority
 }: PriorityType): JSX.Element => {
+
+
     return (
         <div className="priority--container">
             {paramsPriority.hidePriority === false ? (
@@ -27,7 +29,7 @@ const PriorityTodo = ({
             ) : (
                 <button 
                     type="button" 
-                    onClick={onClick} 
+                    onClick={onClick}
                     className="priority-btn"
                 >
                     Priorité

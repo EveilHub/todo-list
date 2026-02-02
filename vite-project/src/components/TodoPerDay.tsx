@@ -25,6 +25,7 @@ import {
   handleEditPhone,
   handleEditProject 
 } from "../utils/apiFunctions.ts";
+import CheckDay from "./subcomponents/CheckDay.tsx";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
@@ -162,7 +163,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   // Cross out todo by id
   const handleCrossOutTodo = (id: string): void => {
-    setTodos(todos.map((todo: Todo): Todo => todo.id === id ? {...todo,
+    setTodos((prev: Todo[]) => prev.map((todo: Todo): Todo => todo.id === id ? {...todo,
       isDoneDate: !todo.isDoneDate,
       isDoneProject: !todo.isDoneProject,
       isDoneListe: !todo.isDoneListe,
@@ -224,9 +225,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         
         <div className="priority--div">
 
-          <div className="div--day">
-            <h6>{todo.selectedDay?.toUpperCase()}</h6>
-          </div>
+          <CheckDay selectedDay={todo.selectedDay} />
 
           <PriorityTodo
             priorityTodo={todo.priority}

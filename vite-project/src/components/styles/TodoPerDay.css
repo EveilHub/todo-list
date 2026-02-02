@@ -32,12 +32,6 @@
   /* border: 1px solid yellow; */
 }
 
-.div--day {
-  display: flex;
-  height: 50%;
-  text-align: center;
-}
-
 .date-project-liste-delay {
   width: 70%;
   display: flex;
