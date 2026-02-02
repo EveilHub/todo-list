@@ -92,13 +92,12 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   // Priority colors
   const callChangeColorPriority = (priorityValue: string): void => {
-      changeColor(setParamsPriority, priorityValue);
+    changeColor(setParamsPriority, priorityValue);
   };
 
   useEffect(() => {
-      callChangeColorPriority(todo.priority);
+    callChangeColorPriority(todo.priority);
   }, [todo.priority]);
-
 
   // Day Selected changes order
   const callChangeDay = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
@@ -126,7 +125,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     })
   )};
 
-  // HandleEdit... Priority
+  // Priority
   const callHandleChangePriority = async (
     e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
       await handleChangePriority(e, id, setTodos);
@@ -138,43 +137,43 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // Date
   const callSubmitDate = async (
     e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-    await handleEditDate(e, editWriteParams, setTodos, setEditBoolParams, id);
+      await handleEditDate(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Project
   const callSubmitProject = async (    
     e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-    await handleEditProject(e, editWriteParams, setTodos, setEditBoolParams, id);
+      await handleEditProject(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Liste
   const callSubmitListe = async(
-      e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-    await handleEditListe(e, editWriteParams, setTodos, setEditBoolParams, id);
+    e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
+      await handleEditListe(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Delay
   const callSubmitDelay = async (
     e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-    await handleEditDelay(e, editWriteParams, setTodos, setEditBoolParams, id);
+      await handleEditDelay(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Client
   const callSubmitClient = async (
     e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-    await handleEditClient(e, editWriteParams, setTodos, setEditBoolParams, id);
+      await handleEditClient(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Mail
   const callSubmitMail = async (
     e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-    await handleEditMail(e, editWriteParams, setTodos, setEditBoolParams, id);
+      await handleEditMail(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Phone
   const callSubmitPhone = async (
     e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-    await handleEditPhone(e, editWriteParams, setTodos, setEditBoolParams, id);
+      await handleEditPhone(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Cross out todo by id
@@ -246,20 +245,21 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             dayBool={dayBool}
             selectedDay={todo?.selectedDay}
             handleChangeDay={(e: ChangeEvent<HTMLSelectElement>) => 
-              callChangeDay(e, todo.id)} 
+              callChangeDay(e, todo.id)
+            } 
             onClick={() => setDayBool((prev: boolean) => !prev)}
           />
 
           <PriorityTodo
             id={todo.id}
-            priorityTodo={todo.priority}
             paramsPriorityHide={paramsPriority.hidePriority}
+            priorityTodo={todo.priority}
             handleChangePriority={(e: ChangeEvent<HTMLSelectElement>) => 
               callHandleChangePriority(e, todo.id)
             }
             onClick={() => setParamsPriority((prev: ParamsPriorityTypes) => ({
               ...prev, 
-                hidePriority: !prev.hidePriority
+              hidePriority: !prev.hidePriority
               })
             )}
           />
