@@ -55,6 +55,9 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     editPhone: todo.phone
   });
 
+  // To change day
+  const [dayBool, setDayBool] = useState<boolean>(true);
+
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
     hidePriority: true,
@@ -211,6 +214,18 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
   };
 
+
+  
+  
+  const callChangeDay = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
+    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id 
+      ? {...todo, selectedDay: e.target.value } 
+      : todo
+    ));
+  }; 
+
+
+
   return (
     <div id={String(todo.id)} className="main--div">
 
@@ -225,7 +240,14 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         
         <div className="priority--div">
 
-          <CheckDay selectedDay={todo.selectedDay} />
+          <CheckDay 
+            id={todo.id} 
+            dayBool={dayBool}
+            selectedDay={todo.selectedDay}
+            handleChangeDay={(e: ChangeEvent<HTMLSelectElement>) => 
+              callChangeDay(e, todo.id)} 
+            onClick={() => setDayBool((prev: boolean) => !prev)}
+          />
 
           <PriorityTodo
             priorityTodo={todo.priority}

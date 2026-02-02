@@ -8,8 +8,6 @@ const PriorityTodo = ({
     onClick, 
     handleChangePriority
 }: PriorityType): JSX.Element => {
-
-
     return (
         <div className="priority--container">
             {paramsPriority.hidePriority === false ? (
