@@ -16,14 +16,14 @@ const CheckDay = ({id, dayBool, selectedDay, handleChangeDay, onClick}: Selected
                 <button 
                     type="button"
                     onClick={onClick}
-                    
+                    className="checkday-btn"
                 >
                     {selectedDay?.toUpperCase()}
                 </button>
             ) : (
                 <select
-
                     id="optionsDays"
+                    value={selectedDay} 
                     onChange={handleChangeDay}
                     onMouseLeave={onClick}
                 >

@@ -3,3 +3,11 @@
     height: 50%;
     text-align: center;
 }
+
+.checkday-btn {
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: 0 0 7px #000080;
+    padding: 5px 10px;
+}
