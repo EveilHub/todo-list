@@ -258,9 +258,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
               callHandleChangePriority(e, todo.id)
             }
             onClick={() => setParamsPriority((prev: ParamsPriorityTypes) => ({
-                ...prev, 
+              ...prev, 
                 hidePriority: !prev.hidePriority
-            }))}
+              })
+            )}
           />
 
         </div>

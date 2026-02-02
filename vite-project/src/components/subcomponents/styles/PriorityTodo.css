@@ -37,4 +37,5 @@ option {
     color: #ffa500;
     border: none;
     margin-bottom: 10px;
+    cursor: pointer;
 }
