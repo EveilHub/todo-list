@@ -14,7 +14,15 @@ import type {
   Todo,
   WriteEditType 
 } from "../lib/definitions.ts";
-import { callChangeDay, handleChangePriority, submitClient, submitDelay, submitListe, submitMail, submitPhone, submitProject } from "../utils/todoFunctions.ts";
+import { 
+  callChangeDay, 
+  handleChangePriority, 
+  submitClient, 
+  submitDelay, 
+  submitListe, 
+  submitMail, 
+  submitPhone, 
+  submitProject } from "../utils/todoFunctions.ts";
 import { changeColor, formatPhoneNumber } from "../utils/fonctions";
 import CheckDay from "./subcomponents/CheckDay.tsx";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
@@ -113,18 +121,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     })
   )};
 
-
   // Day Selected changes
   const changeDayFunction = async (e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => {
     callChangeDay(e, id, setTodos, setDayBool);
   };
-
-  // const callSubmitReusable = (field: EditField, id: string) => (
-  //   e: FormEvent<HTMLFormElement>
-  // ): void => {
-  //   submitReusable(id, e, field, editWriteParams, setTodos, setEditBoolParams);
-  // };
-
 
   // Project
   const callSubmitProject = (    

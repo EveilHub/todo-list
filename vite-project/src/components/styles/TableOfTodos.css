@@ -6,6 +6,7 @@
 }
 
 .table--todos {
+    width: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -15,7 +16,22 @@
 
     border: none;
     border-radius: 20px;
-    box-shadow: 0 -2px 7px #38bdf8;
-
-    margin-bottom: 0px;
+    /* box-shadow: 0 0 7px #38bdf8; */
 }
+
+.div--title--projects {
+    width: 27.5%;
+}
+
+.div--title--tasks {
+    width: 22.5%;
+}
+
+.div--title--delays {
+    width: 22.5%;
+}
+
+.div--title--clients {
+    width: 27.5%;
+}
+

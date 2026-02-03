@@ -46,7 +46,7 @@ tr:nth-child(even) {
 
 .week--indicator {
     position: relative;
-    top: -7px;
+    top: -5px;
     left: 5px;
     color: yellow;
 }

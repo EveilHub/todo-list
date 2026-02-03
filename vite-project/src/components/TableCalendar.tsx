@@ -1,4 +1,4 @@
-import type { JSX } from "react";
+import { useState, type ChangeEvent, type JSX } from "react";
 import type { Todo } from "../lib/definitions";
 import {
     parseDate,
@@ -18,6 +18,9 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
     if (todos.length === 0) {
         return <h3 style={{textAlign: "center"}}>Aucun projet agendé 👻</h3>
     };
+
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [delayValue, setDelayValue] = useState<string>("");
 
     const today = new Date();
     const currentWeek = getISOWeekNumber(today);
@@ -42,6 +45,14 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
     const truncate = (text: string, max: number = 10): string => {
         if (!text) return "";
     return text.length > max ? text.slice(0, max) + "…" : text;
+    };
+
+    const changeDelay = (e: ChangeEvent<HTMLInputElement>): void => {
+        setDelayValue(e.target.value);
+    };
+
+    const submitDelay = (id: string, delayValue: string) => {
+        console.log(id, delayValue);
     };
 
     return (
@@ -71,7 +82,7 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
                             <th className="week-th">
                                 Semaine {week}
                                 {isCurrentWeek && <span className="week--indicator">
-                                    ⭐
+                                    👉 
                                 </span>}
                             </th>
 
@@ -90,7 +101,31 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
                                                 title={todo.delay + ": " + todo.project}
                                                 className="calendar--todo"
                                             >
-                                                {todo.delay}: {truncate(todo.project, 25)}
+                                                {isVisible === false ? (
+                                                    <div>
+                                                        <p>
+                                                            {todo.delay}: {truncate(todo.project, 25)}
+                                                        </p>
+                                                        <button 
+                                                            type="button"
+                                                            onClick={() => setIsVisible((prev) => !prev)}
+                                                            className="btn--visible"  
+                                                        >
+                                                            Click
+                                                        </button>
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        <input type="text" value={delayValue} onChange={changeDelay} />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => submitDelay(todo.id, delayValue)}
+                                                            className="btn--validate"
+                                                        >
+                                                            Validate
+                                                        </button>
+                                                    </div>
+                                                )}
                                             </div>
                                         ))
                                     }
