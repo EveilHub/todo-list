@@ -56,8 +56,8 @@ export type CreatorType = {
     client: string;
     email: string;
     phone: string;
-    selectedDay: string | undefined;
     priority: string;
+    selectedDay: string | undefined;
     setParamsTodo: Dispatch<SetStateAction<ParamsTodoType>>;
     handleCheckBox: (day: string) => void;
     handleSubmit : (e: FormEvent<HTMLFormElement>) => void;
@@ -85,7 +85,6 @@ export type TodoListType = {
 };
 
 export type BooleanEditType = {
-    editBoolDate: boolean;
     editBoolProject: boolean;
     editBoolListe: boolean;
     editBoolDelay: boolean;
@@ -96,7 +95,7 @@ export type BooleanEditType = {
 
 export type WriteEditType = {
     editId: string;
-    editDate: string;
+    // editPriority: string;
     editProject: string;
     editListe: string;
     editDelay: string;
@@ -129,7 +128,6 @@ export type PriorityType = {
 export type EditableElement = HTMLInputElement | HTMLTextAreaElement;
 
 export type EditableProps = {
-    params: string;
     className?: HTMLAttributes<HTMLDivElement>['className'];
     ref: RefObject<EditableElement | null>;
     type?: "email" | "text";

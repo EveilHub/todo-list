@@ -143,7 +143,7 @@ app.post("/api/todos/csv", async (req: Request, res: Response) => {
 app.patch("/api/todos/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { date, project, liste, delay, client, email, phone, priority } = req.body;
+    const { date, project, liste, delay, client, email, phone, priority, selectedDay } = req.body;
 
     const fileContent: string = await fs.readFile("data.json", "utf-8");
     const todos: Todo[] = JSON.parse(fileContent);
@@ -163,6 +163,7 @@ app.patch("/api/todos/:id", async (req: Request, res: Response) => {
     if (email !== undefined) todo.email = email;
     if (phone !== undefined) todo.phone = phone;
     if (priority !== undefined) todo.priority = priority;
+    if (selectedDay !== undefined) todo.selectedDay = selectedDay;
 
     await writeTodos(todos);
     res.json(todo);

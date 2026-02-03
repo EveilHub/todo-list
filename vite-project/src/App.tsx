@@ -13,6 +13,7 @@ import type {
 } from './lib/definitions.ts';
 import { useFetchDate } from './hooks/useFetchDate.ts';
 import CreateInputCheckbox from './components/CreateInputCheckbox.tsx';
+import TableOfTodos from './components/TableOfTodos.tsx';
 import TodosList from './components/TodosList.tsx';
 import FetchFromCSV from './components/FetchFromCSV.tsx';
 import TableCalendar from './components/TableCalendar.tsx';
@@ -20,6 +21,7 @@ import { IoLockClosedSharp } from "react-icons/io5";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoLogoBuffer } from "react-icons/io5";
 import './App.css';
+
 
 const App: FC = (): JSX.Element => {
 
@@ -35,7 +37,7 @@ const App: FC = (): JSX.Element => {
     client: "",
     email: "",
     phone: "",
-    priority: "option3",
+    priority: "option3"
   });
 
   const [selectedDay, setSelectedDay] = useState<string | undefined>(undefined);
@@ -96,7 +98,7 @@ const App: FC = (): JSX.Element => {
       client: "",
       email: "",
       phone: "",
-      priority: "option3",
+      priority: "option3"
     });
     setSelectedDay(undefined);
   };
@@ -188,6 +190,8 @@ const App: FC = (): JSX.Element => {
             handleCheckBox={handleCheckBox}
             handleSubmit={handleSubmit}
           />
+
+          <TableOfTodos />
 
           <TodosList todos={todos} setTodos={setTodos} />
 

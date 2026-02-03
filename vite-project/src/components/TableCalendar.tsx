@@ -6,7 +6,7 @@ import {
     getWeekDays,
     isSameDay
 } from "../utils/dateUtils";
-import DateCalendar from "./subcomponents/DateCalendar";
+import DateCalendar from "./subcomponents/DateCalendar.tsx";
 import "./styles/TableCalendar.css";
 
 type TodoProps = {
@@ -14,13 +14,17 @@ type TodoProps = {
 };
 
 const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
+
     if (todos.length === 0) {
         return <h3 style={{textAlign: "center"}}>Aucun projet agendé 👻</h3>
     };
 
+    const today = new Date();
+    const currentWeek = getISOWeekNumber(today);
+
     // 🔹 Grouper les todos par semaine ISO
     const todosByWeek = todos.reduce((acc, todo) => {
-        const date = parseDate(todo.date);
+        const date = parseDate(todo.delay);
         const week = getISOWeekNumber(date);
 
         if (!acc[week]) {
@@ -32,9 +36,8 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
     }, {} as Record<number, Todo[]>);
 
     // 🔹 En-tête basé sur la première semaine
-    const firstTodoDate = parseDate(todos[0].date);
+    const firstTodoDate = parseDate(todos[0].delay);
     const headerWeekDays = getWeekDays(firstTodoDate);
-
 
     const truncate = (text: string, max: number = 10): string => {
         if (!text) return "";
@@ -57,29 +60,37 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
 
             <tbody>
                 {Object.entries(todosByWeek).map(([week, weekTodos]) => {
-                    const referenceDate = parseDate(weekTodos[0].date);
+                    const weekNumber = Number(week);
+                    const isCurrentWeek = weekNumber === currentWeek;
+
+                    const referenceDate = parseDate(weekTodos[0].delay);
                     const weekDays = getWeekDays(referenceDate);
 
                     return (
                         <tr key={week}>
-                            <th className="week-th">Semaine {week}</th>
+                            <th className="week-th">
+                                Semaine {week}
+                                {isCurrentWeek && <span className="week--indicator">
+                                    ⭐
+                                </span>}
+                            </th>
 
                             {weekDays.map(day => (
                                 <td key={day.toISOString()}>
                                     {weekTodos
                                         .filter(todo =>
                                             isSameDay(
-                                                parseDate(todo.date),
+                                                parseDate(todo.delay),
                                                 day
                                             )
                                         )
                                         .map(todo => (
                                             <div
                                                 key={todo.id}
-                                                title={todo.date + ": " + todo.project}
+                                                title={todo.delay + ": " + todo.project}
                                                 className="calendar--todo"
                                             >
-                                                {truncate(todo.date, 20)}: {truncate(todo.project, 25)}
+                                                {todo.delay}: {truncate(todo.project, 25)}
                                             </div>
                                         ))
                                     }

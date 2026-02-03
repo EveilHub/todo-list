@@ -18,7 +18,6 @@ import { changeColor, formatPhoneNumber } from "../utils/fonctions";
 import { 
   handleChangePriority,
   handleEditClient,
-  handleEditDate,
   handleEditDelay,
   handleEditListe,
   handleEditMail,
@@ -35,7 +34,6 @@ import "./styles/TodoPerDay.css";
 const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   const [editBoolParams, setEditBoolParams] = useState<BooleanEditType>({
-    editBoolDate: false,
     editBoolProject: false,
     editBoolListe: false,
     editBoolDelay: false,
@@ -46,7 +44,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
     editId: String(todo.id),
-    editDate: String(todo.date),
+    // editPriority: todo.priority,
     editProject: todo.project,
     editListe: todo.liste,
     editDelay: todo.delay,
@@ -54,6 +52,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     editMail: todo.email,
     editPhone: todo.phone
   });
+
+  //console.log("PRIORITY", editWriteParams.editPriority, editWriteParams.editId);
 
   // To change day
   const [dayBool, setDayBool] = useState<boolean>(true);
@@ -69,7 +69,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   // Ref
   const refs = {
-    editBoolDate: useRef<HTMLInputElement>(null),
     editBoolProject: useRef<HTMLInputElement>(null),
     editBoolListe: useRef<HTMLTextAreaElement>(null),
     editBoolDelay: useRef<HTMLInputElement>(null),
@@ -90,23 +89,48 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editBoolParams]);
 
+
+  // Priority
+  const callHandleChangePriority = async (
+    e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
+      await handleChangePriority(e, id, setTodos);
+      setParamsPriority((prev: ParamsPriorityTypes) => ({
+        ...prev, hidePriority: true
+      }));
+  };
+
   // Priority colors
   const callChangeColorPriority = (priorityValue: string): void => {
     changeColor(setParamsPriority, priorityValue);
   };
 
+  // Priority changes color
   useEffect(() => {
     callChangeColorPriority(todo.priority);
   }, [todo.priority]);
 
+
   // Day Selected changes order
-  const callChangeDay = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
+  const callChangeDay = async (e: ChangeEvent<HTMLSelectElement>, id: string) => {
+    const newDay = e.target.value;
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id 
-      ? {...todo, selectedDay: e.target.value } 
+      ? {...todo, selectedDay: newDay } 
       : todo
     ));
+    try {
+        await fetch(`http://localhost:3001/api/todos/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ selectedDay: newDay }),
+        });
+    } catch (error: unknown) {
+        console.error("Erreur mise à jour selectedDay", error);
+    };
     setDayBool((prev: boolean) => !prev);
   };
+
 
   // Edit params for EditableField Component (reusable function)
   const EditParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
@@ -124,21 +148,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       editPhone: formatPhoneNumber(e.target.value)
     })
   )};
-
-  // Priority
-  const callHandleChangePriority = async (
-    e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
-      await handleChangePriority(e, id, setTodos);
-      setParamsPriority((prev: ParamsPriorityTypes) => ({
-        ...prev, hidePriority: true
-      }));
-  };
-
-  // Date
-  const callSubmitDate = async (
-    e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-      await handleEditDate(e, editWriteParams, setTodos, setEditBoolParams, id);
-  };
 
   // Project
   const callSubmitProject = async (    
@@ -189,7 +198,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     } : todo));
 
     setEditBoolParams((prev: BooleanEditType): BooleanEditType => ({...prev,
-      editBoolDate: prev.editBoolDate,
       editBoolProject: prev.editBoolProject,
       editBoolListe: prev.editBoolListe,
       editBoolDelay: prev.editBoolDelay,
@@ -269,24 +277,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         <div className="date-project-liste-delay">
 
           <EditableFields
-            onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitDate(e, todo.id)}
-            type="text"
-            params="Date"
-            as="input"
-            className="input-button-container"
-            ref={refs.editBoolDate}
-            name="editDate"
-            value={editWriteParams.editDate}
-            onChange={EditParamsOnChange}
-            editBoolParams={editBoolParams.editBoolDate}
-            editWriteParams={editWriteParams.editDate}
-            isDoneParams={todo.isDoneDate}
-          />
-
-          <EditableFields
             onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitProject(e, todo.id)}
             type="text"
-            params="Project"
             as="input"
             className="input-button-container"
             ref={refs.editBoolProject}
@@ -300,7 +292,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <EditableFields
             onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitListe(e, todo.id)}
-            params="Liste"
             as="textarea"
             className="input-button-textarea"
             rows={5}
@@ -317,7 +308,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           <EditableFields
             onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitDelay(e, todo.id)} 
             type="text"
-            params="Délais"
             as="input"
             className="input-button-container"
             ref={refs.editBoolDelay}
@@ -336,7 +326,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           <EditableFields
             onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitClient(e, todo.id)} 
             type="text"
-            params="Client"
             as="input"
             className="input-button-client"
             ref={refs.editBoolClient}
@@ -351,7 +340,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           <EditableFields
             onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitMail(e, todo.id)} 
             type="email"
-            params="Email"
             as="input"
             className="input-button-mail"
             ref={refs.editBoolMail}
@@ -366,7 +354,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           <EditableFields
             onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitPhone(e, todo.id)}
             type="text"
-            params="Phone"
             as="input"
             className="input-button-phone"
             ref={refs.editBoolPhone}

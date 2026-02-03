@@ -8,7 +8,6 @@ import "./styles/EditableFields.css";
 
 const EditableFields = (
     {
-        params,
         className,
         ref,
         as = "input",
@@ -44,9 +43,9 @@ const EditableFields = (
 
                 <div className="title--btn--edit">
                     
-                    <p className="title--box">
+                    {/* <p className="title--box">
                         {params}
-                    </p>
+                    </p> */}
 
                     {newClassName === "Done" ? (
                         <div className="div--btn--client">
