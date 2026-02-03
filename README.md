@@ -44,21 +44,17 @@ todo list especialy for graph & design
 
 ## Goals
 
-1) Volet pour client email phone [1/2]
+1) indicator de la semaine actuelle [x]
+2) appliquer les delay plutôt que les dates [x] 
+3) changer les dates du calendrier []
 
-2) indicator de la semaine actuelle []
+4) Check day et priority à entrer dans la DB []
 
-3) appliquer les delay plutôt que les dates [] 
-
-4) changer les dates du calendrier []
-
-5) En-têtes à mettre au-dessus des tâches []
-
-5) Display which day for todo []
-
-6) Use eslint [x]
-
-7) Testing entire app []
+5) Volet pour client email phone [1/2]
+6) En-têtes à mettre au-dessus des tâches [1/2]
+7) Display which day for todo []
+8) Use eslint [x]
+9) Testing entire app []
 
 
 ## Lib
