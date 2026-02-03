@@ -14,7 +14,7 @@ const DateCalendar = ({date}: PropsDate): JSX.Element => {
     return (
         <th>
             <div className="jour-th">
-                {jour}
+                {jour.toUpperCase()}
             </div>
         </th>
     )

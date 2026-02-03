@@ -130,7 +130,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
       await handleChangePriority(e, id, setTodos);
       setParamsPriority((prev: ParamsPriorityTypes) => ({
-        ...prev, hidePriority: !prev.hidePriority
+        ...prev, hidePriority: true
       }));
   };
 
@@ -251,7 +251,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           />
 
           <PriorityTodo
-            id={todo.id}
+            id={String(todo.id)}
             paramsPriorityHide={paramsPriority.hidePriority}
             priorityTodo={todo.priority}
             handleChangePriority={(e: ChangeEvent<HTMLSelectElement>) => 

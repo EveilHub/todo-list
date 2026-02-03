@@ -79,7 +79,7 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
                                                 title={todo.date + ": " + todo.project}
                                                 className="calendar--todo"
                                             >
-                                                {truncate(todo.date, 10)}: {truncate(todo.project, 20)}
+                                                {truncate(todo.date, 20)}: {truncate(todo.project, 25)}
                                             </div>
                                         ))
                                     }

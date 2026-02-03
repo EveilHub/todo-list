@@ -33,7 +33,7 @@ const CreateInputCheckbox = ({
     };
 
     return (
-        <form 
+        <form
             onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} 
             className='creation--container'
         >
