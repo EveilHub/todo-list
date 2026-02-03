@@ -95,7 +95,6 @@ export type BooleanEditType = {
 
 export type WriteEditType = {
     editId: string;
-    // editPriority: string;
     editProject: string;
     editListe: string;
     editDelay: string;
@@ -154,4 +153,4 @@ export type PropsCalendarType = {
     todos: Todo[];
     setTodos: Dispatch<SetStateAction<Todo[]>>;
     listOfDay?: string[];
-}
+};

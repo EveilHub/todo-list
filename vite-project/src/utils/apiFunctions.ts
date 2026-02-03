@@ -1,16 +1,7 @@
-import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
-import type { BooleanEditType, Todo, WriteEditType } from "../lib/definitions";
+import type { WriteEditType } from "../lib/definitions";
 
-// Priority
-export const handleChangePriority = async (e: ChangeEvent<HTMLSelectElement>, 
-    id: string,
-    setTodos: Dispatch<SetStateAction<Todo[]>>
-): Promise<void> => {
-        const newPriority = e.target.value;
-        setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? {
-            ...todo, priority: newPriority
-        } : todo
-    ));
+// API Priority
+export const callApiPriority = async (id: string, newPriority: string): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
@@ -24,17 +15,23 @@ export const handleChangePriority = async (e: ChangeEvent<HTMLSelectElement>,
     };
 };
 
-// Project
-export const handleEditProject = async (e: FormEvent<HTMLFormElement>,
-    editWriteParams: WriteEditType, 
-    setTodos: Dispatch<SetStateAction<Todo[]>>, 
-    setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string
-): Promise<void> => {
-    e.preventDefault();
-    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
-        ...todo, project: editWriteParams.editProject
-    } : todo));
+// API Day
+export const callApiDay = async (id: string, newDay: string): Promise<void> => {
+    try {
+        await fetch(`http://localhost:3001/api/todos/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ selectedDay: newDay }),
+        });
+    } catch (error: unknown) {
+        console.error("Erreur mise à jour selectedDay", error);
+    };
+};
+
+// API Project
+export const callSubmitProject = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
@@ -46,22 +43,10 @@ export const handleEditProject = async (e: FormEvent<HTMLFormElement>,
     } catch (error: unknown) {
         console.error("Erreur mise à jour project", error);
     };
-    setEditBoolParams((prev: BooleanEditType) => ({
-        ...prev, editBoolProject: !prev.editBoolProject
-    }));
 };
 
-// Liste
-export const handleEditListe = async (e: FormEvent<HTMLFormElement>,
-    editWriteParams: WriteEditType, 
-    setTodos: Dispatch<SetStateAction<Todo[]>>, 
-    setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string
-): Promise<void> => {
-    e.preventDefault();
-    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
-        ...todo, liste: editWriteParams.editListe  
-    } : todo));
+// API Liste
+export const callApiListe = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
@@ -73,22 +58,10 @@ export const handleEditListe = async (e: FormEvent<HTMLFormElement>,
     } catch (error: unknown) {
         console.error("Erreur mise à jour liste", error);
     };
-    setEditBoolParams((prev: BooleanEditType) => ({
-        ...prev, editBoolListe: !prev.editBoolListe
-    }));
 };
 
-// Delay
-export const handleEditDelay = async (e: FormEvent<HTMLFormElement>,
-    editWriteParams: WriteEditType, 
-    setTodos: Dispatch<SetStateAction<Todo[]>>, 
-    setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string
-): Promise<void> => {
-    e.preventDefault();
-    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
-        ...todo, delay: editWriteParams.editDelay 
-    } : todo));
+// API Delay
+export const callApiDelay = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
@@ -100,22 +73,10 @@ export const handleEditDelay = async (e: FormEvent<HTMLFormElement>,
     } catch (error: unknown) {
         console.error("Erreur mise à jour delay", error);
     };
-    setEditBoolParams((prev: BooleanEditType) => ({
-        ...prev, editBoolDelay: !prev.editBoolDelay
-    }));
 };
-  
-// Client
-export const handleEditClient = async (e: FormEvent<HTMLFormElement>,
-    editWriteParams: WriteEditType, 
-    setTodos: Dispatch<SetStateAction<Todo[]>>, 
-    setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string
-): Promise<void> => {
-    e.preventDefault();
-    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
-        ...todo, client: editWriteParams.editClient
-    } : todo));
+
+// API Client
+export const callApiClient = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
@@ -127,22 +88,10 @@ export const handleEditClient = async (e: FormEvent<HTMLFormElement>,
     } catch (error: unknown) {
         console.error("Erreur mise à jour client", error);
     };
-    setEditBoolParams((prev: BooleanEditType) => ({
-        ...prev, editBoolClient: !prev.editBoolClient
-    }));
 };
 
-// Mail
-export const handleEditMail = async (e: FormEvent<HTMLFormElement>,
-    editWriteParams: WriteEditType, 
-    setTodos: Dispatch<SetStateAction<Todo[]>>, 
-    setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string
-): Promise<void> => {
-    e.preventDefault();
-    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
-        ...todo, email: editWriteParams.editMail
-    } : todo));
+// API Mail
+export const callApiMail = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
@@ -154,22 +103,10 @@ export const handleEditMail = async (e: FormEvent<HTMLFormElement>,
     } catch (error: unknown) {
         console.error("Erreur mise à jour mail", error);
     };
-    setEditBoolParams((prev: BooleanEditType) => ({
-        ...prev, editBoolMail: !prev.editBoolMail
-    }));
 };
 
-// Phone 
-export const handleEditPhone = async (e: FormEvent<HTMLFormElement>,
-    editWriteParams: WriteEditType, 
-    setTodos: Dispatch<SetStateAction<Todo[]>>, 
-    setEditBoolParams: Dispatch<SetStateAction<BooleanEditType>>, 
-    id: string
-): Promise<void> => {
-    e.preventDefault();
-    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id ? { 
-        ...todo, phone: editWriteParams.editPhone 
-    } : todo));
+// API Phone
+export const callApiPhone = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
@@ -181,7 +118,4 @@ export const handleEditPhone = async (e: FormEvent<HTMLFormElement>,
     } catch (error: unknown) {
         console.error("Erreur mise à jour phone", error);
     };
-    setEditBoolParams((prev: BooleanEditType) => ({
-        ...prev, editBoolPhone: !prev.editBoolPhone
-    }));
 };

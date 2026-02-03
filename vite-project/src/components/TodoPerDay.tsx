@@ -14,16 +14,8 @@ import type {
   Todo,
   WriteEditType 
 } from "../lib/definitions.ts";
+import { callChangeDay, handleChangePriority, submitClient, submitDelay, submitListe, submitMail, submitPhone, submitProject } from "../utils/todoFunctions.ts";
 import { changeColor, formatPhoneNumber } from "../utils/fonctions";
-import { 
-  handleChangePriority,
-  handleEditClient,
-  handleEditDelay,
-  handleEditListe,
-  handleEditMail,
-  handleEditPhone,
-  handleEditProject 
-} from "../utils/apiFunctions.ts";
 import CheckDay from "./subcomponents/CheckDay.tsx";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
@@ -44,7 +36,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
     editId: String(todo.id),
-    // editPriority: todo.priority,
     editProject: todo.project,
     editListe: todo.liste,
     editDelay: todo.delay,
@@ -52,8 +43,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
     editMail: todo.email,
     editPhone: todo.phone
   });
-
-  //console.log("PRIORITY", editWriteParams.editPriority, editWriteParams.editId);
 
   // To change day
   const [dayBool, setDayBool] = useState<boolean>(true);
@@ -90,13 +79,10 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   }, [editBoolParams]);
 
 
-  // Priority
+  // Priority API
   const callHandleChangePriority = async (
     e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
-      await handleChangePriority(e, id, setTodos);
-      setParamsPriority((prev: ParamsPriorityTypes) => ({
-        ...prev, hidePriority: true
-      }));
+      handleChangePriority(e, id, setTodos, setParamsPriority);
   };
 
   // Priority colors
@@ -110,30 +96,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   }, [todo.priority]);
 
 
-  // Day Selected changes order
-  const callChangeDay = async (e: ChangeEvent<HTMLSelectElement>, id: string) => {
-    const newDay = e.target.value;
-    setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id 
-      ? {...todo, selectedDay: newDay } 
-      : todo
-    ));
-    try {
-        await fetch(`http://localhost:3001/api/todos/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ selectedDay: newDay }),
-        });
-    } catch (error: unknown) {
-        console.error("Erreur mise à jour selectedDay", error);
-    };
-    setDayBool((prev: boolean) => !prev);
-  };
-
-
   // Edit params for EditableField Component (reusable function)
-  const EditParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
+  const editParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
     const { name, value }: {name: string, value: string} = e.target;
     setEditWriteParams((prev: WriteEditType) => ({
       ...prev,
@@ -142,47 +106,60 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   )};
 
   // Edit phone number for EditableField Component
-  const EditPhoneOnChange = (e: ChangeEvent<EditableElement>): void => {
+  const editPhoneOnChange = (e: ChangeEvent<EditableElement>): void => {
     setEditWriteParams((prev: WriteEditType) => ({
       ...prev,
       editPhone: formatPhoneNumber(e.target.value)
     })
   )};
 
+
+  // Day Selected changes
+  const changeDayFunction = async (e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => {
+    callChangeDay(e, id, setTodos, setDayBool);
+  };
+
+  // const callSubmitReusable = (field: EditField, id: string) => (
+  //   e: FormEvent<HTMLFormElement>
+  // ): void => {
+  //   submitReusable(id, e, field, editWriteParams, setTodos, setEditBoolParams);
+  // };
+
+
   // Project
-  const callSubmitProject = async (    
-    e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-      await handleEditProject(e, editWriteParams, setTodos, setEditBoolParams, id);
+  const callSubmitProject = (    
+    e: FormEvent<HTMLFormElement>, id: string): void => { 
+      submitProject(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Liste
-  const callSubmitListe = async(
-    e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-      await handleEditListe(e, editWriteParams, setTodos, setEditBoolParams, id);
+  const callSubmitListe = (
+    e: FormEvent<HTMLFormElement>, id: string): void => { 
+      submitListe(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Delay
-  const callSubmitDelay = async (
-    e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-      await handleEditDelay(e, editWriteParams, setTodos, setEditBoolParams, id);
+  const callSubmitDelay = (
+    e: FormEvent<HTMLFormElement>, id: string): void => { 
+      submitDelay(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Client
-  const callSubmitClient = async (
-    e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-      await handleEditClient(e, editWriteParams, setTodos, setEditBoolParams, id);
+  const callSubmitClient = (
+    e: FormEvent<HTMLFormElement>, id: string): void => { 
+      submitClient(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Mail
-  const callSubmitMail = async (
-    e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-      await handleEditMail(e, editWriteParams, setTodos, setEditBoolParams, id);
+  const callSubmitMail = (
+    e: FormEvent<HTMLFormElement>, id: string): void => { 
+      submitMail(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Phone
-  const callSubmitPhone = async (
-    e: FormEvent<HTMLFormElement>, id: string): Promise<void> => { 
-      await handleEditPhone(e, editWriteParams, setTodos, setEditBoolParams, id);
+  const callSubmitPhone = (
+    e: FormEvent<HTMLFormElement>, id: string): void => { 
+      submitPhone(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Cross out todo by id
@@ -253,7 +230,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             dayBool={dayBool}
             selectedDay={todo?.selectedDay}
             handleChangeDay={(e: ChangeEvent<HTMLSelectElement>) => 
-              callChangeDay(e, todo.id)
+              changeDayFunction(e, todo.id)
             } 
             onClick={() => setDayBool((prev: boolean) => !prev)}
           />
@@ -277,21 +254,21 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         <div className="date-project-liste-delay">
 
           <EditableFields
-            onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitProject(e, todo.id)}
+            onSubmit={(e) => callSubmitProject(e, todo.id)}
             type="text"
             as="input"
             className="input-button-container"
             ref={refs.editBoolProject}
             name="editProject"
             value={editWriteParams.editProject}
-            onChange={EditParamsOnChange}
+            onChange={editParamsOnChange}
             editBoolParams={editBoolParams.editBoolProject}
             editWriteParams={editWriteParams.editProject}
             isDoneParams={todo.isDoneProject}
           />
 
           <EditableFields
-            onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitListe(e, todo.id)}
+            onSubmit={(e) => callSubmitListe(e, todo.id)}
             as="textarea"
             className="input-button-textarea"
             rows={5}
@@ -299,21 +276,21 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             ref={refs.editBoolListe}
             name="editListe"
             value={editWriteParams.editListe}
-            onChange={EditParamsOnChange}
+            onChange={editParamsOnChange}
             editBoolParams={editBoolParams.editBoolListe}
             editWriteParams={editWriteParams.editListe}
             isDoneParams={todo.isDoneProject}
           />
 
           <EditableFields
-            onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitDelay(e, todo.id)} 
+            onSubmit={(e) => callSubmitDelay(e, todo.id)} 
             type="text"
             as="input"
             className="input-button-container"
             ref={refs.editBoolDelay}
             name="editDelay"
             value={editWriteParams.editDelay}
-            onChange={EditParamsOnChange}
+            onChange={editParamsOnChange}
             editBoolParams={editBoolParams.editBoolDelay}
             editWriteParams={editWriteParams.editDelay}
             isDoneParams={todo.isDoneDelay}
@@ -324,42 +301,42 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         <div className="client--mail--phone">
 
           <EditableFields
-            onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitClient(e, todo.id)} 
+            onSubmit={(e) => callSubmitClient(e, todo.id)} 
             type="text"
             as="input"
             className="input-button-client"
             ref={refs.editBoolClient}
             name="editClient"
             value={editWriteParams.editClient}
-            onChange={EditParamsOnChange}
+            onChange={editParamsOnChange}
             editBoolParams={editBoolParams.editBoolClient}
             editWriteParams={editWriteParams.editClient}
             isDoneParams={todo.isDoneClient}
           />
         
           <EditableFields
-            onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitMail(e, todo.id)} 
+            onSubmit={(e) => callSubmitMail(e, todo.id)} 
             type="email"
             as="input"
             className="input-button-mail"
             ref={refs.editBoolMail}
             name="editMail"
             value={editWriteParams.editMail}
-            onChange={EditParamsOnChange}
+            onChange={editParamsOnChange}
             editBoolParams={editBoolParams.editBoolMail}
             editWriteParams={editWriteParams.editMail}
             isDoneParams={todo.isDoneMail}
           />
 
           <EditableFields
-            onSubmit={(e: FormEvent<HTMLFormElement>) => callSubmitPhone(e, todo.id)}
+            onSubmit={(e) => callSubmitPhone(e, todo.id)}
             type="text"
             as="input"
             className="input-button-phone"
             ref={refs.editBoolPhone}
             name="editPhone"
             value={editWriteParams.editPhone}
-            onChange={EditPhoneOnChange}
+            onChange={editPhoneOnChange}
             editBoolParams={editBoolParams.editBoolPhone}
             editWriteParams={editWriteParams.editPhone}
             isDoneParams={todo.isDonePhone}

@@ -19,9 +19,6 @@ const PriorityTodo = ({
                     onChange={handleChangePriority}
                     onMouseLeave={onClick}
                 >
-                    <option value={priorityTodo} disabled>
-                        — Choisir une priorité —
-                    </option>
                     <option value="option3">Priorité 3 (Standard)</option>
                     <option value="option2">Priorité 2 (Important)</option>
                     <option value="option1">Priorité 1 (Urgent)</option>

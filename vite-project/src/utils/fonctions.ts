@@ -77,22 +77,19 @@ export const changeColor = (
         case 'option1':
             setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev, 
-                bgColor: '#115c9a',
-                //hidePriority: true
+                bgColor: '#115c9a'
             }));
             break;
         case 'option2':
             setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev,
-                bgColor: '#0b3c65',
-                //hidePriority: true
+                bgColor: '#0b3c65'
             }));
             break;
         case 'option3':
             setParamsPriority((prev: ParamsPriorityTypes) => ({
                 ...prev, 
-                bgColor: '#00002f',
-                //hidePriority: true
+                bgColor: '#00002f'
             }));
             break;
         default:
