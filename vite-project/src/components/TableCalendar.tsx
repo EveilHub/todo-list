@@ -134,6 +134,7 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                                                     </div>
                                                 ) : (
                                                     <div className="div--change--delay">
+
                                                         <div className="div--input--delay">
                                                             <input 
                                                                 type="text" 
@@ -142,6 +143,7 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                                                                 className="input--delay"
                                                             />
                                                         </div>
+
                                                         <div className="div--btn--validate">
                                                             <button
                                                                 type="button"
@@ -151,6 +153,7 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                                                                 <MdDone size={18} />
                                                             </button>
                                                         </div>
+                                                        
                                                     </div>
                                                 )}
                                             </div>

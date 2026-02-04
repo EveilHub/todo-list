@@ -101,7 +101,6 @@ export type WriteEditType = {
     editClient: string;
     editMail: string;
     editPhone: string;
-    delayValue: string;
 };
 
 export type SelectedDayProps = {

@@ -29,6 +29,8 @@ import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
 import { GiCrossedSabres } from "react-icons/gi";
+//import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { FaEye } from "react-icons/fa6";
 import "./styles/TodoPerDay.css";
 
 const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
@@ -54,6 +56,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
   // To change day
   const [dayBool, setDayBool] = useState<boolean>(true);
+
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
@@ -127,7 +131,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   // Project
-  const callSubmitProject = (    
+  const callSubmitProject = (
     e: FormEvent<HTMLFormElement>, id: string): void => { 
       submitProject(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
@@ -169,7 +173,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
       isDoneProject: !todo.isDoneProject,
       isDoneListe: !todo.isDoneListe,
       isDoneDelay: !todo.isDoneDelay,
-      isDoneClient: !todo.isDoneClient,      
+      isDoneClient: !todo.isDoneClient,
       isDoneMail: !todo.isDoneMail, 
       isDonePhone: !todo.isDonePhone 
     } : todo));
@@ -251,7 +255,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
         </div>
 
-        <div className="date-project-liste-delay">
+        <div className="project-liste-delay">
 
           <EditableFields
             onSubmit={(e) => callSubmitProject(e, todo.id)}
@@ -298,51 +302,67 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
         </div>
 
-        <div className="client--mail--phone">
+        {isVisible === false ? (
+          <div 
+            onMouseLeave={() => setIsVisible((prev) => !prev)}
+            className="client--mail--phone"
+          >
 
-          <EditableFields
-            onSubmit={(e) => callSubmitClient(e, todo.id)} 
-            type="text"
-            as="input"
-            className="input-button-client"
-            ref={refs.editBoolClient}
-            name="editClient"
-            value={editWriteParams.editClient}
-            onChange={editParamsOnChange}
-            editBoolParams={editBoolParams.editBoolClient}
-            editWriteParams={editWriteParams.editClient}
-            isDoneParams={todo.isDoneClient}
-          />
-        
-          <EditableFields
-            onSubmit={(e) => callSubmitMail(e, todo.id)} 
-            type="email"
-            as="input"
-            className="input-button-mail"
-            ref={refs.editBoolMail}
-            name="editMail"
-            value={editWriteParams.editMail}
-            onChange={editParamsOnChange}
-            editBoolParams={editBoolParams.editBoolMail}
-            editWriteParams={editWriteParams.editMail}
-            isDoneParams={todo.isDoneMail}
-          />
+            <EditableFields
+              onSubmit={(e) => callSubmitClient(e, todo.id)} 
+              type="text"
+              as="input"
+              className="input-button-client"
+              ref={refs.editBoolClient}
+              name="editClient"
+              value={editWriteParams.editClient}
+              onChange={editParamsOnChange}
+              editBoolParams={editBoolParams.editBoolClient}
+              editWriteParams={editWriteParams.editClient}
+              isDoneParams={todo.isDoneClient}
+            />
+          
+            <EditableFields
+              onSubmit={(e) => callSubmitMail(e, todo.id)} 
+              type="email"
+              as="input"
+              className="input-button-mail"
+              ref={refs.editBoolMail}
+              name="editMail"
+              value={editWriteParams.editMail}
+              onChange={editParamsOnChange}
+              editBoolParams={editBoolParams.editBoolMail}
+              editWriteParams={editWriteParams.editMail}
+              isDoneParams={todo.isDoneMail}
+            />
 
-          <EditableFields
-            onSubmit={(e) => callSubmitPhone(e, todo.id)}
-            type="text"
-            as="input"
-            className="input-button-phone"
-            ref={refs.editBoolPhone}
-            name="editPhone"
-            value={editWriteParams.editPhone}
-            onChange={editPhoneOnChange}
-            editBoolParams={editBoolParams.editBoolPhone}
-            editWriteParams={editWriteParams.editPhone}
-            isDoneParams={todo.isDonePhone}
-          />
+            <EditableFields
+              onSubmit={(e) => callSubmitPhone(e, todo.id)}
+              type="text"
+              as="input"
+              className="input-button-phone"
+              ref={refs.editBoolPhone}
+              name="editPhone"
+              value={editWriteParams.editPhone}
+              onChange={editPhoneOnChange}
+              editBoolParams={editBoolParams.editBoolPhone}
+              editWriteParams={editWriteParams.editPhone}
+              isDoneParams={todo.isDonePhone}
+            />
 
-        </div>
+          </div>
+        ) : (
+          <div className="div--hidden--clientMailPhone">
+
+            <span 
+              onClick={() => setIsVisible((prev) => !prev)}
+              className="span--client--mail--phone"  
+            >
+              <FaEye size={24} />
+            </span>
+
+          </div>
+        )}
 
         <div className="div--crossout--delete">
 
@@ -365,11 +385,8 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
           ):(
             null
           )}
-
         </div>
-
       </div>
-
     </div>
   )
 };

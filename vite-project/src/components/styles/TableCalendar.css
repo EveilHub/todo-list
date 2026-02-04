@@ -149,7 +149,7 @@ tr:nth-child(even) {
 }
 
 .btn--validate:active {
-    background-color: #009900;
+    background-color: #00ff00;
     box-shadow: 0 0 0 #111;
     transform: scale(0.95);
 }
