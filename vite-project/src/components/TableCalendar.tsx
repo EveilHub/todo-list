@@ -18,10 +18,6 @@ type TodoProps = {
 
 const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
 
-    if (todos.length === 0) {
-        return <h3 style={{textAlign: "center"}}>Aucun projet agendé 👻</h3>
-    };
-
     const [editingTodoId, setEditingTodoId] = useState<string | null>(null);
     const [findDelay, setFindDelay] = useState<Todo[]>(todos);
 
@@ -32,6 +28,10 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
     }, [todos]);
 
     const [delayValue, setDelayValue] = useState<string>("");
+
+    if (todos.length === 0) {
+        return <h3 style={{textAlign: "center"}}>Aucun projet agendé 👻</h3>
+    };
 
     const today: Date = new Date();
     const currentWeek: number = getISOWeekNumber(today);
@@ -63,14 +63,11 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
     };
 
     const submitDelay = (id: string): void => {
-        console.log(id, delayValue);
         setTodos((prev: Todo[]) => prev.map((task: Todo) => task.id === id 
             ? {...task, delay: delayValue} 
             : task)
         );
-
         callApiCalendar(id, delayValue);
-
         setEditingTodoId(null);
     };
 
@@ -101,7 +98,7 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                             <th className="week-th">
                                 Semaine {week}
                                 {isCurrentWeek && <span className="week--indicator">
-                                    👉 
+                                    💥
                                 </span>}
                             </th>
 
@@ -121,7 +118,7 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                                                 className="calendar--todo"
                                             >
                                                 {editingTodoId !== todo.id ? (
-                                                    <div>
+                                                    <div className="span--todo--values">
                                                         <p>
                                                             <span 
                                                                 onClick={() => {
@@ -132,17 +129,19 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                                                             >
                                                                 {todo.delay}:&nbsp;
                                                             </span> 
-                                                            {truncate(todo.project, 25)}
+                                                            {truncate(todo.project, 20)}
                                                         </p>
                                                     </div>
                                                 ) : (
                                                     <div className="div--change--delay">
-                                                        <input 
-                                                            type="text" 
-                                                            value={delayValue}
-                                                            onChange={changeDelay} 
-                                                            className="input--delay"
-                                                        />
+                                                        <div className="div--input--delay">
+                                                            <input 
+                                                                type="text" 
+                                                                value={delayValue}
+                                                                onChange={changeDelay} 
+                                                                className="input--delay"
+                                                            />
+                                                        </div>
                                                         <div className="div--btn--validate">
                                                             <button
                                                                 type="button"
