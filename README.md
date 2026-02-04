@@ -46,13 +46,13 @@ todo list especialy for graph & design
 
 1) indicator de la semaine actuelle [x]
 2) appliquer les delay plutôt que les dates [x] 
-3) changer les dates du calendrier []
+3) changer les dates du calendrier [x]
+4) Check day et priority à entrer dans la DB [x]
+5) En-têtes à mettre au-dessus des tâches [x]
 
-4) Check day et priority à entrer dans la DB []
+6) Volet pour client email phone [1/2]
 
-5) Volet pour client email phone [1/2]
-6) En-têtes à mettre au-dessus des tâches [1/2]
-7) Display which day for todo []
+7) Display which day for todo [] ?
 8) Use eslint [x]
 9) Testing entire app []
 
