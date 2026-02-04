@@ -75,6 +75,21 @@ export const callApiDelay = async (id: string, editWriteParams: WriteEditType): 
     };
 };
 
+// API Delay
+export const callApiCalendar = async (id: string, delayValue: string): Promise<void> => {
+    try {
+        await fetch(`http://localhost:3001/api/todos/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ delay: delayValue }),
+        });
+    } catch (error: unknown) {
+        console.error("Erreur mise à jour delay", error);
+    };
+};
+
 // API Client
 export const callApiClient = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
     try {

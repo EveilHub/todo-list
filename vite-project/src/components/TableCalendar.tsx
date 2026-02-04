@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type JSX } from "react";
+import { useEffect, useState, type ChangeEvent, type Dispatch, type JSX, type SetStateAction } from "react";
 import type { Todo } from "../lib/definitions";
 import {
     parseDate,
@@ -6,29 +6,40 @@ import {
     getWeekDays,
     isSameDay
 } from "../utils/dateUtils";
+import { callApiCalendar } from "../utils/apiFunctions.ts";
 import DateCalendar from "./subcomponents/DateCalendar.tsx";
+import { MdDone } from "react-icons/md";
 import "./styles/TableCalendar.css";
 
 type TodoProps = {
     todos: Todo[];
+    setTodos: Dispatch<SetStateAction<Todo[]>>;
 };
 
-const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
+const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
 
     if (todos.length === 0) {
         return <h3 style={{textAlign: "center"}}>Aucun projet agendé 👻</h3>
     };
 
-    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [editingTodoId, setEditingTodoId] = useState<string | null>(null);
+    const [findDelay, setFindDelay] = useState<Todo[]>(todos);
+
+    const todoSource: Todo[] = findDelay;
+
+    useEffect(() => {
+        setFindDelay(todos);
+    }, [todos]);
+
     const [delayValue, setDelayValue] = useState<string>("");
 
-    const today = new Date();
-    const currentWeek = getISOWeekNumber(today);
+    const today: Date = new Date();
+    const currentWeek: number = getISOWeekNumber(today);
 
     // 🔹 Grouper les todos par semaine ISO
-    const todosByWeek = todos.reduce((acc, todo) => {
-        const date = parseDate(todo.delay);
-        const week = getISOWeekNumber(date);
+    const todosByWeek = todoSource.reduce((acc, todo) => {
+        const date: Date = parseDate(todo.delay);
+        const week: number = getISOWeekNumber(date);
 
         if (!acc[week]) {
             acc[week] = [];
@@ -39,8 +50,8 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
     }, {} as Record<number, Todo[]>);
 
     // 🔹 En-tête basé sur la première semaine
-    const firstTodoDate = parseDate(todos[0].delay);
-    const headerWeekDays = getWeekDays(firstTodoDate);
+    const firstTodoDate: Date = parseDate(todoSource[0].delay);
+    const headerWeekDays: Date[] = getWeekDays(firstTodoDate);
 
     const truncate = (text: string, max: number = 10): string => {
         if (!text) return "";
@@ -51,8 +62,16 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
         setDelayValue(e.target.value);
     };
 
-    const submitDelay = (id: string, delayValue: string) => {
+    const submitDelay = (id: string): void => {
         console.log(id, delayValue);
+        setTodos((prev: Todo[]) => prev.map((task: Todo) => task.id === id 
+            ? {...task, delay: delayValue} 
+            : task)
+        );
+
+        callApiCalendar(id, delayValue);
+
+        setEditingTodoId(null);
     };
 
     return (
@@ -72,10 +91,10 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
             <tbody>
                 {Object.entries(todosByWeek).map(([week, weekTodos]) => {
                     const weekNumber = Number(week);
-                    const isCurrentWeek = weekNumber === currentWeek;
+                    const isCurrentWeek: boolean = weekNumber === currentWeek;
 
-                    const referenceDate = parseDate(weekTodos[0].delay);
-                    const weekDays = getWeekDays(referenceDate);
+                    const referenceDate: Date = parseDate(weekTodos[0].delay);
+                    const weekDays: Date[] = getWeekDays(referenceDate);
 
                     return (
                         <tr key={week}>
@@ -86,44 +105,53 @@ const TableCalendar = ({ todos }: TodoProps): JSX.Element => {
                                 </span>}
                             </th>
 
-                            {weekDays.map(day => (
+                            {weekDays.map((day: Date) => (
                                 <td key={day.toISOString()}>
                                     {weekTodos
-                                        .filter(todo =>
+                                        .filter((todo: Todo) =>
                                             isSameDay(
                                                 parseDate(todo.delay),
                                                 day
                                             )
                                         )
-                                        .map(todo => (
+                                        .map((todo: Todo) => (
                                             <div
                                                 key={todo.id}
                                                 title={todo.delay + ": " + todo.project}
                                                 className="calendar--todo"
                                             >
-                                                {isVisible === false ? (
+                                                {editingTodoId !== todo.id ? (
                                                     <div>
                                                         <p>
-                                                            {todo.delay}: {truncate(todo.project, 25)}
+                                                            <span 
+                                                                onClick={() => {
+                                                                    setEditingTodoId(todo.id);
+                                                                    setDelayValue(todo.delay);
+                                                                }}
+                                                                className="btn--visible"
+                                                            >
+                                                                {todo.delay}:&nbsp;
+                                                            </span> 
+                                                            {truncate(todo.project, 25)}
                                                         </p>
-                                                        <button 
-                                                            type="button"
-                                                            onClick={() => setIsVisible((prev) => !prev)}
-                                                            className="btn--visible"  
-                                                        >
-                                                            Click
-                                                        </button>
                                                     </div>
                                                 ) : (
-                                                    <div>
-                                                        <input type="text" value={delayValue} onChange={changeDelay} />
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => submitDelay(todo.id, delayValue)}
-                                                            className="btn--validate"
-                                                        >
-                                                            Validate
-                                                        </button>
+                                                    <div className="div--change--delay">
+                                                        <input 
+                                                            type="text" 
+                                                            value={delayValue}
+                                                            onChange={changeDelay} 
+                                                            className="input--delay"
+                                                        />
+                                                        <div className="div--btn--validate">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => submitDelay(todo.id)}
+                                                                className="btn--validate"
+                                                            >
+                                                                <MdDone size={18} />
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 )}
                                             </div>
