@@ -66,3 +66,66 @@ tr:nth-child(even) {
     cursor: pointer;
     padding: 3px 2px;
 }
+
+.btn--visible {
+    font-size: 12px;
+    font-weight: bold;
+    color: #0059ff;
+}
+
+.btn--visible:hover {
+    color: #0000ff;
+}
+
+.btn--visible:active {
+    color: #0099ff;
+}
+
+.div--change--delay {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input--delay {
+    width: 75%;
+    font-size: 14px;
+    color: #87cefa;
+    background-color: #000;
+    border: 1.5px solid #334155;
+    border-radius: 12px;
+    outline: none;
+    padding: 7px;
+}
+
+.div--btn--validate {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn--validate {
+    background-color: #00b300;
+    border: none;
+    border-radius: 100%;
+    box-shadow: 0 0 0 #111;
+    color: #fff;
+    padding: 5px;
+    transform: scale(1.0);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.btn--validate:hover {
+    background-color: #00cc00;
+    box-shadow: 0 0 10px #383838;
+    transform: scale(1.05);
+}
+
+.btn--validate:active {
+    background-color: #009900;
+    box-shadow: 0 0 0 #111;
+    transform: scale(0.95);
+}

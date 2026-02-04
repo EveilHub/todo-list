@@ -207,7 +207,7 @@ const App: FC = (): JSX.Element => {
         <div className="main--div--calendar">
     
           <div className="div--calendar">
-            <TableCalendar todos={todos} />
+            <TableCalendar todos={todos} setTodos={setTodos} />
           </div>
 
         </div>
