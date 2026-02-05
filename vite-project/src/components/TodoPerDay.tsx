@@ -57,7 +57,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // To change day
   const [dayBool, setDayBool] = useState<boolean>(true);
 
-  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
@@ -302,10 +302,11 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
         </div>
 
-        {isVisible === false ? (
+        {/* {isVisible === true ? ( */}
+        <div className="absolute--div">
           <div 
-            onMouseLeave={() => setIsVisible((prev) => !prev)}
-            className="client--mail--phone"
+            onMouseLeave={() => setIsVisible(false)}
+            className={`client--mail--phone ${isVisible ? "is-open" : "is-close"}`}
           >
 
             <EditableFields
@@ -351,18 +352,19 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             />
 
           </div>
-        ) : (
+        {/* ) : ( */}
           <div className="div--hidden--clientMailPhone">
 
             <span 
-              onClick={() => setIsVisible((prev) => !prev)}
-              className="span--client--mail--phone"  
+              onClick={() => setIsVisible(true)}
+              className={`span--client--mail--phone ${isVisible ? "hide" : "show"}`}
             >
               <FaEye size={24} />
             </span>
 
           </div>
-        )}
+        {/* )} */}
+        </div>
 
         <div className="div--crossout--delete">
 
