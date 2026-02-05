@@ -21,17 +21,39 @@
 
 .div--title--projects {
     width: 27.5%;
+
+    /* border: 1px solid cyan; */
+}
+
+.t-one {
+    width: auto;
+
+    margin-left: 5%;
+
+    /* border: 1px solid yellow; */
 }
 
 .div--title--tasks {
-    width: 22.5%;
+    width: 23.5%;
+    /* border: 1px solid cyan; */
 }
 
 .div--title--delays {
-    width: 22.5%;
+    width: 23.5%;
+
+    /* border: 1px solid cyan; */
 }
 
 .div--title--clients {
-    width: 27.5%;
+    width: 25.5%;
+
+    /* border: 1px solid cyan; */
 }
 
+.t-four {
+    width: auto;
+
+    margin-right: 15%;
+
+    /* border: 1px solid yellow; */
+}
