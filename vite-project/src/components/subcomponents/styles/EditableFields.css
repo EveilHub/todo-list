@@ -4,68 +4,85 @@
 
 .daycomp-box {
   width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* border: 1px solid violet; */
+}
+
+.input-button-container {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
   background-color: #00002f;
   border: none;
   border-radius: 7px;
   box-shadow: 0 0 7px #4169e180;
 
-  margin: 0 10px;
-
-  /* border: 1px solid yellowgreen; */
-}
-
-.input-button-container {
-  width: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
   /* border: 3px solid yellowgreen; */
 }
 
 .input-button-textarea {
-  width: auto;
+  width: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  background-color: #00002f;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 7px #4169e180;
 
   /* border: 3px solid yellowgreen; */
 }
 
+
+
 /* 1 */
 .input-button-client {
-  position: relative;
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  z-index: 20;
+
+  background-color: #00002f;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 7px #4169e180;
 }
 
 /* 2 */
 .input-button-mail {
-  position: relative;
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  z-index: 30;
+ 
+  background-color: #00002f;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 7px #4169e180;
 }
 
 /* 3 */
 .input-button-phone {
-  position: relative;
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  z-index: 40;
 
+  background-color: #00002f;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0 0 7px #4169e180;
   /* border: 1px solid coral; */
 }
 
@@ -121,7 +138,6 @@
     color: rgba(135, 206, 250, 0.5);
 }
 
-
 .input--editable {
   width: 80%;
   padding: 7px;
@@ -155,7 +171,7 @@ span {
   font-weight: normal;
 }
 
-S {
+s {
   width: 80%;
   height: auto;
   text-align: center;
