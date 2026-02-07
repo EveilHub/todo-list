@@ -16,6 +16,9 @@
 
     border: none;
     border-radius: 20px;
+    
+    margin: 0 10px;
+
     animation: view-effect 1.0s ease 0s forwards;
     /* box-shadow: 0 0 7px #38bdf8; */
 }

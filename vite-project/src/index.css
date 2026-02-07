@@ -10,6 +10,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  height: 100%;
+}
+
 @keyframes view-effect {
     from {
         opacity: 0;
@@ -19,12 +23,41 @@
     }
 }
 
+/* IE & Edge & Firefox */
 body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
   box-sizing: border-box;
+
+  overflow: hidden;
+  /* -ms-overflow-style: none;
+  scrollbar-width: none; */
+}
+
+/* Chrome, Safari */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #3498db #f0f0f0;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ff6600;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
 }
 
 h1 {
@@ -73,9 +106,6 @@ button {
   justify-content: center;
   border: 1px solid transparent;
   border-radius: 50%;
-  /* background: linear-gradient(0deg, 
-    rgba(53, 100, 255, 1) 10%, 
-    rgba(135, 206, 250, 1) 90%); */
   background: #0059ff;
   box-shadow: 0 0 7px #000;
   outline: none;
@@ -103,9 +133,6 @@ button:active {
   position: relative;
   width: 30px;
   height: 30px;
-  /* background: linear-gradient(0deg, 
-    rgba(255, 0, 0, 1), 
-    rgba(255, 165, 0, 1)); */
   background: #ff4500;
   z-index: 1;
 }

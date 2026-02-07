@@ -2,9 +2,8 @@ import { useMemo, type JSX } from "react";
 import type { Todo, TodoListType } from "../lib/definitions";
 import { sortTodosByPriorityAndDelay } from "../utils/fonctions";
 import TodoPerDay from "./TodoPerDay";
-import "./styles/TodoList.css";
 
-const TodosList = ({todos, setTodos}: TodoListType): JSX.Element => {
+const TodosList = ({className, todos, setTodos}: TodoListType): JSX.Element => {
     
     const sortedTodos: Todo[] = useMemo((): Todo[] =>
         sortTodosByPriorityAndDelay(todos),
@@ -12,7 +11,7 @@ const TodosList = ({todos, setTodos}: TodoListType): JSX.Element => {
     );
     
     return (
-        <div className="todolist--div">
+        <div className={className}>
             {sortedTodos?.map((todo: Todo) => (
                 <TodoPerDay
                     key={String(todo.id)}
