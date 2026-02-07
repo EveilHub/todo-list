@@ -3,6 +3,7 @@
   height: 90px;
   border-radius: 20px;
   margin-bottom: 20px;
+  animation: view-effect 1.0s ease 0s forwards;
 }
 
 .container--todo {
@@ -38,19 +39,56 @@
   /* border: 1px solid mediumspringgreen; */
 }
 
-.client--mail--phone {
+.absolute--div {
   position: relative;
   width: 20%;
 }
 
+@keyframes client-open {
+  from {
+    opacity: 0
+  } 
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes client-close {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.client--mail--phone {
+  position: absolute;
+  width: 100%;
+  /* width: 20%; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+}
+
+.client--mail--phone.is-open {
+  visibility: visible;
+  animation: client-open 0.5s ease-in-out forwards;
+}
+
+.client--mail--phone.is-close {
+  animation: client-close 0.5s ease-in-out forwards;
+}
+
 .div--hidden--clientMailPhone {
-  position: relative;
-  width: 20%;
+  position: absolute;
+  width: 100%;
+  /* width: 20%; */
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  /* border: 1px solid pink; */
 }
 
 .span--client--mail--phone {
@@ -66,6 +104,15 @@
   padding: 8px 0;
 
   /* border: 1px solid lightgreen; */
+}
+
+.span--client--mail--phone.hide { 
+  visibility: hidden;
+}
+
+.span--client--mail--phone.show { 
+  /* visibility: visible; */
+  animation: client-open 0.5s ease-in-out forwards;
 }
 
 .div--crossout--delete {

@@ -174,7 +174,7 @@ const App: FC = (): JSX.Element => {
       </div>
 
       {view === "default" ? (
-        <div>
+        <div className='creator--table--liste'>
 
           <CreateInputCheckbox
             date={paramsTodo.date}
@@ -193,7 +193,11 @@ const App: FC = (): JSX.Element => {
 
           <TableOfTodos />
 
-          <TodosList todos={todos} setTodos={setTodos} />
+          <TodosList 
+            className="todolist--div custom-scrollbar" 
+            todos={todos} 
+            setTodos={setTodos}  
+          />
 
         </div>
       ) : null}

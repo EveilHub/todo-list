@@ -57,7 +57,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   // To change day
   const [dayBool, setDayBool] = useState<boolean>(true);
 
-  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   // To change color by priority
   const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
@@ -302,17 +302,17 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
         </div>
 
-        {isVisible === false ? (
+        <div className="absolute--div">
           <div 
-            onMouseLeave={() => setIsVisible((prev) => !prev)}
-            className="client--mail--phone"
+            onMouseLeave={() => setIsVisible(false)}
+            className={`client--mail--phone ${isVisible ? "is-open" : "is-close"}`}
           >
 
             <EditableFields
               onSubmit={(e) => callSubmitClient(e, todo.id)} 
               type="text"
               as="input"
-              className="input-button-client"
+              className={`input-button-client ${isVisible ? "show" : "hide"}`}
               ref={refs.editBoolClient}
               name="editClient"
               value={editWriteParams.editClient}
@@ -326,7 +326,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
               onSubmit={(e) => callSubmitMail(e, todo.id)} 
               type="email"
               as="input"
-              className="input-button-mail"
+              className={`input-button-mail ${isVisible ? "show" : "hide"}`}
               ref={refs.editBoolMail}
               name="editMail"
               value={editWriteParams.editMail}
@@ -340,7 +340,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
               onSubmit={(e) => callSubmitPhone(e, todo.id)}
               type="text"
               as="input"
-              className="input-button-phone"
+              className={`input-button-phone ${isVisible ? "show" : "hide"}`}
               ref={refs.editBoolPhone}
               name="editPhone"
               value={editWriteParams.editPhone}
@@ -351,18 +351,19 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             />
 
           </div>
-        ) : (
+
           <div className="div--hidden--clientMailPhone">
 
             <span 
-              onClick={() => setIsVisible((prev) => !prev)}
-              className="span--client--mail--phone"  
+              onClick={() => setIsVisible(true)}
+              className={`span--client--mail--phone ${isVisible ? "hide" : "show"}`}
             >
               <FaEye size={24} />
             </span>
 
           </div>
-        )}
+
+        </div>
 
         <div className="div--crossout--delete">
 

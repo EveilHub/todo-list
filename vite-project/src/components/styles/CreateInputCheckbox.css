@@ -4,7 +4,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin: 0 10px;
   margin-bottom: 20px;
+  animation: view-effect 1.0s ease 0s forwards;
 }
 
 .creation--input--checkbox {

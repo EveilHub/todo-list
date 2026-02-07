@@ -80,6 +80,7 @@ export type CheckBoxType = {
 };
 
 export type TodoListType = {
+    className: string;
     todos: Todo[];
     setTodos: Dispatch<SetStateAction<Todo[]>>;
 };
