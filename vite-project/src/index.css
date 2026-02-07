@@ -10,6 +10,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@keyframes view-effect {
+    from {
+        opacity: 0;
+    } 
+    to {
+        opacity: 1;
+    }
+}
+
 body {
   margin: 0;
   padding: 0;

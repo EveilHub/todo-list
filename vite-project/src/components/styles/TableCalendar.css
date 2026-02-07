@@ -1,5 +1,6 @@
 .table--calendar {
     width: 100%;
+    animation: view-effect 1.0s ease 0s forwards;
 }
 
 .calendar--title {

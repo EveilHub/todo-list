@@ -3,6 +3,7 @@
   height: 90px;
   border-radius: 20px;
   margin-bottom: 20px;
+  animation: view-effect 1.0s ease 0s forwards;
 }
 
 .container--todo {
