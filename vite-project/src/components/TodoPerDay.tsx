@@ -302,7 +302,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
         </div>
 
-        {/* {isVisible === true ? ( */}
         <div className="absolute--div">
           <div 
             onMouseLeave={() => setIsVisible(false)}
@@ -313,7 +312,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
               onSubmit={(e) => callSubmitClient(e, todo.id)} 
               type="text"
               as="input"
-              className="input-button-client"
+              className={`input-button-client ${isVisible ? "show" : "hide"}`}
               ref={refs.editBoolClient}
               name="editClient"
               value={editWriteParams.editClient}
@@ -327,7 +326,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
               onSubmit={(e) => callSubmitMail(e, todo.id)} 
               type="email"
               as="input"
-              className="input-button-mail"
+              className={`input-button-mail ${isVisible ? "show" : "hide"}`}
               ref={refs.editBoolMail}
               name="editMail"
               value={editWriteParams.editMail}
@@ -341,7 +340,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
               onSubmit={(e) => callSubmitPhone(e, todo.id)}
               type="text"
               as="input"
-              className="input-button-phone"
+              className={`input-button-phone ${isVisible ? "show" : "hide"}`}
               ref={refs.editBoolPhone}
               name="editPhone"
               value={editWriteParams.editPhone}
@@ -352,7 +351,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             />
 
           </div>
-        {/* ) : ( */}
+
           <div className="div--hidden--clientMailPhone">
 
             <span 
@@ -363,7 +362,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             </span>
 
           </div>
-        {/* )} */}
+
         </div>
 
         <div className="div--crossout--delete">
