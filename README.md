@@ -42,6 +42,14 @@ todo list especialy for graph & design
 
 `pnpm start`
 
+## Testing
+
+`pnpm test`
+
+`pnpm test:ui`
+
+`pnpm test:coverage`
+
 ## Goals
 
 1) indicator de la semaine actuelle [x]
