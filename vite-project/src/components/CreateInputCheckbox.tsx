@@ -90,6 +90,7 @@ const CreateInputCheckbox = ({
                     />
 
                     <InputComp 
+                        data-testid="input-phone"
                         type="text"
                         name="phone"
                         value={phone}

@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DateCalendar snapshot test > testing DateCalendar component 1`] = `
+<div>
+  <label
+    class="checkbox--lbl"
+    for=""
+  >
+    <input
+      class="checkbox--input"
+      id=""
+      type="checkbox"
+    />
+  </label>
+</div>
+`;

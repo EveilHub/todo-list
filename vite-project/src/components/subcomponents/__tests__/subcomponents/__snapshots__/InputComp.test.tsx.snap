@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InputComp snapshot test > testing InputComp component 1`] = `
+<div>
+  <input
+    class="input--creation"
+    name=""
+    placeholder=""
+    type=""
+    value=""
+  />
+</div>
+`;

@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PriorityTodo snapshot test > testing PriorityTodo component 1`] = `
+<div>
+  <div
+    class="priority--container"
+    id="test-id"
+  >
+    <select
+      id="optionsPriority"
+      name="priority"
+    >
+      <option
+        value="option3"
+      >
+        Priorité 3 (Standard)
+      </option>
+      <option
+        value="option2"
+      >
+        Priorité 2 (Important)
+      </option>
+      <option
+        value="option1"
+      >
+        Priorité 1 (Urgent)
+      </option>
+    </select>
+  </div>
+</div>
+`;
