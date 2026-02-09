@@ -194,7 +194,7 @@ const App: FC = (): JSX.Element => {
           <TableOfTodos />
 
           <TodosList 
-            className="todolist--div custom-scrollbar" 
+            className="todolist--div" 
             todos={todos} 
             setTodos={setTodos}  
           />

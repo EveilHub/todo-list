@@ -1,19 +1,14 @@
 .div--fetch {
     width: auto;
-    min-height: 80vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
+    
     animation: view-effect 1.0s ease 0s forwards;
-}
 
-.div--todo {
-    width: 90%;
-    background-color: #00002f;
-    border: none;
-    border-radius: 20px;
-    padding: 20px;
+    /* border: 1px solid orange; */
 }
 
 .div--download {
@@ -21,6 +16,25 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.div--todo {
+    width: 95%;
+    height: 80vh;
+
+    background-color: #00002f;
+    border: none;
+    border-radius: 20px;
+
+    padding: 0 20px;
+
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #3564ff #00001b;
+
+    /* border: 1px solid cyan; */
 }
 
 a {

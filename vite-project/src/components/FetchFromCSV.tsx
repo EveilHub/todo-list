@@ -57,15 +57,17 @@ const FetchFromCSV = (): JSX.Element => {
 
       <h2>Projets Terminés</h2>
 
+      <div className="div--download">
+        <a href="http://localhost:3001/api/download-csv">
+          <FaDownload size={16} />
+        </a>
+      </div>
+
       {todos.length === 0 ? (
         <h3>Aucun projet terminé 🧞‍♂️</h3>
       ) : (
         <div className="div--todo">
-          <div className="div--download">
-            <a href="http://localhost:3001/api/download-csv">
-              <FaDownload size={16} />
-            </a>
-          </div>
+
           {todos.map((todo) => (
             <ul key={todo.id} className="ul--fetch">
               <div className="todo--container--fetch">
