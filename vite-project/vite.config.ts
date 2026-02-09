@@ -15,7 +15,8 @@ export default defineConfig({
         '**/*.css',
         '**/*.scss',
         '**/*.sass',
-        '**/*.less'
+        '**/*.less',
+        'src/lib/definitions.ts',
       ]
     }
   },
