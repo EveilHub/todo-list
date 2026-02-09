@@ -13,30 +13,24 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
   background-color: #00002f;
   border: none;
   border-radius: 20px;
   box-shadow: 0 0 7px #38bdf8;
-
-  /* border: 3px solid orange; */
 }
 
 .day--priority {
   width: 5%;
   height: 100%;
-
-  /* border: 1px solid yellow; */
 }
 
 .project-liste-delay {
-  /* width: 67.5%; */
   width: 70%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
-  /* border: 1px solid mediumspringgreen; */
 }
 
 .absolute--div {
@@ -65,7 +59,6 @@
 .client--mail--phone {
   position: absolute;
   width: 100%;
-  /* width: 20%; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -84,7 +77,6 @@
 .div--hidden--clientMailPhone {
   position: absolute;
   width: 100%;
-  /* width: 20%; */
   inset: 0;
   display: flex;
   align-items: center;
@@ -102,8 +94,6 @@
   box-shadow: 0 0 7px #4169e180;
   cursor: pointer;
   padding: 8px 0;
-
-  /* border: 1px solid lightgreen; */
 }
 
 .span--client--mail--phone.hide { 
@@ -111,7 +101,6 @@
 }
 
 .span--client--mail--phone.show { 
-  /* visibility: visible; */
   animation: client-open 0.5s ease-in-out forwards;
 }
 
@@ -123,8 +112,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-
-  /* border: 1px solid orangered; */
 }
 
 .cross--out--btn {

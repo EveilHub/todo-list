@@ -1,8 +1,6 @@
 .h3--table {
     font-size: 1.0rem;
     font-weight: bold;
-
-    /* border: 1px solid yellowgreen; */
 }
 
 .table--todos {
@@ -13,51 +11,34 @@
     justify-content: space-evenly;
 
     background-color: #00002f;
-
     border: none;
     border-radius: 20px;
-    
     margin: 0 10px;
-
     animation: view-effect 1.0s ease 0s forwards;
-    /* box-shadow: 0 0 7px #38bdf8; */
 }
 
 .div--title--projects {
     width: 27.5%;
-
-    /* border: 1px solid cyan; */
 }
 
 .t-one {
     width: auto;
-
     margin-left: 5%;
-
-    /* border: 1px solid yellow; */
 }
 
 .div--title--tasks {
     width: 23.5%;
-    /* border: 1px solid cyan; */
 }
 
 .div--title--delays {
     width: 23.5%;
-
-    /* border: 1px solid cyan; */
 }
 
 .div--title--clients {
     width: 25.5%;
-
-    /* border: 1px solid cyan; */
 }
 
 .t-four {
     width: auto;
-
     margin-right: 15%;
-
-    /* border: 1px solid yellow; */
 }

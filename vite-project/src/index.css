@@ -32,32 +32,11 @@ body {
   box-sizing: border-box;
 
   overflow: hidden;
-  /* -ms-overflow-style: none;
-  scrollbar-width: none; */
 }
 
 /* Chrome, Safari */
 body::-webkit-scrollbar {
   display: none;
-}
-
-/* Firefox */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #3498db #f0f0f0;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #ff6600;
-  border-radius: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background-color: #f0f0f0;
 }
 
 h1 {
