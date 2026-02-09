@@ -6,6 +6,19 @@ import path from "path";
 import { Todo } from "./types/definitions";
 import { cleanTodoForCSV } from "./utils/csvCleaner";
 
+
+//--- --- --- --- TEST --- --- --- ---//
+
+// import { createServer } from './server'
+
+// const app = createServer()
+// app.listen(3001, () => {
+//   console.log('Server running')
+// })
+
+//--- --- END LINE OF TEST --- ---//
+
+
 const app = express();
 const PORT: number = 3001;
 

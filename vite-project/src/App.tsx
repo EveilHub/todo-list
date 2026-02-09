@@ -22,7 +22,6 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { IoLogoBuffer } from "react-icons/io5";
 import './App.css';
 
-
 const App: FC = (): JSX.Element => {
 
   const [time, setTime] = useState<string>('');

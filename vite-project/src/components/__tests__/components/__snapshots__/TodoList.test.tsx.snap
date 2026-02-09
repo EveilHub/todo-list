@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Fifth snapshot test > testing TodosList component 1`] = `
+<div>
+  <div
+    class=""
+  />
+</div>
+`;
