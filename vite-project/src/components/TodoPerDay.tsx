@@ -16,20 +16,20 @@ import type {
 } from "../lib/definitions.ts";
 import { 
   callChangeDay, 
-  handleChangePriority, 
+  handleChangePriority,
   submitClient, 
   submitDelay, 
   submitListe, 
   submitMail, 
   submitPhone, 
-  submitProject } from "../utils/todoFunctions.ts";
+  submitProject
+} from "../utils/todoFunctions.ts";
 import { changeColor, formatPhoneNumber } from "../utils/fonctions";
 import CheckDay from "./subcomponents/CheckDay.tsx";
 import PriorityTodo from "./subcomponents/PriorityTodo.tsx";
 import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
 import { GiCrossedSabres } from "react-icons/gi";
-//import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { FaEye } from "react-icons/fa6";
 import "./styles/TodoPerDay.css";
 

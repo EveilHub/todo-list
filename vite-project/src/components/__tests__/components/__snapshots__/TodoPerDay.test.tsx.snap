@@ -19,6 +19,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
         >
           <span
             class="checkday--span"
+            data-testid="toggle-day"
           />
         </div>
         <div
@@ -27,6 +28,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
         >
           <span
             class="priority--span"
+            data-testid="toggle-priority"
           >
             PRIORITÉ
           </span>
@@ -50,6 +52,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
               >
                 <button
                   class="modify-btn"
+                  data-testid="submit-btn"
                   type="submit"
                 >
                   <svg
@@ -92,6 +95,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
               >
                 <button
                   class="modify-btn"
+                  data-testid="submit-btn"
                   type="submit"
                 >
                   <svg
@@ -131,6 +135,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
               >
                 <button
                   class="modify-btn"
+                  data-testid="submit-btn"
                   type="submit"
                 >
                   <svg
@@ -177,6 +182,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
                 >
                   <button
                     class="modify-btn"
+                    data-testid="submit-btn"
                     type="submit"
                   >
                     <svg
@@ -216,6 +222,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
                 >
                   <button
                     class="modify-btn"
+                    data-testid="submit-btn"
                     type="submit"
                   >
                     <svg
@@ -255,6 +262,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
                 >
                   <button
                     class="modify-btn"
+                    data-testid="submit-btn"
                     type="submit"
                   >
                     <svg

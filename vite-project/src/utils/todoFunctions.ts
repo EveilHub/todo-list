@@ -1,6 +1,20 @@
 import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
-import { type BooleanEditType, type ParamsPriorityTypes, type Todo, type WriteEditType } from "../lib/definitions";
-import { callApiClient, callApiDay, callApiDelay, callApiListe, callApiMail, callApiPhone, callApiPriority, callSubmitProject } from "./apiFunctions";
+import { 
+    type BooleanEditType, 
+    type ParamsPriorityTypes, 
+    type Todo, 
+    type WriteEditType 
+} from "../lib/definitions";
+import { 
+    callApiClient, 
+    callApiDay, 
+    callApiDelay, 
+    callApiListe, 
+    callApiMail, 
+    callApiPhone, 
+    callApiPriority, 
+    callApiProject 
+} from "./apiFunctions";
 
 // Priority
 export const handleChangePriority = (
@@ -50,7 +64,7 @@ export const submitProject = (e: FormEvent<HTMLFormElement>,
         ...todo, project: editWriteParams.editProject
     } : todo));
     
-    callSubmitProject(id, editWriteParams);
+    callApiProject(id, editWriteParams);
 
     setEditBoolParams((prev: BooleanEditType) => ({
         ...prev, editBoolProject: !prev.editBoolProject

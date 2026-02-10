@@ -15,6 +15,7 @@ exports[`DateCalendar snapshot test > testing DateCalendar component 1`] = `
         >
           <button
             class="modify-btn"
+            data-testid="submit-btn"
             type="submit"
           >
             <svg

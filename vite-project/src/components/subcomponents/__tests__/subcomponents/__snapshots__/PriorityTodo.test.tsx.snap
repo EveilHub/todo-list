@@ -7,6 +7,7 @@ exports[`PriorityTodo snapshot test > testing PriorityTodo component 1`] = `
     id="test-id"
   >
     <select
+      data-testid="priority-select"
       id="optionsPriority"
       name="priority"
     >

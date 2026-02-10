@@ -6,18 +6,6 @@ import CreateInputCheckbox from '../../CreateInputCheckbox'
 import { useState } from 'react'
 import type { ParamsTodoType } from '../../../lib/definitions'
 
-vi.mock('../../__tests__/subcomponents/InputComp', () => ({
-  default: ({ name, value, onChange, placeholder }: any) => (
-    <input
-      name={name}
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-      data-testid={`input-${name}`}
-    />
-  )
-}))
-
 describe('CreateInputCheckbox snapshot test', () => {
   it('testing CreateInputCheckbox component', () => {
     const { container } = render(
@@ -39,6 +27,18 @@ describe('CreateInputCheckbox snapshot test', () => {
     expect(container).toMatchSnapshot();
   });
 });
+
+vi.mock('../../__tests__/subcomponents/InputComp', () => ({
+  default: ({ name, value, onChange, placeholder }: any) => (
+    <input
+      name={name}
+      value={value}
+      placeholder={placeholder}
+      onChange={onChange}
+      data-testid={`input-${name}`}
+    />
+  )
+}))
 
 // mock InputComp
 vi.mock('./subcomponents/InputComp', () => ({

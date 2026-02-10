@@ -31,7 +31,7 @@ export const callApiDay = async (id: string, newDay: string): Promise<void> => {
 };
 
 // API Project
-export const callSubmitProject = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
+export const callApiProject = async (id: string, editWriteParams: WriteEditType): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {
             method: "PATCH",
@@ -75,7 +75,7 @@ export const callApiDelay = async (id: string, editWriteParams: WriteEditType): 
     };
 };
 
-// API Delay
+// API Calendar
 export const callApiCalendar = async (id: string, delayValue: string): Promise<void> => {
     try {
         await fetch(`http://localhost:3001/api/todos/${id}`, {

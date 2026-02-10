@@ -14,6 +14,7 @@ const PriorityTodo = ({
             {paramsPriorityHide === false ? (
                 <select 
                     id="optionsPriority"
+                    data-testid="priority-select"
                     name="priority"
                     value={priorityTodo}
                     onChange={handleChangePriority}
@@ -25,6 +26,7 @@ const PriorityTodo = ({
                 </select>
             ) : (
                 <span 
+                    data-testid="toggle-priority"
                     onMouseEnter={onClick}
                     className="priority--span"
                 >

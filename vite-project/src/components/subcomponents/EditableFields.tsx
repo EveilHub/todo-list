@@ -66,6 +66,7 @@ const EditableFields = (
 
                     <div className="div--btn--submit">
                         <button 
+                            data-testid="submit-btn"
                             type="submit"
                             className="modify-btn"
                         >

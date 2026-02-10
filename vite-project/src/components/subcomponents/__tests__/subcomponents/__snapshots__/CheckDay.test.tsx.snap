@@ -7,6 +7,7 @@ exports[`CheckDay snapshot test > testing CheckDay component 1`] = `
     id=""
   >
     <select
+      data-testid="day-select"
       id="optionsDays"
     >
       <option

@@ -1,8 +1,20 @@
 /// <reference types="vitest" />
+import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import App from './App.tsx'
 import type { Todo } from './lib/definitions.ts'
+
+
+describe('App snapshot test', () => {
+  it('testing App component', () => {
+    const { container } = render(
+      <App />
+    );
+    // Snapshot à partir du container DOM
+    expect(container).toMatchSnapshot();
+  });
+});
 
 /* ------------------------------------------------------------------
    MOCKS
@@ -74,11 +86,28 @@ describe('App component', () => {
 
   it('fetchTodos success: affiche la vue par défaut avec tous les composants', async () => {
     const fakeTodos: Todo[] = [
-      { id: '1', date: "05/01/2026", priority: "option3", selectedDay: "lundi", project: 'Test project', liste: 'Test list', delay: "hsdjkfh", client: "nobu", email: "mail@mail.com", 
-        phone: "899 374 34 44", isDoneClient: false, isDoneDate: false, isDoneDelay: false, isDoneListe: false, isDoneMail: false, isDonePhone: false, isDoneProject: false}
+      { id: '1', 
+        date: "05/01/2026", 
+        priority: "option3", 
+        selectedDay: "lundi", 
+        project: 'Test project', 
+        liste: 'Test list', 
+        delay: "hsdjkfh", 
+        client: "nobu", 
+        email: "mail@mail.com", 
+        phone: "899 374 34 44", 
+        isDoneClient: false, 
+        isDoneDate: false, 
+        isDoneDelay: false, 
+        isDoneListe: false, 
+        isDoneMail: false, 
+        isDonePhone: false, 
+        isDoneProject: false
+      }
     ];
 
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+    vi.stubGlobal('fetch', 
+      vi.fn().mockResolvedValue({
       ok: true,
       json: async () => fakeTodos,
     } as Response))
@@ -103,5 +132,26 @@ describe('App component', () => {
       expect(screen.getByText(/Impossible de charger les données/i)).toBeInTheDocument()
     })
   })
+})
 
+describe('App view switching', () => {
+  it('switch to completed view when clicking button', async () => {
+    render(<App />)
+    await waitFor(() => expect(screen.queryByText(/chargement/i)).not.toBeInTheDocument())
+    const buttons = screen.getAllByRole('button')
+    await userEvent.click(buttons[0])
+    await waitFor(() => {
+      expect(screen.getByText('FetchFromCSV')).toBeInTheDocument()
+    })
+  })
+
+  it('switch to calendar view when clicking button', async () => {
+    render(<App />)
+    await waitFor(() => expect(screen.queryByText(/chargement/i)).not.toBeInTheDocument())
+    const buttons = screen.getAllByRole('button')
+    await userEvent.click(buttons[1])
+    await waitFor(() => {
+      expect(screen.getByText('TableCalendar')).toBeInTheDocument()
+    })
+  })
 })
