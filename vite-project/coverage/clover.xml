@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1770732921984" clover="3.2.0">
-  <project timestamp="1770732921984" name="All files">
-    <metrics statements="345" coveredstatements="307" conditionals="123" coveredconditionals="87" methods="156" coveredmethods="136" elements="624" coveredelements="530" complexity="0" loc="345" ncloc="345" packages="5" files="18" classes="18"/>
+<coverage generated="1770738362788" clover="3.2.0">
+  <project timestamp="1770738362788" name="All files">
+    <metrics statements="363" coveredstatements="325" conditionals="123" coveredconditionals="87" methods="162" coveredmethods="142" elements="648" coveredelements="554" complexity="0" loc="363" ncloc="363" packages="6" files="19" classes="19"/>
     <package name="server.src">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="server.ts" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/server/src/server.ts">
@@ -69,12 +69,12 @@
         <line num="29" count="13" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="35" count="13" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="109" count="2" type="stmt"/>
-        <line num="117" count="1" type="stmt"/>
-        <line num="125" count="1" type="stmt"/>
-        <line num="133" count="1" type="stmt"/>
-        <line num="141" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="110" count="2" type="stmt"/>
+        <line num="118" count="1" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="134" count="1" type="stmt"/>
+        <line num="142" count="1" type="stmt"/>
       </file>
       <file name="FetchFromCSV.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/FetchFromCSV.tsx">
         <metrics statements="31" coveredstatements="29" conditionals="10" coveredconditionals="9" methods="9" coveredmethods="9"/>
@@ -271,6 +271,30 @@
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="5" count="3" type="stmt"/>
         <line num="12" count="18" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.hooks">
+      <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+      <file name="useFetchDate.ts" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/hooks/useFetchDate.ts">
+        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="36" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="9" type="stmt"/>
+        <line num="10" count="9" type="stmt"/>
+        <line num="11" count="9" type="stmt"/>
+        <line num="12" count="9" type="stmt"/>
+        <line num="13" count="9" type="stmt"/>
+        <line num="14" count="9" type="stmt"/>
+        <line num="16" count="9" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="6" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">

@@ -1,9 +1,9 @@
-/// <reference types="vitest" />
+// /// <reference types="vitest" />
 import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import App from './App.tsx'
 import type { Todo } from './lib/definitions.ts'
+import App from './App.tsx'
 
 
 describe('App snapshot test', () => {

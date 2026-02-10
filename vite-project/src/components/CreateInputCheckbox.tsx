@@ -34,6 +34,7 @@ const CreateInputCheckbox = ({
 
     return (
         <form
+            data-testid="create-input-checkbox"
             onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} 
             className='creation--container'
         >

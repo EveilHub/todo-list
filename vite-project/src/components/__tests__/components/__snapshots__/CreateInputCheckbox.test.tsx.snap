@@ -4,6 +4,7 @@ exports[`CreateInputCheckbox snapshot test > testing CreateInputCheckbox compone
 <div>
   <form
     class="creation--container"
+    data-testid="create-input-checkbox"
   >
     <div
       class="creation--input--checkbox"
