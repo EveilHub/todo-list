@@ -1,9 +1,8 @@
-import { describe, test, expect, vi, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, test, expect, vi, it, beforeEach } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 import type { SetStateAction } from 'react';
 import type { Todo } from '../../../lib/definitions';
-import { callApiCalendar } from '../../../utils/apiFunctions';
 import TableCalendar from '../../TableCalendar';
 
 describe('CreateInputCheckbox snapshot test', () => {
@@ -21,34 +20,12 @@ describe('CreateInputCheckbox snapshot test', () => {
 // Mocks
 // =====================
 
-vi.mock("../../../utils/dateUtils", () => ({
-    parseDate: (dateStr: string) => {
-        const [datePart, timePart] = dateStr.split(" ");
-        const [day, month, year] = datePart.split("/").map(Number);
-        const [hours = 0, minutes = 0] = timePart
-        ? timePart.split(":").map(Number)
-        : [];
-
-        return new Date(year, month - 1, day, hours, minutes);
-    },
-
-    getISOWeekNumber: () => 1,
-
-    getWeekDays: () => ([
-        new Date(2024, 0, 1),
-        new Date(2024, 0, 2),
-        new Date(2024, 0, 3),
-        new Date(2024, 0, 4),
-        new Date(2024, 0, 5),
-        new Date(2024, 0, 6),
-        new Date(2024, 0, 7),
-    ]),
-
-    isSameDay: (a: Date, b: Date) =>
-        a.getFullYear() === b.getFullYear() &&
-        a.getMonth() === b.getMonth() &&
-        a.getDate() === b.getDate(),
+// 🔹 Mock API
+vi.mock("../../../utils/apiFunctions.ts", () => ({
+    callApiCalendar: vi.fn(),
 }));
+
+import { callApiCalendar } from '../../../utils/apiFunctions';
 
 // 🔥 On mock les utils de date pour stabiliser le rendu
 vi.mock("../../../utils/dateUtils", () => ({
@@ -97,7 +74,6 @@ describe("TableCalendar", () => {
                 setTodos={vi.fn()}
             />
         );
-
         expect(
         screen.getByText(/Aucun projet agendé/i)
         ).toBeInTheDocument();
@@ -110,18 +86,11 @@ describe("TableCalendar", () => {
                 setTodos={vi.fn()}
             />
         );
-
-        // vérifie que les jours sont affichés
         expect(screen.getByText("Calendar")).toBeInTheDocument();
         expect(screen.getByText("Semaine 1")).toBeInTheDocument();
         expect(screen.getByText("Projet React")).toBeInTheDocument();
-
     });
 });
-    // 🔥 Mock API
-    vi.mock("../../../utils/apiFunctions.ts", () => ({
-        callApiCalendar: vi.fn(),
-    }));
 
 describe("TableCalendar - submitDelay (userEvent)", () => {
     it("met à jour le todo, appelle l'API et quitte le mode édition", async () => {
@@ -162,7 +131,6 @@ describe("TableCalendar - submitDelay (userEvent)", () => {
     });
 });
 
-
 describe("TableCalendar - truncate (via rendu)", () => {
     it("tronque le texte si supérieur à 20 caractères", () => {
         render(<TableCalendar todos={todosMock} setTodos={vi.fn()} />);
@@ -186,5 +154,39 @@ describe("TableCalendar - truncate (via rendu)", () => {
             screen.getByText(/02\/01\/2024/)
         ).toBeInTheDocument();
     });
+
+    it("affiche un message si aucun todo", () => {
+        render(<TableCalendar todos={[]} setTodos={vi.fn()} />);
+        expect(screen.getByText(/Aucun projet agendé/i)).toBeInTheDocument();
+    });
 });
 
+describe("TableCalendar - submitDelay", () => {
+    const mockSetTodos = vi.fn();
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
+    it("met à jour le todo, appelle l'API et ferme l'édition", () => {
+        render(<TableCalendar todos={todosMock} setTodos={mockSetTodos} />);
+
+        // 🔹 1. Cliquer sur la date pour activer le mode édition
+        const delaySpan = screen.getByText("02/01/2024 14:30:");
+        fireEvent.click(delaySpan);
+
+        // 🔹 2. Modifier l'input
+        const input = screen.getByDisplayValue("02/01/2024 14:30");
+        fireEvent.change(input, { target: { value: "15/02/2024 14:30" } });
+
+        // 🔹 3. Cliquer sur le bouton valider
+        const button = screen.getByRole("button");
+        fireEvent.click(button);
+
+        // 🔹 4. Vérifie que setTodos est appelé
+        expect(mockSetTodos).toHaveBeenCalledTimes(1);
+
+        // 🔹 5. Vérifie que callApiCalendar est appelé avec bons arguments
+        expect(callApiCalendar).toHaveBeenCalledWith("1", "15/02/2024 14:30");
+    });
+});

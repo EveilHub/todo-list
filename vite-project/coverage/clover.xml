@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1770814544650" clover="3.2.0">
-  <project timestamp="1770814544650" name="All files">
+<coverage generated="1770818049720" clover="3.2.0">
+  <project timestamp="1770818049720" name="All files">
     <metrics statements="363" coveredstatements="344" conditionals="123" coveredconditionals="99" methods="162" coveredmethods="151" elements="648" coveredelements="594" complexity="0" loc="363" ncloc="363" packages="6" files="19" classes="19"/>
     <package name="server.src">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -113,47 +113,47 @@
       <file name="TableCalendar.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/TableCalendar.tsx">
         <metrics statements="42" coveredstatements="42" conditionals="15" coveredconditionals="11" methods="15" coveredmethods="15"/>
         <line num="19" count="1" type="stmt"/>
-        <line num="21" count="27" type="stmt"/>
-        <line num="22" count="27" type="stmt"/>
-        <line num="24" count="27" type="stmt"/>
-        <line num="26" count="27" type="stmt"/>
-        <line num="27" count="7" type="stmt"/>
-        <line num="30" count="27" type="stmt"/>
-        <line num="32" count="27" type="cond" truecount="2" falsecount="0"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="36" count="25" type="stmt"/>
-        <line num="37" count="25" type="stmt"/>
-        <line num="40" count="25" type="stmt"/>
-        <line num="41" count="25" type="stmt"/>
-        <line num="42" count="25" type="stmt"/>
-        <line num="44" count="25" type="cond" truecount="1" falsecount="1"/>
-        <line num="45" count="25" type="stmt"/>
-        <line num="48" count="25" type="stmt"/>
-        <line num="49" count="25" type="stmt"/>
-        <line num="53" count="25" type="stmt"/>
-        <line num="54" count="25" type="stmt"/>
-        <line num="56" count="25" type="cond" truecount="1" falsecount="0"/>
-        <line num="57" count="6" type="cond" truecount="1" falsecount="1"/>
-        <line num="58" count="6" type="cond" truecount="1" falsecount="1"/>
-        <line num="61" count="25" type="stmt"/>
-        <line num="62" count="17" type="stmt"/>
-        <line num="65" count="25" type="stmt"/>
-        <line num="66" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="70" count="1" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
-        <line num="74" count="25" type="stmt"/>
-        <line num="80" count="25" type="stmt"/>
-        <line num="90" count="25" type="stmt"/>
-        <line num="91" count="25" type="stmt"/>
-        <line num="93" count="25" type="stmt"/>
-        <line num="94" count="25" type="stmt"/>
-        <line num="96" count="25" type="stmt"/>
-        <line num="106" count="25" type="stmt"/>
-        <line num="108" count="25" type="stmt"/>
-        <line num="115" count="25" type="stmt"/>
-        <line num="125" count="1" type="stmt"/>
-        <line num="126" count="1" type="stmt"/>
-        <line num="150" count="1" type="stmt"/>
+        <line num="21" count="33" type="stmt"/>
+        <line num="22" count="33" type="stmt"/>
+        <line num="24" count="33" type="stmt"/>
+        <line num="26" count="33" type="stmt"/>
+        <line num="27" count="9" type="stmt"/>
+        <line num="30" count="33" type="stmt"/>
+        <line num="32" count="33" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="36" count="30" type="stmt"/>
+        <line num="37" count="30" type="stmt"/>
+        <line num="40" count="30" type="stmt"/>
+        <line num="41" count="30" type="stmt"/>
+        <line num="42" count="30" type="stmt"/>
+        <line num="44" count="30" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="30" type="stmt"/>
+        <line num="48" count="30" type="stmt"/>
+        <line num="49" count="30" type="stmt"/>
+        <line num="53" count="30" type="stmt"/>
+        <line num="54" count="30" type="stmt"/>
+        <line num="56" count="30" type="cond" truecount="1" falsecount="0"/>
+        <line num="57" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="58" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="61" count="30" type="stmt"/>
+        <line num="62" count="18" type="stmt"/>
+        <line num="65" count="30" type="stmt"/>
+        <line num="66" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="70" count="2" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
+        <line num="74" count="30" type="stmt"/>
+        <line num="80" count="30" type="stmt"/>
+        <line num="90" count="30" type="stmt"/>
+        <line num="91" count="30" type="stmt"/>
+        <line num="93" count="30" type="stmt"/>
+        <line num="94" count="30" type="stmt"/>
+        <line num="96" count="30" type="stmt"/>
+        <line num="106" count="30" type="stmt"/>
+        <line num="108" count="30" type="stmt"/>
+        <line num="115" count="30" type="stmt"/>
+        <line num="125" count="2" type="stmt"/>
+        <line num="126" count="2" type="stmt"/>
+        <line num="150" count="2" type="stmt"/>
       </file>
       <file name="TableOfTodos.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/TableOfTodos.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -254,8 +254,8 @@
       <file name="DateCalendar.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/DateCalendar.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="8" count="2" type="stmt"/>
-        <line num="10" count="26" type="stmt"/>
-        <line num="14" count="26" type="stmt"/>
+        <line num="10" count="30" type="stmt"/>
+        <line num="14" count="30" type="stmt"/>
       </file>
       <file name="EditableFields.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/EditableFields.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="11" coveredconditionals="11" methods="1" coveredmethods="1"/>
