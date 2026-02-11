@@ -32,10 +32,10 @@ import {
   callApiMail,
   callApiPhone,
 } from "../apiFunctions";
-import type { WriteEditType } from "../../lib/definitions";
+import type { ParamsPriorityTypes, Todo, WriteEditType } from "../../lib/definitions";
 
 // Mock initial todo
-const initialTodos = [
+const initialTodos: Todo[] = [
   {
     id: "1",
     priority: "option1",
@@ -45,38 +45,67 @@ const initialTodos = [
     delay: "",
     client: "",
     email: "",
-    phone: ""
+    phone: "",
+    date: "",
+    isDoneDate: false,
+    isDoneProject: false,
+    isDoneListe: false,
+    isDoneDelay: false,
+    isDoneClient: false,
+    isDoneMail: false,
+    isDonePhone: false
   }
 ];
 
-describe("handleChangePriority", () => {
+
+describe("handleChangePriority full coverage", () => {
   it("should update todos, call API and hide priority", () => {
     let todos = [...initialTodos];
-    const setTodos = (fn: any) => { todos = fn(todos); };
-    const setParamsPriority = vi.fn();
+
+    const setTodos: React.Dispatch<React.SetStateAction<typeof todos>> = (fn) => {
+      todos = typeof fn === "function" ? fn(todos) : fn;
+    };
+
+    // mock complet de ParamsPriorityTypes
+    let paramsPriority: ParamsPriorityTypes = {
+      hidePriority: false,
+      bgColor: "red",       // valeur arbitraire pour le test
+      // ajoute ici toutes les autres propriétés requises par ParamsPriorityTypes
+    };
+
+    const setParamsPriority: React.Dispatch<React.SetStateAction<ParamsPriorityTypes>> = (fn) => {
+      paramsPriority = typeof fn === "function" ? fn(paramsPriority) : fn;
+    };
+
     const e = { target: { value: "option2" } } as any;
 
     handleChangePriority(e, "1", setTodos, setParamsPriority);
 
     expect(todos[0].priority).toBe("option2");
     expect(callApiPriority).toHaveBeenCalledWith("1", "option2");
-    expect(setParamsPriority).toHaveBeenCalledWith(expect.any(Function));
+    expect(paramsPriority.hidePriority).toBe(true);
   });
 });
 
 describe("callChangeDay", () => {
-  it("should update day, call API and toggle boolean", () => {
+  it("should update selectedDay, call API and toggle boolean", () => {
     let todos = [...initialTodos];
-    const setTodos = (fn: any) => { todos = fn(todos); };
+    const setTodos = (fn: any) => {
+      todos = fn(todos); // exécute la fonction passée
+    };
+
     let dayBool = false;
-    const setDayBool = (fn: any) => { dayBool = fn(dayBool); };
+    const setDayBool = (fn: any) => {
+      dayBool = fn(dayBool); // exécute la fonction passée
+    };
+
     const e = { target: { value: "lundi" } } as any;
 
     callChangeDay(e, "1", setTodos, setDayBool);
 
     expect(todos[0].selectedDay).toBe("lundi");
     expect(callApiDay).toHaveBeenCalledWith("1", "lundi");
-    expect(dayBool).toBe(true);
+    expect(dayBool).toBe(true); // vérifie que la fonction de toggle a été exécutée
   });
 });
 
@@ -141,4 +170,3 @@ describe("submit functions", () => {
     await testSubmit(submitPhone, callApiPhone, "editPhone", "phone", "editBoolPhone");
   });
 });
-

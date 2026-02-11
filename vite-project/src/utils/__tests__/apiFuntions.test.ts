@@ -19,7 +19,6 @@ beforeEach(() => {
 });
 
 describe("API call functions", () => {
-
     it("callApiPriority should call fetch with correct params", async () => {
         (fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce({ ok: true });
 
