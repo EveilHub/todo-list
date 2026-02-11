@@ -8,7 +8,6 @@ describe('TableOfTodos snapshot test', () => {
         const { container } = render(
             <TableOfTodos />
         );
-        // Snapshot à partir du container DOM
         expect(container).toMatchSnapshot();
     });
 });

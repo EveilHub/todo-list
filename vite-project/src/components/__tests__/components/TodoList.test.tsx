@@ -5,12 +5,9 @@ import type { SetStateAction } from 'react';
 import type { Todo } from '../../../lib/definitions';
 import { sortTodosByPriorityAndDelay } from '../../../utils/fonctions';
 
-const mockedSortTodos = vi.mocked(sortTodosByPriorityAndDelay);
-
 describe('TodosList snapshot test', () => {
   test('testing TodosList component', () => {
     const mockSetTodos = (_value: SetStateAction<Todo[]>) => {};
-
     const { container } = render(
       <TodosList
         className={''}
@@ -18,17 +15,17 @@ describe('TodosList snapshot test', () => {
         setTodos={mockSetTodos}
       />
     );
-
-    // Snapshot à partir du container DOM
     expect(container).toMatchSnapshot();
   });
 });
 
-vi.mock('../utils/fonctions', () => ({
+const mockedSortTodos = vi.mocked(sortTodosByPriorityAndDelay);
+
+vi.mock('../../../utils/fonctions', () => ({
   sortTodosByPriorityAndDelay: vi.fn()
 }));
 
-vi.mock('./TodoPerDay', () => ({
+vi.mock('../../TodoPerDay', () => ({
   default: ({ todo }: any) => (
     <div data-testid="todo-item">{todo.title}</div>
   )
@@ -44,22 +41,22 @@ const sortedTodos = [
   { id: 1, title: 'Low priority' }
 ] as any;
 
-// test('sorts todos and renders them in sorted order', () => {
-//   mockedSortTodos.mockReturnValue(sortedTodos);
+test('sorts todos and renders them in sorted order', () => {
+  mockedSortTodos.mockReturnValue(sortedTodos);
 
-//   render(
-//     <TodosList
-//       className="todos"
-//       todos={todos}
-//       setTodos={vi.fn()}
-//     />
-//   );
+  render(
+    <TodosList
+      className="todos"
+      todos={todos}
+      setTodos={vi.fn()}
+    />
+  );
 
-//   // fonction appelée avec les bons todos
-//   expect(mockedSortTodos).toHaveBeenCalledWith(todos);
+  // fonction appelée avec les bons todos
+  expect(mockedSortTodos).toHaveBeenCalledWith(todos);
 
-//   // rendu dans l’ordre trié
-//   const items = screen.getAllByTestId('todo-item'); // ceci devrait fonctionner maintenant
-//   expect(items[0]).toHaveTextContent('High priority');
-//   expect(items[1]).toHaveTextContent('Low priority');
-// });
+  // rendu dans l’ordre trié
+  const items = screen.getAllByTestId('todo-item'); // ceci devrait fonctionner maintenant
+  expect(items[0]).toHaveTextContent('High priority');
+  expect(items[1]).toHaveTextContent('Low priority');
+});
