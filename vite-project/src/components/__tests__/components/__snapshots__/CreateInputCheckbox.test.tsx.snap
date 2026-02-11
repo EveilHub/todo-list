@@ -72,6 +72,7 @@ exports[`CreateInputCheckbox snapshot test > testing CreateInputCheckbox compone
         >
           <input
             class="checkbox--input"
+            data-testid="test-checkbox"
             id="lundi"
             type="checkbox"
           />
@@ -83,6 +84,7 @@ exports[`CreateInputCheckbox snapshot test > testing CreateInputCheckbox compone
         >
           <input
             class="checkbox--input"
+            data-testid="test-checkbox"
             id="mardi"
             type="checkbox"
           />
@@ -94,6 +96,7 @@ exports[`CreateInputCheckbox snapshot test > testing CreateInputCheckbox compone
         >
           <input
             class="checkbox--input"
+            data-testid="test-checkbox"
             id="mercredi"
             type="checkbox"
           />
@@ -105,6 +108,7 @@ exports[`CreateInputCheckbox snapshot test > testing CreateInputCheckbox compone
         >
           <input
             class="checkbox--input"
+            data-testid="test-checkbox"
             id="jeudi"
             type="checkbox"
           />
@@ -116,6 +120,7 @@ exports[`CreateInputCheckbox snapshot test > testing CreateInputCheckbox compone
         >
           <input
             class="checkbox--input"
+            data-testid="test-checkbox"
             id="vendredi"
             type="checkbox"
           />

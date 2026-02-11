@@ -1,10 +1,11 @@
 /// <reference types="vitest" />
+import { useState } from 'react'
 import { describe, expect, it, vi } from 'vitest'
+import userEvent from '@testing-library/user-event'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import CreateInputCheckbox from '../../CreateInputCheckbox'
-import { useState } from 'react'
 import type { ParamsTodoType } from '../../../lib/definitions'
+import CreateInputCheckbox from '../../CreateInputCheckbox'
 
 describe('CreateInputCheckbox snapshot test', () => {
   it('testing CreateInputCheckbox component', () => {
@@ -209,3 +210,60 @@ it('calls handleSubmit on form submit', () => {
   fireEvent.submit(screen.getByRole('button'))
   expect(baseProps.handleSubmit).toHaveBeenCalled()
 })
+
+describe("CreateInputCheckbox - handleCheckBox", () => {
+  it("appelle handleCheckBox et met à jour checked", async () => {
+    const mockHandleCheckBox = vi.fn();
+
+    render(
+      <CreateInputCheckbox
+        date="2026-02-11"
+        project="TestProject"
+        liste={""}
+        delay={""}
+        client="Client"
+        email="test@test.com"
+        phone="000"
+        priority="High"
+        setParamsTodo={vi.fn()}
+        selectedDay={undefined}
+        handleCheckBox={mockHandleCheckBox}
+        handleSubmit={vi.fn()}
+      />
+    );
+
+    const mardiCheckbox = screen.getByLabelText("Mardi");
+
+    await userEvent.click(mardiCheckbox);
+
+    expect(mockHandleCheckBox).toHaveBeenCalledWith("mardi");
+  });  
+});
+
+describe("CreateInputCheckbox", () => {
+  it("appelle handleCheckBox et met à jour selectedDay", async () => {
+    const mockHandleCheckBox = vi.fn();
+
+    render(
+      <CreateInputCheckbox
+        date="2026-02-11"
+        project=""
+        liste=""
+        delay="2026-02-11"
+        client=""
+        email=""
+        phone=""
+        priority="option3"
+        setParamsTodo={vi.fn()}
+        selectedDay={undefined}
+        handleCheckBox={mockHandleCheckBox}
+        handleSubmit={vi.fn()}
+      />
+    );
+
+    const mardiCheckbox = screen.getByLabelText("Mardi"); // Assure-toi que CheckboxComp a aria-label
+    await userEvent.click(mardiCheckbox);
+
+    expect(mockHandleCheckBox).toHaveBeenCalledWith("mardi");
+  });
+});

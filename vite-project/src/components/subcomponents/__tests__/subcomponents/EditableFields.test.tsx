@@ -123,5 +123,4 @@ describe("", () => {
         expect(screen.getByDisplayValue("textarea test")).toBeInTheDocument();
         expect(screen.getByTestId("submit-btn")).toBeInTheDocument();
     });
-
 })

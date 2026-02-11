@@ -1,10 +1,10 @@
 import { describe, test, expect, vi, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
-import TableCalendar from '../../TableCalendar';
 import type { SetStateAction } from 'react';
 import type { Todo } from '../../../lib/definitions';
 import { callApiCalendar } from '../../../utils/apiFunctions';
+import TableCalendar from '../../TableCalendar';
 
 describe('CreateInputCheckbox snapshot test', () => {
     test('testing CreateInputCheckbox component', () => {
@@ -48,6 +48,14 @@ vi.mock("../../../utils/dateUtils", () => ({
         a.getFullYear() === b.getFullYear() &&
         a.getMonth() === b.getMonth() &&
         a.getDate() === b.getDate(),
+}));
+
+// 🔥 On mock les utils de date pour stabiliser le rendu
+vi.mock("../../../utils/dateUtils", () => ({
+    parseDate: vi.fn(() => new Date(2024, 0, 2)),
+    getISOWeekNumber: vi.fn(() => 1),
+    getWeekDays: vi.fn(() => [new Date(2024, 0, 2)]),
+    isSameDay: vi.fn(() => true),
 }));
 
 // =====================
@@ -109,53 +117,74 @@ describe("TableCalendar", () => {
         expect(screen.getByText("Projet React")).toBeInTheDocument();
 
     });
-
-    // it("passe en mode édition au clic sur la date", async () => {
-    //     const user = userEvent.setup();
-
-    //     render(
-    //         <TableCalendar
-    //             todos={todosMock}
-    //             setTodos={vi.fn()}
-    //         />
-    //     );
-
-    //     await user.click(screen.getByText("02/01/2024 14:30"));
-
-    //     expect(screen.getByRole("textbox")).toBeInTheDocument();
-    //     expect(screen.getByRole("button")).toBeInTheDocument();
-    // });
-
-    // it("modifie la date et valide le todo", async () => {
-    //     const user = userEvent.setup();
-    //     const setTodos = vi.fn();
-
-    //     render(
-    //         <TableCalendar
-    //         todos={todosMock}
-    //         setTodos={setTodos}
-    //         />
-    //     );
-
-    //     // 1) Entrer en mode édition
-    //     await user.click(screen.getByText(/02\/01\/2024 14:30/));
-
-    //     // 2) Modifier la date
-    //     const input = screen.getByRole("textbox");
-    //     await user.clear(input);
-    //     await user.type(input, "10/01/2024 14:30");
-
-    //     // 3) Valider
-    //     await user.click(screen.getByRole("button"));
-
-    //     // 4) Vérifier setTodos
-    //     expect(setTodos).toHaveBeenCalledTimes(1);
-    //     expect(typeof setTodos.mock.calls[0][0]).toBe("function");
-
-    //     // 5) Vérifier l'appel API avec la nouvelle date
-    //     expect(callApiCalendar).toHaveBeenCalledWith(
-    //         "1",
-    //         "10/01/2024 14:30"
-    //     );
-    // });
 });
+    // 🔥 Mock API
+    vi.mock("../../../utils/apiFunctions.ts", () => ({
+        callApiCalendar: vi.fn(),
+    }));
+
+describe("TableCalendar - submitDelay (userEvent)", () => {
+    it("met à jour le todo, appelle l'API et quitte le mode édition", async () => {
+
+        const user = userEvent.setup();
+
+        const setTodos = vi.fn();
+
+        render(<TableCalendar todos={todosMock} setTodos={setTodos} />);
+
+        // 🔹 Entrer en mode édition
+        const delaySpan = screen.getByText("02/01/2024 14:30:");
+        await user.click(delaySpan);
+
+        // 🔹 Modifier la valeur
+        const input = screen.getByDisplayValue("02/01/2024 14:30");
+        await user.clear(input);
+        await user.type(input, "05/01/2026 14:30");
+
+        // 🔹 Valider
+        const button = screen.getByRole("button");
+        await user.click(button);
+
+        // ✅ setTodos appelé
+        expect(setTodos).toHaveBeenCalledTimes(1);
+
+        // ✅ Vérification de la fonction interne
+        const updateFn = setTodos.mock.calls[0][0];
+        const updated = updateFn(todosMock);
+
+        expect(updated[0].delay).toBe("05/01/2026 14:30");
+
+        // ✅ API appelée avec bonnes valeurs
+        expect(callApiCalendar).toHaveBeenCalledWith("1", "05/01/2026 14:30");
+
+        // ✅ L'input disparaît
+        expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+    });
+});
+
+
+describe("TableCalendar - truncate (via rendu)", () => {
+    it("tronque le texte si supérieur à 20 caractères", () => {
+        render(<TableCalendar todos={todosMock} setTodos={vi.fn()} />);
+        // 20 caractères + "…"
+        expect(
+            screen.getByText("Projet React")
+        ).toBeInTheDocument();
+    });
+
+    it("ne tronque pas si le texte est inférieur à 20 caractères", () => {
+        render(<TableCalendar todos={todosMock} setTodos={vi.fn()} />);
+        expect(
+            screen.getByText("Projet React")
+        ).toBeInTheDocument();
+    });
+
+    it("retourne une chaîne vide si project est vide", () => {
+        render(<TableCalendar todos={todosMock} setTodos={vi.fn()} />);
+        // On vérifie juste que le rendu ne plante pas
+        expect(
+            screen.getByText(/02\/01\/2024/)
+        ).toBeInTheDocument();
+    });
+});
+

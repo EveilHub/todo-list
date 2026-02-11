@@ -293,6 +293,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
         >
           <span
             class="span--client--mail--phone show"
+            data-testid="toggle-client-inputs"
           >
             <svg
               fill="currentColor"

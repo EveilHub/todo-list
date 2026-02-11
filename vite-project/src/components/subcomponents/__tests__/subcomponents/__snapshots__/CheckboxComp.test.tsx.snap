@@ -8,6 +8,7 @@ exports[`DateCalendar snapshot test > testing DateCalendar component 1`] = `
   >
     <input
       class="checkbox--input"
+      data-testid="test-checkbox"
       id=""
       type="checkbox"
     />
