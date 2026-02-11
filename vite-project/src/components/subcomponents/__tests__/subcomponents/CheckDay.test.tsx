@@ -8,11 +8,16 @@ import type { ChangeEvent } from 'react';
 describe('CheckDay snapshot test', () => {
     test('testing CheckDay component', () => {
         const { container } = render(
-            <CheckDay id={''} dayBool={false} selectedDay={undefined} handleChangeDay={function (_e: ChangeEvent<HTMLSelectElement>): void {
-                throw new Error('Function not implemented.');
-            } } onClick={function (): void {
-                throw new Error('Function not implemented.');
-            } } />
+            <CheckDay 
+                id={''} 
+                dayBool={false} 
+                selectedDay={undefined} 
+                handleChangeDay={function (_e: ChangeEvent<HTMLSelectElement>): void {
+                    throw new Error('Function not implemented.');
+                }} onClick={function (): void {
+                    throw new Error('Function not implemented.');
+                }} 
+            />
         );
         expect(container).toMatchSnapshot();
     });

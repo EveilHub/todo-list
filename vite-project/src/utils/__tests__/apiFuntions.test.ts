@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import {
     callApiPriority,
     callApiDay,
@@ -10,6 +10,7 @@ import {
     callApiMail,
     callApiPhone
 } from "../apiFunctions";
+import type { WriteEditType } from "../../lib/definitions";
 
 vi.stubGlobal("fetch", vi.fn());
 
@@ -26,12 +27,12 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ priority: "high" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ priority: "high" })
+            })
         );
     });
 
@@ -42,12 +43,12 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ selectedDay: "monday" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ selectedDay: "monday" })
+            })
         );
     });
 
@@ -66,10 +67,10 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            body: JSON.stringify({ project: "Project A" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                body: JSON.stringify({ project: "Project A" })
+            })
         );
     });
 
@@ -88,10 +89,10 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            body: JSON.stringify({ liste: "Liste A" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                body: JSON.stringify({ liste: "Liste A" })
+            })
         );
     });
 
@@ -110,10 +111,10 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            body: JSON.stringify({ delay: "05/01/2026 11:00" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                body: JSON.stringify({ delay: "05/01/2026 11:00" })
+            })
         );
     });
 
@@ -124,12 +125,12 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ delay: "05/01/2026 11:00" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ delay: "05/01/2026 11:00" })
+            })
         );
     });
 
@@ -148,10 +149,10 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            body: JSON.stringify({ client: "Leslie" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                body: JSON.stringify({ client: "Leslie" })
+            })
         );
     });
 
@@ -170,10 +171,10 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            body: JSON.stringify({ email: "jeannedarc@mail.com" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                body: JSON.stringify({ email: "jeannedarc@mail.com" })
+            })
         );
     });
 
@@ -193,10 +194,48 @@ describe("API call functions", () => {
 
         expect(fetch).toHaveBeenCalledOnce();
         expect(fetch).toHaveBeenCalledWith(
-        "http://localhost:3001/api/todos/123",
-        expect.objectContaining({
-            body: JSON.stringify({ phone: "021 731 28 00" })
-        })
+            "http://localhost:3001/api/todos/123",
+            expect.objectContaining({
+                body: JSON.stringify({ phone: "021 731 28 00" })
+            })
         );
+    });
+});
+
+describe("callApiWriteEditType", () => {
+    beforeEach(() => {
+        vi.restoreAllMocks();
+    });
+
+    afterEach(() => {
+        vi.clearAllMocks();
+    });
+
+    it("doit appeler console.error si fetch échoue", async () => {
+        vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("Network error")));
+
+        const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+        const mockParams: WriteEditType = {
+            editId: "",
+            editProject: "New Project",
+            editListe: "New Liste",
+            editDelay: "01/02/2026",
+            editClient: "Noa",
+            editMail: "mainmail@mail.com",
+            editPhone: "076 653 45 44"
+        };
+
+        await callApiPriority("1", "high");
+        await callApiDay("2", "mardi");
+        await callApiProject("3", mockParams);
+        await callApiListe("4", mockParams);
+        await callApiDelay("5", mockParams);
+        await callApiCalendar("6", "01/02/2026");
+        await callApiClient("7", mockParams);
+        await callApiMail("8", mockParams);
+        await callApiPhone("9", mockParams);
+
+        expect(consoleSpy).toHaveBeenCalledTimes(9);
     });
 });
