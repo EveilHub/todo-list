@@ -31,12 +31,12 @@ vi.mock('../../TodoPerDay', () => ({
   )
 }));
 
-const todos = [
+const todos: Todo[] = [
   { id: 1, title: 'Low priority' },
   { id: 2, title: 'High priority' }
 ] as any;
 
-const sortedTodos = [
+const sortedTodos: Todo[] = [
   { id: 2, title: 'High priority' },
   { id: 1, title: 'Low priority' }
 ] as any;
@@ -52,11 +52,9 @@ test('sorts todos and renders them in sorted order', () => {
     />
   );
 
-  // fonction appelée avec les bons todos
   expect(mockedSortTodos).toHaveBeenCalledWith(todos);
 
-  // rendu dans l’ordre trié
-  const items = screen.getAllByTestId('todo-item'); // ceci devrait fonctionner maintenant
+  const items = screen.getAllByTestId('todo-item');
   expect(items[0]).toHaveTextContent('High priority');
   expect(items[1]).toHaveTextContent('Low priority');
 });

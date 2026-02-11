@@ -32,6 +32,7 @@ import {
   callApiMail,
   callApiPhone,
 } from "../apiFunctions";
+import type { WriteEditType } from "../../lib/definitions";
 
 // Mock initial todo
 const initialTodos = [
@@ -80,7 +81,8 @@ describe("callChangeDay", () => {
 });
 
 // Mock WriteEditType
-const editWriteParams = {
+const editWriteParams: WriteEditType = {
+  editId: "1",
   editProject: "Project X",
   editListe: "Liste A",
   editDelay: "2 days",
@@ -110,12 +112,12 @@ const testSubmit = async (
   const setEditBoolParams = (fn: any) => { editBoolParams = fn(editBoolParams); };
   const e = { preventDefault: vi.fn() } as any;
 
-  await fn(e, editWriteParams, setTodos, setEditBoolParams, "1");
+  await fn(e, editWriteParams, setTodos, setEditBoolParams, editWriteParams.editId);
 
   // Vérification
   expect(e.preventDefault).toHaveBeenCalled();
   expect(todos[0][todoKey]).toBe(editWriteParams[key]);
-  expect(apiFn).toHaveBeenCalledWith("1", editWriteParams);
+  expect(apiFn).toHaveBeenCalledWith(editWriteParams.editId, editWriteParams);
   expect(editBoolParams[boolKey as keyof typeof editBoolParams]).toBe(true);
 };
 

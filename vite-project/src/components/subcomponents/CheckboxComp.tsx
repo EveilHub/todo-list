@@ -2,12 +2,13 @@ import type { JSX } from "react";
 import type { CheckBoxType } from "../../lib/definitions";
 import "./styles/CheckboxComp.css";
 
-const CheckboxComp = ({params, checked, handleCheckBox, children,}: CheckBoxType): JSX.Element => {
+const CheckboxComp = ({params, checked, handleCheckBox, children}: CheckBoxType): JSX.Element => {
     return (
         <label htmlFor={params} className="checkbox--lbl">
             <input
                 type="checkbox"
                 id={params}
+                data-testid="test-checkbox"
                 checked={checked}
                 onChange={() => handleCheckBox(params)}
                 className="checkbox--input"

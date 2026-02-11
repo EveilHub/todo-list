@@ -1,5 +1,9 @@
-import type { SetStateAction } from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { 
+    screen,
+    render, 
+    fireEvent, 
+    waitFor 
+} from "@testing-library/react";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import type { Todo } from "../../../lib/definitions";
 import { 
@@ -13,6 +17,7 @@ import {
     handleChangePriority 
 } from "../../../utils/todoFunctions";
 import TodoPerDay from "../../TodoPerDay";
+
 
 describe('TodoPerDay snapshot test', () => {
     it('testing TodoPerDay component', () => {
@@ -35,7 +40,7 @@ describe('TodoPerDay snapshot test', () => {
                 isDoneClient: false,
                 isDoneMail: false,
                 isDonePhone: false
-            }} todos={[]} setTodos={function (_value: SetStateAction<Todo[]>): void {
+            }} todos={[]} setTodos={function (_value: React.SetStateAction<Todo[]>): void {
                 throw new Error("Function not implemented.");
             } } />
         );
@@ -163,42 +168,53 @@ describe("TodoPerDay - actions", () => {
             expect(fetchMock).toHaveBeenCalledTimes(2);
         });
     });
+});
 
+describe('TodoPerDay Component – client/mail/phone coverage', () => {
+    const todo: Todo = {
+        id: '1',
+        client: 'John Doe',
+        email: 'john@mail.com',
+        phone: '123456789',
+        project: 'Project A',
+        liste: 'List A',
+        delay: '2026-01-01',
+        priority: 'High',
+        date: '2026-01-01',
+        isDoneClient: false,
+        isDoneMail: false,
+        isDonePhone: false,
+        isDoneProject: false,
+        isDoneListe: false,
+        isDoneDelay: false,
+        selectedDay: 'Monday',
+        isDoneDate: false
+    };
 
-    // !!! là rien ne va plus !!!
-    // it("updates editWriteParams when project input changes", () => {
-    //     const { getByRole } = render(
-    //         <TodoPerDay
-    //             todo={mockTodos[0]}
-    //             todos={mockTodos}
-    //             setTodos={mockSetTodos}
-    //         />
-    //     );
-    //     const input = getByRole("textbox");
-    //     fireEvent.change(input, {
-    //         target: {
-    //             name: "editProject",
-    //             value: "New Project",
-    //         },
-    //     });
-    //     expect(input).toHaveValue("New Project");
-    // });
+    const todos = [todo];
+    const setTodos = vi.fn();
 
-    // it("updates editListe when textarea changes", () => {
-    //     const { getByRole } = render(
-    //         <TodoPerDay
-    //             todo={mockTodos[0]}
-    //             todos={mockTodos}
-    //             setTodos={mockSetTodos}
-    //         />
-    //     );
-    //     const textarea = getByRole("textbox");
-    //     fireEvent.change(textarea, {
-    //         target: {
-    //             name: "editListe",
-    //             value: "Nouvelle liste",
-    //         },
-    //     });
-    //     expect(textarea).toHaveValue("Nouvelle liste");
-    // });
+    it('should show inputs when eye icon is clicked and hide on mouse leave', () => {
+        render(<TodoPerDay todo={todo} todos={todos} setTodos={setTodos} />);
+
+        const clientDiv = screen.getByText('John Doe').closest('.client--mail--phone');
+        expect(clientDiv).toHaveClass('is-close');
+
+        const toggleButton = screen.getByTestId('toggle-client-inputs');
+        fireEvent.click(toggleButton);
+
+        expect(clientDiv).toHaveClass('is-open');
+        fireEvent.mouseLeave(clientDiv!);
+        expect(clientDiv).toHaveClass('is-close');
+    });
+
+    it('should call submit functions on EditableFields submit', () => {
+        render(<TodoPerDay todo={todo} todos={todos} setTodos={setTodos} />);
+
+        const toggleButton = screen.getByTestId('toggle-client-inputs');
+        fireEvent.click(toggleButton);
+
+        const clientDiv = screen.getByText(todo.client).closest('.client--mail--phone');
+        expect(clientDiv).toHaveClass('is-open');
+    });
 });

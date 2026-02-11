@@ -1,9 +1,9 @@
 /// <reference types="vitest" />
+import type { ChangeEvent } from 'react';
 import { describe, expect, test, vi } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import CheckDay from '../../CheckDay';
-import type { ChangeEvent } from 'react';
 
 describe('CheckDay snapshot test', () => {
     test('testing CheckDay component', () => {

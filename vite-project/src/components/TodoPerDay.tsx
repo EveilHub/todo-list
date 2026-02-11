@@ -357,6 +357,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             <span 
               onClick={() => setIsVisible(true)}
               className={`span--client--mail--phone ${isVisible ? "hide" : "show"}`}
+              data-testid="toggle-client-inputs"
             >
               <FaEye size={24} />
             </span>

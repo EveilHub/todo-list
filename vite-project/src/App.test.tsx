@@ -4,7 +4,8 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import type { Todo } from './lib/definitions.ts'
 import App from './App.tsx'
-
+import CheckDay from './components/subcomponents/CheckDay.tsx';
+import CheckboxComp from './components/subcomponents/CheckboxComp.tsx';
 
 describe('App snapshot test', () => {
   it('testing App component', () => {
@@ -154,4 +155,133 @@ describe('App view switching', () => {
       expect(screen.getByText('TableCalendar')).toBeInTheDocument()
     })
   })
-})
+});
+
+describe("CheckDay - mode select", () => {
+  it("affiche le select et déclenche handleChangeDay", async () => {
+    const mockHandleChangeDay = vi.fn();
+    const mockOnClick = vi.fn();
+
+    render(
+      <CheckDay
+        id="test"
+        dayBool={false}
+        selectedDay="lundi"
+        handleChangeDay={mockHandleChangeDay}
+        onClick={mockOnClick}
+      />
+    );
+
+    const select = screen.getByTestId("day-select");
+
+    expect(select).toBeInTheDocument();
+
+    await userEvent.selectOptions(select, "mardi");
+
+    expect(mockHandleChangeDay).toHaveBeenCalled();
+  });
+
+  it("déclenche onClick au mouseLeave", async () => {
+    const mockHandleChangeDay = vi.fn();
+    const mockOnClick = vi.fn();
+
+    render(
+      <CheckDay
+        id="test"
+        dayBool={false}
+        selectedDay="lundi"
+        handleChangeDay={mockHandleChangeDay}
+        onClick={mockOnClick}
+      />
+    );
+
+    const select = screen.getByTestId("day-select");
+
+    await userEvent.unhover(select);
+
+    expect(mockOnClick).toHaveBeenCalled();
+  });
+});
+
+describe("CheckDay - mode span", () => {
+  it("affiche le jour en majuscule", () => {
+    render(
+      <CheckDay
+        id="test"
+        dayBool={true}
+        selectedDay="lundi"
+        handleChangeDay={vi.fn()}
+        onClick={vi.fn()}
+      />
+    );
+
+    const span = screen.getByTestId("toggle-day");
+
+    expect(span).toBeInTheDocument();
+    expect(span).toHaveTextContent("LUNDI");
+  });
+
+  it("déclenche onClick au mouseEnter", async () => {
+    const mockOnClick = vi.fn();
+
+    render(
+      <CheckDay
+        id="test"
+        dayBool={true}
+        selectedDay="lundi"
+        handleChangeDay={vi.fn()}
+        onClick={mockOnClick}
+      />
+    );
+
+    const span = screen.getByTestId("toggle-day");
+
+    await userEvent.hover(span);
+
+    expect(mockOnClick).toHaveBeenCalled();
+  });
+
+
+  it("CheckboxComp test", async () => {
+    const mockOnClick = vi.fn();
+
+    render(
+      <CheckboxComp 
+        params={''} 
+        checked={false} 
+        handleCheckBox={mockOnClick}
+        children={undefined}      
+      />
+    );
+
+    const box = screen.getByTestId("test-checkbox");
+
+    await userEvent.click(box);
+
+    expect(mockOnClick).toHaveBeenCalled();
+  });
+
+
+  // it("met à jour selectedDay via App", async () => {
+  //   // Mock useFetchDate pour retourner une date fixe
+  //   vi.mock('./hooks/useFetchDate', () => ({
+  //     useFetchDate: () => "02/11/2025 09:00"
+  //   }));
+
+  //   render(<App />);
+
+  //   // Vérifie que le loading a disparu
+  //   await screen.findByLabelText("Mardi"); // attend que la checkbox soit là
+
+  //   const mardiCheckbox = screen.getByLabelText("Mardi");
+  //   await userEvent.click(mardiCheckbox);
+
+  //   // Ici, pour vérifier selectedDay, soit :
+  //   // - tu exposes selectedDay pour test (pas recommandé)
+  //   // - soit tu relies à l'effet observable : checked = true
+  //   expect(mardiCheckbox).toBeChecked();
+  // });
+
+});
+
+
