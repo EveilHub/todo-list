@@ -18,7 +18,7 @@ const FetchFromCSV = (): JSX.Element => {
 
         const data: Todo[] = await res.json();
         setTodos(data);
-      } catch (err) {
+      } catch (err: unknown) {
         const error = err as {message: string}; 
         setError(error.message);
       } finally {
@@ -35,7 +35,7 @@ const FetchFromCSV = (): JSX.Element => {
       await fetch(`http://localhost:3001/api/todos/csv/${id}`, {
         method: "DELETE",
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Erreur suppression serveur", error);
     }
   };
