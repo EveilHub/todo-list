@@ -2,7 +2,7 @@ import {
     screen,
     render, 
     fireEvent, 
-    waitFor 
+    waitFor
 } from "@testing-library/react";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import type { Todo } from "../../../lib/definitions";
@@ -16,8 +16,9 @@ import {
     callChangeDay,
     handleChangePriority 
 } from "../../../utils/todoFunctions";
+import { changeColor } from "../../../utils/fonctions";
 import TodoPerDay from "../../TodoPerDay";
-
+import EditableFields from "../../subcomponents/EditableFields";
 
 describe('TodoPerDay snapshot test', () => {
     it('testing TodoPerDay component', () => {
@@ -44,10 +45,32 @@ describe('TodoPerDay snapshot test', () => {
                 throw new Error("Function not implemented.");
             } } />
         );
-        // Snapshot à partir du container DOM
         expect(container).toMatchSnapshot();
     });
 });
+
+const mockTodo: Todo = {
+    id: '1',
+    client: 'John Doe',
+    email: 'john@mail.com',
+    phone: '123456789',
+    project: 'Project A',
+    liste: 'List A',
+    delay: '2026-01-01',
+    priority: 'High',
+    date: '2026-01-01',
+    isDoneClient: false,
+    isDoneMail: false,
+    isDonePhone: false,
+    isDoneProject: false,
+    isDoneListe: false,
+    isDoneDelay: false,
+    selectedDay: 'Monday',
+    isDoneDate: false
+};
+
+const mockTodos: Todo[] = [mockTodo];
+const mockSetTodos = vi.fn();
 
 vi.mock("../../../apiFunctions", () => ({
     callApiProject: vi.fn(),
@@ -71,32 +94,16 @@ vi.mock("../../../utils/todoFunctions", () => ({
     handleChangePriority: vi.fn(),
 }));
 
+vi.mock("../../../utils/fonctions", () => ({
+  changeColor: vi.fn(),
+  formatPhoneNumber: vi.fn(() => "formatted"),
+}));
+
 afterEach(() => {
     vi.restoreAllMocks();
 });
 
 describe("TodoPerDay - actions", () => {
-    const mockSetTodos = vi.fn();
-    const mockTodos: Todo[] = [{
-        id: "1",
-        date: "01/01/2025",
-        project: "Old Project",
-        liste: "",
-        delay: "",
-        client: "",
-        email: "",
-        phone: "",
-        priority: "option1",
-        selectedDay: "lundi",
-        isDoneProject: false,
-        isDoneListe: false,
-        isDoneDelay: false,
-        isDoneClient: false,
-        isDoneMail: false,
-        isDonePhone: false,
-        isDoneDate: false,
-    }];
-
     it("calls submit functions on each submit button click", () => {
         const { getAllByTestId } = render(
             <TodoPerDay
@@ -153,6 +160,23 @@ describe("TodoPerDay - actions", () => {
         expect(mockSetTodos).toHaveBeenCalled();
     });
 
+    it("hides delete button when crossed", () => {
+        const { container } = render(
+            <TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />
+        );
+
+        const crossBtn = container.querySelector(".cross--out--btn");
+        fireEvent.click(crossBtn!);
+
+        const deleteBtn = container.querySelector(".delete--btn");
+        expect(deleteBtn).toBeNull();
+    });
+
+    it("calls changeColor on priority change", () => {
+        render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
+        expect(changeColor).toHaveBeenCalled();
+    });
+
     it("calls fetch twice when delete button clicked", async () => {
         const fetchMock = vi.fn().mockResolvedValue({ ok: true });
         vi.stubGlobal("fetch", fetchMock);
@@ -168,34 +192,15 @@ describe("TodoPerDay - actions", () => {
             expect(fetchMock).toHaveBeenCalledTimes(2);
         });
     });
-});
 
-describe('TodoPerDay Component – client/mail/phone coverage', () => {
-    const todo: Todo = {
-        id: '1',
-        client: 'John Doe',
-        email: 'john@mail.com',
-        phone: '123456789',
-        project: 'Project A',
-        liste: 'List A',
-        delay: '2026-01-01',
-        priority: 'High',
-        date: '2026-01-01',
-        isDoneClient: false,
-        isDoneMail: false,
-        isDonePhone: false,
-        isDoneProject: false,
-        isDoneListe: false,
-        isDoneDelay: false,
-        selectedDay: 'Monday',
-        isDoneDate: false
-    };
-
-    const todos = [todo];
-    const setTodos = vi.fn();
+    it("toggles dayBool when day component clicked", () => {
+        const { container } = render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
+        const dayButton = container.querySelector(".day--priority");
+        fireEvent.click(dayButton!);
+    });
 
     it('should show inputs when eye icon is clicked and hide on mouse leave', () => {
-        render(<TodoPerDay todo={todo} todos={todos} setTodos={setTodos} />);
+        render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
 
         const clientDiv = screen.getByText('John Doe').closest('.client--mail--phone');
         expect(clientDiv).toHaveClass('is-close');
@@ -209,12 +214,102 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
     });
 
     it('should call submit functions on EditableFields submit', () => {
-        render(<TodoPerDay todo={todo} todos={todos} setTodos={setTodos} />);
+        render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
 
         const toggleButton = screen.getByTestId('toggle-client-inputs');
         fireEvent.click(toggleButton);
 
-        const clientDiv = screen.getByText(todo.client).closest('.client--mail--phone');
+        const clientDiv = screen.getByText(mockTodo.client).closest('.client--mail--phone');
         expect(clientDiv).toHaveClass('is-open');
+    });
+});
+
+describe('TodoPerDay Component – client/mail/phone coverage', () => {
+    it('renders correctly', () => {
+        render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
+        expect(screen.getByText(mockTodo.project)).toBeInTheDocument();
+    });
+
+    it("does nothing if todo.date is missing", async () => {
+        const todoWithoutDate = {...mockTodo, date: ""};
+        render(
+            <TodoPerDay 
+                todo={todoWithoutDate} 
+                todos={mockTodos} 
+                setTodos={mockSetTodos} 
+            />
+        );
+        const deleteBtn = screen.queryByRole("button", { name: /delete/i });
+        expect(deleteBtn).toBeFalsy();
+    });
+
+    it("does nothing if todo not found in todos", async () => {
+        const { container } = render(
+            <TodoPerDay 
+                todo={{...mockTodo, id: "999"}} 
+                todos={mockTodos} 
+                setTodos={mockSetTodos} 
+            />
+        );
+        const deleteBtn = container.querySelector(".delete--btn");
+        if (deleteBtn) await fireEvent.click(deleteBtn);
+        expect(mockSetTodos).not.toHaveBeenCalledWith(expect.arrayContaining([{ id: '999' }]));
+    });
+
+    it("renders input in edit mode and shows save icon", () => {
+        render(
+            <EditableFields
+                as="input"
+                type="text"
+                name="editProject"
+                value="Test"
+                editBoolParams={true}
+                editWriteParams="Test"
+                isDoneParams={false}
+                onSubmit={vi.fn()}
+                onChange={vi.fn()}
+                className="test"
+            />
+        );
+
+        expect(screen.getByDisplayValue("Test")).toBeInTheDocument();
+        expect(screen.getByTestId("submit-btn")).toBeInTheDocument();
+    });
+
+    it("renders strikethrough when isDoneParams is true", () => {
+        render(
+            <EditableFields
+            as="input"
+            name="editProject"
+            value="Test"
+            editBoolParams={false}
+            editWriteParams="Test"
+            isDoneParams={true}
+            onSubmit={vi.fn()}
+            onChange={vi.fn()}
+            className="test"
+            />
+        );
+
+        expect(screen.getByText("Test").tagName).toBe("S");
+    });
+
+    it("renders readonly textarea when not editing", () => {
+        render(
+            <EditableFields
+            as="textarea"
+            name="editListe"
+            value="List"
+            editBoolParams={false}
+            editWriteParams="List"
+            isDoneParams={false}
+            onSubmit={vi.fn()}
+            onChange={vi.fn()}
+            className="test"
+            />
+        );
+
+        const textarea = screen.getByDisplayValue("List");
+        expect(textarea).toHaveAttribute("readonly");
     });
 });

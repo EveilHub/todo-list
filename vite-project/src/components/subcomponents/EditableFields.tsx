@@ -1,25 +1,27 @@
-import { type ForwardedRef, type JSX } from "react";
+import { forwardRef, type ForwardedRef, type JSX } from "react";
 import type { EditableProps } from "../../lib/definitions";
 import { BsPencilSquare } from "react-icons/bs";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import "./styles/EditableFields.css";
 
-const EditableFields = (
-    {
-        className,
-        ref,
-        as = "input",
-        rows,
-        cols,
-        type,
-        name,
-        value,
-        editBoolParams,
-        editWriteParams,
-        isDoneParams,
-        onSubmit,
-        onChange
-    }: EditableProps): JSX.Element => {
+const EditableFields = forwardRef<
+    HTMLInputElement | HTMLTextAreaElement,
+    EditableProps
+>(({
+    className,
+    as = "input",
+    rows,
+    cols,
+    type,
+    name,
+    value,
+    editBoolParams,
+    editWriteParams,
+    isDoneParams,
+    onSubmit,
+    onChange
+}, ref): JSX.Element => {
+
     return (
         <form 
             onSubmit={onSubmit} 
@@ -82,5 +84,5 @@ const EditableFields = (
             </div>
         </form>
     )
-};
+});
 export default EditableFields;

@@ -7,13 +7,15 @@ import { Todo } from "./types/definitions";
 import { cleanTodoForCSV } from "./utils/csvCleaner";
 
 //const app = express();
-const PORT: number = 3001;
+//const PORT: number = 3001;
 
 //--- --- --- --- TEST --- --- --- ---//
 
 import { createServer } from './server'
 
 const app = createServer()
+const PORT: number = 3001;
+
 app.listen(PORT, () => {
   console.log('Server running')
 })

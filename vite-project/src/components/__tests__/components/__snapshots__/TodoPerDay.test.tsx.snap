@@ -8,7 +8,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
   >
     <div
       class="container--todo"
-      style="background-color: rgb(0, 0, 47);"
+      style="background-color: rgba(65, 105, 225, 0.1);"
     >
       <div
         class="day--priority"

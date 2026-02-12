@@ -27,6 +27,8 @@ vi.mock("../../../utils/apiFunctions.ts", () => ({
 
 import { callApiCalendar } from '../../../utils/apiFunctions';
 
+const mockSetTodos = vi.fn();
+
 // 🔥 On mock les utils de date pour stabiliser le rendu
 vi.mock("../../../utils/dateUtils", () => ({
     parseDate: vi.fn(() => new Date(2024, 0, 2)),
@@ -34,6 +36,10 @@ vi.mock("../../../utils/dateUtils", () => ({
     getWeekDays: vi.fn(() => [new Date(2024, 0, 2)]),
     isSameDay: vi.fn(() => true),
 }));
+
+beforeEach(() => {
+    vi.clearAllMocks();
+});
 
 // =====================
 // Données de test
@@ -147,6 +153,12 @@ describe("TableCalendar - truncate (via rendu)", () => {
         ).toBeInTheDocument();
     });
 
+    it("tronque un texte long à 20 caractères", () => {
+        const longProject = { ...todosMock[0], project: "Un projet avec un nom vraiment long" };
+        render(<TableCalendar todos={[longProject]} setTodos={vi.fn()} />);
+        expect(screen.getByText("Un projet avec un no…")).toBeInTheDocument();
+    });
+
     it("retourne une chaîne vide si project est vide", () => {
         render(<TableCalendar todos={todosMock} setTodos={vi.fn()} />);
         // On vérifie juste que le rendu ne plante pas
@@ -159,14 +171,17 @@ describe("TableCalendar - truncate (via rendu)", () => {
         render(<TableCalendar todos={[]} setTodos={vi.fn()} />);
         expect(screen.getByText(/Aucun projet agendé/i)).toBeInTheDocument();
     });
+
+    it("affiche l'indicateur de la semaine actuelle", () => {
+        render(<TableCalendar todos={todosMock} setTodos={vi.fn()} />);
+
+        // Vérifie que l'indicateur de la semaine actuelle est affiché
+        expect(screen.getByText(/Semaine 1/)).toBeInTheDocument();
+        expect(screen.getByText("💥")).toBeInTheDocument();
+    });
 });
 
 describe("TableCalendar - submitDelay", () => {
-    const mockSetTodos = vi.fn();
-
-    beforeEach(() => {
-        vi.clearAllMocks();
-    });
 
     it("met à jour le todo, appelle l'API et ferme l'édition", () => {
         render(<TableCalendar todos={todosMock} setTodos={mockSetTodos} />);
