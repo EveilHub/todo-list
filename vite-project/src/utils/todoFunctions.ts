@@ -41,14 +41,12 @@ export const callChangeDay = (
     setTodos: Dispatch<SetStateAction<Todo[]>>,
     setDayBool: Dispatch<SetStateAction<boolean>>
 ): void => {
-    const newDay = e.target.value;
+    const newDay: string = e.target.value;
     setTodos((prev: Todo[]) => prev.map((todo: Todo) => todo.id === id 
         ? { ...todo, selectedDay: newDay } 
         : todo
     ));
-    
     callApiDay(id, newDay);
-
     setDayBool((prev: boolean) => !prev);
 };
 

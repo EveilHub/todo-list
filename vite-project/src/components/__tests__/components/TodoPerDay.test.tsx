@@ -6,7 +6,6 @@ import {
 } from "@testing-library/react";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import type { Todo } from "../../../lib/definitions";
-import { callApiProject } from "../../../utils/apiFunctions";
 import { 
     submitProject,   
     submitListe,
@@ -235,17 +234,6 @@ describe("TodoPerDay - actions", () => {
         // Vérifier que setTodos a été appelé avec les bonnes valeurs
         expect(mockSetTodos).toHaveBeenCalled();
     });
-
-    // it("calls callApiProject when project is updated", () => {
-    //     const { getByRole } = render(
-    //         <TodoPerDay todo={mockTodos[0]} todos={mockTodos} setTodos={mockSetTodos} />
-    //     );
-
-    //     const projectInput = getByRole("input");
-    //     fireEvent.change(projectInput, { target: { value: "New Project" } });
-
-    //     expect(callApiProject).toHaveBeenCalledWith("1", expect.objectContaining({ editProject: "New Project" }));
-    // });
 
     it('should call submit functions on EditableFields submit', () => {
         render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
