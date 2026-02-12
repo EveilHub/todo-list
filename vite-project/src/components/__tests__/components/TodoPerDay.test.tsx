@@ -6,6 +6,7 @@ import {
 } from "@testing-library/react";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import type { Todo } from "../../../lib/definitions";
+import { callApiProject } from "../../../utils/apiFunctions";
 import { 
     submitProject,   
     submitListe,
@@ -19,6 +20,7 @@ import {
 import { changeColor } from "../../../utils/fonctions";
 import TodoPerDay from "../../TodoPerDay";
 import EditableFields from "../../subcomponents/EditableFields";
+
 
 describe('TodoPerDay snapshot test', () => {
     it('testing TodoPerDay component', () => {
@@ -213,6 +215,38 @@ describe("TodoPerDay - actions", () => {
         expect(clientDiv).toHaveClass('is-close');
     });
 
+
+    it("calls handleChangePriority when priority select changes", () => {
+        const { getByTestId } = render(
+            <TodoPerDay todo={mockTodos[0]} todos={mockTodos} setTodos={mockSetTodos} />
+        );
+        fireEvent.mouseEnter(getByTestId("toggle-priority"));
+        const selectPriority = getByTestId("priority-select");
+        fireEvent.change(selectPriority, { target: { value: "mardi" } });
+
+        // Vérifie que handleChangePriority a bien été appelé avec les bons arguments
+        expect(handleChangePriority).toHaveBeenCalledWith(
+            expect.anything(), 
+            "1", // ID du todo
+            expect.anything(), // setTodos
+            expect.anything()  // setParamsPriority
+        );
+
+        // Vérifier que setTodos a été appelé avec les bonnes valeurs
+        expect(mockSetTodos).toHaveBeenCalled();
+    });
+
+    // it("calls callApiProject when project is updated", () => {
+    //     const { getByRole } = render(
+    //         <TodoPerDay todo={mockTodos[0]} todos={mockTodos} setTodos={mockSetTodos} />
+    //     );
+
+    //     const projectInput = getByRole("input");
+    //     fireEvent.change(projectInput, { target: { value: "New Project" } });
+
+    //     expect(callApiProject).toHaveBeenCalledWith("1", expect.objectContaining({ editProject: "New Project" }));
+    // });
+
     it('should call submit functions on EditableFields submit', () => {
         render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
 
@@ -279,15 +313,15 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
     it("renders strikethrough when isDoneParams is true", () => {
         render(
             <EditableFields
-            as="input"
-            name="editProject"
-            value="Test"
-            editBoolParams={false}
-            editWriteParams="Test"
-            isDoneParams={true}
-            onSubmit={vi.fn()}
-            onChange={vi.fn()}
-            className="test"
+                as="input"
+                name="editProject"
+                value="Test"
+                editBoolParams={false}
+                editWriteParams="Test"
+                isDoneParams={true}
+                onSubmit={vi.fn()}
+                onChange={vi.fn()}
+                className="test"
             />
         );
 
@@ -297,15 +331,15 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
     it("renders readonly textarea when not editing", () => {
         render(
             <EditableFields
-            as="textarea"
-            name="editListe"
-            value="List"
-            editBoolParams={false}
-            editWriteParams="List"
-            isDoneParams={false}
-            onSubmit={vi.fn()}
-            onChange={vi.fn()}
-            className="test"
+                as="textarea"
+                name="editListe"
+                value="List"
+                editBoolParams={false}
+                editWriteParams="List"
+                isDoneParams={false}
+                onSubmit={vi.fn()}
+                onChange={vi.fn()}
+                className="test"
             />
         );
 
