@@ -11,3 +11,7 @@ git log -p `<fichier>`
 git diff origin/dev
 
 [x] commit
+
+import { screen } from "@testing-library/react";
+
+screen.debug()
