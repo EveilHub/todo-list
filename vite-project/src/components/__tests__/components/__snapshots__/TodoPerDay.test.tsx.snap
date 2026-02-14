@@ -334,6 +334,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
         </button>
         <button
           class="delete--btn"
+          data-testid="add-delete"
           type="button"
         >
           <svg

@@ -4,6 +4,16 @@ import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 import type { Todo } from '../../../lib/definitions';
 import FetchFromCSV from '../../FetchFromCSV';
 
+
+describe('FetchFromCSV snapshot test', () => {
+    it('testing FetchFromCSV component', () => {
+        const { container } = render(
+            <FetchFromCSV />
+        );
+        expect(container).toMatchSnapshot();
+    });
+});
+
 const mockTodos: Todo[] = [
     {
         id: "1",
@@ -171,29 +181,20 @@ describe("FetchFromCSV", () => {
         // 3) Simuler l'annulation dans le prompt (l'utilisateur choisit "n")
         promptMock.mockReturnValue("n");
 
-        // Rendre le composant
         const { container } = render(<FetchFromCSV />);
 
-        // Attendre que "Projet A" soit bien rendu avant d'interagir
         await waitFor(() => {
-            // Utiliser queryByText avec une expression régulière pour rendre la recherche plus flexible
             expect(screen.getByText(/Projet A/i)).toBeInTheDocument();
         });
 
-        // Afficher le DOM après le rendu pour vérification
-        console.log(container.innerHTML);  // Vérifier le contenu complet du DOM
+        console.log(container.innerHTML);
 
-        // Trouver le bouton de suppression et simuler un clic
         const deleteButton = screen.getByRole("button");
         fireEvent.click(deleteButton);
 
-        // Attendre que l'action de suppression soit annulée et vérifier que "Projet A" est toujours présent
         await waitFor(() => {
-            // Rechercher le texte dans l'élément parent (qui est un <li> dans ce cas)
             const todo = container.querySelector('li');
-            console.log(todo?.textContent);  // Vérifier le contenu du <li>
-
-            // Vérifier que le projet A est toujours dans le DOM
+            console.log(todo?.textContent);
             expect(todo).toHaveTextContent("Projet A");
         });
     });

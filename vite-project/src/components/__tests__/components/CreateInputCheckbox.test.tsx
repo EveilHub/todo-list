@@ -261,7 +261,7 @@ describe("CreateInputCheckbox", () => {
       />
     );
 
-    const mardiCheckbox = screen.getByLabelText("Mardi"); // Assure-toi que CheckboxComp a aria-label
+    const mardiCheckbox = screen.getByLabelText("Mardi");
     await userEvent.click(mardiCheckbox);
 
     expect(mockHandleCheckBox).toHaveBeenCalledWith("mardi");

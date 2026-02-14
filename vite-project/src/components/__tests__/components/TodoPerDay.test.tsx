@@ -4,7 +4,7 @@ import {
     fireEvent, 
     waitFor
 } from "@testing-library/react";
-import { describe, it, expect, vi, afterEach } from "vitest";
+import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
 import type { Todo } from "../../../lib/definitions";
 import { 
     submitProject,   
@@ -16,10 +16,10 @@ import {
     callChangeDay,
     handleChangePriority 
 } from "../../../utils/todoFunctions";
-import { changeColor } from "../../../utils/fonctions";
+import { changeColor, formatPhoneNumber } from "../../../utils/fonctions";
 import TodoPerDay from "../../TodoPerDay";
 import EditableFields from "../../subcomponents/EditableFields";
-
+import userEvent from "@testing-library/user-event";
 
 describe('TodoPerDay snapshot test', () => {
     it('testing TodoPerDay component', () => {
@@ -42,9 +42,7 @@ describe('TodoPerDay snapshot test', () => {
                 isDoneClient: false,
                 isDoneMail: false,
                 isDonePhone: false
-            }} todos={[]} setTodos={function (_value: React.SetStateAction<Todo[]>): void {
-                throw new Error("Function not implemented.");
-            } } />
+            }} todos={[]} setTodos={vi.fn()} />
         );
         expect(container).toMatchSnapshot();
     });
@@ -95,14 +93,18 @@ vi.mock("../../../utils/todoFunctions", () => ({
     handleChangePriority: vi.fn(),
 }));
 
-vi.mock("../../../utils/fonctions", () => ({
-  changeColor: vi.fn(),
-  formatPhoneNumber: vi.fn(() => "formatted"),
-}));
+vi.mock('../../../utils/fonctions', async (importOriginal) => {
+    const actual = await importOriginal<typeof import('../../../utils/fonctions')>();
+    return {
+        ...actual,
+        changeColor: vi.fn(),
+    };
+});
 
 afterEach(() => {
     vi.restoreAllMocks();
 });
+
 
 describe("TodoPerDay - actions", () => {
     it("calls submit functions on each submit button click", () => {
@@ -175,6 +177,7 @@ describe("TodoPerDay - actions", () => {
 
     it("calls changeColor on priority change", () => {
         render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
+
         expect(changeColor).toHaveBeenCalled();
     });
 
@@ -223,15 +226,13 @@ describe("TodoPerDay - actions", () => {
         const selectPriority = getByTestId("priority-select");
         fireEvent.change(selectPriority, { target: { value: "mardi" } });
 
-        // Vérifie que handleChangePriority a bien été appelé avec les bons arguments
         expect(handleChangePriority).toHaveBeenCalledWith(
             expect.anything(), 
-            "1", // ID du todo
-            expect.anything(), // setTodos
-            expect.anything()  // setParamsPriority
+            "1",
+            expect.anything(),
+            expect.anything()
         );
 
-        // Vérifier que setTodos a été appelé avec les bonnes valeurs
         expect(mockSetTodos).toHaveBeenCalled();
     });
 
@@ -335,3 +336,105 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
         expect(textarea).toHaveAttribute("readonly");
     });
 });
+
+describe('formatPhoneNumber', () => {
+    it('formate correctement un numéro brut', () => {
+        expect(formatPhoneNumber('0766736734'))
+        .toBe('076 673 67 34');
+    });
+    
+    it('retourne une string vide si vide', () => {
+        expect(formatPhoneNumber('')).toBe('');
+    });
+});
+
+
+// describe("handleDelete", () => {
+//     let mockFetch: ReturnType<typeof vi.fn>;
+//     let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+
+//     beforeEach(() => {
+//         mockFetch = vi.fn();
+//         vi.stubGlobal("fetch", mockFetch);
+
+//         consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+//     });
+
+//     afterEach(() => {
+//         vi.restoreAllMocks();
+//     });
+
+//     it("affiche un message d'erreur si le fetch d'ajout échoue", async () => {
+//         // Rejette la promesse pour déclencher le catch
+//         mockFetch.mockRejectedValueOnce(new Error("Erreur ajout todo"));
+
+//         render(
+//         <TodoPerDay
+//             todo={{ ...mockTodo, id: "999" }}
+//             todos={mockTodos}
+//             setTodos={mockSetTodos}
+//         />
+//         );
+
+//         const deleteButton = await screen.findByTestId("add-delete");
+//         await userEvent.click(deleteButton);
+
+//         expect(consoleErrorSpy).toHaveBeenCalledWith(
+//         "Erreur ajout todo",
+//         expect.any(Error)
+//         );
+//     });
+
+//     it("affiche un message d'erreur si le fetch de suppression échoue", async () => {
+//         // Premier fetch ok
+//         mockFetch.mockResolvedValueOnce({ ok: true });
+//         // Deuxième fetch échoue
+//         mockFetch.mockRejectedValueOnce(new Error("Erreur suppression serveur"));
+
+//         render(
+//         <TodoPerDay
+//             todo={{ ...mockTodo, id: "999" }}
+//             todos={mockTodos}
+//             setTodos={mockSetTodos}
+//         />
+//         );
+
+//         const deleteButton = await screen.findByTestId("add-delete");
+//         await userEvent.click(deleteButton);
+
+//         expect(consoleErrorSpy).toHaveBeenCalledWith(
+//         "Erreur suppression serveur",
+//         expect.any(Error)
+//         );
+//     });
+// });
+
+
+// describe("FetchAddDelete", () => {
+//     let mockFetch: ReturnType<typeof vi.fn>;
+    
+//     beforeEach(() => {
+//         mockFetch = vi.fn();
+//         vi.stubGlobal("fetch", mockFetch);
+//     });
+    
+//     afterEach(() => {
+//         vi.restoreAllMocks();
+//     });
+
+//     it("affiche un message d'erreur si le fetch échoue", async () => {
+//         mockFetch.mockResolvedValueOnce({
+//             ok: false,
+//         });
+
+//         render(<TodoPerDay 
+//                 todo={{...mockTodo, id: "999"}} 
+//                 todos={mockTodos} 
+//                 setTodos={mockSetTodos} 
+//         />);
+
+//         await waitFor(() => {
+//             expect(screen.getByText("Erreur ajout todo")).toBeInTheDocument();
+//         });
+//     });
+// });
