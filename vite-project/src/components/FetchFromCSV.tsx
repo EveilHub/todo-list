@@ -80,6 +80,7 @@ const FetchFromCSV = (): JSX.Element => {
 
                 <div className="div--btn">
                   <button
+                    data-testid="btn-delete"
                     type="button" 
                     onClick={() => preDeleteCSVData(todo.id)} 
                     className="delete--btn"  

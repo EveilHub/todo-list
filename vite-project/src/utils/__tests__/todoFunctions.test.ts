@@ -69,8 +69,6 @@ const mockTodos: Todo[] = [
   }
 ];
 
-
-
 describe("callChangeDay", () => {
 
   it('handleChangePriority updates todos and calls API', () => {
@@ -388,10 +386,6 @@ describe("callChangeDay", () => {
     ]);
   });
 
-
-
-
-
   it('Full coverage handleChangePriority', () => {
     const e = { target: { value: 'option1' } } as React.ChangeEvent<HTMLSelectElement>;
 
@@ -417,9 +411,6 @@ describe("callChangeDay", () => {
       { id: '2', priority: 'option3' },
     ]);
   });
-
-
-
 });
 
 // Fonction générique pour tester les submit
