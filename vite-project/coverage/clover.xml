@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1770905323760" clover="3.2.0">
-  <project timestamp="1770905323760" name="All files">
-    <metrics statements="363" coveredstatements="356" conditionals="123" coveredconditionals="116" methods="162" coveredmethods="155" elements="648" coveredelements="627" complexity="0" loc="363" ncloc="363" packages="6" files="19" classes="19"/>
+<coverage generated="1771087709395" clover="3.2.0">
+  <project timestamp="1771087709395" name="All files">
+    <metrics statements="363" coveredstatements="357" conditionals="123" coveredconditionals="116" methods="162" coveredmethods="155" elements="648" coveredelements="628" complexity="0" loc="363" ncloc="363" packages="6" files="19" classes="19"/>
     <package name="server.src">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="server.ts" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/server/src/server.ts">
@@ -60,7 +60,7 @@
       </file>
     </package>
     <package name="src.components">
-      <metrics statements="158" coveredstatements="151" conditionals="49" coveredconditionals="42" methods="80" coveredmethods="73"/>
+      <metrics statements="158" coveredstatements="152" conditionals="49" coveredconditionals="42" methods="80" coveredmethods="73"/>
       <file name="CreateInputCheckbox.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/CreateInputCheckbox.tsx">
         <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="11" coveredmethods="10"/>
         <line num="9" count="1" type="stmt"/>
@@ -77,38 +77,38 @@
         <line num="142" count="1" type="stmt"/>
       </file>
       <file name="FetchFromCSV.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/FetchFromCSV.tsx">
-        <metrics statements="31" coveredstatements="30" conditionals="10" coveredconditionals="10" methods="9" coveredmethods="9"/>
+        <metrics statements="31" coveredstatements="31" conditionals="10" coveredconditionals="10" methods="9" coveredmethods="9"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="9" count="13" type="stmt"/>
-        <line num="10" count="13" type="stmt"/>
-        <line num="11" count="13" type="stmt"/>
-        <line num="13" count="13" type="stmt"/>
-        <line num="14" count="7" type="stmt"/>
-        <line num="15" count="7" type="stmt"/>
-        <line num="16" count="7" type="stmt"/>
-        <line num="17" count="7" type="cond" truecount="2" falsecount="0"/>
-        <line num="19" count="5" type="stmt"/>
-        <line num="20" count="5" type="stmt"/>
+        <line num="9" count="16" type="stmt"/>
+        <line num="10" count="16" type="stmt"/>
+        <line num="11" count="16" type="stmt"/>
+        <line num="13" count="16" type="stmt"/>
+        <line num="14" count="8" type="stmt"/>
+        <line num="15" count="8" type="stmt"/>
+        <line num="16" count="8" type="stmt"/>
+        <line num="17" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
         <line num="22" count="2" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
-        <line num="25" count="7" type="stmt"/>
-        <line num="28" count="7" type="stmt"/>
-        <line num="29" count="7" type="stmt"/>
-        <line num="32" count="13" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="43" count="13" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
-        <line num="45" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="46" count="1" type="stmt"/>
+        <line num="25" count="8" type="stmt"/>
+        <line num="28" count="8" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="32" count="16" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="43" count="16" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
+        <line num="45" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="46" count="2" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
-        <line num="52" count="13" type="cond" truecount="2" falsecount="0"/>
-        <line num="53" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="55" count="5" type="stmt"/>
-        <line num="72" count="3" type="stmt"/>
-        <line num="84" count="2" type="stmt"/>
+        <line num="52" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="53" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="55" count="7" type="stmt"/>
+        <line num="72" count="4" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
       </file>
       <file name="TableCalendar.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/TableCalendar.tsx">
         <metrics statements="42" coveredstatements="42" conditionals="15" coveredconditionals="12" methods="15" coveredmethods="15"/>
