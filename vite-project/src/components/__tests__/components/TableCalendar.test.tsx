@@ -1,16 +1,13 @@
 import { describe, test, expect, vi, it, beforeEach } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
-import type { SetStateAction } from 'react';
-import type { Todo } from '../../../lib/definitions';
 import TableCalendar from '../../TableCalendar';
+import * as dateUtils from '../../../utils/dateUtils';
 
 describe('CreateInputCheckbox snapshot test', () => {
     test('testing CreateInputCheckbox component', () => {
         const { container } = render(
-            <TableCalendar todos={[]} setTodos={function (_value: SetStateAction<Todo[]>): void {
-                throw new Error('Function not implemented.');
-            } } />
+            <TableCalendar todos={[]} setTodos={vi.fn()} />
         );
         expect(container).toMatchSnapshot();
     });
@@ -147,9 +144,10 @@ describe("TableCalendar - truncate (via rendu)", () => {
     });
 
     it("ne tronque pas si le texte est inférieur à 20 caractères", () => {
-        render(<TableCalendar todos={todosMock} setTodos={vi.fn()} />);
+        const courtProjet = { ...todosMock[0], project: "Un projet" };
+        render(<TableCalendar todos={[courtProjet]} setTodos={vi.fn()} />);
         expect(
-            screen.getByText("Projet React")
+            screen.getByText("Un projet")
         ).toBeInTheDocument();
     });
 
@@ -160,11 +158,51 @@ describe("TableCalendar - truncate (via rendu)", () => {
     });
 
     it("retourne une chaîne vide si project est vide", () => {
-        render(<TableCalendar todos={todosMock} setTodos={vi.fn()} />);
+        const emptyProject = { ...todosMock[0], project: "" };
+        render(<TableCalendar todos={[emptyProject]} setTodos={vi.fn()} />);
         // On vérifie juste que le rendu ne plante pas
         expect(
             screen.getByText(/02\/01\/2024/)
         ).toBeInTheDocument();
+    });
+
+    it("groupe les todos par semaine ISO", () => {
+
+        const todosMultipleWeeks = [
+            { ...todosMock[0], id: "1", delay: "02/01/2024 14:30" },
+            { ...todosMock[0], id: "2", delay: "10/01/2024 14:30" },
+        ];
+
+        const mockedGetISOWeekNumber = vi.mocked(dateUtils.getISOWeekNumber);
+
+        mockedGetISOWeekNumber
+            .mockReturnValueOnce(1) // premier todo
+            .mockReturnValueOnce(2) // deuxième todo
+            .mockReturnValueOnce(1); // currentWeek
+
+        render(<TableCalendar todos={todosMultipleWeeks} setTodos={vi.fn()} />);
+
+        expect(screen.getByText("Semaine 1")).toBeInTheDocument();
+        expect(screen.getByText("Semaine 2")).toBeInTheDocument();
+    });
+
+    it("n'initialise pas une nouvelle semaine si elle existe déjà", () => {
+        const sameWeekTodos = [
+            { ...todosMock[0], id: "1" },
+            { ...todosMock[0], id: "2" },
+        ];
+
+        const mockedGetISOWeekNumber = vi.mocked(dateUtils.getISOWeekNumber);
+
+        mockedGetISOWeekNumber
+            .mockReturnValueOnce(1) // todo 1
+            .mockReturnValueOnce(1) // todo 2 (même semaine)
+            .mockReturnValueOnce(1); // currentWeek
+
+        render(<TableCalendar todos={sameWeekTodos} setTodos={vi.fn()} />);
+
+        // Il ne doit y avoir qu'une seule section semaine
+        expect(screen.getAllByText("Semaine 1")).toHaveLength(1);
     });
 
     it("affiche un message si aucun todo", () => {
@@ -203,5 +241,40 @@ describe("TableCalendar - submitDelay", () => {
 
         // 🔹 5. Vérifie que callApiCalendar est appelé avec bons arguments
         expect(callApiCalendar).toHaveBeenCalledWith("1", "15/02/2024 14:30");
+    });
+
+    it("modifie uniquement le todo correspondant à l'id", async () => {
+        const user = userEvent.setup();
+
+        const twoTodos = [
+            { ...todosMock[0], id: "1", delay: "02/01/2024 14:30" },
+            { ...todosMock[0], id: "2", delay: "03/01/2024 10:00" },
+        ];
+
+        const setTodos = vi.fn();
+
+        render(<TableCalendar todos={twoTodos} setTodos={setTodos} />);
+
+        // Activer édition sur le premier todo
+        const delaySpan = screen.getAllByText(/02\/01\/2024/)[0];
+        await user.click(delaySpan);
+
+        const input = screen.getByDisplayValue("02/01/2024 14:30");
+        await user.clear(input);
+        await user.type(input, "05/01/2026 14:30");
+
+        const button = screen.getByRole("button");
+        await user.click(button);
+
+        // Récupère la fonction passée à setTodos
+        const updateFn = setTodos.mock.calls[0][0];
+
+        const updated = updateFn(twoTodos);
+
+        // ✅ Branche TRUE
+        expect(updated[0].delay).toBe("05/01/2026 14:30");
+
+        // ✅ Branche FALSE
+        expect(updated[1].delay).toBe("03/01/2024 10:00");
     });
 });
