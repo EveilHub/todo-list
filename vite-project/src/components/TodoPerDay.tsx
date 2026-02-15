@@ -283,7 +283,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             onChange={editParamsOnChange}
             editBoolParams={editBoolParams.editBoolListe}
             editWriteParams={editWriteParams.editListe}
-            isDoneParams={todo.isDoneProject}
+            isDoneParams={todo.isDoneListe}
           />
 
           <EditableFields

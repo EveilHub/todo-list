@@ -123,4 +123,35 @@ describe("", () => {
         expect(screen.getByDisplayValue("textarea test")).toBeInTheDocument();
         expect(screen.getByTestId("submit-btn")).toBeInTheDocument();
     });
-})
+
+    it("REF - 2 should focus the input when editBoolProject is true", () => {
+        const focusMock = vi.fn();
+
+        const { getByDisplayValue } = render(
+            <EditableFields
+
+                editWriteParams="Project A" 
+                name="editProject"
+                value="Project A"
+                editBoolParams={true}
+                isDoneParams={false} 
+                onSubmit={function (_e: FormEvent<HTMLFormElement>): void {
+                    throw new Error("Function not implemented.");
+                } } onChange={function (_e: ChangeEvent<EditableElement>): void {
+                    throw new Error("Function not implemented.");
+                } }
+            />
+        );
+
+        const input = getByDisplayValue("Project A") as HTMLInputElement;
+
+        // remplacer focus par un mock
+        input.focus = focusMock;
+
+        // déclencher useEffect
+        input.focus();
+
+        expect(focusMock).toHaveBeenCalled();
+    });
+
+});
