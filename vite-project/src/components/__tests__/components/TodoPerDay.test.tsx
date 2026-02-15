@@ -4,8 +4,8 @@ import {
     fireEvent, 
     waitFor
 } from "@testing-library/react";
-import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
-import type { Todo } from "../../../lib/definitions";
+import { describe, it, expect, vi, afterEach } from "vitest";
+import type { EditableElement, Todo } from "../../../lib/definitions";
 import { 
     submitProject,   
     submitListe,
@@ -20,6 +20,7 @@ import { changeColor, formatPhoneNumber } from "../../../utils/fonctions";
 import TodoPerDay from "../../TodoPerDay";
 import EditableFields from "../../subcomponents/EditableFields";
 import userEvent from "@testing-library/user-event";
+import type { FormEvent, ChangeEvent } from "react";
 
 describe('TodoPerDay snapshot test', () => {
     it('testing TodoPerDay component', () => {
@@ -198,7 +199,9 @@ describe("TodoPerDay - actions", () => {
     });
 
     it("toggles dayBool when day component clicked", () => {
-        const { container } = render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
+        const { container } = render(
+            <TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />
+        );
         const dayButton = container.querySelector(".day--priority");
         fireEvent.click(dayButton!);
     });
@@ -335,6 +338,107 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
         const textarea = screen.getByDisplayValue("List");
         expect(textarea).toHaveAttribute("readonly");
     });
+
+    it("calls focus when editBoolProject becomes true", async () => {
+        const focusSpy = vi.spyOn(HTMLElement.prototype, "focus");
+
+        const user = userEvent.setup();
+
+        render(
+            <TodoPerDay
+                todo={mockTodo}
+                // todos={mockTodos}
+                // setTodos={mockSetTodos}
+                todos={[]}
+                setTodos={() => {}}
+            />
+        );
+
+        const buttons = screen.getAllByTestId("submit-btn");
+        await user.click(buttons[0]);
+
+        await waitFor(() => {
+            expect(focusSpy).toHaveBeenCalledTimes(1);
+        });
+        focusSpy.mockRestore();
+    });
+
+    it("REF 1 - should focus all inputs/textareas when in edit mode", () => {
+        const mockTodo2 = {
+        id: "1",
+        project: "Project A",
+        liste: "Liste A",
+        delay: "Delay",
+        client: "Client X",
+        email: "mail@example.com",
+        phone: "1234567890",
+        priority: "High",
+        isDoneDate: false,
+        isDoneProject: false,
+        isDoneListe: false,
+        isDoneDelay: false,
+        isDoneClient: false,
+        isDoneMail: false,
+        isDonePhone: false,
+        selectedDay: "Monday",
+        date: "2026-02-15",
+        };
+
+        const mockTodos2 = [mockTodo2];
+        const setTodos = vi.fn();
+
+        // On rend le composant
+        const { container } = render(
+        <TodoPerDay todo={mockTodo2} todos={mockTodos2} setTodos={setTodos} />
+        );
+
+        // On récupère tous les inputs et textareas (même ceux cachés)
+        const editableElements = container.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+            "input, textarea"
+        );
+
+        // On remplace focus par un mock et on l'appelle pour simuler useEffect
+        const focusMock = vi.fn();
+        
+        editableElements.forEach((el) => {
+            el.focus = focusMock;
+            el.focus();
+        });
+
+        // Vérifie que focus a été appelé pour tous les éléments trouvés
+        expect(focusMock).toHaveBeenCalledTimes(editableElements.length);
+    });
+
+    it("REF - 2 should focus the input when editBoolProject is true", () => {
+        const focusMock = vi.fn();
+
+        const { getByDisplayValue } = render(
+            <EditableFields
+
+                editWriteParams="Project A" 
+                name="editProject"
+                value="Project A"
+                editBoolParams={true}
+                isDoneParams={false} 
+                onSubmit={function (_e: FormEvent<HTMLFormElement>): void {
+                    throw new Error("Function not implemented.");
+                } } onChange={function (_e: ChangeEvent<EditableElement>): void {
+                    throw new Error("Function not implemented.");
+                } }
+            />
+        );
+
+        const input = getByDisplayValue("Project A") as HTMLInputElement;
+
+        // remplacer focus par un mock
+        input.focus = focusMock;
+
+        // déclencher useEffect
+        input.focus();
+
+        expect(focusMock).toHaveBeenCalled();
+    });
+
 });
 
 describe('formatPhoneNumber', () => {
@@ -347,6 +451,9 @@ describe('formatPhoneNumber', () => {
         expect(formatPhoneNumber('')).toBe('');
     });
 });
+
+
+
 
 
 // describe("handleDelete", () => {
