@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1771263424224" clover="3.2.0">
-  <project timestamp="1771263424224" name="All files">
+<coverage generated="1771276044220" clover="3.2.0">
+  <project timestamp="1771276044220" name="All files">
     <metrics statements="363" coveredstatements="359" conditionals="123" coveredconditionals="119" methods="162" coveredmethods="155" elements="648" coveredelements="633" complexity="0" loc="363" ncloc="363" packages="6" files="19" classes="19"/>
     <package name="server.src">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -243,7 +243,7 @@
       <file name="CheckDay.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/CheckDay.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="5" count="3" type="stmt"/>
-        <line num="12" count="35" type="stmt"/>
+        <line num="12" count="36" type="stmt"/>
       </file>
       <file name="CheckboxComp.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/CheckboxComp.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -260,7 +260,7 @@
       <file name="EditableFields.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/EditableFields.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="11" coveredconditionals="11" methods="1" coveredmethods="1"/>
         <line num="7" count="2" type="stmt"/>
-        <line num="25" count="258" type="stmt"/>
+        <line num="25" count="548" type="stmt"/>
       </file>
       <file name="InputComp.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/InputComp.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>

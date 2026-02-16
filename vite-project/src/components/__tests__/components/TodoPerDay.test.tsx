@@ -1,3 +1,4 @@
+import { createRef, useState, type ChangeEvent } from "react";
 import { 
     screen,
     render, 
@@ -20,7 +21,6 @@ import {
 import { changeColor, formatPhoneNumber } from "../../../utils/fonctions";
 import TodoPerDay from "../../TodoPerDay";
 import EditableFields from "../../subcomponents/EditableFields";
-import { createRef, useState, type ChangeEvent } from "react";
 import CheckDay from "../../subcomponents/CheckDay";
 import PriorityTodo from "../../subcomponents/PriorityTodo";
 
@@ -1062,11 +1062,13 @@ it("updates multiple fields correctly via editParamsOnChange", async () => {
         const [editWriteParams, setEditWriteParams] = useState({
             editProject: "Old Project",
             editListe: "Old Liste",
+            editDelay: "Old Delay", 
             editClient: "Old Client",
             editMail: "old@mail.com",
             editPhone: "0123456789",
             editId: "1"
         });
+        const [editBoolParams, ] = useState(true);
 
         const editParamsOnChange = (e: ChangeEvent<EditableElement>) => {
             const { name, value } = e.target;
@@ -1078,27 +1080,57 @@ it("updates multiple fields correctly via editParamsOnChange", async () => {
 
         return (
             <>
-                <input 
-                    name="editProject" 
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editProject}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editProject"} 
                     value={editWriteParams.editProject} 
-                    onChange={editParamsOnChange} 
+                    onSubmit={() => vi.fn()}
                 />
-                <input 
-                    name="editListe" 
+
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editListe}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editListe"} 
                     value={editWriteParams.editListe} 
-                    onChange={editParamsOnChange} 
+                    onSubmit={() => vi.fn()}
                 />
-                <input 
-                    name="editClient" 
+
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editDelay}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editDelay"} 
+                    value={editWriteParams.editDelay} 
+                    onSubmit={() => vi.fn()}
+                />
+
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editClient}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editClient"} 
                     value={editWriteParams.editClient} 
-                    onChange={editParamsOnChange} 
+                    onSubmit={() => vi.fn()}
                 />
-                <input 
-                    name="editMail" 
+
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editMail}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editMail"} 
                     value={editWriteParams.editMail} 
-                    onChange={editParamsOnChange} 
+                    onSubmit={() => vi.fn()}
                 />
             </>
+
         );
     };
 
@@ -1109,10 +1141,15 @@ it("updates multiple fields correctly via editParamsOnChange", async () => {
     await user.type(projectInput, "New Project");
     expect(projectInput.value).toBe("New Project");
 
-    const listeInput = getByDisplayValue("Old Liste") as HTMLInputElement;
+    const listeInput = getByDisplayValue("Old Liste") as HTMLTextAreaElement;
     await user.clear(listeInput);
     await user.type(listeInput, "New Liste");
     expect(listeInput.value).toBe("New Liste");
+
+    const delayInput = getByDisplayValue("Old Delay") as HTMLInputElement;
+    await user.clear(delayInput);
+    await user.type(delayInput, "New Delay");
+    expect(delayInput.value).toBe("New Delay");
 
     const clientInput = getByDisplayValue("Old Client") as HTMLInputElement;
     await user.clear(clientInput);
@@ -1124,6 +1161,145 @@ it("updates multiple fields correctly via editParamsOnChange", async () => {
     await user.type(mailInput, "new@mail.com");
     expect(mailInput.value).toBe("new@mail.com");
 });
+
+it("updates multiple fields correctly via editParamsOnChange", async () => {
+
+    const Wrapper = () => {
+        const [editWriteParams, setEditWriteParams] = useState({
+            editProject: "Old Project",
+            editListe: "Old Liste",
+            editDelay: "Old Delay", 
+            editClient: "Old Client",
+            editMail: "old@mail.com",
+            editPhone: "0123456789",
+            editId: "1"
+        });
+        const [editBoolParams, ] = useState(false);
+
+        const editParamsOnChange = (e: ChangeEvent<EditableElement>) => {
+            const { name, value } = e.target;
+            setEditWriteParams((prev) => ({
+                ...prev,
+                [name]: value
+            }));
+        };
+
+        return (
+            <>
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editProject}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editProject"} 
+                    value={editWriteParams.editProject} 
+                    onSubmit={() => vi.fn()}
+                />
+
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editListe}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editListe"} 
+                    value={editWriteParams.editListe} 
+                    onSubmit={() => vi.fn()}
+                />
+
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editDelay}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editDelay"} 
+                    value={editWriteParams.editDelay} 
+                    onSubmit={() => vi.fn()}
+                />
+
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editClient}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editClient"} 
+                    value={editWriteParams.editClient} 
+                    onSubmit={() => vi.fn()}
+                />
+
+                <EditableFields
+                    editBoolParams={editBoolParams}
+                    editWriteParams={editWriteParams.editMail}
+                    onChange={editParamsOnChange}
+                    isDoneParams={false}
+                    name={"editMail"} 
+                    value={editWriteParams.editMail} 
+                    onSubmit={() => vi.fn()}
+                />
+            </>
+
+        );
+    };
+
+    render(<Wrapper />);
+    
+    const projectSpan = screen.queryByText("Old Project");
+    expect(projectSpan).toBeInTheDocument();
+
+    const listeSpan = screen.queryByText("Old Liste");
+    expect(listeSpan).toBeInTheDocument();
+
+    const delaySpan = screen.queryByText("Old Delay");
+    expect(delaySpan).toBeInTheDocument();
+
+    const clientSpan = screen.queryByText("Old Client");
+    expect(clientSpan).toBeInTheDocument();
+
+    const mailSpan = screen.queryByText("old@mail.com");
+    expect(mailSpan).toBeInTheDocument();
+});
+
+
+
+it("update DAY correctly via changeDayFunction", async () => {
+    const user = userEvent.setup();
+    const Wrapper = () => {
+        
+        // const todo = mockTodo;
+        // const setTodos = mockSetTodos;
+        const changeDayFunction = vi.fn();
+        const [selectedDay, setSelectedDay] = useState<string>("lundi");
+
+        const [dayBool, ] = useState(false);
+
+        // const changeDayFunction = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
+        //     const { value } = e.target;
+        //     setTodos((prev: Todo) => prev.id === id ? {...prev, selectedDay: value} : prev);
+        // };
+
+        return (
+            <CheckDay
+                id="1"
+                dayBool={dayBool}
+                selectedDay={selectedDay}
+                handleChangeDay={changeDayFunction}
+                onClick={vi.fn()}
+            />
+        );
+    };
+
+    render(<Wrapper/>);
+
+    //const dayValue = screen.getByDisplayValue("Lundi") as HTMLSelectElement;
+    const dayValue = screen.getByTestId("day-select") as HTMLSelectElement;
+    await userEvent.selectOptions(dayValue, "mardi");
+    setSelectedDay("mardi");
+    //await user.selectOptions(dayValue, screen.getByRole('option', { name: /mardi/i }));
+    expect(dayValue.value).toBe(/mardi/i);
+
+    expect(screen.getByTestId('day-select')).toBeInTheDocument();
+});
+
+
 
 it("handles unknown field names and empty values in editParamsOnChange", async () => {
     const user = userEvent.setup();
