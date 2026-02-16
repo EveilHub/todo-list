@@ -124,7 +124,7 @@ describe("", () => {
         expect(screen.getByTestId("submit-btn")).toBeInTheDocument();
     });
 
-    it("REF - 2 should focus the input when editBoolProject is true", () => {
+    it("REF - Editablefields should focus the input when editBoolProject is true", () => {
         const focusMock = vi.fn();
 
         const { getByDisplayValue } = render(

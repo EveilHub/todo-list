@@ -150,7 +150,8 @@ const CreateInputCheckbox = ({
 
             <div className='creation--btn--div'>
                 <button
-                    id="btn-1" 
+                    data-testid="btn-input-check"
+                    id="btn-1"
                     type="submit" 
                     className={selectedDay === undefined 
                         ? "disable-btn" 

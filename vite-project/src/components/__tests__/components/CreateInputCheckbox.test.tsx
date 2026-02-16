@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import type { ParamsTodoType } from '../../../lib/definitions'
+import { formatPhoneNumber } from '../../../utils/fonctions'
 import CreateInputCheckbox from '../../CreateInputCheckbox'
 
 describe('CreateInputCheckbox snapshot test', () => {
@@ -28,43 +29,6 @@ describe('CreateInputCheckbox snapshot test', () => {
     expect(container).toMatchSnapshot();
   });
 });
-
-vi.mock('../../__tests__/subcomponents/InputComp', () => ({
-  default: ({ name, value, onChange, placeholder }: any) => (
-    <input
-      name={name}
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-      data-testid={`input-${name}`}
-    />
-  )
-}))
-
-// mock InputComp
-vi.mock('./subcomponents/InputComp', () => ({
-  default: ({ name, value, onChange, placeholder }: any) => (
-    <input
-      name={name}
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-      data-testid={`input-${name}`}
-    />
-  )
-}))
-
-// mock CheckboxComp
-vi.mock('./subcomponents/CheckboxComp', () => ({
-  default: ({ children, handleCheckBox }: any) => (
-    <button onClick={handleCheckBox}>{children}</button>
-  )
-}))
-
-// mock formatPhoneNumber
-vi.mock('../utils/fonctions', () => ({
-  formatPhoneNumber: vi.fn((v) => `formatted-${v}`)
-}))
 
 const baseProps = {
   date: '',
@@ -125,7 +89,7 @@ describe('handleChangeCreateInputPhone', () => {
       target: { value: '0766736734' },
     });
 
-    expect(phoneInput.value).toBe('076 673 67 34');
+    expect(formatPhoneNumber(phoneInput.value)).toBe('076 673 67 34');
   });
 });
 
