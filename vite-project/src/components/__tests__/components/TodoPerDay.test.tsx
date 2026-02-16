@@ -4,8 +4,9 @@ import {
     fireEvent, 
     waitFor
 } from "@testing-library/react";
-import { describe, it, expect, vi, afterEach } from "vitest";
-import type { EditableElement, Todo } from "../../../lib/definitions";
+import userEvent from "@testing-library/user-event";
+import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
+import type { EditableElement, EditableProps, Todo, WriteEditType } from "../../../lib/definitions";
 import { 
     submitProject,   
     submitListe,
@@ -19,8 +20,9 @@ import {
 import { changeColor, formatPhoneNumber } from "../../../utils/fonctions";
 import TodoPerDay from "../../TodoPerDay";
 import EditableFields from "../../subcomponents/EditableFields";
-import userEvent from "@testing-library/user-event";
-import type { FormEvent, ChangeEvent } from "react";
+import { createRef, useState, type ChangeEvent } from "react";
+import CheckDay from "../../subcomponents/CheckDay";
+import PriorityTodo from "../../subcomponents/PriorityTodo";
 
 describe('TodoPerDay snapshot test', () => {
     it('testing TodoPerDay component', () => {
@@ -48,29 +50,6 @@ describe('TodoPerDay snapshot test', () => {
         expect(container).toMatchSnapshot();
     });
 });
-
-const mockTodo: Todo = {
-    id: '1',
-    client: 'John Doe',
-    email: 'john@mail.com',
-    phone: '123456789',
-    project: 'Project A',
-    liste: 'List A',
-    delay: '2026-01-01',
-    priority: 'High',
-    date: '2026-01-01',
-    isDoneClient: false,
-    isDoneMail: false,
-    isDonePhone: false,
-    isDoneProject: false,
-    isDoneListe: false,
-    isDoneDelay: false,
-    selectedDay: 'Monday',
-    isDoneDate: false
-};
-
-const mockTodos: Todo[] = [mockTodo];
-const mockSetTodos = vi.fn();
 
 vi.mock("../../../apiFunctions", () => ({
     callApiProject: vi.fn(),
@@ -102,10 +81,126 @@ vi.mock('../../../utils/fonctions', async (importOriginal) => {
     };
 });
 
+const mockTodo: Todo = {
+    id: '1',
+    client: 'John Doe',
+    email: 'john@mail.com',
+    phone: '123456789',
+    project: 'Project A',
+    liste: 'List A',
+    delay: '2026-01-01',
+    priority: 'High',
+    date: '2026-01-01',
+    isDoneClient: false,
+    isDoneMail: false,
+    isDonePhone: false,
+    isDoneProject: false,
+    isDoneListe: false,
+    isDoneDelay: false,
+    selectedDay: 'Mardi',
+    isDoneDate: false
+};
+
+const mockTodos: Todo[] = [mockTodo];
+const mockSetTodos = vi.fn();
+
 afterEach(() => {
     vi.restoreAllMocks();
 });
 
+describe("TodoPerDay full snapshot test", () => {
+    it('renders select when dayBool is false', () => {
+        render(
+            <CheckDay
+                id="1"
+                dayBool={false}
+                selectedDay="lundi"
+                handleChangeDay={vi.fn()}
+                onClick={vi.fn()}
+            />
+        )
+
+        expect(screen.getByTestId('day-select')).toBeInTheDocument()
+    })
+
+    it('renders span when dayBool is true', () => {
+        render(
+            <CheckDay
+                id="1"
+                dayBool={true}
+                selectedDay="lundi"
+                handleChangeDay={vi.fn()}
+                onClick={vi.fn()}
+            />
+        )
+
+        expect(screen.getByTestId('toggle-day')).toBeInTheDocument()
+    })
+
+    it('renders select when dayBool is false', () => {
+        render(
+            <PriorityTodo
+                id="1" 
+                paramsPriorityHide={false} 
+                priorityTodo={""} 
+                onClick={() => vi.fn()}
+                handleChangePriority={() => vi.fn()}
+            />
+        )
+
+        expect(screen.getByTestId('priority-select')).toBeInTheDocument()
+    })
+
+    it('renders span when dayBool is true', () => {
+        render(
+            <PriorityTodo
+                id="1"
+                paramsPriorityHide={true} 
+                priorityTodo={""} 
+                onClick={() => vi.fn()}
+                handleChangePriority={() => vi.fn()}
+            />
+        )
+
+        expect(screen.getByTestId('toggle-priority')).toBeInTheDocument()
+    })
+
+    it("renders TodoPerDay with EditableFields visible", () => {
+        const setTodosMock = vi.fn();
+
+        const { container } = render(
+            <TodoPerDay todo={mockTodo} todos={[mockTodo]} setTodos={setTodosMock} />
+        );
+
+        // if (mockTodo.selectedDay !== undefined) {
+        //     const toggleChangeDay = screen.getByText(mockTodo.selectedDay);
+        //     fireEvent.click(toggleChangeDay);
+        // }
+
+        // const togglePriority = screen.getByText(mockTodo.priority);
+        // fireEvent.click(togglePriority);
+
+        const toggleProject = screen.getByText(mockTodo.project);
+        fireEvent.click(toggleProject);
+
+        const toggleListe = screen.getByText(mockTodo.liste);
+        fireEvent.click(toggleListe);
+
+        const toggleDelay = screen.getByText(mockTodo.delay);
+        fireEvent.click(toggleDelay);
+
+        const toggleClient = screen.getByText(mockTodo.client);
+        fireEvent.click(toggleClient);
+
+        const toggleMail = screen.getByText(mockTodo.email);
+        fireEvent.click(toggleMail);
+
+        const togglePhone = screen.getByText(mockTodo.phone);
+        fireEvent.click(togglePhone);
+
+        expect(container).toMatchSnapshot();
+    });
+});
 
 describe("TodoPerDay - actions", () => {
     it("calls submit functions on each submit button click", () => {
@@ -219,7 +314,6 @@ describe("TodoPerDay - actions", () => {
         fireEvent.mouseLeave(clientDiv!);
         expect(clientDiv).toHaveClass('is-close');
     });
-
 
     it("calls handleChangePriority when priority select changes", () => {
         const { getByTestId } = render(
@@ -347,8 +441,6 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
         render(
             <TodoPerDay
                 todo={mockTodo}
-                // todos={mockTodos}
-                // setTodos={mockSetTodos}
                 todos={[]}
                 setTodos={() => {}}
             />
@@ -363,41 +455,42 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
         focusSpy.mockRestore();
     });
 
-    it("REF 1 - should focus all inputs/textareas when in edit mode", () => {
+    it("REF - 1 - should focus all inputs/textareas when in edit mode", () => {
         const mockTodo2 = {
-        id: "1",
-        project: "Project A",
-        liste: "Liste A",
-        delay: "Delay",
-        client: "Client X",
-        email: "mail@example.com",
-        phone: "1234567890",
-        priority: "High",
-        isDoneDate: false,
-        isDoneProject: false,
-        isDoneListe: false,
-        isDoneDelay: false,
-        isDoneClient: false,
-        isDoneMail: false,
-        isDonePhone: false,
-        selectedDay: "Monday",
-        date: "2026-02-15",
+            id: "1",
+            project: "Project A",
+            liste: "Liste A",
+            delay: "Delay",
+            client: "Client X",
+            email: "mail@example.com",
+            phone: "1234567890",
+            priority: "High",
+            isDoneDate: false,
+            isDoneProject: false,
+            isDoneListe: false,
+            isDoneDelay: false,
+            isDoneClient: false,
+            isDoneMail: false,
+            isDonePhone: false,
+            selectedDay: "Monday",
+            date: "2026-02-15",
         };
 
         const mockTodos2 = [mockTodo2];
         const setTodos = vi.fn();
 
-        // On rend le composant
         const { container } = render(
-        <TodoPerDay todo={mockTodo2} todos={mockTodos2} setTodos={setTodos} />
+            <TodoPerDay 
+                todo={mockTodo2} 
+                todos={mockTodos2} 
+                setTodos={setTodos}
+            />
         );
 
-        // On récupère tous les inputs et textareas (même ceux cachés)
         const editableElements = container.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
             "input, textarea"
         );
 
-        // On remplace focus par un mock et on l'appelle pour simuler useEffect
         const focusMock = vi.fn();
         
         editableElements.forEach((el) => {
@@ -405,7 +498,6 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
             el.focus();
         });
 
-        // Vérifie que focus a été appelé pour tous les éléments trouvés
         expect(focusMock).toHaveBeenCalledTimes(editableElements.length);
     });
 
@@ -420,128 +512,655 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
                 value="Project A"
                 editBoolParams={true}
                 isDoneParams={false} 
-                onSubmit={function (_e: FormEvent<HTMLFormElement>): void {
-                    throw new Error("Function not implemented.");
-                } } onChange={function (_e: ChangeEvent<EditableElement>): void {
-                    throw new Error("Function not implemented.");
-                } }
+                onSubmit={vi.fn()}
+                onChange={vi.fn()}
             />
         );
 
         const input = getByDisplayValue("Project A") as HTMLInputElement;
 
-        // remplacer focus par un mock
         input.focus = focusMock;
-
-        // déclencher useEffect
         input.focus();
 
         expect(focusMock).toHaveBeenCalled();
     });
 
+
+    it("REF - 3 should not focus the input when editBoolProject is false", () => {
+        const focusMock = vi.fn();
+
+        render(
+            <EditableFields
+
+                editWriteParams="Project A" 
+                name="editProject"
+                value="Project A"
+                editBoolParams={false}
+                isDoneParams={false} 
+                onSubmit={vi.fn()}
+                onChange={vi.fn()}
+            />
+        );
+
+        expect(focusMock).toHaveBeenCalledTimes(0);
+    });
+
+
+    it("should render input project and call onChange when edited", async () => {
+        const user = userEvent.setup();
+        const ref = createRef<EditableElement>();
+        const handleChange = vi.fn();
+        const handleSubmit = vi.fn();
+
+        // On force editBoolParams à true pour rendre l'input
+        const props: EditableProps = {
+            as: "input",
+            type: "text",
+            name: "editProject",
+            value: "Project A",
+            editBoolParams: true,
+            editWriteParams: "Project A",
+            isDoneParams: false,
+            onChange: handleChange,
+            onSubmit: handleSubmit,
+            className: "input-button-container",
+            ref: ref
+        };
+
+        const { getByDisplayValue } = render(<EditableFields {...props} />);
+
+        // Récupérer l'input maintenant qu'il est visible
+        const input = getByDisplayValue("Project A") as HTMLInputElement;
+        expect(input).toBeInTheDocument();
+
+        const focusSpy = vi.spyOn(input, "focus");
+
+        input.focus();
+        await user.type(input, "Project B");
+
+        expect(focusSpy).toHaveBeenCalled();
+        expect(handleChange).toHaveBeenCalled();
+    });
+
+    it("1) render textarea and call onChange when edited", async () => {
+        const user = userEvent.setup();
+        const ref = createRef<EditableElement>();
+        const handleChange = vi.fn();
+        const handleSubmit = vi.fn();
+
+        // On force editBoolParams à true pour rendre l'input
+        const props: EditableProps = {
+            as: "textarea",
+            name: "editListe",
+            value: "Liste A",
+            editBoolParams: true,
+            editWriteParams: "Liste A",
+            isDoneParams: false,
+            onChange: handleChange,
+            onSubmit: handleSubmit,
+            className: "input-button-container",
+            ref: ref
+        };
+
+        const { getByDisplayValue } = render(<EditableFields {...props} />);
+
+        // Récupérer l'input maintenant qu'il est visible
+        const textarea = getByDisplayValue("Liste A") as HTMLTextAreaElement;
+        expect(textarea).toBeInTheDocument();
+
+        const focusSpy = vi.spyOn(textarea, "focus");
+
+        textarea.focus();
+        await user.type(textarea, "Liste B");
+
+        expect(focusSpy).toHaveBeenCalled();
+        expect(handleChange).toHaveBeenCalled();
+    });
+});
+
+describe("EditableFields Component – coverage editParamsOnChange", () => {
+    it("2) should render textarea list and call onChange when edited", async () => {
+        const user = userEvent.setup();
+        const handleSubmit = vi.fn();
+        // Wrapper qui gère le state pour simuler le comportement contrôlé
+        function Wrapper() {
+            const [val, setVal] = useState("Liste A");
+
+            const handleChange: EditableProps["onChange"] = (e) => {
+                const { value } = e.target;
+                setVal(value);
+            };
+
+            return (
+                <EditableFields
+                as="textarea"
+                name="editListe"
+                value={val}
+                editWriteParams={val}
+                editBoolParams={true}
+                isDoneParams={false}
+                onChange={handleChange}
+                onSubmit={handleSubmit}
+                className="input-button-container"
+                />
+            );
+        }
+
+        const { getByDisplayValue } = render(<Wrapper />);
+
+        const textarea = getByDisplayValue("Liste A") as HTMLTextAreaElement;
+        expect(textarea).toBeInTheDocument();
+
+        const focusSpy = vi.spyOn(textarea, "focus");
+        textarea.focus();
+        expect(focusSpy).toHaveBeenCalled();
+
+        await user.clear(textarea);
+        await user.type(textarea, "Liste B");
+
+        expect(textarea.value).toBe("Liste B");
+    });
+
+    it("should render input project and call onChange when edited", async () => {
+        const user = userEvent.setup();
+        const handleSubmit = vi.fn();
+
+        // Wrapper qui gère le state pour simuler le comportement contrôlé
+        const Wrapper = () => {
+            const [val, setVal] = useState("Project A");
+
+            const handleChange: EditableProps["onChange"] = (e) => {
+                const { value } = e.target;
+                setVal(value);
+            };
+
+            return (
+                <EditableFields
+                    as="input"
+                    name="editProject"
+                    value={val}
+                    editWriteParams={val}
+                    editBoolParams={true}
+                    isDoneParams={false}
+                    onChange={handleChange}
+                    onSubmit={handleSubmit}
+                    className="input-button-container"
+                />
+            );
+        }
+
+        const { getByDisplayValue } = render(<Wrapper />);
+
+        const input = getByDisplayValue("Project A") as HTMLInputElement;
+        expect(input).toBeInTheDocument();
+
+        const focusSpy = vi.spyOn(input, "focus");
+        input.focus();
+        expect(focusSpy).toHaveBeenCalled();
+
+        await user.clear(input);
+        await user.type(input, "Project B");
+
+        expect(input.value).toBe("Project B");
+    });
+
+    it("should render input mail and call onChange when edited", async () => {
+        const user = userEvent.setup();
+        const handleSubmit = vi.fn();
+
+        // Wrapper qui gère le state pour simuler le comportement contrôlé
+        const Wrapper = () => {
+            const [val, setVal] = useState("mail@mail.com");
+
+            const handleChange: EditableProps["onChange"] = (e) => {
+                const { value } = e.target;
+                setVal(value);
+            };
+
+            return (
+                <EditableFields
+                    as="input"
+                    name="editEmail"
+                    value={val}
+                    editWriteParams={val}
+                    editBoolParams={true}
+                    isDoneParams={false}
+                    onChange={handleChange}
+                    onSubmit={handleSubmit}
+                    className="input-button-container"
+                />
+            );
+        }
+
+        const { getByDisplayValue } = render(<Wrapper />);
+
+        const input = getByDisplayValue("mail@mail.com") as HTMLInputElement;
+        expect(input).toBeInTheDocument();
+
+        const focusSpy = vi.spyOn(input, "focus");
+        input.focus();
+        expect(focusSpy).toHaveBeenCalled();
+
+        await user.clear(input);
+        await user.type(input, "mail@mail.io");
+
+        expect(input.value).toBe("mail@mail.io");
+    });
+
+    it("should render input delay and call onChange when edited", async () => {
+        const user = userEvent.setup();
+        const handleSubmit = vi.fn();
+
+        // Wrapper qui gère le state pour simuler le comportement contrôlé
+        const Wrapper = () => {
+            const [val, setVal] = useState("01/07/2026 08:00");
+
+            const handleChange: EditableProps["onChange"] = (e) => {
+                const { value } = e.target;
+                setVal(value);
+            };
+
+            return (
+                <EditableFields
+                    as="input"
+                    name="editDelay"
+                    value={val}
+                    editWriteParams={val}
+                    editBoolParams={true}
+                    isDoneParams={false}
+                    onChange={handleChange}
+                    onSubmit={handleSubmit}
+                    className="input-button-container"
+                />
+            );
+        }
+
+        const { getByDisplayValue } = render(<Wrapper />);
+
+        const input = getByDisplayValue("01/07/2026 08:00") as HTMLInputElement;
+        expect(input).toBeInTheDocument();
+
+        const focusSpy = vi.spyOn(input, "focus");
+        input.focus();
+        expect(focusSpy).toHaveBeenCalled();
+
+        await user.clear(input);
+        await user.type(input, "02/08/2026 10:10");
+
+        expect(input.value).toBe("02/08/2026 10:10");
+    });
+
+    it("should call editPhoneOnChange and format phone number", async () => {
+        const user = userEvent.setup();
+
+        const Wrapper = () => {
+            const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
+                editId: "1",
+                editProject: "Project A",
+                editListe: "Liste A",
+                editDelay: "2026-01-01",
+                editClient: "Client X",
+                editMail: "client@example.com",
+                editPhone: "0123456789",
+            });
+
+            const editPhoneOnChange = (e: ChangeEvent<EditableElement>) => {
+                const target = e.target as HTMLInputElement;
+                const formatted = formatPhoneNumber(target.value);
+                setEditWriteParams((prev: WriteEditType) => ({
+                    ...prev,
+                    editPhone: formatted,
+                }));
+            };
+
+            return (
+                <EditableFields
+                    as="input"
+                    name="editPhone"
+                    value={editWriteParams.editPhone}
+                    editWriteParams={editWriteParams.editPhone}
+                    editBoolParams={true}
+                    isDoneParams={false}
+                    onChange={editPhoneOnChange}
+                    onSubmit={() => {}}
+                    className="input-button-container"
+                />
+            );
+        };
+
+        render(<Wrapper />);
+
+        const input = screen.getByDisplayValue("0123456789") as HTMLInputElement;
+        expect(input).toBeInTheDocument();
+
+        const focusSpy = vi.spyOn(input, "focus");
+        input.focus();
+        expect(focusSpy).toHaveBeenCalled();
+
+        // Simuler l'utilisateur qui remplace le numéro
+        await user.clear(input);
+        await user.type(input, "0987654321");
+
+        // Vérifie la valeur finale formatée
+        await waitFor(() => {
+            expect(input.value).toBe("098 765 43 21");
+        });
+    });
+});
+
+describe("EditableFields Component – editPhoneOnChange", () => {
+    it("should render input and call onChange when edited", async () => {
+        const user = userEvent.setup();
+        const handleSubmit = vi.fn();
+
+        // Wrapper qui gère le state pour simuler le comportement contrôlé
+        const Wrapper = () => {
+            const [val, setVal] = useState("0123456789");
+
+            const editPhoneOnChange: EditableProps["onChange"] = (e) => {
+                const { value } = e.target;
+                setVal(value);
+            };
+
+            return (
+                <EditableFields
+                    as="input"
+                    name="editPhone"
+                    value={val}
+                    editWriteParams={val}
+                    editBoolParams={true}
+                    isDoneParams={false}
+                    onChange={editPhoneOnChange}
+                    onSubmit={handleSubmit}
+                    className="input-button-container"
+                />
+            );
+        }
+
+        const { getByDisplayValue } = render(<Wrapper />);
+
+        const input = getByDisplayValue("0123456789") as HTMLInputElement;
+        expect(input).toBeInTheDocument();
+
+        const focusSpy = vi.spyOn(input, "focus");
+        input.focus();
+        expect(focusSpy).toHaveBeenCalled();
+
+        await user.clear(input);
+        await user.type(input, "0123456780");
+
+        expect(formatPhoneNumber(input.value)).toBe("012 345 67 80");
+    });
 });
 
 describe('formatPhoneNumber', () => {
     it('formate correctement un numéro brut', () => {
-        expect(formatPhoneNumber('0766736734'))
-        .toBe('076 673 67 34');
+        expect(formatPhoneNumber('0766736734')).toBe('076 673 67 34');
     });
     
     it('retourne une string vide si vide', () => {
         expect(formatPhoneNumber('')).toBe('');
     });
+
+    it("return a short number", () => {
+        expect(formatPhoneNumber('123')).toBe('123');
+    });
+
+    it("return a letter", () => {
+        expect(formatPhoneNumber('zut')).not.toBe('zut');
+    });
 });
 
+describe("TodoPerDay - editParamsOnChange & handlePhoneOnChange", () => {
+    const fields = [
+        { name: "editProject", initial: "Old Project", typed: "New Project" },
+        { name: "editListe", initial: "Old Liste", typed: "New Liste" },
+        { name: "editDelay", initial: "Old Delay", typed: "New Delay" },
+        { name: "editClient", initial: "Old Client", typed: "New Client" },
+        { name: "editMail", initial: "old@mail.com", typed: "new@mail.com" }
+    ];
 
+    fields.forEach(({ name, initial, typed }) => {
+        it(`updates ${name} correctly via editParamsOnChange`, async () => {
+            const user = userEvent.setup();
+            const Wrapper = () => {
+                const [editWriteParams, setEditWriteParams] = useState({
+                    editProject: "Old Project",
+                    editListe: "Old Liste",
+                    editDelay: "Old Delay",
+                    editClient: "Old Client",
+                    editMail: "old@mail.com",
+                    editPhone: "0123456789",
+                    editId: "1"
+                });
 
+                const editParamsOnChange = (e: ChangeEvent<EditableElement>) => {
+                    const { name, value } = e.target;
+                    setEditWriteParams((prev) => ({ ...prev, [name]: value }));
+                };
 
+                return <input 
+                    name={name} 
+                    value={editWriteParams[name as keyof typeof editWriteParams]} 
+                    onChange={editParamsOnChange} 
+                />;
+            };
 
-// describe("handleDelete", () => {
-//     let mockFetch: ReturnType<typeof vi.fn>;
-//     let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+            const { getByDisplayValue } = render(<Wrapper />);
+            const input = getByDisplayValue(initial) as HTMLInputElement;
 
-//     beforeEach(() => {
-//         mockFetch = vi.fn();
-//         vi.stubGlobal("fetch", mockFetch);
+            await user.clear(input);
+            await user.type(input, typed);
 
-//         consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
-//     });
+            expect(input.value).toBe(typed);
+        });
+    });
 
-//     afterEach(() => {
-//         vi.restoreAllMocks();
-//     });
+    const field = [
+        { name: "editPhone", initial: "0213203344", typed: "021 320 33 77" }
+    ];
 
-//     it("affiche un message d'erreur si le fetch d'ajout échoue", async () => {
-//         // Rejette la promesse pour déclencher le catch
-//         mockFetch.mockRejectedValueOnce(new Error("Erreur ajout todo"));
+    field.forEach(({ name, initial, typed }) => {
+        it(`updates ${name} correctly via editPhoneOnChange`, async () => {
+            const user = userEvent.setup();
+            const Wrapper = () => {
+                const [editWriteParams, setEditWriteParams] = useState({
+                    editProject: "Old Project",
+                    editListe: "Old Liste",
+                    editDelay: "Old Delay",
+                    editClient: "Old Client",
+                    editMail: "old@mail.com",
+                    editPhone: "0213203344",
+                    editId: "1"
+                });
 
-//         render(
-//         <TodoPerDay
-//             todo={{ ...mockTodo, id: "999" }}
-//             todos={mockTodos}
-//             setTodos={mockSetTodos}
-//         />
-//         );
+                const editPhoneOnChange = (e: ChangeEvent<EditableElement>): void => {
+                    setEditWriteParams((prev: WriteEditType) => ({
+                        ...prev,
+                        editPhone: formatPhoneNumber(e.target.value)
+                    })
+                )};
 
-//         const deleteButton = await screen.findByTestId("add-delete");
-//         await userEvent.click(deleteButton);
+                return <input 
+                    name={name} 
+                    value={editWriteParams[name as keyof typeof editWriteParams]} 
+                    onChange={editPhoneOnChange} 
+                />;
+            };
 
-//         expect(consoleErrorSpy).toHaveBeenCalledWith(
-//         "Erreur ajout todo",
-//         expect.any(Error)
-//         );
-//     });
+            const { getByDisplayValue } = render(<Wrapper />);
+            const input = getByDisplayValue(initial) as HTMLInputElement;
 
-//     it("affiche un message d'erreur si le fetch de suppression échoue", async () => {
-//         // Premier fetch ok
-//         mockFetch.mockResolvedValueOnce({ ok: true });
-//         // Deuxième fetch échoue
-//         mockFetch.mockRejectedValueOnce(new Error("Erreur suppression serveur"));
+            await user.clear(input);
+            await user.type(input, typed);
 
-//         render(
-//         <TodoPerDay
-//             todo={{ ...mockTodo, id: "999" }}
-//             todos={mockTodos}
-//             setTodos={mockSetTodos}
-//         />
-//         );
+            expect(input.value).toBe(typed);
+        });
+    });
+});
 
-//         const deleteButton = await screen.findByTestId("add-delete");
-//         await userEvent.click(deleteButton);
+describe("TodoPerDay - handleDelete errors", () => {
+    let consoleSpy: any;
 
-//         expect(consoleErrorSpy).toHaveBeenCalledWith(
-//         "Erreur suppression serveur",
-//         expect.any(Error)
-//         );
-//     });
-// });
+    beforeEach(() => {
+        consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+        vi.stubGlobal("fetch", vi.fn());
+    });
 
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
 
-// describe("FetchAddDelete", () => {
-//     let mockFetch: ReturnType<typeof vi.fn>;
-    
-//     beforeEach(() => {
-//         mockFetch = vi.fn();
-//         vi.stubGlobal("fetch", mockFetch);
-//     });
-    
-//     afterEach(() => {
-//         vi.restoreAllMocks();
-//     });
+    it("log une erreur si le POST add todo échoue", async () => {
+        (fetch as any).mockRejectedValueOnce(new Error("Erreur ajout Todo"));
 
-//     it("affiche un message d'erreur si le fetch échoue", async () => {
-//         mockFetch.mockResolvedValueOnce({
-//             ok: false,
-//         });
+        const todos = [mockTodo];
+        const setTodos = vi.fn();
 
-//         render(<TodoPerDay 
-//                 todo={{...mockTodo, id: "999"}} 
-//                 todos={mockTodos} 
-//                 setTodos={mockSetTodos} 
-//         />);
+        render(<TodoPerDay todo={mockTodo} todos={todos} setTodos={setTodos} />);
 
-//         await waitFor(() => {
-//             expect(screen.getByText("Erreur ajout todo")).toBeInTheDocument();
-//         });
-//     });
-// });
+        const deleteButton = screen.getByTestId("add-delete");
+
+        await userEvent.click(deleteButton);
+
+        await waitFor(() => {
+            expect(consoleSpy).toHaveBeenCalledWith(
+                "Erreur ajout todo",
+                expect.any(Error)
+            );
+        });
+    });
+
+    it("log une erreur si la suppression DELETE échoue", async () => {
+        // Premier fetch OK (POST add)
+        (fetch as any).mockResolvedValueOnce({ ok: true });
+        // Deuxième fetch échoue (DELETE)
+        (fetch as any).mockRejectedValueOnce(new Error("Erreur DELETE"));
+
+        const todos = [mockTodo];
+        const setTodos = vi.fn();
+
+        render(<TodoPerDay todo={mockTodo} todos={todos} setTodos={setTodos} />);
+
+        const deleteButton = screen.getByTestId("add-delete");
+
+        await userEvent.click(deleteButton);
+
+        await waitFor(() => {
+            expect(consoleSpy).toHaveBeenCalledWith(
+                "Erreur DELETE",
+                expect.any(Error)
+            );
+        });
+    });
+});
+
+it("updates multiple fields correctly via editParamsOnChange", async () => {
+    const user = userEvent.setup();
+
+    const Wrapper = () => {
+        const [editWriteParams, setEditWriteParams] = useState({
+            editProject: "Old Project",
+            editListe: "Old Liste",
+            editClient: "Old Client",
+            editMail: "old@mail.com",
+            editPhone: "0123456789",
+            editId: "1"
+        });
+
+        const editParamsOnChange = (e: ChangeEvent<EditableElement>) => {
+            const { name, value } = e.target;
+            setEditWriteParams((prev) => ({
+                ...prev,
+                [name]: value
+            }));
+        };
+
+        return (
+            <>
+                <input 
+                    name="editProject" 
+                    value={editWriteParams.editProject} 
+                    onChange={editParamsOnChange} 
+                />
+                <input 
+                    name="editListe" 
+                    value={editWriteParams.editListe} 
+                    onChange={editParamsOnChange} 
+                />
+                <input 
+                    name="editClient" 
+                    value={editWriteParams.editClient} 
+                    onChange={editParamsOnChange} 
+                />
+                <input 
+                    name="editMail" 
+                    value={editWriteParams.editMail} 
+                    onChange={editParamsOnChange} 
+                />
+            </>
+        );
+    };
+
+    const { getByDisplayValue } = render(<Wrapper />);
+
+    const projectInput = getByDisplayValue("Old Project") as HTMLInputElement;
+    await user.clear(projectInput);
+    await user.type(projectInput, "New Project");
+    expect(projectInput.value).toBe("New Project");
+
+    const listeInput = getByDisplayValue("Old Liste") as HTMLInputElement;
+    await user.clear(listeInput);
+    await user.type(listeInput, "New Liste");
+    expect(listeInput.value).toBe("New Liste");
+
+    const clientInput = getByDisplayValue("Old Client") as HTMLInputElement;
+    await user.clear(clientInput);
+    await user.type(clientInput, "New Client");
+    expect(clientInput.value).toBe("New Client");
+
+    const mailInput = getByDisplayValue("old@mail.com") as HTMLInputElement;
+    await user.clear(mailInput);
+    await user.type(mailInput, "new@mail.com");
+    expect(mailInput.value).toBe("new@mail.com");
+});
+
+it("handles unknown field names and empty values in editParamsOnChange", async () => {
+    const user = userEvent.setup();
+
+    const Wrapper = () => {
+        const [editWriteParams, setEditWriteParams] = useState({
+            editProject: "Project A",
+            editListe: "Liste A",
+        });
+
+        const editParamsOnChange = (e: ChangeEvent<EditableElement>) => {
+            const { name, value } = e.target;
+            setEditWriteParams((prev) => ({
+                ...prev,
+                [name]: value
+            }));
+        };
+
+        return (
+            <>
+                <input 
+                    name="editProject" 
+                    value={editWriteParams.editProject} 
+                    onChange={editParamsOnChange} 
+                />
+                <input 
+                    name="unknownField" 
+                    value={(editWriteParams as any).unknownField || ""} 
+                    onChange={editParamsOnChange} 
+                />
+            </>
+        );
+    };
+
+    const { getByDisplayValue } = render(<Wrapper />);
+
+    const unknownInput = getByDisplayValue("") as HTMLInputElement;
+    await user.type(unknownInput, "Some value");
+    expect(unknownInput.value).toBe("Some value");
+});

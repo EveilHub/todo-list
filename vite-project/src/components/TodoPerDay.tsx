@@ -210,7 +210,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
         method: "DELETE",
       });
     } catch (error: unknown) {
-      console.error("Erreur suppression serveur", error);
+      console.error("Erreur DELETE", error);
     };
     setTodos(todos.filter((todo: Todo) => (todo.id !== id)));
   };

@@ -133,6 +133,7 @@ exports[`CreateInputCheckbox snapshot test > testing CreateInputCheckbox compone
     >
       <button
         class="disable-btn"
+        data-testid="btn-input-check"
         disabled=""
         id="btn-1"
         type="submit"
