@@ -1,11 +1,8 @@
-// /// <reference types="vitest" />
+// <reference types="vitest" />
 import userEvent from '@testing-library/user-event'
 import { render, screen, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-//import type { Todo } from './lib/definitions.ts'
-import App from './App.tsx'
-import CheckDay from './components/subcomponents/CheckDay.tsx'
-import CheckboxComp from './components/subcomponents/CheckboxComp.tsx'
+import App from './App.tsx';
 
 /* ------------------------------------------------------------------
    MOCKS
@@ -14,16 +11,7 @@ import CheckboxComp from './components/subcomponents/CheckboxComp.tsx'
 // Hook date
 vi.mock('./hooks/useFetchDate.ts', () => ({
   useFetchDate: () => '2026-02-09',
-}))
-
-// CreateInputCheckbox mock AVEC submit
-// vi.mock('./components/CreateInputCheckbox.tsx', () => ({
-//   default: ({ handleSubmit }: any) => (
-//     <form onSubmit={handleSubmit}>
-//       <button type="submit">Submit</button>
-//     </form>
-//   ),
-// }))
+}));
 
 vi.mock('./components/CreateInputCheckbox.tsx', () => ({
   default: ({ handleSubmit, handleCheckBox }: any) => (
@@ -36,23 +24,136 @@ vi.mock('./components/CreateInputCheckbox.tsx', () => ({
       </button>
     </div>
   ),
-}))
+}));
 
-
-vi.mock('./components/TableOfTodos.tsx', () => ({
-  default: () => <div>TableOfTodos</div>,
-}))
-
-vi.mock('./components/TodosList.tsx', () => ({
-  default: () => <div>TodosList</div>,
-}))
-
+// FetchFromCSV
 vi.mock('./components/FetchFromCSV.tsx', () => ({
   default: () => <div>FetchFromCSV</div>,
 }))
 
+// TableCalendar
 vi.mock('./components/TableCalendar.tsx', () => ({
   default: () => <div>TableCalendar</div>,
+}))
+
+// TodoPerDay
+vi.mock('./components/TodoPerDay.tsx', () => ({
+  default: () => <div>TodoPerDay</div>,
+}))
+
+// CheckDay
+vi.mock('./components/subcomponents/CheckDay.tsx', () => ({
+  default: ({
+    id,
+    dayBool,
+    selectedDay,
+    handleChangeDay,
+    onClick}: any) => (
+      <div id={id} className="div--day">
+          {dayBool === false ? (
+              <select
+                  id="optionsDays"
+                  data-testid="day-select"
+                  value={selectedDay} 
+                  onChange={handleChangeDay}
+                  onMouseLeave={onClick}
+                  className="select--day"
+              >
+                  <option value="lundi">Lundi</option>
+                  <option value="mardi">Mardi</option>
+                  <option value="mercredi">Mercredi</option>
+                  <option value="jeudi">Jeudi</option>
+                  <option value="vendredi">Vendredi</option>
+              </select>
+          ) : (
+              <span 
+                  data-testid="toggle-day"
+                  onMouseEnter={onClick}
+                  className="checkday--span"
+              >
+                  {selectedDay?.toUpperCase()}
+              </span>
+          )}
+      </div>
+  )
+}))
+import CheckDay from './components/subcomponents/CheckDay.tsx';
+
+// PriorityTodo
+vi.mock('./components/subcomponents/PriorityTodo.tsx', () => ({
+  default: ({    
+    id,
+    paramsPriorityHide,
+    priorityTodo,
+    handleChangePriority,
+    onClick}: any) => (
+        <div id={id} className="priority--container">
+            {paramsPriorityHide === false ? (
+                <select 
+                    id="optionsPriority"
+                    data-testid="priority-select"
+                    name="priority"
+                    value={priorityTodo}
+                    onChange={handleChangePriority}
+                    onMouseLeave={onClick}
+                    className="priority--select"
+                >
+                    <option value="option3">Priorité 3 (Standard)</option>
+                    <option value="option2">Priorité 2 (Important)</option>
+                    <option value="option1">Priorité 1 (Urgent)</option>
+                </select>
+            ) : (
+                <span 
+                    data-testid="toggle-priority"
+                    onMouseEnter={onClick}
+                    className="priority--span"
+                >
+                    PRIORITÉ
+                </span>
+            )}
+        </div>
+  )
+}))
+import PriorityTodo from './components/subcomponents/PriorityTodo.tsx';
+
+// EditableFields
+vi.mock('./components/subcomponents/EditableFields.tsx', () => ({
+  default: () => <div>EditableFields</div>,
+}))
+
+// InputComp
+vi.mock('./components/subcomponents/InputComp.tsx', () => ({
+  default: () => <div>InputComp</div>,
+}))
+
+// CheckboxComp
+vi.mock('./components/subcomponents/CheckboxComp.tsx', () => ({
+  default: ({params, checked, handleCheckBox, children}: any) => (
+    <label htmlFor={params} className="checkbox--lbl">
+        <input
+            type="checkbox"
+            data-testid="test-checkbox"
+            id={params}
+            checked={checked}
+            onChange={() => handleCheckBox(params)}
+            className="checkbox--input"
+        />
+        {children}
+    </label>
+  )
+}))
+import CheckboxComp from './components/subcomponents/CheckboxComp.tsx';
+
+// TableOfTodos
+vi.mock('./components/TableOfTodos.tsx', () => ({
+  default: () => <div>TableOfTodos</div>,
+}))
+
+// TodosList
+vi.mock('./components/TodosList.tsx', () => ({
+  default: ({}: any) => (
+    <div>TodosList</div>
+  )
 }))
 
 /* ------------------------------------------------------------------
@@ -139,8 +240,7 @@ describe('App component', () => {
   it("handleSubmit → catch si POST échoue", async () => {
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    const mockFetch = vi
-      .fn()
+    const mockFetch = vi.fn()
       // 1er appel → GET (useEffect)
       .mockResolvedValueOnce({
         ok: true,
@@ -426,7 +526,37 @@ describe('CheckDay', () => {
 })
 
 /* ------------------------------------------------------------------
-   CHECKBOX
+   PRIORITYTODO
+------------------------------------------------------------------ */
+
+describe('PriorityTodo', () => {
+
+  it('mode select → change + mouseLeave', async () => {
+    const handleChangeDay = vi.fn()
+    const onClick = vi.fn()
+
+    render(
+      <PriorityTodo
+        id="1"
+        paramsPriorityHide={false}
+        priorityTodo="option2"
+        handleChangePriority={handleChangeDay}
+        onClick={onClick}
+      />
+    )
+
+    const select = screen.getByTestId('priority-select')
+
+    await userEvent.selectOptions(select, 'option2')
+    expect(handleChangeDay).toHaveBeenCalled()
+
+    await userEvent.unhover(select)
+    expect(onClick).toHaveBeenCalled()
+  })
+});
+
+/* ------------------------------------------------------------------
+   CHECKBOXCOMP
 ------------------------------------------------------------------ */
 
 describe('CheckboxComp', () => {
@@ -434,13 +564,15 @@ describe('CheckboxComp', () => {
     const handleCheckBox = vi.fn()
 
     render(
-      <CheckboxComp
-        params=""
-        checked={false}
-        handleCheckBox={handleCheckBox} children={undefined}      />
+      <CheckboxComp 
+        params="mycheckbox" 
+        checked={false} 
+        handleCheckBox={handleCheckBox}
+      >
+        Label
+      </CheckboxComp>
     )
-
     await userEvent.click(screen.getByTestId('test-checkbox'))
     expect(handleCheckBox).toHaveBeenCalled()
   })
-})
+});

@@ -16,4 +16,8 @@ import { screen } from "@testing-library/react";
 
 screen.debug()
 
+vi.mock('../../../utils/fonctions', () => ({
+  sortTodosByPriorityAndDelay: vi.fn(),
+}));
+
 ### 87,113-114,122,206,213
