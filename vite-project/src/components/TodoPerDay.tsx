@@ -218,10 +218,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   return (
     <div id={String(todo.id)} className="main--div">
 
-      {/* <div className="div--day">
-        <h2>{todo.selectedDay?.toUpperCase()}</h2>
-      </div> */}
-
       <div 
         className="container--todo" 
         style={{ backgroundColor: paramsPriority.bgColor }}
@@ -233,9 +229,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             id={todo.id} 
             dayBool={dayBool}
             selectedDay={todo?.selectedDay}
-            handleChangeDay={(e: ChangeEvent<HTMLSelectElement>) => 
-              changeDayFunction(e, todo.id)
-            } 
+            handleChangeDay={(e) => changeDayFunction(e, todo.id)}
             onClick={() => setDayBool((prev: boolean) => !prev)}
           />
 

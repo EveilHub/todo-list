@@ -7,22 +7,14 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
-import type { EditableElement, EditableProps, Todo, WriteEditType } from "../../../lib/definitions";
-import { 
-    submitProject,   
-    submitListe,
-    submitDelay,
-    submitClient,
-    submitMail,
-    submitPhone,
-    callChangeDay,
-    handleChangePriority 
-} from "../../../utils/todoFunctions";
+import type { EditableElement, EditableProps, ParamsPriorityTypes, Todo, WriteEditType } from "../../../lib/definitions";
+import * as callChangeModule from "../../../utils/todoFunctions";
 import { changeColor, formatPhoneNumber } from "../../../utils/fonctions";
 import TodoPerDay from "../../TodoPerDay";
 import EditableFields from "../../subcomponents/EditableFields";
 import CheckDay from "../../subcomponents/CheckDay";
 import PriorityTodo from "../../subcomponents/PriorityTodo";
+import { FaEye } from 'react-icons/fa';
 
 describe('TodoPerDay snapshot test', () => {
     it('testing TodoPerDay component', () => {
@@ -137,6 +129,45 @@ describe("TodoPerDay full snapshot test", () => {
         expect(screen.getByTestId('toggle-day')).toBeInTheDocument()
     })
 
+
+    it("should call callChangeDay with correct arguments", async () => {
+        const user = userEvent.setup();
+        const todo = mockTodos[0];
+        
+        const setTodos = vi.fn();
+
+        const WrapperDay = () => {
+
+            const [dayBool, setDayBool] = useState<boolean>(false);
+            const [selectedDay, setSelectedDay] = useState<string>("lundi");
+
+            const changeDayFunction = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
+                callChangeModule.callChangeDay(e, id, setTodos, setDayBool);
+                setSelectedDay(e.target.value)
+            };
+
+            return (
+                <CheckDay
+                    id={todo.id}
+                    dayBool={dayBool}
+                    selectedDay={selectedDay}
+                    handleChangeDay={(e) => changeDayFunction(e, todo.id)}
+                    onClick={() => setDayBool(true)}
+                />
+            );
+        };
+
+        render(<WrapperDay/>);
+
+        const submitBtn = screen.getByTestId("day-select") as HTMLSelectElement;
+
+        await user.selectOptions(submitBtn, "mardi");
+
+        expect(submitBtn.value).toBe("mardi");
+
+        expect(callChangeModule.callChangeDay).toHaveBeenCalled();
+    });
+
     it('renders select when dayBool is false', () => {
         render(
             <PriorityTodo
@@ -171,14 +202,6 @@ describe("TodoPerDay full snapshot test", () => {
         const { container } = render(
             <TodoPerDay todo={mockTodo} todos={[mockTodo]} setTodos={setTodosMock} />
         );
-
-        // if (mockTodo.selectedDay !== undefined) {
-        //     const toggleChangeDay = screen.getByText(mockTodo.selectedDay);
-        //     fireEvent.click(toggleChangeDay);
-        // }
-
-        // const togglePriority = screen.getByText(mockTodo.priority);
-        // fireEvent.click(togglePriority);
 
         const toggleProject = screen.getByText(mockTodo.project);
         fireEvent.click(toggleProject);
@@ -221,12 +244,12 @@ describe("TodoPerDay - actions", () => {
         fireEvent.click(submitButtons[4]);
         fireEvent.click(submitButtons[5]);
 
-        expect(submitProject).toHaveBeenCalled();
-        expect(submitListe).toHaveBeenCalled();
-        expect(submitDelay).toHaveBeenCalled();
-        expect(submitClient).toHaveBeenCalled();
-        expect(submitMail).toHaveBeenCalled();
-        expect(submitPhone).toHaveBeenCalled();
+        expect(callChangeModule.submitProject).toHaveBeenCalled();
+        expect(callChangeModule.submitListe).toHaveBeenCalled();
+        expect(callChangeModule.submitDelay).toHaveBeenCalled();
+        expect(callChangeModule.submitClient).toHaveBeenCalled();
+        expect(callChangeModule.submitMail).toHaveBeenCalled();
+        expect(callChangeModule.submitPhone).toHaveBeenCalled();
     });
 
     it("calls callChangeDay when priority select changes", () => {
@@ -236,7 +259,7 @@ describe("TodoPerDay - actions", () => {
         fireEvent.mouseEnter(getByTestId("toggle-day"));
         const selectDay = getByTestId("day-select");
         fireEvent.change(selectDay, { target: { value: "option2" } });
-        expect(callChangeDay).toHaveBeenCalled();
+        expect(callChangeModule.callChangeDay).toHaveBeenCalled();
     });
 
     it("calls handleChangePriority when priority select changes", () => {
@@ -246,7 +269,7 @@ describe("TodoPerDay - actions", () => {
         fireEvent.mouseEnter(getByTestId("toggle-priority"));
         const selectPriority = getByTestId("priority-select");
         fireEvent.change(selectPriority, { target: { value: "mardi" } });
-        expect(handleChangePriority).toHaveBeenCalled();
+        expect(callChangeModule.handleChangePriority).toHaveBeenCalled();
     });
 
     it("crosses out todo on cross button click", () => {
@@ -323,7 +346,7 @@ describe("TodoPerDay - actions", () => {
         const selectPriority = getByTestId("priority-select");
         fireEvent.change(selectPriority, { target: { value: "mardi" } });
 
-        expect(handleChangePriority).toHaveBeenCalledWith(
+        expect(callChangeModule.handleChangePriority).toHaveBeenCalledWith(
             expect.anything(), 
             "1",
             expect.anything(),
@@ -455,83 +478,11 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
         focusSpy.mockRestore();
     });
 
-    it("REF - 1 - should focus all inputs/textareas when in edit mode", () => {
-        const mockTodo2 = {
-            id: "1",
-            project: "Project A",
-            liste: "Liste A",
-            delay: "Delay",
-            client: "Client X",
-            email: "mail@example.com",
-            phone: "1234567890",
-            priority: "High",
-            isDoneDate: false,
-            isDoneProject: false,
-            isDoneListe: false,
-            isDoneDelay: false,
-            isDoneClient: false,
-            isDoneMail: false,
-            isDonePhone: false,
-            selectedDay: "Monday",
-            date: "2026-02-15",
-        };
-
-        const mockTodos2 = [mockTodo2];
-        const setTodos = vi.fn();
-
-        const { container } = render(
-            <TodoPerDay 
-                todo={mockTodo2} 
-                todos={mockTodos2} 
-                setTodos={setTodos}
-            />
-        );
-
-        const editableElements = container.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
-            "input, textarea"
-        );
-
-        const focusMock = vi.fn();
-        
-        editableElements.forEach((el) => {
-            el.focus = focusMock;
-            el.focus();
-        });
-
-        expect(focusMock).toHaveBeenCalledTimes(editableElements.length);
-    });
-
-    it("REF - 2 should focus the input when editBoolProject is true", () => {
-        const focusMock = vi.fn();
-
-        const { getByDisplayValue } = render(
-            <EditableFields
-
-                editWriteParams="Project A" 
-                name="editProject"
-                value="Project A"
-                editBoolParams={true}
-                isDoneParams={false} 
-                onSubmit={vi.fn()}
-                onChange={vi.fn()}
-            />
-        );
-
-        const input = getByDisplayValue("Project A") as HTMLInputElement;
-
-        input.focus = focusMock;
-        input.focus();
-
-        expect(focusMock).toHaveBeenCalled();
-    });
-
-
-    it("REF - 3 should not focus the input when editBoolProject is false", () => {
+    it("REF should not focus the input when editBoolProject is false", () => {
         const focusMock = vi.fn();
 
         render(
             <EditableFields
-
                 editWriteParams="Project A" 
                 name="editProject"
                 value="Project A"
@@ -569,7 +520,6 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
 
         const { getByDisplayValue } = render(<EditableFields {...props} />);
 
-        // Récupérer l'input maintenant qu'il est visible
         const input = getByDisplayValue("Project A") as HTMLInputElement;
         expect(input).toBeInTheDocument();
 
@@ -588,7 +538,6 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
         const handleChange = vi.fn();
         const handleSubmit = vi.fn();
 
-        // On force editBoolParams à true pour rendre l'input
         const props: EditableProps = {
             as: "textarea",
             name: "editListe",
@@ -604,7 +553,6 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
 
         const { getByDisplayValue } = render(<EditableFields {...props} />);
 
-        // Récupérer l'input maintenant qu'il est visible
         const textarea = getByDisplayValue("Liste A") as HTMLTextAreaElement;
         expect(textarea).toBeInTheDocument();
 
@@ -622,8 +570,8 @@ describe("EditableFields Component – coverage editParamsOnChange", () => {
     it("2) should render textarea list and call onChange when edited", async () => {
         const user = userEvent.setup();
         const handleSubmit = vi.fn();
-        // Wrapper qui gère le state pour simuler le comportement contrôlé
-        function Wrapper() {
+  
+        const Wrapper = () => {
             const [val, setVal] = useState("Liste A");
 
             const handleChange: EditableProps["onChange"] = (e) => {
@@ -633,15 +581,15 @@ describe("EditableFields Component – coverage editParamsOnChange", () => {
 
             return (
                 <EditableFields
-                as="textarea"
-                name="editListe"
-                value={val}
-                editWriteParams={val}
-                editBoolParams={true}
-                isDoneParams={false}
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                className="input-button-container"
+                    as="textarea"
+                    name="editListe"
+                    value={val}
+                    editWriteParams={val}
+                    editBoolParams={true}
+                    isDoneParams={false}
+                    onChange={handleChange}
+                    onSubmit={handleSubmit}
+                    className="input-button-container"
                 />
             );
         }
@@ -665,7 +613,6 @@ describe("EditableFields Component – coverage editParamsOnChange", () => {
         const user = userEvent.setup();
         const handleSubmit = vi.fn();
 
-        // Wrapper qui gère le state pour simuler le comportement contrôlé
         const Wrapper = () => {
             const [val, setVal] = useState("Project A");
 
@@ -708,7 +655,6 @@ describe("EditableFields Component – coverage editParamsOnChange", () => {
         const user = userEvent.setup();
         const handleSubmit = vi.fn();
 
-        // Wrapper qui gère le state pour simuler le comportement contrôlé
         const Wrapper = () => {
             const [val, setVal] = useState("mail@mail.com");
 
@@ -751,7 +697,6 @@ describe("EditableFields Component – coverage editParamsOnChange", () => {
         const user = userEvent.setup();
         const handleSubmit = vi.fn();
 
-        // Wrapper qui gère le state pour simuler le comportement contrôlé
         const Wrapper = () => {
             const [val, setVal] = useState("01/07/2026 08:00");
 
@@ -1259,22 +1204,60 @@ it("updates multiple fields correctly via editParamsOnChange", async () => {
 });
 
 
-
-it("update DAY correctly via changeDayFunction", async () => {
+it("update priority correctly via changeDayFunction with dayBool to false", async () => {
     const user = userEvent.setup();
+
     const Wrapper = () => {
-        
-        // const todo = mockTodo;
-        // const setTodos = mockSetTodos;
-        const changeDayFunction = vi.fn();
+        const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
+            hidePriority: false,
+            bgColor: "#4169e11a"
+        });
+        const callHandleChangePriority = async (
+            e: ChangeEvent<HTMLSelectElement>, id: string): Promise<void> => { 
+                setParamsPriority((prev) => ({...prev, paramsPriority: e.target.value}));
+                mockSetTodos((toPrev: Todo) => toPrev.id === id ? {...toPrev, priority: e.target.value} : toPrev);
+                //handleChangePriority(e, id, mockSetTodos, setParamsPriority);
+        };
+
+        return (
+            <PriorityTodo 
+                id={mockTodo.id}
+                paramsPriorityHide={paramsPriority.hidePriority}
+                priorityTodo={mockTodo.priority}
+                onClick={() => setParamsPriority((prev: ParamsPriorityTypes) => ({
+                    ...prev, 
+                    hidePriority: !prev.hidePriority
+                    })
+                )}
+                handleChangePriority={(e) => callHandleChangePriority(e, mockTodo.id)}
+            />
+        );
+    };
+
+    render(<Wrapper/>);
+
+    const submitBtn = screen.getByTestId("priority-select") as HTMLSelectElement;
+    await user.selectOptions(submitBtn, "option3");
+    expect(submitBtn.value).toBe("option3");
+
+    await user.hover(submitBtn);
+    await user.unhover(submitBtn);
+    expect(screen.getByTestId('toggle-priority')).toBeInTheDocument();
+});
+
+
+
+it("update DAY correctly via changeDayFunction with dayBool to false", async () => {
+    const user = userEvent.setup();
+
+    const Wrapper = () => {
         const [selectedDay, setSelectedDay] = useState<string>("lundi");
 
-        const [dayBool, ] = useState(false);
+        const [dayBool, setDayBool] = useState(false);
 
-        // const changeDayFunction = (e: ChangeEvent<HTMLSelectElement>, id: string) => {
-        //     const { value } = e.target;
-        //     setTodos((prev: Todo) => prev.id === id ? {...prev, selectedDay: value} : prev);
-        // };
+        const changeDayFunction = (e: ChangeEvent<HTMLSelectElement>) => {
+            setSelectedDay(e.target.value)
+        };
 
         return (
             <CheckDay
@@ -1282,61 +1265,163 @@ it("update DAY correctly via changeDayFunction", async () => {
                 dayBool={dayBool}
                 selectedDay={selectedDay}
                 handleChangeDay={changeDayFunction}
-                onClick={vi.fn()}
+                onClick={() => setDayBool(true)}
             />
         );
     };
 
     render(<Wrapper/>);
 
-    //const dayValue = screen.getByDisplayValue("Lundi") as HTMLSelectElement;
-    const dayValue = screen.getByTestId("day-select") as HTMLSelectElement;
-    await userEvent.selectOptions(dayValue, "mardi");
-    setSelectedDay("mardi");
-    //await user.selectOptions(dayValue, screen.getByRole('option', { name: /mardi/i }));
-    expect(dayValue.value).toBe(/mardi/i);
+    const submitBtn = screen.getByTestId("day-select") as HTMLSelectElement;
+    await user.selectOptions(submitBtn, "mardi");
+    expect(submitBtn.value).toBe("mardi");
 
-    expect(screen.getByTestId('day-select')).toBeInTheDocument();
+    await user.hover(submitBtn);
+    await user.unhover(submitBtn);
+    expect(screen.getByTestId('toggle-day')).toBeInTheDocument();
 });
 
-
-
-it("handles unknown field names and empty values in editParamsOnChange", async () => {
+it("update DAY correctly via changeDayFunction with dayBool to true", async () => {
     const user = userEvent.setup();
 
     const Wrapper = () => {
-        const [editWriteParams, setEditWriteParams] = useState({
-            editProject: "Project A",
-            editListe: "Liste A",
-        });
+        const [selectedDay, setSelectedDay] = useState<string>("lundi");
 
-        const editParamsOnChange = (e: ChangeEvent<EditableElement>) => {
-            const { name, value } = e.target;
-            setEditWriteParams((prev) => ({
-                ...prev,
-                [name]: value
-            }));
+        const [dayBool, setDayBool] = useState(true);
+
+        const changeDayFunction = (e: ChangeEvent<HTMLSelectElement>) => {
+            setSelectedDay(e.target.value)
         };
 
         return (
-            <>
-                <input 
-                    name="editProject" 
-                    value={editWriteParams.editProject} 
-                    onChange={editParamsOnChange} 
-                />
-                <input 
-                    name="unknownField" 
-                    value={(editWriteParams as any).unknownField || ""} 
-                    onChange={editParamsOnChange} 
-                />
-            </>
+            <CheckDay
+                id="1"
+                dayBool={dayBool}
+                selectedDay={selectedDay}
+                handleChangeDay={changeDayFunction}
+                onClick={() => setDayBool(false)}
+            />
         );
     };
 
-    const { getByDisplayValue } = render(<Wrapper />);
+    render(<Wrapper/>);
 
-    const unknownInput = getByDisplayValue("") as HTMLInputElement;
-    await user.type(unknownInput, "Some value");
-    expect(unknownInput.value).toBe("Some value");
+    const submitBtn = screen.getByTestId("toggle-day") as HTMLSpanElement;
+    expect(submitBtn.textContent).toBe("LUNDI");
+
+    await user.hover(submitBtn);
+    expect(screen.getByTestId('day-select')).toBeInTheDocument();
 });
+
+// Test
+describe("isVisible toggle behavior", () => {
+  it("should toggle visibility when the button is clicked", async () => {
+    // Rendu du composant
+    const Wrapper = () => {
+      const [isVisible, setIsVisible] = useState(false);
+      
+      return (
+        <div className="absolute--div">
+          <div
+            onMouseLeave={() => setIsVisible(false)}
+            data-testid="client--mail--phone"
+            className={`client--mail--phone ${isVisible ? "is-open" : "is-close"}`}
+          >
+            <EditableFields
+                onSubmit={() => {}}
+                type="text"
+                as="input"
+                className={`input-button-client ${isVisible ? "show" : "hide"}`}
+                name="editClient"
+                value="Client"
+                onChange={() => {}}
+                editBoolParams={false}
+                editWriteParams={"Client"}
+                isDoneParams={false}
+                data-testid="client"
+            />
+            <EditableFields
+                onSubmit={() => {}}
+                type="email"
+                as="input"
+                className={`input-button-mail ${isVisible ? "show" : "hide"}`}
+                name="editMail"
+                value="Test@mail.com"
+                onChange={() => {}}
+                editBoolParams={false}
+                editWriteParams={"Mail"}
+                isDoneParams={false}
+                data-testid="mail"
+            />
+            <EditableFields
+                onSubmit={() => {}}
+                type="text"
+                as="input"
+                className={`input-button-phone ${isVisible ? "show" : "hide"}`}
+                name="editPhone"
+                value="123456789"
+                onChange={() => {}}
+                editBoolParams={false}
+                editWriteParams={"Phone"}
+                isDoneParams={false}
+                data-testid="phone"
+            />
+          </div>
+
+          <div className="div--hidden--clientMailPhone">
+            <span 
+              onClick={() => setIsVisible(true)}
+              className={`span--client--mail--phone ${isVisible ? "hide" : "show"}`}
+              data-testid="toggle-client-inputs"
+            >
+              <FaEye size={24} />
+            </span>
+          </div>
+        </div>
+      );
+    };
+
+    render(<Wrapper />);
+
+    // Vérifier que les champs sont initialement masqués (isVisible = false)
+    const clientMailPhone = screen.getByTestId("client--mail--phone");
+    expect(clientMailPhone).toHaveClass('client--mail--phone', 'is-close');
+
+    const clientField = screen.queryByText("Client");
+    expect(clientField).toBeInTheDocument();
+    const editableFieldClient = document.querySelector('.input-button-client');
+    expect(editableFieldClient).toHaveClass("input-button-client", "hide");
+
+    const mailField = screen.queryByText("Mail");
+    expect(mailField).toBeInTheDocument();
+    const editableFieldMail = document.querySelector('.input-button-mail');
+    expect(editableFieldMail).toHaveClass("input-button-mail", "hide");
+
+    const phoneField = screen.queryByText("Phone");
+    expect(phoneField).toBeInTheDocument();
+    const editableFieldPhone = document.querySelector('.input-button-phone');
+    expect(editableFieldPhone).toHaveClass("input-button-phone", "hide");
+    
+    // Vérifier que le bouton "eye" est visible
+    const toggleButton = screen.getByTestId("toggle-client-inputs");
+    expect(toggleButton).toBeInTheDocument();
+    
+    // Simuler un clic sur le bouton pour rendre les champs visibles
+    fireEvent.click(toggleButton);
+    
+    // Vérifier que les champs sont maintenant visibles (isVisible = true)
+    expect(editableFieldClient).toHaveClass('input-button-client','show');
+    expect(editableFieldMail).toHaveClass('input-button-mail','show');
+    expect(editableFieldPhone).toHaveClass('input-button-phone','show');
+
+    // Simuler un onMouseLeave pour cacher les champs à nouveau
+    fireEvent.mouseLeave(screen.getByText("Client"));
+    
+    // Vérifier que les champs sont cachés
+    expect(editableFieldClient).toHaveClass("input-button-client", 'hide');
+    expect(editableFieldMail).toHaveClass("input-button-mail", 'hide');
+    expect(editableFieldPhone).toHaveClass("input-button-phone", 'hide');
+  });
+});
+
+

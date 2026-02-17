@@ -17,3 +17,24 @@
     border: none;
     margin-top: 10px;
 }
+
+.select--day {
+    position: absolute;
+    font-size: 16px;
+    color: #87cefa;
+    background-color: #00002f;
+    border: none;
+    border-radius: 7px;
+    box-shadow: 0 0 7px #4169e180;
+    cursor: pointer;
+    padding: 10px 5px;
+}
+
+option {
+    font-size: 16px;
+    background-color: #00002f;
+    color: #87cefa;
+    border: 1.5px solid #334155;
+    border-radius: 7px;
+    padding: 5px 7px;
+}
