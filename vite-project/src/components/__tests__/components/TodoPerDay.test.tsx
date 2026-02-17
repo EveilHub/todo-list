@@ -1424,4 +1424,29 @@ describe("isVisible toggle behavior", () => {
   });
 });
 
+describe("TodoPerDay focus behavior", () => {
+  it("should focus input when editBoolProject becomes true", async () => {
+    
+    // 🔥 Spy sur focus
+    const focusSpy = vi.spyOn(HTMLElement.prototype, "focus");
 
+    render(
+      <TodoPerDay
+        todo={mockTodo}
+        todos={mockTodos}
+        setTodos={vi.fn()}
+      />
+    );
+
+    // Clique sur le bouton pour activer editBoolProject
+    const submitBtn = screen.getAllByTestId("submit-btn")[0];
+    await userEvent.click(submitBtn);
+
+    //screen.debug();
+
+    // ✅ Vérifie que focus a été appelé
+    expect(focusSpy).toHaveBeenCalled();
+
+    focusSpy.mockRestore();
+  });
+});
