@@ -44,6 +44,7 @@ const EditableFields = forwardRef<
                         />
                         ) : (
                         <input
+                            data-testid="input--editable"
                             ref={ref as ForwardedRef<HTMLInputElement>}
                             type={type}
                             name={name}

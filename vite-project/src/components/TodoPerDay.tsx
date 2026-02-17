@@ -233,9 +233,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
             id={todo.id} 
             dayBool={dayBool}
             selectedDay={todo?.selectedDay}
-            handleChangeDay={(e: ChangeEvent<HTMLSelectElement>) => 
-              changeDayFunction(e, todo.id)
-            } 
+            handleChangeDay={(e) => changeDayFunction(e, todo.id)}
             onClick={() => setDayBool((prev: boolean) => !prev)}
           />
 
