@@ -18,6 +18,7 @@ const CheckDay = ({
                     value={selectedDay} 
                     onChange={handleChangeDay}
                     onMouseLeave={onClick}
+                    className="select--day"
                 >
                     <option value="lundi">Lundi</option>
                     <option value="mardi">Mardi</option>

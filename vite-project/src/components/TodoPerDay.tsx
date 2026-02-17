@@ -218,10 +218,6 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   return (
     <div id={String(todo.id)} className="main--div">
 
-      {/* <div className="div--day">
-        <h2>{todo.selectedDay?.toUpperCase()}</h2>
-      </div> */}
-
       <div 
         className="container--todo" 
         style={{ backgroundColor: paramsPriority.bgColor }}
