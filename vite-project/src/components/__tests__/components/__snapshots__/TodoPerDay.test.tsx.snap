@@ -4,6 +4,7 @@ exports[`TodoPerDay full snapshot test > renders TodoPerDay with EditableFields 
 <div>
   <div
     class="main--div"
+    data-testid="main--div"
     id="1"
   >
     <div
@@ -136,7 +137,7 @@ exports[`TodoPerDay full snapshot test > renders TodoPerDay with EditableFields 
               class="input-button-container"
             >
               <span>
-                2026-01-01
+                2026/01/01 09:00
               </span>
               <div
                 class="div--btn--submit"
@@ -269,7 +270,7 @@ exports[`TodoPerDay full snapshot test > renders TodoPerDay with EditableFields 
                 class="input-button-phone hide"
               >
                 <span>
-                  123456789
+                  123 456 78 19
                 </span>
                 <div
                   class="div--btn--submit"
@@ -329,6 +330,7 @@ exports[`TodoPerDay full snapshot test > renders TodoPerDay with EditableFields 
         class="div--crossout--delete"
       >
         <button
+          aria-label="cross todo"
           class="cross--out--btn"
           type="button"
         >
@@ -379,7 +381,8 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
 <div>
   <div
     class="main--div"
-    id=""
+    data-testid="main--div"
+    id="1"
   >
     <div
       class="container--todo"
@@ -390,16 +393,18 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
       >
         <div
           class="div--day"
-          id=""
+          id="1"
         >
           <span
             class="checkday--span"
             data-testid="toggle-day"
-          />
+          >
+            LUNDI
+          </span>
         </div>
         <div
           class="priority--container"
-          id=""
+          id="1"
         >
           <span
             class="priority--span"
@@ -690,6 +695,7 @@ exports[`TodoPerDay snapshot test > testing TodoPerDay component 1`] = `
         class="div--crossout--delete"
       >
         <button
+          aria-label="cross todo"
           class="cross--out--btn"
           type="button"
         >

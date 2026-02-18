@@ -21,3 +21,8 @@ vi.mock('../../../utils/fonctions', () => ({
 }));
 
 ### 87,113-114,122,206,213
+
+vi.mock
+import
+beforeEach
+describe / it

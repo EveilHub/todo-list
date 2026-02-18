@@ -1,4 +1,5 @@
-import { describe, it, expect, vi } from "vitest";
+import type { ChangeEvent } from "react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { ParamsPriorityTypes, Todo, WriteEditType } from "../../lib/definitions";
 import {
   handleChangePriority,
@@ -33,7 +34,10 @@ import {
   callApiMail,
   callApiPhone,
 } from "../apiFunctions";
-import type { ChangeEvent } from "react";
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 // Mock WriteEditType
 const editWriteParams: WriteEditType = {

@@ -2,22 +2,51 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import TodosList from '../../TodosList';
 import type { Todo } from '../../../lib/definitions';
+import TodoPerDay from '../../TodoPerDay';
 
 vi.mock('../../TodoPerDay', () => ({
   default: ({ todo }: { todo: Todo }) => (
-    <div>
+    <div data-testid="main--div">
       <span>{todo.priority}</span>
       <span>{todo.delay}</span>
     </div>
   ),
 }));
+// 
+// ======= Données =======
+const mockTodo: Todo = {
+  id: "1",
+  client: "John Doe",
+  email: "john@mail.com",
+  phone: "123456789",
+  project: "Project A",
+  liste: "List A",
+  delay: "2026-01-01",
+  priority: "High",
+  date: "2026-01-01",
+  isDoneClient: false,
+  isDoneMail: false,
+  isDonePhone: false,
+  isDoneProject: false,
+  isDoneListe: false,
+  isDoneDelay: false,
+  selectedDay: "Mardi",
+  isDoneDate: false,
+};
+
+const mockSetTodos = vi.fn();
+
+it("snapshot avec todo normal", () => {
+  const { container } = render(
+    <TodoPerDay todo={mockTodo} todos={[mockTodo]} setTodos={mockSetTodos} />
+  );
+  expect(container).toMatchSnapshot();
+});
 
 describe('TodosList', () => {
   it('ne doit rien rendre lorsque la liste des todos est vide', () => {
-    const todos: Todo[] = [];
-    const setTodos = vi.fn();
 
-    render(<TodosList className="test-class" todos={todos} setTodos={setTodos} />);
+    render(<TodosList className="test-class" todos={[mockTodo]} setTodos={mockSetTodos} />);
 
     // Vérifier qu'aucun élément TodoPerDay n'est rendu
     expect(screen.queryAllByText(/option/)).toHaveLength(0);

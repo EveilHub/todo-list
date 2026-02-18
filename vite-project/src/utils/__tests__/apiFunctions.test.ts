@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import {
     callApiPriority,
     callApiDay,
@@ -203,10 +203,6 @@ describe("API call functions", () => {
 
 describe("callApiWriteEditType", () => {
     beforeEach(() => {
-        vi.restoreAllMocks();
-    });
-
-    afterEach(() => {
         vi.clearAllMocks();
     });
 
