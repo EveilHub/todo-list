@@ -216,7 +216,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
   };
 
   return (
-    <div id={String(todo.id)} className="main--div">
+    <div id={String(todo.id)} className="main--div" data-testid="main--div">
 
       <div 
         className="container--todo" 
@@ -364,6 +364,7 @@ const TodoPerDay = ({todo, todos, setTodos}: PropsTodoType): JSX.Element => {
 
           <button 
             type="button" 
+            aria-label="cross todo"
             onClick={(): void => handleCrossOutTodo(todo.id)} 
             className="cross--out--btn"
           >

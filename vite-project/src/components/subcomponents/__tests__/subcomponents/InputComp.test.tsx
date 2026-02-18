@@ -7,7 +7,12 @@ import InputComp from '../../InputComp';
 describe('InputComp snapshot test', () => {
     test('testing InputComp component', () => {
         const { container } = render(
-            <InputComp type={''} name={''} value={''} placeholder={''} />
+            <InputComp 
+                type={''} 
+                name={''} 
+                value={''} 
+                placeholder={''} 
+            />
         );
         expect(container).toMatchSnapshot();
     });
