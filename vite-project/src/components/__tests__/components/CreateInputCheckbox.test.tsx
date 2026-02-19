@@ -80,6 +80,18 @@ const Wrapper = () => {
 };
 
 describe('handleChangeCreateInputPhone', () => {
+  it('project test input', () => {
+    render(<Wrapper />);
+
+    const projectInput = screen.getByPlaceholderText('Projet') as HTMLInputElement;
+
+    fireEvent.change(projectInput, {
+      target: { value: 'truc much' },
+    });
+
+    expect(projectInput.value).toBe('truc much');
+  });
+
   it('formate le numéro de téléphone lors de la saisie', () => {
     render(<Wrapper />);
 

@@ -91,8 +91,22 @@ vi.mock("../../subcomponents/PriorityTodo", () => ({
                 </span>
             )}
         </div>
-  ),
+    ),
 }));
+
+vi.mock('../../EditableFields', () => ({
+  default: ({ onChange }: any) => (
+    <button
+      onClick={() =>
+        onChange({
+          target: { name: 'editProject', value: 'Mocked' }
+        })
+      }
+    >
+      Mocked
+    </button>
+  )
+}))
 
 describe('TodoPerDay snapshot test', () => {
     it('testing TodoPerDay component', () => {
@@ -668,47 +682,6 @@ describe('TodoPerDay Component – client/mail/phone coverage', () => {
 });
 
 describe("EditableFields Component – coverage editParamsOnChange", () => {
-    // it("2) should render textarea list and call onChange when edited", async () => {
-    //     const user = userEvent.setup();
-    //     const handleSubmit = vi.fn();
-  
-    //     const Wrapper = () => {
-    //         const [val, setVal] = useState("Liste A");
-
-    //         const handleChange: EditableProps["onChange"] = (e) => {
-    //             const { value } = e.target;
-    //             setVal(value);
-    //         };
-
-    //         return (
-    //             <EditableFields
-    //                 as="textarea"
-    //                 name="editListe"
-    //                 value={val}
-    //                 editWriteParams={val}
-    //                 editBoolParams={true}
-    //                 isDoneParams={false}
-    //                 onChange={handleChange}
-    //                 onSubmit={handleSubmit}
-    //                 className="input-button-container"
-    //             />
-    //         );
-    //     }
-
-    //     const { getByDisplayValue } = render(<Wrapper />);
-
-    //     const textarea = getByDisplayValue("Liste A") as HTMLTextAreaElement;
-    //     expect(textarea).toBeInTheDocument();
-
-    //     const focusSpy = vi.spyOn(textarea, "focus");
-    //     textarea.focus();
-    //     expect(focusSpy).toHaveBeenCalled();
-
-    //     await user.clear(textarea);
-    //     await user.type(textarea, "Liste B");
-
-    //     expect(textarea.value).toBe("Liste B");
-    // });
 
     it("should render input mail and call onChange when edited", async () => {
         const user = userEvent.setup();
@@ -913,6 +886,39 @@ describe("TodoPerDay - handleDelete errors", () => {
 });
 
 describe("Editable Fields Tests", () => {
+
+    it('renders span when editBoolProject is true', async () => {
+        render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} initialEditBoolProject={true} />);
+
+        const searchProjectSpan = screen.getByDisplayValue("Project A");
+        expect(searchProjectSpan).toBeInTheDocument(); // ok
+
+        const searchProjectInput = screen.queryByTestId("input--editable") as HTMLInputElement;
+        expect(searchProjectInput).toBeInTheDocument(); // ok
+
+        await userEvent.clear(searchProjectInput);
+        await userEvent.type(searchProjectInput, "New Project Tested !");
+
+        expect(searchProjectInput).toBeInTheDocument();
+        expect(searchProjectInput.value).toBe("New Project Tested !");
+    })
+
+    it('renders span when editBoolPhone is true', async () => {
+        render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} initialEditBoolPhone={true} />);
+
+        const searchProjectSpan = screen.getByDisplayValue("123 456 78 19");
+        expect(searchProjectSpan).toBeInTheDocument(); // ok
+
+        const searchProjectInput = screen.queryByTestId("input--editable") as HTMLInputElement;
+        expect(searchProjectInput).toBeInTheDocument(); // ok
+
+        await userEvent.clear(searchProjectInput);
+        await userEvent.type(searchProjectInput, "077 777 88 99");
+
+        expect(searchProjectInput).toBeInTheDocument();
+        expect(searchProjectInput.value).toBe("077 777 88 99");
+    })
+
     it("updates multiple fields correctly via editParamsOnChange", async () => {
         const user = userEvent.setup();
 
@@ -1361,26 +1367,26 @@ describe("EditableFields", () => {
         const user = userEvent.setup();
 
         const Wrapper = () => {
-        const [editWriteParams, setEditWriteParams] = useState({ editProject: "Old Project" });
+            const [editWriteParams, setEditWriteParams] = useState({ editProject: "Old Project" });
 
-        const editParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
-            const { name, value } = e.target;
-            setEditWriteParams(prev => ({ ...prev, [name]: value }));
-        };
+            const editParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
+                const { name, value } = e.target;
+                setEditWriteParams(prev => ({ ...prev, [name]: value }));
+            };
 
-        return (
-            <EditableFields
-                as="input"
-                value={editWriteParams.editProject}
-                name="editProject"
-                editBoolParams={true}
-                editWriteParams={editWriteParams.editProject}
-                isDoneParams={false}
-                onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
-                onChange={editParamsOnChange}
-                data-testid="input--editable"
-            />
-        );
+            return (
+                <EditableFields
+                    as="input"
+                    value={editWriteParams.editProject}
+                    name="editProject"
+                    editBoolParams={true}
+                    editWriteParams={editWriteParams.editProject}
+                    isDoneParams={false}
+                    onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
+                    onChange={editParamsOnChange}
+                    data-testid="input--editable"
+                />
+            );
         };
 
         render(<Wrapper />);
@@ -1393,84 +1399,51 @@ describe("EditableFields", () => {
 
         expect(inputProject.value).toBe("New Project");
     });
-
-
-
-
+});
 
 type WriteEditType = { editProject: string };
 
 describe("EditableFields - coverage editParamsOnChange", () => {
-  it("met à jour l'état quand on change l'input", async () => {
-    const user = userEvent.setup();
-
-    // Wrapper pour simuler le parent
-    const Wrapper = () => {
-      const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
-        editProject: "Old Project",
-      });
-
-      const editParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
-        const { name, value } = e.target;
-        setEditWriteParams(prev => ({ ...prev, [name]: value }));
-      };
-
-      return (
-        <EditableFields
-          as="input"
-          value={editWriteParams.editProject}
-          name="editProject"
-          editBoolParams={true} // ⚠️ IMPORTANT pour rendre l'input
-          editWriteParams={editWriteParams.editProject}
-          isDoneParams={false}
-          onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
-          onChange={editParamsOnChange}
-          data-testid="input--editable"
-        />
-      );
-    };
-
-    render(<Wrapper />);
-
-    // Récupérer l'input réel
-    const input = screen.getByTestId("input--editable") as HTMLInputElement;
-    expect(input).toBeInTheDocument();
-    expect(input.value).toBe("Old Project");
-
-    // Simuler la saisie utilisateur
-    await user.clear(input);
-    await user.type(input, "New Project");
-
-    // Vérifier que le state a été mis à jour
-    expect(input.value).toBe("New Project");
-  });
-});
-
-
-
-
     it("met à jour l'état quand on change l'input", async () => {
-        //const user = userEvent.setup();
+        const user = userEvent.setup();
 
-        render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
+        // Wrapper pour simuler le parent
+        const Wrapper = () => {
+            const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
+                editProject: "Old Project",
+            });
 
+            const editParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
+                const { name, value } = e.target;
+                setEditWriteParams(prev => ({ ...prev, [name]: value }));
+            };
 
-        const editButtons = screen.getAllByTestId("submit-btn")[0];
-        //await user.click(editButtons[0]);
-        
-        //const input = screen.getByTestId("input--editable") as HTMLInputElement;
-        expect(editButtons).toBeInTheDocument();
-        // await user.clear(input);
-        // await user.type(input, "New Project");
-        // expect(input).toHaveValue("New Project");
+            return (
+                <EditableFields
+                    as="input"
+                    value={editWriteParams.editProject}
+                    name="editProject"
+                    editBoolParams={true} // ⚠️ IMPORTANT pour rendre l'input
+                    editWriteParams={editWriteParams.editProject}
+                    isDoneParams={false}
+                    onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
+                    onChange={editParamsOnChange}
+                    data-testid="input--editable"
+                />
+            );
+        };
+
+        render(<Wrapper />);
+
+        const input = screen.getByTestId("input--editable") as HTMLInputElement;
+        expect(input).toBeInTheDocument();
+        expect(input.value).toBe("Old Project");
+
+        await user.clear(input);
+        await user.type(input, "New Project");
+
+        expect(input.value).toBe("New Project");
     });
-
-
-
-
-
-
-
 });
 
 describe('TodoPerDay - handleDelete & handleCrossOutTodo', () => {

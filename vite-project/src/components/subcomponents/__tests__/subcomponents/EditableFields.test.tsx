@@ -3,9 +3,8 @@ import { type FormEvent, type ChangeEvent, createRef } from 'react';
 import { describe, expect, it, test, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import EditableFields from '../../EditableFields';
 import type { EditableElement } from '../../../../lib/definitions';
-
+import EditableFields from '../../EditableFields';
 
 describe('DateCalendar snapshot test', () => {
     test('testing DateCalendar component', () => {
@@ -24,7 +23,7 @@ describe('DateCalendar snapshot test', () => {
     });
 });
 
-describe("", () => {
+describe("EditableFields", () => {
     it("affiche un input editable quand editBoolParams est true", () => {
         const ref = createRef<EditableElement>();
         render(
@@ -144,14 +143,8 @@ describe("", () => {
         );
 
         const input = getByDisplayValue("Project A") as HTMLInputElement;
-
-        // remplacer focus par un mock
         input.focus = focusMock;
-
-        // déclencher useEffect
         input.focus();
-
         expect(focusMock).toHaveBeenCalled();
     });
-
 });
