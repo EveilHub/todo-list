@@ -82,6 +82,37 @@ todo list especialy for graph & design
 
 ## Testing
 
+------------------------------|---------|----------|---------|---------|-------------------
+File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+------------------------------|---------|----------|---------|---------|-------------------
+All files                     |     100 |      100 |     100 |     100 |                   
+ server/src                   |     100 |      100 |     100 |     100 |                   
+  server.ts                   |     100 |      100 |     100 |     100 |                   
+ src                          |     100 |      100 |     100 |     100 |                   
+  App.tsx                     |     100 |      100 |     100 |     100 |                   
+ src/components               |     100 |      100 |     100 |     100 |                   
+  CreateInputCheckbox.tsx     |     100 |      100 |     100 |     100 |                   
+  FetchFromCSV.tsx            |     100 |      100 |     100 |     100 |                   
+  TableCalendar.tsx           |     100 |      100 |     100 |     100 |                   
+  TableOfTodos.tsx            |     100 |      100 |     100 |     100 |                   
+  TodoPerDay.tsx              |     100 |      100 |     100 |     100 |                   
+  TodosList.tsx               |     100 |      100 |     100 |     100 |                   
+ src/components/subcomponents |     100 |      100 |     100 |     100 |                   
+  CheckDay.tsx                |     100 |      100 |     100 |     100 |                   
+  CheckboxComp.tsx            |     100 |      100 |     100 |     100 |                   
+  DateCalendar.tsx            |     100 |      100 |     100 |     100 |                   
+  EditableFields.tsx          |     100 |      100 |     100 |     100 |                   
+  InputComp.tsx               |     100 |      100 |     100 |     100 |                   
+  PriorityTodo.tsx            |     100 |      100 |     100 |     100 |                   
+ src/hooks                    |     100 |      100 |     100 |     100 |                   
+  useFetchDate.ts             |     100 |      100 |     100 |     100 |                   
+ src/utils                    |     100 |      100 |     100 |     100 |                   
+  apiFunctions.ts             |     100 |      100 |     100 |     100 |                   
+  dateUtils.ts                |     100 |      100 |     100 |     100 |                   
+  fonctions.ts                |     100 |      100 |     100 |     100 |                   
+  todoFunctions.ts            |     100 |      100 |     100 |     100 |                   
+------------------------------|---------|----------|---------|---------|-------------------
+
 ### Frontend
 
 `pnpm lint`
