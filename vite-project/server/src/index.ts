@@ -6,19 +6,19 @@ import path from "path";
 import { Todo } from "./types/definitions";
 import { cleanTodoForCSV } from "./utils/csvCleaner";
 
-//const app = express();
-//const PORT: number = 3001;
+const app = express();
+const PORT: number = 3001;
 
 //--- --- --- --- TEST --- --- --- ---//
 
-import { createServer } from './server'
+// import { createServer } from './server'
 
-const app = createServer()
-const PORT: number = 3001;
+// const app = createServer()
+// const PORT: number = 3001;
 
-app.listen(PORT, () => {
-  console.log('Server running')
-})
+// app.listen(PORT, () => {
+//   console.log('Server running')
+// })
 
 //--- --- END LINE OF TEST --- ---//
 
@@ -225,6 +225,6 @@ app.delete("/api/todos/csv/:id", async (req: Request, res: Response) => {
   }
 });
 
-// app.listen(PORT, () => {
-//   console.log(`🚀 Server running on http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});

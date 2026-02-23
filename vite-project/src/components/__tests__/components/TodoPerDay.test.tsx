@@ -1,4 +1,4 @@
-import { createRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { createRef, useState, type ChangeEvent, type FormEvent, type JSX } from "react";
 
 import userEvent from "@testing-library/user-event";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -229,7 +229,7 @@ describe("TodoPerDay full snapshot test", () => {
 
         if (deleteBtn) {
             userEvent.click(deleteBtn);
-        }
+        };
 
         expect(globalThis.fetch).not.toHaveBeenCalled();
         expect(mockSetTodos).not.toHaveBeenCalled();
@@ -263,12 +263,12 @@ describe("TodoPerDay full snapshot test", () => {
         expect(screen.getByTestId('toggle-day')).toBeInTheDocument()
     });
 
-    it('renders select when dayBool is false', () => {
+    it('renders select when hidePriority is false', () => {
         render(
             <PriorityTodo
                 id="1" 
                 paramsPriorityHide={false} 
-                priorityTodo={""} 
+                priorityTodo={"option1"} 
                 onClick={() => vi.fn()}
                 handleChangePriority={() => vi.fn()}
             />
@@ -277,12 +277,12 @@ describe("TodoPerDay full snapshot test", () => {
         expect(screen.getByTestId('priority-select')).toBeInTheDocument()
     });
 
-    it('renders span when dayBool is true', () => {
+    it('renders span when hidePriority is true', () => {
         render(
             <PriorityTodo
                 id="1"
                 paramsPriorityHide={true} 
-                priorityTodo={""} 
+                priorityTodo={"option2"} 
                 onClick={() => vi.fn()}
                 handleChangePriority={() => vi.fn()}
             />
@@ -293,11 +293,11 @@ describe("TodoPerDay full snapshot test", () => {
 
     it("should call callChangeDay with correct arguments", async () => {
         const user = userEvent.setup();
-        const todo = mockTodos[0];
+        const todo: Todo = mockTodos[0];
         
         const setTodos = vi.fn();
 
-        const WrapperDay = () => {
+        const WrapperDay = (): JSX.Element => {
 
             const [dayBool, setDayBool] = useState<boolean>(false);
             const [selectedDay, setSelectedDay] = useState<string>("lundi");
@@ -320,7 +320,7 @@ describe("TodoPerDay full snapshot test", () => {
 
         render(<WrapperDay/>);
 
-        const submitBtn = screen.getByTestId("day-select") as HTMLSelectElement;
+        const submitBtn: HTMLSelectElement = screen.getByTestId("day-select");
 
         await user.selectOptions(submitBtn, "mardi");
 
@@ -360,9 +360,10 @@ describe("TodoPerDay full snapshot test", () => {
 });
 
 describe("TodoPerDay - actions", () => {
-    it("calls submit functions on each submit button click", async () => {
-        const user = userEvent.setup();
+    
+    const user = userEvent.setup();
 
+    it("calls submit functions on each submit button click", async () => {
         const { getAllByTestId } = render(
             <TodoPerDay
                 todo={mockTodos[0]}
@@ -371,7 +372,7 @@ describe("TodoPerDay - actions", () => {
             />
         );
 
-        const submitButtons = getAllByTestId("submit-btn");
+        const submitButtons: HTMLElement[] = getAllByTestId("submit-btn");
 
         await user.click(submitButtons[0]);
         await user.click(submitButtons[1]);
@@ -389,8 +390,6 @@ describe("TodoPerDay - actions", () => {
     });
 
     it("calls callChangeDay when priority select changes", async () => {
-        const user = userEvent.setup();
-
         const { getByTestId } = render(
             <TodoPerDay todo={mockTodos[0]} todos={mockTodos} setTodos={mockSetTodos} />
         );
@@ -401,7 +400,6 @@ describe("TodoPerDay - actions", () => {
     });
 
     it("calls handleChangePriority when priority select changes", async () => {
-        const user = userEvent.setup();
         const { getByTestId } = render(
             <TodoPerDay todo={mockTodos[0]} todos={mockTodos} setTodos={mockSetTodos} />
         );
@@ -412,7 +410,6 @@ describe("TodoPerDay - actions", () => {
     });
 
     it("crosses out todo on cross button click", async () => {
-        const user = userEvent.setup();
         const { container } = render(
             <TodoPerDay todo={mockTodos[0]} todos={mockTodos} setTodos={mockSetTodos} />
         );
@@ -423,7 +420,6 @@ describe("TodoPerDay - actions", () => {
     });
 
     it("hides delete button when crossed", async () => {
-        const user = userEvent.setup();
         const { container } = render(
             <TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />
         );
@@ -431,7 +427,7 @@ describe("TodoPerDay - actions", () => {
         const crossBtn = container.querySelector(".cross--out--btn");
         await user.click(crossBtn!);
 
-        const deleteBtn = container.querySelector(".delete--btn");
+        const deleteBtn: Element | null = container.querySelector(".delete--btn");
         expect(deleteBtn).toBeNull();
     });
 
@@ -449,13 +445,13 @@ describe("TodoPerDay - actions", () => {
 
         render(
             <TodoPerDay
-            todo={highPriorityTodo}
-            todos={[highPriorityTodo]}
-            setTodos={vi.fn()}
+                todo={highPriorityTodo}
+                todos={[highPriorityTodo]}
+                setTodos={vi.fn()}
             />
         );
 
-        const container = document.querySelector('.container--todo');
+        const container: Element | null = document.querySelector('.container--todo');
 
         expect(container).toHaveStyle({
             backgroundColor: expect.any(String)
@@ -463,7 +459,6 @@ describe("TodoPerDay - actions", () => {
     });
 
     it("calls fetch twice when delete button clicked", async () => {
-        const user = userEvent.setup();
         const fetchMock = vi.fn().mockResolvedValue({ ok: true });
         vi.stubGlobal("fetch", fetchMock);
         
@@ -480,37 +475,36 @@ describe("TodoPerDay - actions", () => {
     });
 
     it('should show inputs when eye icon is clicked and hide on mouse leave', async () => {
-    const user = userEvent.setup();
+        const user = userEvent.setup();
 
-    render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
+        render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
 
-    const clientContainer = screen
-        .getByTestId('toggle-client-inputs')
-        .closest('.absolute--div')!
-        .querySelector('.client--mail--phone') as HTMLElement;
+        const clientContainer = screen
+            .getByTestId('toggle-client-inputs')
+            .closest('.absolute--div')!
+            .querySelector('.client--mail--phone') as HTMLElement;
 
-    expect(clientContainer).toHaveClass('is-close');
+        expect(clientContainer).toHaveClass('is-close');
 
-    // Eye img click
-    const toggleButton = screen.getByTestId('toggle-client-inputs');
-    await user.click(toggleButton);
+        // Eye img click
+        const toggleButton = screen.getByTestId('toggle-client-inputs');
+        await user.click(toggleButton);
 
-    expect(clientContainer).toHaveClass('is-open');
+        expect(clientContainer).toHaveClass('is-open');
 
-    // correct with userEvent !
-    fireEvent.mouseLeave(clientContainer);
+        // correct with userEvent !
+        fireEvent.mouseLeave(clientContainer);
 
-    expect(clientContainer).toHaveClass('is-close');
+        expect(clientContainer).toHaveClass('is-close');
     });
 
     it('should call submit functions on EditableFields submit', async () => {
-        const user = userEvent.setup();
         render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} />);
 
         const toggleButton = screen.getByTestId('toggle-client-inputs');
         await user.click(toggleButton);
 
-        const clientDiv = screen.getByText(mockTodo.client).closest('.client--mail--phone');
+        const clientDiv: Element | null = screen.getByText(mockTodo.client).closest('.client--mail--phone');
         expect(clientDiv).toHaveClass('is-open');
     });
 });
@@ -886,22 +880,45 @@ describe("TodoPerDay - handleDelete errors", () => {
 });
 
 describe("Editable Fields Tests", () => {
+    
+    const user = userEvent.setup();
 
     it('renders span when editBoolProject is true', async () => {
+
         render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} initialEditBoolProject={true} />);
 
         const searchProjectSpan = screen.getByDisplayValue("Project A");
         expect(searchProjectSpan).toBeInTheDocument(); // ok
 
+        //console.log("!!! Test starts here !!!");
+        
+        //screen.debug();
+
         const searchProjectInput = screen.queryByTestId("input--editable") as HTMLInputElement;
         expect(searchProjectInput).toBeInTheDocument(); // ok
 
-        await userEvent.clear(searchProjectInput);
-        await userEvent.type(searchProjectInput, "New Project Tested !");
+        //console.log("Second test here !");
+
+        screen.debug(searchProjectInput);
+        //console.log(searchProjectInput);
+
+        //screen.debug();
+
+        await user.clear(searchProjectInput);
+        await user.type(searchProjectInput, "New Project Tested !");
+
+        //console.log("Third test here !");
+
+        screen.debug(searchProjectInput);
+        //console.log(searchProjectInput);
+
+        //screen.debug();
+
+        //console.log("!!! searchProjectInput !!!");
 
         expect(searchProjectInput).toBeInTheDocument();
         expect(searchProjectInput.value).toBe("New Project Tested !");
-    })
+    });
 
     it('renders span when editBoolPhone is true', async () => {
         render(<TodoPerDay todo={mockTodo} todos={mockTodos} setTodos={mockSetTodos} initialEditBoolPhone={true} />);
@@ -912,16 +929,14 @@ describe("Editable Fields Tests", () => {
         const searchProjectInput = screen.queryByTestId("input--editable") as HTMLInputElement;
         expect(searchProjectInput).toBeInTheDocument(); // ok
 
-        await userEvent.clear(searchProjectInput);
-        await userEvent.type(searchProjectInput, "077 777 88 99");
+        await user.clear(searchProjectInput);
+        await user.type(searchProjectInput, "077 777 88 99");
 
         expect(searchProjectInput).toBeInTheDocument();
         expect(searchProjectInput.value).toBe("077 777 88 99");
-    })
+    });
 
     it("updates multiple fields correctly via editParamsOnChange", async () => {
-        const user = userEvent.setup();
-
         const Wrapper = () => {
             const [editWriteParams, setEditWriteParams] = useState({
                 editProject: "Old Project",
@@ -1124,8 +1139,10 @@ describe("Editable Fields Tests", () => {
 })
 
 describe("Priority tests", () => {
+
+    const user = userEvent.setup();
+
     it("update priority correctly via changeDayFunction with hidePriority to false", async () => {
-        const user = userEvent.setup();
 
         const Wrapper = () => {
             const [paramsPriority, setParamsPriority] = useState<ParamsPriorityTypes>({
@@ -1167,9 +1184,10 @@ describe("Priority tests", () => {
 });
 
 describe("Day Tests", () => {
-    it("update DAY correctly via changeDayFunction with dayBool to false", async () => {
-        const user = userEvent.setup();
 
+    const user = userEvent.setup();
+
+    it("update DAY correctly via changeDayFunction with dayBool to false", async () => {
         const Wrapper = () => {
             const [selectedDay, setSelectedDay] = useState<string>("lundi");
 
@@ -1202,8 +1220,6 @@ describe("Day Tests", () => {
     });
 
     it("update DAY correctly via changeDayFunction with dayBool to true", async () => {
-        const user = userEvent.setup();
-
         const Wrapper = () => {
             const [selectedDay, setSelectedDay] = useState<string>("lundi");
 
@@ -1235,8 +1251,10 @@ describe("Day Tests", () => {
 });
 
 describe("isVisible toggle behavior", () => {
+
+    const user = userEvent.setup();
+
     it("should toggle visibility when the button is clicked", async () => {
-        const user = userEvent.setup();
         
         const Wrapper = () => {
             const [isVisible, setIsVisible] = useState(false);
@@ -1364,6 +1382,7 @@ it("cache le bouton delete quand le todo est barré", async () => {
 
 describe("EditableFields", () => {
     it("met à jour l'état quand on change l'input", async () => {
+
         const user = userEvent.setup();
 
         const Wrapper = () => {
@@ -1397,175 +1416,132 @@ describe("EditableFields", () => {
         await user.clear(inputProject);
         await user.type(inputProject, "New Project");
 
+        screen.debug(inputProject);
+
         expect(inputProject.value).toBe("New Project");
-    });
-});
-
-type WriteEditType = { editProject: string };
-
-describe("EditableFields - coverage editParamsOnChange", () => {
-    it("met à jour l'état quand on change l'input", async () => {
-        const user = userEvent.setup();
-
-        // Wrapper pour simuler le parent
-        const Wrapper = () => {
-            const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
-                editProject: "Old Project",
-            });
-
-            const editParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
-                const { name, value } = e.target;
-                setEditWriteParams(prev => ({ ...prev, [name]: value }));
-            };
-
-            return (
-                <EditableFields
-                    as="input"
-                    value={editWriteParams.editProject}
-                    name="editProject"
-                    editBoolParams={true} // ⚠️ IMPORTANT pour rendre l'input
-                    editWriteParams={editWriteParams.editProject}
-                    isDoneParams={false}
-                    onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
-                    onChange={editParamsOnChange}
-                    data-testid="input--editable"
-                />
-            );
-        };
-
-        render(<Wrapper />);
-
-        const input = screen.getByTestId("input--editable") as HTMLInputElement;
-        expect(input).toBeInTheDocument();
-        expect(input.value).toBe("Old Project");
-
-        await user.clear(input);
-        await user.type(input, "New Project");
-
-        expect(input.value).toBe("New Project");
     });
 });
 
 describe('TodoPerDay - handleDelete & handleCrossOutTodo', () => {
  
-  beforeEach(() => {
-    vi.clearAllMocks();
-    globalThis.fetch = vi.fn(() => Promise.resolve({ ok: true })) as any;
-  });
+    beforeEach(() => {
+        vi.clearAllMocks();
+        globalThis.fetch = vi.fn(() => Promise.resolve({ ok: true })) as any;
+    });
 
-  it('should return early if todo.date is undefined (coverage line 113-114)', async () => {
-    const user = userEvent.setup();
+    it('should return early if todo.date is undefined (coverage line 113-114)', async () => {
+        const user = userEvent.setup();
 
-    const todoWithoutDate: Todo = {
-      id: "1",
-      date: undefined as unknown as string,
-      project: "Test",
-      liste: "Liste",
-      delay: "2026-02-18",
-      client: "Client",
-      email: "a@b.com",
-      phone: "1234567890",
-      priority: "High",
-      selectedDay: "lundi",
-      isDoneDate: false,
-      isDoneProject: false,
-      isDoneListe: false,
-      isDoneDelay: false,
-      isDoneClient: false,
-      isDoneMail: false,
-      isDonePhone: false,
-    };
+        const todoWithoutDate: Todo = {
+            id: "1",
+            date: undefined as unknown as string,
+            project: "Test",
+            liste: "Liste",
+            delay: "2026-02-18",
+            client: "Client",
+            email: "a@b.com",
+            phone: "1234567890",
+            priority: "High",
+            selectedDay: "lundi",
+            isDoneDate: false,
+            isDoneProject: false,
+            isDoneListe: false,
+            isDoneDelay: false,
+            isDoneClient: false,
+            isDoneMail: false,
+            isDonePhone: false,
+        };
 
-    render(<TodoPerDay todo={todoWithoutDate} todos={[todoWithoutDate]} setTodos={mockSetTodos} />);
-    
-    const deleteBtn = screen.getByTestId('add-delete');
-    await user.click(deleteBtn);
+        render(<TodoPerDay todo={todoWithoutDate} todos={[todoWithoutDate]} setTodos={mockSetTodos} />);
+        
+        const deleteBtn = screen.getByTestId('add-delete');
+        await user.click(deleteBtn);
 
-    expect(mockSetTodos).not.toHaveBeenCalled();
-    expect(fetch).not.toHaveBeenCalled();
-  });
+        expect(mockSetTodos).not.toHaveBeenCalled();
+        expect(fetch).not.toHaveBeenCalled();
+    });
 
-  it('should delete todo when date is defined (full delete branch)', async () => {
-    const user = userEvent.setup();
+    it('should delete todo when date is defined (full delete branch)', async () => {
+        const user = userEvent.setup();
 
-    const todoWithDate: Todo = {
-      id: "2",
-      date: "2026-02-18",
-      project: "Test2",
-      liste: "Liste2",
-      delay: "2026-02-18",
-      client: "Client2",
-      email: "b@b.com",
-      phone: "0987654321",
-      priority: "Low",
-      selectedDay: "mardi",
-      isDoneDate: false,
-      isDoneProject: false,
-      isDoneListe: false,
-      isDoneDelay: false,
-      isDoneClient: false,
-      isDoneMail: false,
-      isDonePhone: false,
-    };
+        const todoWithDate: Todo = {
+            id: "2",
+            date: "2026-02-18",
+            project: "Test2",
+            liste: "Liste2",
+            delay: "2026-02-18",
+            client: "Client2",
+            email: "b@b.com",
+            phone: "0987654321",
+            priority: "Low",
+            selectedDay: "mardi",
+            isDoneDate: false,
+            isDoneProject: false,
+            isDoneListe: false,
+            isDoneDelay: false,
+            isDoneClient: false,
+            isDoneMail: false,
+            isDonePhone: false,
+        };
 
-    render(<TodoPerDay todo={todoWithDate} todos={[todoWithDate]} setTodos={mockSetTodos} />);
-    
-    const deleteBtn = screen.getByTestId('add-delete');
-    await user.click(deleteBtn);
+        render(<TodoPerDay todo={todoWithDate} todos={[todoWithDate]} setTodos={mockSetTodos} />);
+        
+        const deleteBtn = screen.getByTestId('add-delete');
+        await user.click(deleteBtn);
 
-    expect(mockSetTodos).toHaveBeenCalled();
+        expect(mockSetTodos).toHaveBeenCalled();
 
-    expect(fetch).toHaveBeenCalledTimes(2);
-    expect(fetch).toHaveBeenCalledWith(
-      `http://localhost:3001/api/todos/csv`,
-      expect.objectContaining({
-        method: "POST",
-      })
-    );
-    expect(fetch).toHaveBeenCalledWith(
-      `http://localhost:3001/api/todos/${todoWithDate.id}`,
-      expect.objectContaining({
-        method: "DELETE",
-      })
-    );
-  });
+        expect(fetch).toHaveBeenCalledTimes(2);
+        expect(fetch).toHaveBeenCalledWith(
+            `http://localhost:3001/api/todos/csv`,
+            expect.objectContaining({
+                method: "POST",
+            })
+        );
+        expect(fetch).toHaveBeenCalledWith(
+            `http://localhost:3001/api/todos/${todoWithDate.id}`,
+            expect.objectContaining({
+                method: "DELETE",
+            })
+        );
+    });
 
-  it('should toggle crossed state on handleCrossOutTodo (coverage line 122)', async () => {
-    const user = userEvent.setup();
+    it('should toggle crossed state on handleCrossOutTodo (coverage line 122)', async () => {
+        const user = userEvent.setup();
 
-    const todoCross: Todo = {
-      id: "3",
-      date: "2026-02-18",
-      project: "Cross",
-      liste: "Liste",
-      delay: "2026-02-18",
-      client: "Client",
-      email: "c@c.com",
-      phone: "1122334455",
-      priority: "Medium",
-      selectedDay: "mercredi",
-      isDoneDate: false,
-      isDoneProject: false,
-      isDoneListe: false,
-      isDoneDelay: false,
-      isDoneClient: false,
-      isDoneMail: false,
-      isDonePhone: false,
-    };
+        const todoCross: Todo = {
+        id: "3",
+        date: "2026-02-18",
+        project: "Cross",
+        liste: "Liste",
+        delay: "2026-02-18",
+        client: "Client",
+        email: "c@c.com",
+        phone: "1122334455",
+        priority: "Medium",
+        selectedDay: "mercredi",
+        isDoneDate: false,
+        isDoneProject: false,
+        isDoneListe: false,
+        isDoneDelay: false,
+        isDoneClient: false,
+        isDoneMail: false,
+        isDonePhone: false,
+        };
 
-    render(<TodoPerDay todo={todoCross} todos={[todoCross]} setTodos={mockSetTodos} />);
+        render(<TodoPerDay todo={todoCross} todos={[todoCross]} setTodos={mockSetTodos} />);
 
-    const crossBtn = screen.getByLabelText('cross todo');
-    await user.click(crossBtn);
+        const crossBtn = screen.getByLabelText('cross todo');
+        await user.click(crossBtn);
 
-    expect(mockSetTodos).toHaveBeenCalled();
+        expect(mockSetTodos).toHaveBeenCalled();
 
-    const callback = mockSetTodos.mock.calls[0][0];
-    const updatedTodos = callback([todoCross]);
-    expect(updatedTodos[0].isDoneProject).toBe(!todoCross.isDoneProject);
-    expect(updatedTodos[0].isDoneListe).toBe(!todoCross.isDoneListe);
-    expect(updatedTodos[0].isDoneClient).toBe(!todoCross.isDoneClient);
-  });
+        const callback = mockSetTodos.mock.calls[0][0];
+        const updatedTodos = callback([todoCross]);
+        expect(updatedTodos[0].isDoneProject).toBe(!todoCross.isDoneProject);
+        expect(updatedTodos[0].isDoneListe).toBe(!todoCross.isDoneListe);
+        expect(updatedTodos[0].isDoneClient).toBe(!todoCross.isDoneClient);
+    });
 });
 
 describe('TodoPerDay - handleCrossOutTodo', () => {
@@ -1619,70 +1595,70 @@ describe('TodoPerDay - handleCrossOutTodo', () => {
 });
 
 describe('TodoPerDay - handleCrossOutTodo full coverage', () => {
-  const mockSetTodos = vi.fn();
+    const mockSetTodos = vi.fn();
 
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
 
-  it('should invert isDone flags for the targeted todo and keep other todos intact', async () => {
-    const user = userEvent.setup();
+    it('should invert isDone flags for the targeted todo and keep other todos intact', async () => {
+        const user = userEvent.setup();
 
-    const todoTarget: Todo = {
-      id: "cross1",
-      date: "2026-02-18",
-      project: "Project X",
-      liste: "Liste X",
-      delay: "2026-02-18",
-      client: "Client X",
-      email: "x@x.com",
-      phone: "1234567890",
-      priority: "High",
-      selectedDay: "lundi",
-      isDoneDate: false,
-      isDoneProject: false,
-      isDoneListe: false,
-      isDoneDelay: false,
-      isDoneClient: false,
-      isDoneMail: false,
-      isDonePhone: false,
-    };
+        const todoTarget: Todo = {
+        id: "cross1",
+        date: "2026-02-18",
+        project: "Project X",
+        liste: "Liste X",
+        delay: "2026-02-18",
+        client: "Client X",
+        email: "x@x.com",
+        phone: "1234567890",
+        priority: "High",
+        selectedDay: "lundi",
+        isDoneDate: false,
+        isDoneProject: false,
+        isDoneListe: false,
+        isDoneDelay: false,
+        isDoneClient: false,
+        isDoneMail: false,
+        isDonePhone: false,
+        };
 
-    const todoOther: Todo = {
-      id: "other",
-      date: "2026-02-18",
-      project: "Other Project",
-      liste: "Other Liste",
-      delay: "2026-02-18",
-      client: "Other Client",
-      email: "other@x.com",
-      phone: "0987654321",
-      priority: "Low",
-      selectedDay: "mardi",
-      isDoneDate: false,
-      isDoneProject: false,
-      isDoneListe: false,
-      isDoneDelay: false,
-      isDoneClient: false,
-      isDoneMail: false,
-      isDonePhone: false,
-    };
+        const todoOther: Todo = {
+        id: "other",
+        date: "2026-02-18",
+        project: "Other Project",
+        liste: "Other Liste",
+        delay: "2026-02-18",
+        client: "Other Client",
+        email: "other@x.com",
+        phone: "0987654321",
+        priority: "Low",
+        selectedDay: "mardi",
+        isDoneDate: false,
+        isDoneProject: false,
+        isDoneListe: false,
+        isDoneDelay: false,
+        isDoneClient: false,
+        isDoneMail: false,
+        isDonePhone: false,
+        };
 
-    render(<TodoPerDay todo={todoTarget} todos={[todoTarget, todoOther]} setTodos={mockSetTodos as any} />);
+        render(<TodoPerDay todo={todoTarget} todos={[todoTarget, todoOther]} setTodos={mockSetTodos as any} />);
 
-    const crossBtn = screen.getByLabelText('cross todo');
-    await user.click(crossBtn);
+        const crossBtn = screen.getByLabelText('cross todo');
+        await user.click(crossBtn);
 
-    expect(mockSetTodos).toHaveBeenCalled();
+        expect(mockSetTodos).toHaveBeenCalled();
 
-    const callback = mockSetTodos.mock.calls[0][0];
-    const updatedTodos = callback([todoTarget, todoOther]);
+        const callback = mockSetTodos.mock.calls[0][0];
+        const updatedTodos = callback([todoTarget, todoOther]);
 
-    const updatedTarget = updatedTodos.find((t: any) => t.id === "cross1");
-    expect(updatedTarget?.isDoneProject).toBe(!todoTarget.isDoneProject);
+        const updatedTarget = updatedTodos.find((t: any) => t.id === "cross1");
+        expect(updatedTarget?.isDoneProject).toBe(!todoTarget.isDoneProject);
 
-    const updatedOther = updatedTodos.find((t: any) => t.id === "other");
-    expect(updatedOther).toEqual(todoOther);
-  });
+        const updatedOther = updatedTodos.find((t: any) => t.id === "other");
+        expect(updatedOther).toEqual(todoOther);
+    });
 });
 

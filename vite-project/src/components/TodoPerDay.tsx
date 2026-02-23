@@ -15,13 +15,13 @@ import type {
   WriteEditType 
 } from "../lib/definitions.ts";
 import { 
-  callChangeDay, 
+  callChangeDay,
   handleChangePriority,
-  submitClient, 
-  submitDelay, 
-  submitListe, 
-  submitMail, 
-  submitPhone, 
+  submitClient,
+  submitDelay,
+  submitListe,
+  submitMail,
+  submitPhone,
   submitProject
 } from "../utils/todoFunctions.ts";
 import { changeColor, formatPhoneNumber } from "../utils/fonctions";
@@ -33,7 +33,7 @@ import { GiCrossedSabres } from "react-icons/gi";
 import { FaEye } from "react-icons/fa6";
 import "./styles/TodoPerDay.css";
 
-const TodoPerDay = ({todo, todos, setTodos, initialEditBoolProject, initialEditBoolPhone}: PropsTodoType): JSX.Element => {
+const TodoPerDay = ({ todo, todos, setTodos, initialEditBoolProject, initialEditBoolPhone }: PropsTodoType): JSX.Element => {
 
   const [editBoolParams, setEditBoolParams] = useState<BooleanEditType>({
     editBoolProject: initialEditBoolProject ?? false,

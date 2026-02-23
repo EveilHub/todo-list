@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1771498614431" clover="3.2.0">
-  <project timestamp="1771498614432" name="All files">
+<coverage generated="1771848187231" clover="3.2.0">
+  <project timestamp="1771848187231" name="All files">
     <metrics statements="363" coveredstatements="363" conditionals="127" coveredconditionals="127" methods="162" coveredmethods="162" elements="652" coveredelements="652" complexity="0" loc="363" ncloc="363" packages="6" files="19" classes="19"/>
     <package name="server.src">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="server.ts" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/server/src/server.ts">
+      <file name="server.ts" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/server/src/server.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -14,7 +14,7 @@
     </package>
     <package name="src">
       <metrics statements="41" coveredstatements="41" conditionals="28" coveredconditionals="28" methods="11" coveredmethods="11"/>
-      <file name="App.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/App.tsx">
+      <file name="App.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/App.tsx">
         <metrics statements="41" coveredstatements="41" conditionals="28" coveredconditionals="28" methods="11" coveredmethods="11"/>
         <line num="25" count="2" type="stmt"/>
         <line num="27" count="50" type="stmt"/>
@@ -61,7 +61,7 @@
     </package>
     <package name="src.components">
       <metrics statements="158" coveredstatements="158" conditionals="53" coveredconditionals="53" methods="80" coveredmethods="80"/>
-      <file name="CreateInputCheckbox.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/CreateInputCheckbox.tsx">
+      <file name="CreateInputCheckbox.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/CreateInputCheckbox.tsx">
         <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="11" coveredmethods="11"/>
         <line num="9" count="1" type="stmt"/>
         <line num="23" count="17" type="stmt"/>
@@ -76,7 +76,7 @@
         <line num="134" count="1" type="stmt"/>
         <line num="142" count="1" type="stmt"/>
       </file>
-      <file name="FetchFromCSV.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/FetchFromCSV.tsx">
+      <file name="FetchFromCSV.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/FetchFromCSV.tsx">
         <metrics statements="31" coveredstatements="31" conditionals="10" coveredconditionals="10" methods="9" coveredmethods="9"/>
         <line num="7" count="1" type="stmt"/>
         <line num="9" count="17" type="stmt"/>
@@ -110,7 +110,7 @@
         <line num="72" count="4" type="stmt"/>
         <line num="85" count="3" type="stmt"/>
       </file>
-      <file name="TableCalendar.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/TableCalendar.tsx">
+      <file name="TableCalendar.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/TableCalendar.tsx">
         <metrics statements="42" coveredstatements="42" conditionals="15" coveredconditionals="15" methods="15" coveredmethods="15"/>
         <line num="19" count="1" type="stmt"/>
         <line num="21" count="58" type="stmt"/>
@@ -155,12 +155,12 @@
         <line num="126" count="3" type="stmt"/>
         <line num="150" count="3" type="stmt"/>
       </file>
-      <file name="TableOfTodos.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/TableOfTodos.tsx">
+      <file name="TableOfTodos.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/TableOfTodos.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
       </file>
-      <file name="TodoPerDay.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/TodoPerDay.tsx">
+      <file name="TodoPerDay.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/TodoPerDay.tsx">
         <metrics statements="67" coveredstatements="67" conditionals="24" coveredconditionals="24" methods="41" coveredmethods="41"/>
         <line num="36" count="1" type="stmt"/>
         <line num="38" count="74" type="stmt"/>
@@ -230,7 +230,7 @@
         <line num="368" count="6" type="stmt"/>
         <line num="378" count="6" type="stmt"/>
       </file>
-      <file name="TodosList.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/TodosList.tsx">
+      <file name="TodosList.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/TodosList.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
@@ -240,34 +240,34 @@
     </package>
     <package name="src.components.subcomponents">
       <metrics statements="14" coveredstatements="14" conditionals="15" coveredconditionals="15" methods="7" coveredmethods="7"/>
-      <file name="CheckDay.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/CheckDay.tsx">
+      <file name="CheckDay.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/subcomponents/CheckDay.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
         <line num="12" count="3" type="stmt"/>
       </file>
-      <file name="CheckboxComp.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/CheckboxComp.tsx">
+      <file name="CheckboxComp.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/subcomponents/CheckboxComp.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="88" type="stmt"/>
         <line num="13" count="9" type="stmt"/>
       </file>
-      <file name="DateCalendar.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/DateCalendar.tsx">
+      <file name="DateCalendar.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/subcomponents/DateCalendar.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="8" count="2" type="stmt"/>
         <line num="10" count="54" type="stmt"/>
         <line num="14" count="54" type="stmt"/>
       </file>
-      <file name="EditableFields.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/EditableFields.tsx">
+      <file name="EditableFields.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/subcomponents/EditableFields.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="11" coveredconditionals="11" methods="1" coveredmethods="1"/>
         <line num="7" count="2" type="stmt"/>
         <line num="25" count="825" type="stmt"/>
       </file>
-      <file name="InputComp.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/InputComp.tsx">
+      <file name="InputComp.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/subcomponents/InputComp.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="5" count="2" type="stmt"/>
         <line num="14" count="120" type="stmt"/>
       </file>
-      <file name="PriorityTodo.tsx" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/components/subcomponents/PriorityTodo.tsx">
+      <file name="PriorityTodo.tsx" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/components/subcomponents/PriorityTodo.tsx">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
         <line num="12" count="3" type="stmt"/>
@@ -275,7 +275,7 @@
     </package>
     <package name="src.hooks">
       <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
-      <file name="useFetchDate.ts" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/hooks/useFetchDate.ts">
+      <file name="useFetchDate.ts" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/hooks/useFetchDate.ts">
         <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="36" type="stmt"/>
@@ -299,7 +299,7 @@
     </package>
     <package name="src.utils">
       <metrics statements="128" coveredstatements="128" conditionals="31" coveredconditionals="31" methods="56" coveredmethods="56"/>
-      <file name="apiFunctions.ts" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/utils/apiFunctions.ts">
+      <file name="apiFunctions.ts" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/utils/apiFunctions.ts">
         <metrics statements="36" coveredstatements="36" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="9"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
@@ -338,7 +338,7 @@
         <line num="126" count="2" type="stmt"/>
         <line num="134" count="1" type="stmt"/>
       </file>
-      <file name="dateUtils.ts" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/utils/dateUtils.ts">
+      <file name="dateUtils.ts" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/utils/dateUtils.ts">
         <metrics statements="19" coveredstatements="19" conditionals="3" coveredconditionals="3" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -360,7 +360,7 @@
         <line num="32" count="1" type="stmt"/>
         <line num="33" count="2" type="stmt"/>
       </file>
-      <file name="fonctions.ts" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/utils/fonctions.ts">
+      <file name="fonctions.ts" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/utils/fonctions.ts">
         <metrics statements="33" coveredstatements="33" conditionals="12" coveredconditionals="12" methods="10" coveredmethods="10"/>
         <line num="5" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
@@ -371,11 +371,11 @@
         <line num="26" count="4" type="stmt"/>
         <line num="29" count="4" type="stmt"/>
         <line num="30" count="7" type="stmt"/>
-        <line num="32" count="8" type="cond" truecount="4" falsecount="0"/>
+        <line num="32" count="9" type="cond" truecount="4" falsecount="0"/>
         <line num="33" count="3" type="stmt"/>
-        <line num="38" count="5" type="stmt"/>
-        <line num="40" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="41" count="1" type="stmt"/>
+        <line num="38" count="6" type="stmt"/>
+        <line num="40" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="2" type="stmt"/>
         <line num="46" count="4" type="stmt"/>
         <line num="48" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="49" count="2" type="stmt"/>
@@ -396,7 +396,7 @@
         <line num="94" count="1" type="stmt"/>
         <line num="96" count="1" type="stmt"/>
       </file>
-      <file name="todoFunctions.ts" path="/home/estebancat/Documents/virtual/best-todo/todo-list/vite-project/src/utils/todoFunctions.ts">
+      <file name="todoFunctions.ts" path="/Users/transforme03/Desktop/cedric/todo-list/vite-project/src/utils/todoFunctions.ts">
         <metrics statements="40" coveredstatements="40" conditionals="16" coveredconditionals="16" methods="32" coveredmethods="32"/>
         <line num="20" count="2" type="stmt"/>
         <line num="26" count="3" type="stmt"/>
