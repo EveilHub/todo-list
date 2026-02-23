@@ -21,6 +21,7 @@
 }
 
 .day--priority {
+  position: relative;
   width: 5%;
   height: 100%;
 }

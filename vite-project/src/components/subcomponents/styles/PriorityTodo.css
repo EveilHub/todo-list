@@ -8,19 +8,20 @@
 
 .priority--select {
     position: absolute;
-    font-size: 16px;
+    font-size: 14px;
     color: #87cefa;
     background-color: #00002f;
     border: none;
     border-radius: 7px;
     box-shadow: 0 0 7px #4169e180;
     cursor: pointer;
+    
+    margin-bottom: 10px;
+    margin-left: 12px;
     padding: 10px 5px;
-    z-index: 100;
 }
 
 option {
-    font-size: 16px;
     background-color: #00002f;
     color: #87cefa;
     border: 1.5px solid #334155;

@@ -1,6 +1,5 @@
 .table--calendar {
-    width: auto;
-    margin: 0 10px;
+    width: 100%;
     animation: view-effect 1.0s ease 0s forwards;
 }
 
