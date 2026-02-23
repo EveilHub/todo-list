@@ -34,7 +34,6 @@ const CreateInputCheckbox = ({
 
     return (
         <form
-            data-testid="create-input-checkbox"
             onSubmit={(e: FormEvent<HTMLFormElement>): void => handleSubmit(e)} 
             className='creation--container'
         >
@@ -91,7 +90,6 @@ const CreateInputCheckbox = ({
                     />
 
                     <InputComp 
-                        data-testid="input-phone"
                         type="text"
                         name="phone"
                         value={phone}
@@ -150,7 +148,6 @@ const CreateInputCheckbox = ({
 
             <div className='creation--btn--div'>
                 <button
-                    data-testid="btn-input-check"
                     id="btn-1"
                     type="submit" 
                     className={selectedDay === undefined 

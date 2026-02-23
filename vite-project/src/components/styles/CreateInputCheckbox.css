@@ -64,6 +64,7 @@
   padding: 10px 20px;
   background: #696969;
   color: #8f8f8f;
+  cursor: not-allowed;
 }
 
 .disable-btn:hover {

@@ -58,7 +58,9 @@ const FetchFromCSV = (): JSX.Element => {
       <h2>Projets Terminés</h2>
 
       <div className="div--download">
-        <a href="http://localhost:3001/api/download-csv">
+        <a 
+          href={todos.length === 0 ? "#" : "http://localhost:3001/api/download-csv"} 
+          className={todos.length === 0 ? "a--disabled" : "a--standard"}>
           <FaDownload size={16} />
         </a>
       </div>
@@ -80,7 +82,6 @@ const FetchFromCSV = (): JSX.Element => {
 
                 <div className="div--btn">
                   <button
-                    data-testid="btn-delete"
                     type="button" 
                     onClick={() => preDeleteCSVData(todo.id)} 
                     className="delete--btn"  

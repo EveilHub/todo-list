@@ -216,7 +216,7 @@ const TodoPerDay = ({ todo, todos, setTodos, initialEditBoolProject, initialEdit
   };
 
   return (
-    <div id={String(todo.id)} className="main--div" data-testid="main--div">
+    <div id={String(todo.id)} className="main--div">
 
       <div 
         className="container--todo" 
@@ -351,7 +351,6 @@ const TodoPerDay = ({ todo, todos, setTodos, initialEditBoolProject, initialEdit
             <span 
               onClick={() => setIsVisible(true)}
               className={`span--client--mail--phone ${isVisible ? "hide" : "show"}`}
-              data-testid="toggle-client-inputs"
             >
               <FaEye size={24} />
             </span>
@@ -373,7 +372,6 @@ const TodoPerDay = ({ todo, todos, setTodos, initialEditBoolProject, initialEdit
 
           {crossedItem === false ? (
             <button 
-              data-testid="add-delete"
               type="button" 
               onClick={() => handleDelete(todo.id)} 
               className="delete--btn"

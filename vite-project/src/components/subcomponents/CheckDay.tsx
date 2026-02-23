@@ -14,7 +14,6 @@ const CheckDay = ({
             {dayBool === false ? (
                 <select
                     id="optionsDays"
-                    data-testid="day-select"
                     value={selectedDay} 
                     onChange={handleChangeDay}
                     onMouseLeave={onClick}
@@ -28,7 +27,6 @@ const CheckDay = ({
                 </select>
             ) : (
                 <span 
-                    data-testid="toggle-day"
                     onMouseEnter={onClick}
                     className="checkday--span"
                 >
