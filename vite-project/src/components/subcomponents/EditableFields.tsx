@@ -21,7 +21,7 @@ const EditableFields = forwardRef<
     onSubmit,
     onChange
 }, ref): JSX.Element => {
-    const cleanPhone = editWriteParams.replace(/\s+/g, "");
+    const cleanPhone: string = editWriteParams.replace(/\s+/g, "");
     return (
         <form 
             onSubmit={onSubmit} 

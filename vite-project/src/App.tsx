@@ -52,10 +52,10 @@ const App: FC = (): JSX.Element => {
 
   const idRef = useRef<number>(0);
   
-  const todoEraser = todos.length;
+  const todoEraser: number = todos.length;
   
   if (todoEraser === 0) {
-    const newIdRef = idRef.current = 0;
+    const newIdRef: number = idRef.current = 0;
     localStorage.setItem('currentId', String(newIdRef));
   };
 
@@ -64,7 +64,7 @@ const App: FC = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const savedId = localStorage.getItem('currentId');
+    const savedId: string | null = localStorage.getItem('currentId');
     idRef.current = savedId ? parseInt(savedId, 10) : 0;
   }, []);
 
@@ -119,7 +119,7 @@ const App: FC = (): JSX.Element => {
         setTodos(data);
 
         if (data.length > 0) {
-          const maxId = Math.max(...data.map(todo => Number(todo.id)));
+          const maxId: number = Math.max(...data.map((todo: Todo) => Number(todo.id)));
           idRef.current = maxId + 1;
           localStorage.setItem('currentId', String(idRef.current));
         } else if (data.length === 0) {
