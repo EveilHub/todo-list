@@ -51,6 +51,13 @@ const App: FC = (): JSX.Element => {
   const [view, setView] = useState<string>("default");
 
   const idRef = useRef<number>(0);
+  
+  const todoEraser = todos.length;
+  
+  if (todoEraser === 0) {
+    const newIdRef = idRef.current = 0;
+    localStorage.setItem('currentId', String(newIdRef));
+  };
 
   const handleCheckBox = (day: string): void => {
     setSelectedDay(day);
@@ -115,7 +122,7 @@ const App: FC = (): JSX.Element => {
           const maxId = Math.max(...data.map(todo => Number(todo.id)));
           idRef.current = maxId + 1;
           localStorage.setItem('currentId', String(idRef.current));
-        } else if (idRef.current === 0) {
+        } else if (data.length === 0) {
           localStorage.setItem('currentId', "0");
         }
 
