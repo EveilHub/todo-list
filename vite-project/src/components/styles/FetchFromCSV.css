@@ -29,7 +29,9 @@
 
     overflow-y: scroll;
     scrollbar-width: thin;
-    scrollbar-color: #3564ff #00001b;
+    /* scrollbar-color: #3564ff #00001b; */
+    scrollbar-color: #0059ff #111;
+
 }
 
 .a--standard {
