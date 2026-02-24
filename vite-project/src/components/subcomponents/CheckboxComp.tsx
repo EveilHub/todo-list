@@ -8,6 +8,7 @@ const CheckboxComp = ({params, checked, handleCheckBox, children}: CheckBoxType)
             <input
                 type="checkbox"
                 id={params}
+                aria-label="check--input"
                 checked={checked}
                 onChange={() => handleCheckBox(params)}
                 className="checkbox--input"

@@ -138,6 +138,7 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                                                         <div className="div--input--delay">
                                                             <input 
                                                                 type="text" 
+                                                                aria-label="delay-value"
                                                                 value={delayValue}
                                                                 onChange={changeDelay} 
                                                                 className="input--delay"

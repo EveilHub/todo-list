@@ -41,6 +41,7 @@ const EditableFields = forwardRef<
                         <textarea
                             ref={ref as ForwardedRef<HTMLTextAreaElement>}
                             name={name}
+                            aria-label="editable--txt"
                             value={value}
                             rows={rows}
                             cols={cols}
@@ -52,6 +53,7 @@ const EditableFields = forwardRef<
                             ref={ref as ForwardedRef<HTMLInputElement>}
                             type={type}
                             name={name}
+                            aria-label="editable--input"
                             value={value}
                             onChange={onChange}
                             className="input--editable"
@@ -62,6 +64,7 @@ const EditableFields = forwardRef<
                         ) : as === "textarea" ? (
                         <textarea 
                             ref={ref as ForwardedRef<HTMLTextAreaElement>}
+                            aria-label="readonly--txt"
                             value={editWriteParams}
                             className="textarea--editable"
                             readOnly 
