@@ -86,6 +86,7 @@ const EditableFields = forwardRef<
                     <div className="div--btn--submit">
                         <button 
                             type="submit"
+                            name="submit"
                             className="modify-btn"
                         >
                             {editBoolParams === true ? (
