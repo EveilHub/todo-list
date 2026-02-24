@@ -42,7 +42,9 @@ todo list especialy for graph & design
 
 `pnpm start`
 
-## Testing
+---
+
+## Testing (removed)
 
 `pnpm test`
 
@@ -50,20 +52,7 @@ todo list especialy for graph & design
 
 `pnpm test:coverage`
 
-## Goals
-
-1) indicator de la semaine actuelle [x]
-2) appliquer les delay plutôt que les dates [x] 
-3) changer les dates du calendrier [x]
-4) Check day et priority à entrer dans la DB [x]
-5) En-têtes à mettre au-dessus des tâches [x]
-
-6) Volet pour client email phone [1/2]
-
-7) Display which day for todo [] ?
-8) Use eslint [x]
-9) Testing entire app []
-
+---
 
 ## Lib
 
@@ -150,20 +139,20 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // test: {
-  //   environment: 'jsdom',
-  //   globals: true,
-  //   setupFiles: './src/test/setup.ts',
-  //   coverage: {
-  //     exclude: [
-  //       '**/*.css',
-  //       '**/*.scss',
-  //       '**/*.sass',
-  //       '**/*.less',
-  //       'src/lib/definitions.ts',
-  //     ]
-  //   }
-  // },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './src/test/setup.ts',
+    coverage: {
+      exclude: [
+        '**/*.css',
+        '**/*.scss',
+        '**/*.sass',
+        '**/*.less',
+        'src/lib/definitions.ts',
+      ]
+    }
+  },
   server: {
     proxy: {
       "/api": {
@@ -229,5 +218,7 @@ export default defineConfig({
 ```
 
 `pnpm run test:server`
+
+**! Enjoy !**
 
 :koala:
