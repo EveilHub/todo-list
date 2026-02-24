@@ -1,8 +1,9 @@
 # todo-list
 
-todo list especialy for graph & design
+### Fullstack todo
 
-- Fullstack todo
+- Task list specifically for graphic design and project design
+
 
 ## Install
 
