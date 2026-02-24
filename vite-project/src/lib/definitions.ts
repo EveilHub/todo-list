@@ -147,8 +147,6 @@ export type PropsTodoType = {
     todo: Todo;
     todos: Todo[];
     setTodos: Dispatch<SetStateAction<Todo[]>>;
-    initialEditBoolProject?: boolean;
-    initialEditBoolPhone?: boolean;
 };
 
 export type PropsCalendarType = {

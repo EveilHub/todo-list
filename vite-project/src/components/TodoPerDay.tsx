@@ -33,15 +33,15 @@ import { GiCrossedSabres } from "react-icons/gi";
 import { FaEye } from "react-icons/fa6";
 import "./styles/TodoPerDay.css";
 
-const TodoPerDay = ({ todo, todos, setTodos, initialEditBoolProject, initialEditBoolPhone }: PropsTodoType): JSX.Element => {
+const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
 
   const [editBoolParams, setEditBoolParams] = useState<BooleanEditType>({
-    editBoolProject: initialEditBoolProject ?? false,
+    editBoolProject: false,
     editBoolListe: false,
     editBoolDelay: false,
     editBoolClient: false,
     editBoolMail: false,
-    editBoolPhone: initialEditBoolPhone ?? false
+    editBoolPhone: false
   });
 
   const [editWriteParams, setEditWriteParams] = useState<WriteEditType>({
