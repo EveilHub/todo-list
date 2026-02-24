@@ -86,7 +86,7 @@ const EditableFields = forwardRef<
                     <div className="div--btn--submit">
                         <button 
                             type="submit"
-                            name="submit"
+                            aria-label="btn-save-modify"
                             className="modify-btn"
                         >
                             {editBoolParams === true ? (

@@ -159,7 +159,7 @@ const App: FC = (): JSX.Element => {
       <div className='switch--cal--btn'>
         <button 
           type="button"
-          name="btn--completed"
+          aria-label='btn--completed'
           onClick={() => setView(view === "completed" 
             ? "default" 
             : "completed"
@@ -175,7 +175,7 @@ const App: FC = (): JSX.Element => {
 
         <button 
           type="button"
-          name="btn--calendar"
+          aria-label='btn--calendar'
           onClick={() => setView(view === "calendar" 
             ? "default" 
             : "calendar"

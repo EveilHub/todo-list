@@ -373,6 +373,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
           {crossedItem === false ? (
             <button 
               type="button" 
+              aria-label="btn--done"
               onClick={() => handleDelete(todo.id)} 
               className="delete--btn"
             >

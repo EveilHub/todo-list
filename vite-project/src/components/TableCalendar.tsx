@@ -147,6 +147,7 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                                                         <div className="div--btn--validate">
                                                             <button
                                                                 type="button"
+                                                                aria-label='btn--submitDelay'
                                                                 onClick={() => submitDelay(todo.id)}
                                                                 className="btn--validate"
                                                             >

@@ -150,7 +150,7 @@ const CreateInputCheckbox = ({
                 <button
                     id="btn-1"
                     type="submit"
-                    name="submit--create" 
+                    aria-label='btn--create'
                     className={selectedDay === undefined 
                         ? "disable-btn" 
                         : "custom-btn"
