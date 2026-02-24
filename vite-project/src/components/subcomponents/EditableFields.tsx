@@ -21,7 +21,12 @@ const EditableFields = forwardRef<
     onSubmit,
     onChange
 }, ref): JSX.Element => {
-    const cleanPhone: string = editWriteParams.replace(/\s+/g, "");
+    
+    const cleanPhone = (phone?: string): string => {
+        if (!phone) return "";
+        return phone.replace(/\s+/g, "");
+    };
+
     return (
         <form 
             onSubmit={onSubmit} 
@@ -68,7 +73,7 @@ const EditableFields = forwardRef<
                                 {editWriteParams}
                             </a>
                         ) : name === "editPhone" ? (
-                            <a href={`tel:${cleanPhone}`} 
+                            <a href={`tel:${cleanPhone(editWriteParams)}`} 
                                 className="link--custom"
                             >
                                 {editWriteParams}

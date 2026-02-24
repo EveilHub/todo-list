@@ -19,6 +19,10 @@
     }
 }
 
+html {
+  width: auto;
+}
+
 /* IE & Edge & Firefox */
 body {
   margin: 0;

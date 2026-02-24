@@ -1,6 +1,9 @@
-.h3--table {
+.p--table {
     font-size: 1.0rem;
     font-weight: bold;
+    text-align: center;
+    color: #ffa500;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .table--todos {

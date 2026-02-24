@@ -150,7 +150,7 @@ const App: FC = (): JSX.Element => {
   );
 
   return (
-    <div className="main--div--app">
+    <main className="main--div--app">
       
       <div className='main--title'>
         <h1>{time}</h1>
@@ -232,7 +232,7 @@ const App: FC = (): JSX.Element => {
         </div>
       ) : null} 
       
-    </div>
+    </main>
   )
 };
 export default App;

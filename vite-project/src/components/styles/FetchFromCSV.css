@@ -4,10 +4,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: start;
-    
+    justify-content: start;    
     margin: 0 10px;
-
     animation: view-effect 1.0s ease 0s forwards;
 }
 
@@ -29,9 +27,7 @@
 
     overflow-y: scroll;
     scrollbar-width: thin;
-    /* scrollbar-color: #3564ff #00001b; */
     scrollbar-color: #0059ff #111;
-
 }
 
 .a--standard {

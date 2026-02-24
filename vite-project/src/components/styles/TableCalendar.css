@@ -11,7 +11,6 @@
     background: linear-gradient(0deg, #3564ff, #87cefa);
     background-clip: text; 
     -webkit-background-clip: text;
-    /* -webkit-text-fill-color: transparent; */
     color: transparent;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
@@ -96,9 +95,6 @@ tr:nth-child(even) {
 
 .div--input--delay {
     width: auto;
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
 }
 
 .input--delay {
