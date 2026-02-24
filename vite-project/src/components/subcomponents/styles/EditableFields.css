@@ -217,6 +217,25 @@ span {
   font-weight: normal;
 }
 
+.link--custom {
+  width: 80%;
+  height: auto;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: normal;
+  color: #c8eaff;
+  cursor: pointer;
+}
+
+.link--custom:hover {
+  color: #3564ff;
+}
+
+.link--custom:active {
+  color: #87cefa;
+}
+
 s {
   width: 80%;
   height: auto;

@@ -2,9 +2,9 @@ import {
   useEffect, 
   useRef, 
   useState, 
-  type FC, 
-  type FormEvent, 
-  type JSX 
+  type FC,
+  type JSX, 
+  type SyntheticEvent
 } from 'react';
 import type { 
   ParamsTodoType,
@@ -68,7 +68,7 @@ const App: FC = (): JSX.Element => {
     idRef.current = savedId ? parseInt(savedId, 10) : 0;
   }, []);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (!paramsTodo.date) return;
     const newTodo: Todo = {

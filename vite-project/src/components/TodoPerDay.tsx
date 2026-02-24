@@ -3,8 +3,8 @@ import {
   useRef,
   useState,
   type ChangeEvent,
-  type FormEvent,
-  type JSX 
+  type JSX, 
+  type SyntheticEvent
 } from "react";
 import type { 
   BooleanEditType,
@@ -132,37 +132,37 @@ const TodoPerDay = ({ todo, todos, setTodos, initialEditBoolProject, initialEdit
 
   // Project
   const callSubmitProject = (
-    e: FormEvent<HTMLFormElement>, id: string): void => { 
+    e: SyntheticEvent<HTMLFormElement>, id: string): void => { 
       submitProject(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Liste
   const callSubmitListe = (
-    e: FormEvent<HTMLFormElement>, id: string): void => { 
+    e: SyntheticEvent<HTMLFormElement>, id: string): void => { 
       submitListe(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Delay
   const callSubmitDelay = (
-    e: FormEvent<HTMLFormElement>, id: string): void => { 
+    e: SyntheticEvent<HTMLFormElement>, id: string): void => { 
       submitDelay(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Client
   const callSubmitClient = (
-    e: FormEvent<HTMLFormElement>, id: string): void => { 
+    e: SyntheticEvent<HTMLFormElement>, id: string): void => { 
       submitClient(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Mail
   const callSubmitMail = (
-    e: FormEvent<HTMLFormElement>, id: string): void => { 
+    e: SyntheticEvent<HTMLFormElement>, id: string): void => { 
       submitMail(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 
   // Phone
   const callSubmitPhone = (
-    e: FormEvent<HTMLFormElement>, id: string): void => { 
+    e: SyntheticEvent<HTMLFormElement>, id: string): void => { 
       submitPhone(e, editWriteParams, setTodos, setEditBoolParams, id);
   };
 

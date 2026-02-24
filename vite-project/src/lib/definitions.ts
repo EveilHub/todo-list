@@ -1,11 +1,11 @@
 import { 
     type ChangeEvent, 
-    type Dispatch, 
-    type FormEvent, 
+    type Dispatch,
     type HTMLAttributes, 
     type ReactNode, 
     type RefObject, 
-    type SetStateAction
+    type SetStateAction,
+    type SyntheticEvent
 } from "react";
 
 export type TimeSetTimeProps = {
@@ -60,7 +60,7 @@ export type CreatorType = {
     selectedDay: string | undefined;
     setParamsTodo: Dispatch<SetStateAction<ParamsTodoType>>;
     handleCheckBox: (day: string) => void;
-    handleSubmit : (e: FormEvent<HTMLFormElement>) => void;
+    handleSubmit : (e: SyntheticEvent<HTMLFormElement>) => void;
 };
 
 export type InputType = {
@@ -139,7 +139,7 @@ export type EditableProps = {
     editBoolParams: boolean;
     editWriteParams: string;
     isDoneParams: boolean;
-    onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+    onSubmit: (e: SyntheticEvent<HTMLFormElement>) => void;
     onChange: (e: ChangeEvent<EditableElement>) => void;
 };
 

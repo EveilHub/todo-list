@@ -21,7 +21,7 @@ const EditableFields = forwardRef<
     onSubmit,
     onChange
 }, ref): JSX.Element => {
-
+    const cleanPhone = editWriteParams.replace(/\s+/g, "");
     return (
         <form 
             onSubmit={onSubmit} 
@@ -61,8 +61,20 @@ const EditableFields = forwardRef<
                             className="textarea--editable"
                             readOnly 
                         />
+                        ) : type === "email" ? (
+                            <a href={`mailto:${editWriteParams}?subject=Demande Pont 13&body=Bonjour,%0A%0AJe vous contacte concernant...`} 
+                                className="link--custom"
+                            >
+                                {editWriteParams}
+                            </a>
+                        ) : name === "editPhone" ? (
+                            <a href={`tel:${cleanPhone}`} 
+                                className="link--custom"
+                            >
+                                {editWriteParams}
+                            </a>
                         ) : (
-                        <span>{editWriteParams}</span>
+                            <span>{editWriteParams}</span>
                         )
                     }
 
