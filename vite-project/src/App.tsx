@@ -57,8 +57,8 @@ const App: FC = (): JSX.Element => {
   };
 
   useEffect(() => {
-      const savedId = localStorage.getItem('currentId');
-      idRef.current = savedId ? parseInt(savedId, 10) : 0;
+    const savedId = localStorage.getItem('currentId');
+    idRef.current = savedId ? parseInt(savedId, 10) : 0;
   }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -110,6 +110,15 @@ const App: FC = (): JSX.Element => {
 
         const data: Todo[] = await res.json();
         setTodos(data);
+
+        if (data.length > 0) {
+          const maxId = Math.max(...data.map(todo => Number(todo.id)));
+          idRef.current = maxId + 1;
+          localStorage.setItem('currentId', String(idRef.current));
+        } else if (idRef.current === 0) {
+          localStorage.setItem('currentId', "0");
+        }
+
       } catch (error: unknown) {
         console.log(error);
         setLoadErr((prev: LoadErrType) => ({
