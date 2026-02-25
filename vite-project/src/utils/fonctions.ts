@@ -17,13 +17,26 @@ const priorityOrderDay: Record<string, number> = {
     vendredi: 5
 };
 
-const parseFrenchDateTime = (dateTimeStr: string): number => {
-    const [datePart, timePart] = dateTimeStr.split(" ");
+// const parseFrenchDateTime = (dateTimeStr: string): number => {
+//     const [datePart, timePart] = dateTimeStr.split(" ");
 
+//     const [day, month, year] = datePart.split("/").map(Number);
+//     const [hours, minutes] = timePart.split(":").map(Number);
+
+//     return new Date(year, month - 1, day, hours, minutes).getTime();
+// };
+
+const parseFrenchDateTime = (dateTimeStr: string): number => {
+    if (!dateTimeStr?.trim()) return 0;
+    const [datePart, timePart = "00:00"] = dateTimeStr.split(" ");
+
+    if (!datePart) return 0;
     const [day, month, year] = datePart.split("/").map(Number);
+
+    if (!day || !month || !year) return 0;
     const [hours, minutes] = timePart.split(":").map(Number);
 
-    return new Date(year, month - 1, day, hours, minutes).getTime();
+    return new Date(year, month - 1, day, hours || 0, minutes || 0).getTime();
 };
 
 export const sortTodosByPriorityAndDelay = (todos: Todo[]): Todo[]  => {
@@ -50,8 +63,8 @@ export const sortTodosByPriorityAndDelay = (todos: Todo[]): Todo[]  => {
         };
 
         // sort by delay (jj/mm/année)
-        const delayA: number = parseFrenchDateTime(a.delay);
-        const delayB: number = parseFrenchDateTime(b.delay);
+        const delayA: number | string = parseFrenchDateTime(a.delay);
+        const delayB: number | string = parseFrenchDateTime(b.delay);
 
         return delayA - delayB;
     });

@@ -38,53 +38,52 @@ const EditableFields = forwardRef<
 
                     {editBoolParams === true ? (
                         as === "textarea" ? (
-                        <textarea
-                            ref={ref as ForwardedRef<HTMLTextAreaElement>}
-                            name={name}
-                            aria-label="editable--txt"
-                            value={value}
-                            rows={rows}
-                            cols={cols}
-                            onChange={onChange}
-                            className="textarea--editable"
-                        />
+                            <textarea
+                                ref={ref as ForwardedRef<HTMLTextAreaElement>}
+                                name={name}
+                                aria-label="editable--txt"
+                                value={value}
+                                rows={rows}
+                                cols={cols}
+                                onChange={onChange}
+                                className="textarea--editable"
+                            />
                         ) : (
-                        <input
-                            ref={ref as ForwardedRef<HTMLInputElement>}
-                            type={type}
-                            name={name}
-                            aria-label="editable--input"
-                            value={value}
-                            onChange={onChange}
-                            className="input--editable"
-                        />
+                            <input
+                                ref={ref as ForwardedRef<HTMLInputElement>}
+                                type={type}
+                                name={name}
+                                aria-label="editable--input"
+                                value={value}
+                                onChange={onChange}
+                                className="input--editable"
+                            />
                         )
-                        ) : isDoneParams === true ? (
-                            <s>{editWriteParams}</s>
-                        ) : as === "textarea" ? (
-                        <textarea 
-                            ref={ref as ForwardedRef<HTMLTextAreaElement>}
-                            aria-label="readonly--txt"
-                            value={editWriteParams}
-                            className="textarea--editable"
-                            readOnly 
-                        />
-                        ) : type === "email" ? (
-                            <a href={`mailto:${editWriteParams}?subject=Demande Pont 13&body=Bonjour,%0A%0AJe vous contacte concernant...`} 
-                                className="link--custom"
-                            >
-                                {editWriteParams}
-                            </a>
-                        ) : name === "editPhone" ? (
-                            <a href={`tel:${cleanPhone(editWriteParams)}`} 
-                                className="link--custom"
-                            >
-                                {editWriteParams}
-                            </a>
-                        ) : (
-                            <span>{editWriteParams}</span>
-                        )
-                    }
+                    ) : isDoneParams === true ? (
+                        <s>{editWriteParams}</s>
+                    ) : as === "textarea" ? (
+                    <textarea 
+                        ref={ref as ForwardedRef<HTMLTextAreaElement>}
+                        aria-label="readonly--txt"
+                        value={editWriteParams}
+                        className="textarea--editable"
+                        readOnly 
+                    />
+                    ) : type === "email" ? (
+                        <a href={`mailto:${editWriteParams}?subject=Demande Pont 13&body=Bonjour,%0A%0AJe vous contacte concernant...`} 
+                            className="link--custom"
+                        >
+                            {editWriteParams}
+                        </a>
+                    ) : name === "editPhone" ? (
+                        <a href={`tel:${cleanPhone(editWriteParams)}`} 
+                            className="link--custom"
+                        >
+                            {editWriteParams}
+                        </a>
+                    ) : (
+                        <span>{editWriteParams}</span>
+                    )}
 
                     <div className="div--btn--submit">
                         <button 
@@ -93,11 +92,10 @@ const EditableFields = forwardRef<
                             className="modify-btn"
                         >
                             {editBoolParams === true ? (
-                                    <MdOutlineSaveAlt size={22} />
-                                ) : (
-                                    <BsPencilSquare size={16} />
-                                )
-                            }
+                                <MdOutlineSaveAlt size={22} />
+                            ) : (
+                                <BsPencilSquare size={16} />
+                            )}
                         </button>
                     </div>
                 </div>

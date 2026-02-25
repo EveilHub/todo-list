@@ -107,10 +107,16 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
     callChangeColorPriority(todo.priority);
   }, [todo.priority]);
 
-
   // Edit params for EditableField Component (reusable function)
   const editParamsOnChange = (e: ChangeEvent<EditableElement>): void => {
     const { name, value }: {name: string, value: string} = e.target;
+    if (name === "editDelay") {
+      const regexAutorise = /^[0-9/: ]*$/;
+
+      if (!regexAutorise.test(value)) {
+        return;
+      };
+    };
     setEditWriteParams((prev: WriteEditType) => ({
       ...prev,
       [name]: value

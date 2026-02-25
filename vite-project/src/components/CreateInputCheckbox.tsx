@@ -21,14 +21,23 @@ const CreateInputCheckbox = ({
 }: CreatorType): JSX.Element => {
 
     const handleChangeCreateInput = (e: ChangeEvent<HTMLInputElement>): void => {
+        const { name, value }: {name: string; value: string;} = e.target;
+        if (name === "delay") {
+            const regexAutorise = /^[0-9/: ]*$/;
+
+            if (!regexAutorise.test(value)) {
+                return;
+            }
+        }
         setParamsTodo((prev: ParamsTodoType) => ({
-            ...prev, [e.target.name]: e.target.value
+            ...prev, [name]: value
         }));
     };
 
     const handleChangeCreateInputPhone = (e: ChangeEvent<HTMLInputElement>): void => {
+        const { name, value }: {name: string; value: string;} = e.target;
         setParamsTodo((prev: ParamsTodoType) => ({
-            ...prev, [e.target.name]: formatPhoneNumber(e.target.value)
+            ...prev, [name]: formatPhoneNumber(value)
         }));
     };
 
@@ -71,6 +80,7 @@ const CreateInputCheckbox = ({
                         value={delay}
                         onChange={handleChangeCreateInput}
                         placeholder="21/01/2026 16:00"
+                        minLength={16}
                     />
 
                     <InputComp 

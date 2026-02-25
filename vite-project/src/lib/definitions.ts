@@ -68,6 +68,7 @@ export type InputType = {
     name: string;
     value: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    minLength?: number;
     maxLength?: number;
     placeholder: string;
 };
@@ -136,6 +137,7 @@ export type EditableProps = {
     as?: "input" | "textarea";
     rows?: number;
     cols?: number;
+    //minLength?: number;
     editBoolParams: boolean;
     editWriteParams: string;
     isDoneParams: boolean;

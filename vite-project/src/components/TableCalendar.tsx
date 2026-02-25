@@ -59,12 +59,19 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
     };
 
     const changeDelay = (e: ChangeEvent<HTMLInputElement>): void => {
-        setDelayValue(e.target.value);
+        const newValue = e.target.value;
+        const regexAutorise = /^[0-9/: ]*$/;
+
+        if (!regexAutorise.test(newValue)) {
+            return;
+        };
+        setDelayValue(newValue);
     };
 
     const submitDelay = (id: string): void => {
+        if (delayValue.length !== 16) return;
         setTodos((prev: Todo[]) => prev.map((task: Todo) => task.id === id 
-            ? {...task, delay: delayValue} 
+            ? {...task, delay: delayValue}
             : task)
         );
         callApiCalendar(id, delayValue);
@@ -129,7 +136,7 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
                                                             >
                                                                 {todo.delay}:&nbsp;
                                                             </span> 
-                                                            {truncate(todo.project, 20)}
+                                                            {truncate(todo.project, 18)}
                                                         </p>
                                                     </div>
                                                 ) : (
