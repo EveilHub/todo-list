@@ -116,6 +116,10 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
       if (!regexAutorise.test(value)) {
         return;
       };
+
+      if (value.length > 16) {
+        return;
+      }
     };
     setEditWriteParams((prev: WriteEditType) => ({
       ...prev,

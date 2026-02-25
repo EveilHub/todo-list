@@ -27,8 +27,12 @@ const CreateInputCheckbox = ({
 
             if (!regexAutorise.test(value)) {
                 return;
-            }
-        }
+            };
+
+            if (value.length > 16) {
+                return;
+            };
+        };
         setParamsTodo((prev: ParamsTodoType) => ({
             ...prev, [name]: value
         }));

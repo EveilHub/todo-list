@@ -65,6 +65,10 @@ const TableCalendar = ({ todos, setTodos }: TodoProps): JSX.Element => {
         if (!regexAutorise.test(newValue)) {
             return;
         };
+
+        if (newValue.length > 16) {
+            return;
+        };
         setDelayValue(newValue);
     };
 
