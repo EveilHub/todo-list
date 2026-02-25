@@ -118,13 +118,33 @@
 .cross--out--btn {
   width: 30px;
   height: 30px;
-  background-color: #00b300;
+  /* background-color: #00b300; */
+  background-color: #009a00;
+  /* background-color: rgba(0, 179, 0, 0.75); */
+  transform: scale(1.0);
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .cross--out--btn:hover {
   background-color: #00cc00;
+  transform: scale(1.05);
 }
 
 .cross--out--btn:active {
   background-color: #00ff00;
+  transform: scale(0.95);
+}
+
+.uncross--out--btn {
+  width: 30px;
+  height: 30px;
+  background-color: #0059ff;
+}
+
+.uncross--out--btn:hover {
+  background-color: #0000ff;
+}
+
+.uncross--out--btn:active {
+  background-color: #0099ff;
 }

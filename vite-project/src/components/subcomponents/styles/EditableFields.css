@@ -133,6 +133,23 @@
   animation: slide-down 2.5s ease-out forwards;
 }
 
+.textarea--not--editable {
+  width: 80%;
+  font-size: 12px;
+  font-weight: normal;
+  color: #87cefa;
+  
+  background-color: #00002f;
+  border: none;
+  outline: none;
+  resize: none;
+  appearance: none;
+}
+
+.textarea--not--editable::placeholder {
+  color: rgba(135, 206, 250, 0.5);
+}
+
 .textarea--editable {
   width: 80%;
   font-size: 12px;
@@ -149,6 +166,8 @@
     border-color 0.25s ease,
     box-shadow 0.25s ease,
     background-color 0.25s ease;
+  scrollbar-color: #0059ff #00001b;
+  scrollbar-width: thin;
 }
 
 /* Style du scroll pour Webkit (Chrome, Safari) */
@@ -165,30 +184,24 @@
   background-color: #555;
 }
 
-/* Style du scroll pour Firefox */
-.textarea--editable {
-  scrollbar-color: #0059ff #111;
-  scrollbar-width: thin;
-}
-
 .textarea--editable:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
 }
 
 .textarea--editable:hover {
-    border-color: #475569;
+  border-color: #475569;
 }
 
 .textarea--editable::placeholder {
-    color: rgba(135, 206, 250, 0.5);
+  color: rgba(135, 206, 250, 0.5);
 }
 
 .input--editable {
-  width: 80%;
+  width: 77%;
   padding: 7px;
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   color: #87cefa;
   background-color: #00002f;
   border: 1.5px solid #334155;
@@ -201,12 +214,16 @@
 }
 
 .input--editable:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
 }
 
 .input--editable:hover {
-    border-color: #475569;
+  border-color: #475569;
+}
+
+.span--placeholder {
+  color: rgba(135, 206, 250, 0.5);
 }
 
 span {
@@ -224,7 +241,7 @@ span {
   text-decoration: none;
   font-size: 16px;
   font-weight: normal;
-  color: #c8eaff;
+  color: #87cefa;
   cursor: pointer;
 }
 
@@ -233,7 +250,7 @@ span {
 }
 
 .link--custom:active {
-  color: #87cefa;
+  color: lightblue;
 }
 
 s {
@@ -246,7 +263,7 @@ s {
 
 .div--btn--submit {
   position: relative;
-  width: 20%;
+  width: 18%;
   height: 40px;
   display: flex;
   align-items: center;
@@ -257,4 +274,28 @@ s {
   position: absolute;
   width: 30px;
   height: 30px;
+}
+
+.save-btn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+
+  background-color: #00b300;
+}
+
+.save-btn:hover {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+
+  background-color: #00cc00;
+}
+
+.save-btn:active {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+
+  background-color: #00ff00;
 }

@@ -19,7 +19,8 @@ const EditableFields = forwardRef<
     editWriteParams,
     isDoneParams,
     onSubmit,
-    onChange
+    onChange,
+    placeholder
 }, ref): JSX.Element => {
     
     const cleanPhone = (phone?: string): string => {
@@ -66,38 +67,58 @@ const EditableFields = forwardRef<
                         ref={ref as ForwardedRef<HTMLTextAreaElement>}
                         aria-label="readonly--txt"
                         value={editWriteParams}
-                        className="textarea--editable"
+                        className="textarea--not--editable"
+                        placeholder={placeholder}
                         readOnly 
                     />
                     ) : type === "email" ? (
-                        <a href={`mailto:${editWriteParams}?subject=Demande Pont 13&body=Bonjour,%0A%0AJe vous contacte concernant...`} 
-                            className="link--custom"
-                        >
-                            {editWriteParams}
-                        </a>
+                        editWriteParams !== "" ? (
+                            <a href={`mailto:${editWriteParams}?subject=Demande Pont 13&body=Bonjour,%0A%0AJe vous contacte concernant...`} 
+                                className="link--custom"
+                            >
+                                {editWriteParams}
+                            </a>
+                        ) : (
+                            <span className="span--placeholder">{placeholder}</span>
+                        )
                     ) : name === "editPhone" ? (
-                        <a href={`tel:${cleanPhone(editWriteParams)}`} 
-                            className="link--custom"
-                        >
-                            {editWriteParams}
-                        </a>
+                        editWriteParams !== "" ? (
+                            <a href={`tel:${cleanPhone(editWriteParams)}`} 
+                                className="link--custom"
+                            >
+                                {editWriteParams}
+                            </a>
+                        ) : (
+                            <span className="span--placeholder">{placeholder}</span>
+                        )
                     ) : (
-                        <span>{editWriteParams}</span>
+                        editWriteParams !== "" ? (
+                            <span>{editWriteParams}</span>
+                        ):(
+                            <span className="span--placeholder">{placeholder}</span>
+                        )
                     )}
 
                     <div className="div--btn--submit">
-                        <button 
-                            type="submit"
-                            aria-label="btn-save-modify"
-                            className="modify-btn"
-                        >
-                            {editBoolParams === true ? (
-                                <MdOutlineSaveAlt size={22} />
-                            ) : (
+                        {editBoolParams === false ? (
+                            <button 
+                                type="submit"
+                                aria-label="btn-modify"
+                                className="modify-btn"
+                            >
                                 <BsPencilSquare size={16} />
-                            )}
-                        </button>
+                            </button>
+                        ) : (
+                            <button 
+                                type="submit"
+                                aria-label="btn-save"
+                                className="save-btn"
+                            >
+                                <MdOutlineSaveAlt size={22} />
+                            </button>
+                        )}
                     </div>
+
                 </div>
             </div>
         </form>

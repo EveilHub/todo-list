@@ -137,7 +137,7 @@ export type EditableProps = {
     as?: "input" | "textarea";
     rows?: number;
     cols?: number;
-    //minLength?: number;
+    placeholder: string;
     editBoolParams: boolean;
     editWriteParams: string;
     isDoneParams: boolean;

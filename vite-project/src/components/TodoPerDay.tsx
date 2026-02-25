@@ -31,6 +31,7 @@ import EditableFields from "./subcomponents/EditableFields.tsx";
 import { MdDelete } from "react-icons/md";
 import { GiCrossedSabres } from "react-icons/gi";
 import { FaEye } from "react-icons/fa6";
+import { PiEyesFill } from "react-icons/pi";
 import "./styles/TodoPerDay.css";
 
 const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
@@ -270,6 +271,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
             name="editProject"
             value={editWriteParams.editProject}
             onChange={editParamsOnChange}
+            placeholder={"Projet"}
             editBoolParams={editBoolParams.editBoolProject}
             editWriteParams={editWriteParams.editProject}
             isDoneParams={todo.isDoneProject}
@@ -285,6 +287,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
             name="editListe"
             value={editWriteParams.editListe}
             onChange={editParamsOnChange}
+            placeholder={"Liste de trucs à faire"}
             editBoolParams={editBoolParams.editBoolListe}
             editWriteParams={editWriteParams.editListe}
             isDoneParams={todo.isDoneListe}
@@ -299,6 +302,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
             name="editDelay"
             value={editWriteParams.editDelay}
             onChange={editParamsOnChange}
+            placeholder={"01/01/2026 09:00"}
             editBoolParams={editBoolParams.editBoolDelay}
             editWriteParams={editWriteParams.editDelay}
             isDoneParams={todo.isDoneDelay}
@@ -321,6 +325,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
               name="editClient"
               value={editWriteParams.editClient}
               onChange={editParamsOnChange}
+              placeholder={"Client"}
               editBoolParams={editBoolParams.editBoolClient}
               editWriteParams={editWriteParams.editClient}
               isDoneParams={todo.isDoneClient}
@@ -335,6 +340,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
               name="editMail"
               value={editWriteParams.editMail}
               onChange={editParamsOnChange}
+              placeholder={"example@mail.com"}
               editBoolParams={editBoolParams.editBoolMail}
               editWriteParams={editWriteParams.editMail}
               isDoneParams={todo.isDoneMail}
@@ -349,6 +355,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
               name="editPhone"
               value={editWriteParams.editPhone}
               onChange={editPhoneOnChange}
+              placeholder={"079 888 77 33"}
               editBoolParams={editBoolParams.editBoolPhone}
               editWriteParams={editWriteParams.editPhone}
               isDoneParams={todo.isDonePhone}
@@ -374,13 +381,13 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
           <button 
             type="button" 
             aria-label="cross todo"
-            onClick={(): void => handleCrossOutTodo(todo.id)} 
-            className="cross--out--btn"
+            onClick={() => handleCrossOutTodo(todo.id)} 
+            className={!crossedItem ? "cross--out--btn" : "uncross--out--btn"}
           >
-            <GiCrossedSabres size={22} />
+            {!crossedItem ? <GiCrossedSabres size={22} /> : <PiEyesFill size={22} />}
           </button>
 
-          {crossedItem === false ? (
+          {!crossedItem && (
             <button 
               type="button" 
               aria-label="btn--done"
@@ -389,9 +396,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
             >
               <MdDelete size={20} />
             </button>
-          ):(
-            null
-          )}
+)}
         </div>
       </div>
     </div>

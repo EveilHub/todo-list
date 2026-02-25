@@ -75,9 +75,9 @@ const FetchFromCSV = (): JSX.Element => {
               <div className="todo--container--fetch">
 
                 <li>
-                  <s>{todo.date} - {todo.project} - {todo.liste} - {todo.delay}
+                  <p>{todo.date} - {todo.project} - {todo.liste} - {todo.delay}
                     - {todo.client} - {todo.email} - {todo.phone}
-                  </s>
+                  </p>
                 </li>
 
                 <div className="div--btn">

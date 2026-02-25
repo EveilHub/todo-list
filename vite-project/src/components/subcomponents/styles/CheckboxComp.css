@@ -15,6 +15,14 @@
   color: #334155;
 }
 
+.checkbox--lbl:last-child {
+  margin-right: 20px; 
+}
+
+.checkbox--input:first-child {
+  margin-left: 20px; 
+}
+
 .checkbox--input {
   margin-right: 10px;
   cursor: pointer;

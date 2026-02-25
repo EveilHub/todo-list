@@ -144,9 +144,11 @@ const App: FC = (): JSX.Element => {
   
   if (loadErr.loading) return <h3>Chargement...</h3>;
   if (loadErr.error) return (
-    <h3 style={{color: "#ff3444"}}>
-      {loadErr.error}
-    </h3>
+    <div className='impossible'>
+      <p>
+        {loadErr.error}
+      </p>
+    </div>
   );
 
   return (
@@ -210,11 +212,17 @@ const App: FC = (): JSX.Element => {
 
           <TableOfTodos />
 
-          <TodosList 
-            className="todolist--div" 
-            todos={todos} 
-            setTodos={setTodos}  
-          />
+          {todos.length === 0 ? (
+            <div className='no--todo'>
+              <p>! No Todo Created !</p>
+            </div>
+          ):(
+            <TodosList 
+              className="todolist--div" 
+              todos={todos} 
+              setTodos={setTodos}  
+            />
+          )}
 
         </div>
       ) : null}
