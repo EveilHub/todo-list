@@ -3,24 +3,11 @@ import type { Request, Response } from "express";
 import cors from "cors";
 import fs from "fs/promises";
 import path from "path";
-import { Todo } from "./types/definitions";
-import { cleanTodoForCSV } from "./utils/csvCleaner";
+import { newTodoCsvType, Todo } from "./types/definitions";
+import { cleanNewTodoForCSV } from "./utils/csvCleaner";
 
 const app = express();
 const PORT: number = 3001;
-
-//--- --- --- --- TEST --- --- --- ---//
-
-// import { createServer } from './server'
-
-// const app = createServer()
-// const PORT: number = 3001;
-
-// app.listen(PORT, () => {
-//   console.log('Server running')
-// })
-
-//--- --- END LINE OF TEST --- ---//
 
 app.use(cors());
 app.use(express.json());
@@ -39,7 +26,7 @@ const readTodos = async (): Promise<Todo[]> => {
 };
 
 // 🔹 CSV
-const todosToCSV = (todos: Todo[]): string => {
+const todosToCSV = (todos: newTodoCsvType[]): string => {
   if (todos.length === 0) return "";
 
   const headers: string = Object.keys(todos[0]).join(",");
@@ -57,7 +44,7 @@ const todosToCSV = (todos: Todo[]): string => {
 };
 
 // 🔹 CSV parsing simple
-const parseCSV = async (filePath: string): Promise<Todo[]> => {
+const parseCSV = async (filePath: string): Promise<newTodoCsvType[]> => {
   try {
     const csvData = await fs.readFile(filePath, "utf8");
     const lines = csvData.trim().split("\n");
@@ -75,7 +62,7 @@ const parseCSV = async (filePath: string): Promise<Todo[]> => {
           todo[header] = val;
         });
       }
-      return todo as Todo;
+      return todo as newTodoCsvType;
     });
   } catch (err) {
     console.error("Erreur lecture CSV:", err);
@@ -83,7 +70,7 @@ const parseCSV = async (filePath: string): Promise<Todo[]> => {
   }
 };
 
-const writeTodosCSV = async (todos: Todo[]): Promise<void> => {
+const writeTodosCSV = async (todos: newTodoCsvType[]): Promise<void> => {
   const csvContent: string = todosToCSV(todos);
   await fs.writeFile(DATA_CSV_PATH, csvContent, "utf8");
 };
@@ -94,13 +81,13 @@ const writeTodos = async (todos: Todo[]): Promise<void> => {
 
 // 🔹 Route CSV
 app.get("/api/todos/csv", async (_req: Request, res: Response) => {
-  const todos = await parseCSV(DATA_CSV_PATH);
+  const todos: newTodoCsvType[] = await parseCSV(DATA_CSV_PATH);
   res.json(todos);
 });
 
 // 🔹 Route JSON
 app.get("/api/todos", async (_req: Request, res: Response) => {
-  const todos = await readTodos();
+  const todos: Todo[] = await readTodos();
   res.json(todos);
 });
 
@@ -120,7 +107,7 @@ app.get("/api/download-csv", async (req: Request, res: Response) => {
 app.post("/api/todos", async (req: Request, res: Response) => {
   try {
     const newTodo: Todo = {...req.body};
-    const todos = await readTodos();
+    const todos: Todo[] = await readTodos();
 
     todos.push(newTodo);
     await writeTodos(todos);
@@ -134,18 +121,44 @@ app.post("/api/todos", async (req: Request, res: Response) => {
 // New todo added to CSV file
 app.post("/api/todos/csv", async (req: Request, res: Response) => {
   try {
-    const newTodo: Todo = req.body;
+    const {
+      id,
+      selectedDay,
+      date,
+      project,
+      liste,
+      delay,
+      client,
+      email,
+      phone,
+      priority,
+    } = req.body;
 
-    if (!newTodo?.id) {
+    if (!id) {
       return res.status(400).json({ error: "Todo invalide" });
+    }
+
+    const newTodo: newTodoCsvType = {
+      id,
+      selectedDay,
+      date,
+      project,
+      liste,
+      delay,
+      client,
+      email,
+      phone,
+      priority,
     };
 
-    const todos = await parseCSV(DATA_CSV_PATH);
-    const cleanedTodo: Todo = cleanTodoForCSV(newTodo);
+    const newTodos: newTodoCsvType[] = await parseCSV(DATA_CSV_PATH);
+    const cleanedTodo: newTodoCsvType = cleanNewTodoForCSV(newTodo);
 
-    todos.push(cleanedTodo);
-    await writeTodosCSV(todos);
+    newTodos.push(cleanedTodo);
+    await writeTodosCSV(newTodos);
+
     res.status(201).json([cleanedTodo]);
+
   } catch (err: unknown) {
     console.error("POST error CSV", err);
     res.status(500).json({ error: "Impossible d'ajouter le todo" });
@@ -209,9 +222,9 @@ app.delete("/api/todos/csv/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const todos = await parseCSV(DATA_CSV_PATH);
+    const todos: newTodoCsvType[] = await parseCSV(DATA_CSV_PATH);
     
-    const filteredTodos: Todo[] = todos.filter((todo: Todo) => todo.id !== id);
+    const filteredTodos: newTodoCsvType[] = todos.filter((todo: newTodoCsvType) => todo.id !== id);
 
     if (filteredTodos.length === todos.length) {
       return res.status(404).json({ error: "Todo non trouvé" });

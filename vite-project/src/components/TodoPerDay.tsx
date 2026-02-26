@@ -50,6 +50,7 @@ const TodoPerDay = ({ todo, todos, setTodos }: PropsTodoType): JSX.Element => {
     editProject: todo.project,
     editListe: todo.liste,
     editDelay: todo.delay,
+    longerEditDelay: String(todo.delay).length,
     editClient: todo.client,
     editMail: todo.email,
     editPhone: todo.phone

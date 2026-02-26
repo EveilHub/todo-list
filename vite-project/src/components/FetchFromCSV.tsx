@@ -41,8 +41,8 @@ const FetchFromCSV = (): JSX.Element => {
   };
 
   const preDeleteCSVData = (id: string): void => {
-    const response = prompt("Voulez-vous vraiement supprimer ce projet à tout jamais ? 'o'=oui");
-    if (response === "o") {
+    const confirmed: boolean = confirm("Voulez-vous vraiement supprimer ce projet définitivement ?");
+    if (confirmed) {
       deleteDataCsv(id);
     } else {
       console.log(`Projet ${id} non supprimé`);

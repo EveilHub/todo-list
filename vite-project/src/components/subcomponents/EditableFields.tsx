@@ -28,6 +28,8 @@ const EditableFields = forwardRef<
         return phone.replace(/\s+/g, "");
     };
 
+    const isEditDelayInvalid: boolean = name === "editDelay" && editWriteParams.length !== 16;
+
     return (
         <form 
             onSubmit={onSubmit} 
@@ -113,6 +115,11 @@ const EditableFields = forwardRef<
                                 type="submit"
                                 aria-label="btn-save"
                                 className="save-btn"
+                                disabled={isEditDelayInvalid}
+                                style={isEditDelayInvalid 
+                                    ? { backgroundColor: "gray", cursor: "not-allowed" } 
+                                    : undefined
+                                }
                             >
                                 <MdOutlineSaveAlt size={22} />
                             </button>

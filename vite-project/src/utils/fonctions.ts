@@ -17,26 +17,13 @@ const priorityOrderDay: Record<string, number> = {
     vendredi: 5
 };
 
-// const parseFrenchDateTime = (dateTimeStr: string): number => {
-//     const [datePart, timePart] = dateTimeStr.split(" ");
-
-//     const [day, month, year] = datePart.split("/").map(Number);
-//     const [hours, minutes] = timePart.split(":").map(Number);
-
-//     return new Date(year, month - 1, day, hours, minutes).getTime();
-// };
-
 const parseFrenchDateTime = (dateTimeStr: string): number => {
-    if (!dateTimeStr?.trim()) return 0;
-    const [datePart, timePart = "00:00"] = dateTimeStr.split(" ");
+    const [datePart, timePart] = dateTimeStr.split(" ");
 
-    if (!datePart) return 0;
     const [day, month, year] = datePart.split("/").map(Number);
-
-    if (!day || !month || !year) return 0;
     const [hours, minutes] = timePart.split(":").map(Number);
 
-    return new Date(year, month - 1, day, hours || 0, minutes || 0).getTime();
+    return new Date(year, month - 1, day, hours, minutes).getTime();
 };
 
 export const sortTodosByPriorityAndDelay = (todos: Todo[]): Todo[]  => {

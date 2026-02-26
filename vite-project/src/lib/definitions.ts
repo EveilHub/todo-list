@@ -96,6 +96,7 @@ export type BooleanEditType = {
 };
 
 export type WriteEditType = {
+    longerEditDelay: number;
     editId: string;
     editProject: string;
     editListe: string;

@@ -1,4 +1,4 @@
-import { Todo } from "../types/definitions";
+import { newTodoCsvType, Todo } from "../types/definitions";
 
 // util : nettoyage des champs pour le CSV
 const cleanCsvField = (value: unknown): unknown => {
@@ -7,11 +7,11 @@ const cleanCsvField = (value: unknown): unknown => {
 };
 
 // util : nettoyage complet d’un todo
-export const cleanTodoForCSV = (todo: Todo): Todo =>
+export const cleanNewTodoForCSV = (todo: newTodoCsvType): newTodoCsvType =>
     Object.fromEntries(
-            Object.entries(todo).map(([key, value]) => [
+        Object.entries(todo).map(([key, value]) => [
             key,
             cleanCsvField(value),
         ]
     )
-) as Todo;
+) as newTodoCsvType;

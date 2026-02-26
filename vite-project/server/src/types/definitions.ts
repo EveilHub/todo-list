@@ -17,3 +17,16 @@ export type Todo = {
   isDoneMail: boolean;
   isDonePhone: boolean;
 };
+
+export type newTodoCsvType = {
+  id: string;
+  date: string;
+  project: string;
+  liste: string;
+  delay: string;
+  client: string;
+  email: string;
+  phone: string;
+  priority: string;  
+  selectedDay: string | null;
+};

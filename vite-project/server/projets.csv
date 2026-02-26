@@ -1,3 +1,0 @@
-id,selectedDay,date,project,liste,delay,client,email,phone,priority,isDoneDate,isDoneProject,isDoneListe,isDoneDelay,isDoneClient,isDoneMail,isDonePhone
-"5","lundi","25/02/2026 09:23","Le projet de la fin","Liste de truc à faire | Une autre liste de truc à faire | un machin de plus | Et le bilan | et un autre truc","16/04/2026 09:23","","","","option3","false","false","false","false","false","false","false"
-"2","lundi","25/02/2026 09:19","Un projet absurde ou pas","li 1  | li 2  | li 3  | li 4","22/01/2026 09:19","Bob","bob@mail.com","021 653 44 55","option3",false,false,false,false,false,false,false
