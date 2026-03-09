@@ -18,10 +18,14 @@ const DATA_CSV_PATH: string = path.resolve(process.cwd(), "projets.csv");
 // 🔹 JSON
 const readTodos = async (): Promise<Todo[]> => {
   try {
-    const data: string = await fs.readFile(DATA_PATH, "utf8");
+    const data: string = await fs.readFile(DATA_PATH, "utf-8");
     return data ? JSON.parse(data) : [];
-  } catch {
-    return [];
+  } catch (err: unknown) {
+    const error = err as NodeJS.ErrnoException;
+    if (error.code === "ENOENT") {
+      return [];
+    }
+    throw err;
   }
 };
 
@@ -31,13 +35,15 @@ const todosToCSV = (todos: newTodoCsvType[]): string => {
 
   const headers: string = Object.keys(todos[0]).join(",");
 
-  const rows: string[] = todos.map(todo =>
+  const rows: string[] = todos.map((todo: newTodoCsvType) =>
     Object.values(todo)
-      .map(value =>
-        typeof value === "string"
+      .map((value) => {
+        if (value === undefined || value === null) return "";
+
+        return typeof value === "string"
           ? `"${value.replace(/"/g, '""')}"`
           : value
-      )
+      })
       .join(",")
   );
   return [headers, ...rows].join("\n");
@@ -46,25 +52,26 @@ const todosToCSV = (todos: newTodoCsvType[]): string => {
 // 🔹 CSV parsing simple
 const parseCSV = async (filePath: string): Promise<newTodoCsvType[]> => {
   try {
-    const csvData = await fs.readFile(filePath, "utf8");
-    const lines = csvData.trim().split("\n");
-    const headers = lines[0].split(",").map(h => h.trim());
+    const csvData: string = await fs.readFile(filePath, "utf-8");
+    const lines: string[] = csvData.trim().split("\n");
+    if (lines.length === 0) return [];
+    const headers: string[] = lines[0].split(",").map(h => h.trim());
 
-    return lines.slice(1).map(line => {
+    return lines.slice(1).map((line: string) => {
       const values = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
       const todo: Record<string, string | boolean | undefined> = {};
       if (values) {
-        headers.forEach((header, i) => {
-          let val = values[i];
-          if (val.startsWith('"') && val.endsWith('"')) {
-            val = val.slice(1, -1).replace(/""/g, '"');
+        headers.forEach((header: string, i: number): void => {
+          let val: string = values[i] ?? ""; 
+          if (val.startsWith('"') && val.endsWith('"')) { 
+            val = val.slice(1, -1).replace(/""/g, '"'); 
           }
           todo[header] = val;
         });
       }
       return todo as newTodoCsvType;
     });
-  } catch (err) {
+  } catch (err: unknown) {
     console.error("Erreur lecture CSV:", err);
     return [];
   }
@@ -72,7 +79,7 @@ const parseCSV = async (filePath: string): Promise<newTodoCsvType[]> => {
 
 const writeTodosCSV = async (todos: newTodoCsvType[]): Promise<void> => {
   const csvContent: string = todosToCSV(todos);
-  await fs.writeFile(DATA_CSV_PATH, csvContent, "utf8");
+  await fs.writeFile(DATA_CSV_PATH, csvContent, "utf-8");
 };
 
 const writeTodos = async (todos: Todo[]): Promise<void> => {
@@ -94,12 +101,11 @@ app.get("/api/todos", async (_req: Request, res: Response) => {
 // CSV download
 app.get("/api/download-csv", async (req: Request, res: Response) => {
   try {
-    await fs.access(DATA_CSV_PATH)
-
-    res.download(DATA_CSV_PATH, 'projets.csv')
+    await fs.access(DATA_CSV_PATH);
+    res.download(DATA_CSV_PATH, 'projets.csv');
   } catch (error: unknown) {
-    console.error(error)
-    res.status(404).json({ message: 'CSV introuvable' })
+    console.error(error);
+    res.status(404).json({ message: 'CSV introuvable' });
   }
 });
 
@@ -108,7 +114,6 @@ app.post("/api/todos", async (req: Request, res: Response) => {
   try {
     const newTodo: Todo = {...req.body};
     const todos: Todo[] = await readTodos();
-
     todos.push(newTodo);
     await writeTodos(todos);
     res.status(201).json(newTodo);
@@ -134,7 +139,7 @@ app.post("/api/todos/csv", async (req: Request, res: Response) => {
       priority,
     } = req.body;
 
-    if (!id) {
+    if (id === undefined || date === undefined) {
       return res.status(400).json({ error: "Todo invalide" });
     }
 
@@ -170,26 +175,36 @@ app.patch("/api/todos/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { date, project, liste, delay, client, email, phone, priority, selectedDay } = req.body;
-
-    const fileContent: string = await fs.readFile("data.json", "utf-8");
-    const todos: Todo[] = JSON.parse(fileContent);
-
+    const todos: Todo[] = await readTodos();
     const todo = todos.find((todo: Todo) => todo.id === id);
 
     if (!todo) {
       return res.status(404).json({ error: "Not found" });
     }
+    
+    // PATCH partiel
+    Object.assign(todo, {
+      ...(date !== undefined && { date }),
+      ...(project !== undefined && { project }),
+      ...(liste !== undefined && { liste }),
+      ...(delay !== undefined && { delay }),
+      ...(client !== undefined && { client }),
+      ...(email !== undefined && { email }),
+      ...(phone !== undefined && { phone }),
+      ...(priority !== undefined && { priority }),
+      ...(selectedDay !== undefined && { selectedDay }),
+    });
 
     // PATCH partiel
-    if (date !== undefined) todo.date = date;
-    if (project !== undefined) todo.project = project;
-    if (liste !== undefined) todo.liste = liste;
-    if (delay !== undefined) todo.delay = delay;
-    if (client !== undefined) todo.client = client;
-    if (email !== undefined) todo.email = email;
-    if (phone !== undefined) todo.phone = phone;
-    if (priority !== undefined) todo.priority = priority;
-    if (selectedDay !== undefined) todo.selectedDay = selectedDay;
+    // if (date !== undefined) todo.date = date;
+    // if (project !== undefined) todo.project = project;
+    // if (liste !== undefined) todo.liste = liste;
+    // if (delay !== undefined) todo.delay = delay;
+    // if (client !== undefined) todo.client = client;
+    // if (email !== undefined) todo.email = email;
+    // if (phone !== undefined) todo.phone = phone;
+    // if (priority !== undefined) todo.priority = priority;
+    // if (selectedDay !== undefined) todo.selectedDay = selectedDay;
 
     await writeTodos(todos);
     res.json(todo);
@@ -221,7 +236,6 @@ app.delete("/api/todos/:id", async (req: Request, res: Response) => {
 app.delete("/api/todos/csv/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-
     const todos: newTodoCsvType[] = await parseCSV(DATA_CSV_PATH);
     
     const filteredTodos: newTodoCsvType[] = todos.filter((todo: newTodoCsvType) => todo.id !== id);
