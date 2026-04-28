@@ -36,7 +36,7 @@ const App: FC = (): JSX.Element => {
     client: "",
     email: "",
     phone: "",
-    priority: "option3"
+    priority: "option2"
   });
 
   const [selectedDay, setSelectedDay] = useState<string | undefined>(undefined);
